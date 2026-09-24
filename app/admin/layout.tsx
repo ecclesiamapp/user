@@ -7,7 +7,8 @@ import {
   HeartHandshake, 
   Settings, 
   ExternalLink,
-  ShieldCheck
+  ShieldCheck,
+  MapPin
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -42,6 +43,13 @@ export default function AdminLayout({
             >
               <Church className="w-4 h-4 text-[var(--dash-text-secondary)]" />
               Visão Geral
+            </Link>
+            <Link
+              href="/admin/comunidades"
+              className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-[var(--dash-surface-secondary)] text-[var(--dash-text-primary)] transition-colors"
+            >
+              <MapPin className="w-4 h-4 text-[var(--dash-text-secondary)]" />
+              Comunidades (CEBs)
             </Link>
             <Link
               href="/admin/horarios"
