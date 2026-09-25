@@ -85,3 +85,63 @@ export interface Donation {
   pix_qr_code: string;
   created_at: string;
 }
+
+export interface Clergy {
+  id: string;
+  parish_id: string;
+  name: string;
+  role: 'paroco' | 'vigario' | 'diacono' | 'bispo';
+  title: string;
+  birthday?: string;
+  ordination_date?: string;
+  bio?: string;
+  photo_url?: string;
+  office_hours?: string;
+  is_active: boolean;
+  order_index: number;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface Pastoral {
+  id: string;
+  parish_id: string;
+  name: string;
+  type: 'pastoral' | 'movimento' | 'equipe' | 'servico';
+  coordinator_name?: string;
+  contact_phone?: string;
+  contact_email?: string;
+  meeting_schedule?: string;
+  description?: string;
+  image_url?: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface LiturgyBooklet {
+  id: string;
+  parish_id: string;
+  title: string;
+  celebration_date: string;
+  liturgical_color: 'verde' | 'branco' | 'vermelho' | 'roxo' | 'rosa';
+  file_url: string;
+  file_size_kb?: number;
+  downloads_count: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface Gallery {
+  id: string;
+  parish_id: string;
+  title: string;
+  event_date?: string;
+  cover_image_url?: string;
+  photos_count: number;
+  photos: string[];
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
