@@ -26,10 +26,18 @@ CREATE TABLE IF NOT EXISTS public.parishes (
 ALTER TABLE public.parishes ENABLE ROW LEVEL SECURITY;
 
 -- Política de leitura pública da paróquia
+DROP POLICY IF EXISTS "Leitura pública de paróquias ativas" ON public.parishes;
 CREATE POLICY "Leitura pública de paróquias ativas"
 ON public.parishes FOR SELECT
 TO anon, authenticated
 USING (true);
+
+DROP POLICY IF EXISTS "Gestão de paróquias" ON public.parishes;
+CREATE POLICY "Gestão de paróquias"
+ON public.parishes FOR ALL
+TO anon, authenticated
+USING (true)
+WITH CHECK (true);
 
 
 -- 2. Tabela de Comunidades Eclesiais de Base (CEBs) e Capelas
@@ -61,14 +69,16 @@ CREATE INDEX IF NOT EXISTS idx_communities_parish_id ON public.communities(paris
 CREATE INDEX IF NOT EXISTS idx_communities_is_active ON public.communities(is_active);
 
 -- Políticas de RLS em communities
+DROP POLICY IF EXISTS "Leitura pública de comunidades ativas" ON public.communities;
 CREATE POLICY "Leitura pública de comunidades ativas"
 ON public.communities FOR SELECT
 TO anon, authenticated
 USING (is_active = true);
 
+DROP POLICY IF EXISTS "Gestão de comunidades por administradores da paróquia" ON public.communities;
 CREATE POLICY "Gestão de comunidades por administradores da paróquia"
 ON public.communities FOR ALL
-TO authenticated
+TO anon, authenticated
 USING (true)
 WITH CHECK (true);
 
@@ -100,14 +110,16 @@ CREATE INDEX IF NOT EXISTS idx_mass_schedules_parish_id ON public.mass_schedules
 CREATE INDEX IF NOT EXISTS idx_mass_schedules_community_id ON public.mass_schedules(community_id);
 
 -- Políticas RLS em mass_schedules
+DROP POLICY IF EXISTS "Leitura pública de horários ativos" ON public.mass_schedules;
 CREATE POLICY "Leitura pública de horários ativos"
 ON public.mass_schedules FOR SELECT
 TO anon, authenticated
 USING (is_active = true);
 
+DROP POLICY IF EXISTS "Gestão de horários por administradores da paróquia" ON public.mass_schedules;
 CREATE POLICY "Gestão de horários por administradores da paróquia"
 ON public.mass_schedules FOR ALL
-TO authenticated
+TO anon, authenticated
 USING (true)
 WITH CHECK (true);
 
@@ -138,13 +150,72 @@ CREATE INDEX IF NOT EXISTS idx_announcements_parish_id ON public.announcements(p
 CREATE INDEX IF NOT EXISTS idx_announcements_community_id ON public.announcements(community_id);
 
 -- Políticas RLS em announcements
+DROP POLICY IF EXISTS "Leitura pública de avisos ativos" ON public.announcements;
 CREATE POLICY "Leitura pública de avisos ativos"
 ON public.announcements FOR SELECT
 TO anon, authenticated
 USING (is_active = true);
 
+DROP POLICY IF EXISTS "Gestão de avisos por administradores da paróquia" ON public.announcements;
 CREATE POLICY "Gestão de avisos por administradores da paróquia"
 ON public.announcements FOR ALL
-TO authenticated
+TO anon, authenticated
 USING (true)
 WITH CHECK (true);
+
+
+-- 5. Seed Inicial de Dados (Paróquia Matriz & CEBs de Demonstração)
+INSERT INTO public.parishes (
+    id, name, diocese, slug, city, state, address, whatsapp_number, primary_color
+) VALUES (
+    'c0000000-0000-0000-0000-000000000001',
+    'Catedral Sagrado Coração de Jesus',
+    'Diocese de Colatina',
+    'catedral-colatina',
+    'Colatina',
+    'ES',
+    'Praça da Catedral, s/n - Centro',
+    '(27) 99999-0000',
+    '#1e3a8a'
+) ON CONFLICT (slug) DO NOTHING;
+
+INSERT INTO public.communities (
+    id, parish_id, name, patron_saint, is_headquarters, neighborhood, city, contact_name, contact_phone, is_active
+) VALUES 
+(
+    'c0000000-0000-0000-0000-000000000011',
+    'c0000000-0000-0000-0000-000000000001',
+    'Igreja Matriz - Catedral do Sagrado Coração de Jesus',
+    'Sagrado Coração de Jesus',
+    true,
+    'Centro',
+    'Colatina',
+    'Secretaria Geral',
+    '(27) 99999-0000',
+    true
+),
+(
+    'c0000000-0000-0000-0000-000000000012',
+    'c0000000-0000-0000-0000-000000000001',
+    'Comunidade São Pedro e São Paulo',
+    'São Pedro e São Paulo',
+    false,
+    'Bairro Vila Nova',
+    'Colatina',
+    'Antônio Carlos (Coordenador)',
+    '(27) 98888-1111',
+    true
+),
+(
+    'c0000000-0000-0000-0000-000000000013',
+    'c0000000-0000-0000-0000-000000000001',
+    'Comunidade Santo Antônio',
+    'Santo Antônio de Pádua',
+    false,
+    'Córrego das Flores (Zona Rural)',
+    'Colatina',
+    'Dona Maria de Lourdes',
+    '(27) 97777-2222',
+    true
+)
+ON CONFLICT (id) DO NOTHING;
