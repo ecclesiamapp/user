@@ -96,3 +96,30 @@ Este documento reúne todas as funcionalidades e estruturas aprovadas conceitual
   * `public.parishioner_profiles`: Perfil do membro com chave estrangeira em `auth.users(id)` e `parishes(id)`.
   * `public.pastoral_appointments`: Agendamentos de confissão com `clergy_id` e status de aprovação.
   * `public.mass_intentions`: Pedidos de oração com `mass_date` e vínculo à celebração paroquial.
+
+---
+
+## 📌 7. Módulo Dedicado de Movimentos Paroquiais (ECC, EAC, EJC) — Mini-Sites & Gestão
+
+* **Quando implementar:** Na fase de estruturação pastoral dos grandes movimentos da paróquia.
+* **Movimentos Contemplados:**
+  * **ECC** (Encontro de Casais com Cristo).
+  * **EAC** (Encontro de Adolescentes com Cristo).
+  * **EJC** (Encontro de Jovens com Cristo).
+
+### 7.1 No Portal Público da Paróquia: Mini-Sites dos Movimentos (`/movimentos/[slug]`)
+Assim como as CEBs, cada movimento contará com um **mini-site próprio com informações condensadas**:
+* **Identificação e Carisma:** Banner próprio, brasão/identidade do movimento, explicação do carisma e objetivo espiritual (famílias, adolescentes e jovens).
+* **Equipe Dirigente Atual:** Nome do Casal Coordenador Geral (no ECC) ou Jovens Coordenadores (EAC/EJC), Diretor Espiritual (Padre Orientador) e contatos WhatsApp.
+* **Calendário Anual Condensado:**
+  * Data do Encontro Anual principal (1ª, 2ª ou 3ª Etapa).
+  * Cronograma de pós-encontros, círculos de estudo, retiros e missas da entrega.
+* **Ficha de Interesse / Pré-Inscrição:** Formulário onde casais ou jovens podem manifestar interesse em vivenciar o próximo encontro.
+* **Galeria de Fotos dos Encontros:** Fotos oficiais dos encerramentos, equipes de trabalho e momentos marcantes.
+
+### 7.2 No Painel Administrativo da Paróquia (`/admin/movimentos`)
+* **Área Exclusiva no Menu Lateral:** Gestão centralizada para a secretaria e casais/jovens dirigentes do movimento.
+* **Gerenciamento da Equipe Dirigente:** Atualização fácil de nomes, mandatos, telefones e funções dos coordenadores de equipes.
+* **Gestão de Encontros e Calendário:** Cadastro das datas do cronograma anual do movimento.
+* **Fila de Inscrições:** Painel de recebimento de fichas de casais e jovens interessados, com status (`Nova`, `Em Contato`, `Confirmado`) e exportação para as equipes de visitação e recepção.
+* **Galeria e Comunicados do Movimento:** Upload de fotos dos retiros e publicação de avisos direcionados aos encontristas.

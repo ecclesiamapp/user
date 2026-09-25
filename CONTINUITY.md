@@ -24,6 +24,6 @@ Consulte [`[documentation]/planejamento/PROMPT_DE_CONTINUIDADE.md`](file:///c:/U
 2. **Widget Nativo de Liturgia Diária:** Leituras do dia e cor litúrgica integradas na página inicial do portal.
 
 ### 📚 Documentação de Referência Futura:
-* [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/IMPLEMENTACOES_PENDENTES.md): Especificação do **[MainAdmin]**, **Mini-Sites das CEBs**, **Agendamento de Confissões** e **Área do Fiel**.
+* [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/IMPLEMENTACOES_PENDENTES.md): Especificação do **[MainAdmin]**, **Mini-Sites das CEBs**, **Movimentos (ECC, EAC, EJC)**, **Agendamento de Confissões** e **Área do Fiel**.
 * [`[documentation]/planejamento/CUSTOS_INFRAESTRUTURA.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/CUSTOS_INFRAESTRUTURA.md): Análise completa de custos em Reais (R$), limitações de planos gratuitos e modelo de margem SaaS.
 
