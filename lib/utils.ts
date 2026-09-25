@@ -2,6 +2,10 @@
  * Utilitários gerais do Ecclesiam App
  */
 
+export function cn(...inputs: (string | undefined | null | false)[]): string {
+  return inputs.filter(Boolean).join(' ');
+}
+
 export function formatCurrency(amount: number): string {
   return new Intl.NumberFormat('pt-BR', {
     style: 'currency',
