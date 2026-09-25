@@ -26,6 +26,7 @@ export default function AdminLayout({
     { href: '/admin', label: 'Visão Geral', icon: Church, exact: true },
     { href: '/admin/comunidades', label: 'Comunidades (CEBs)', icon: MapPin },
     { href: '/admin/horarios', label: 'Horários de Missa', icon: Calendar },
+    { href: '/admin/secretaria', label: 'Clero & Secretaria', icon: User },
     { href: '/admin/conteudo', label: 'Avisos e Notícias', icon: Newspaper },
     { href: '/admin/dizimo', label: 'Dízimo e Doações PIX', icon: HeartHandshake },
     { href: '/admin/configuracoes', label: 'Identidade Visual & Contato', icon: Settings },

@@ -85,15 +85,23 @@ export default async function ParishPublicPortalPage() {
             </div>
           </div>
 
-          <a
-            href={`https://wa.me/${parish.whatsapp_number.replace(/\D/g, '')}?text=Olá,%20gostaria%20de%20informações%20da%20secretaria%20paroquial.`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold transition-all shadow-xs cursor-pointer"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span className="hidden sm:inline">Falar no</span> WhatsApp
-          </a>
+          <div className="flex items-center gap-2">
+            <Link href="/secretaria">
+              <Button variant="outline" size="sm" className="hidden sm:inline-flex text-xs">
+                Secretaria & Clero
+              </Button>
+            </Link>
+
+            <a
+              href={`https://wa.me/${parish.whatsapp_number.replace(/\D/g, '')}?text=Olá,%20gostaria%20de%20informações%20da%20secretaria%20paroquial.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold transition-all shadow-xs cursor-pointer"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span className="hidden sm:inline">Falar no</span> WhatsApp
+            </a>
+          </div>
         </div>
       </header>
 
@@ -115,7 +123,7 @@ export default async function ParishPublicPortalPage() {
             <div className="pt-2 flex flex-wrap gap-3">
               <a href="#horarios">
                 <Button variant="secondary" size="md" icon={<Clock className="w-4 h-4 text-[var(--primary)]" />}>
-                  Ver Horários de Missa
+                  Horários de Missa
                 </Button>
               </a>
               <a href="#comunidades">
@@ -123,9 +131,14 @@ export default async function ParishPublicPortalPage() {
                   Nossas CEBs & Capelas
                 </Button>
               </a>
+              <Link href="/secretaria">
+                <Button variant="outline" size="md" icon={<User className="w-4 h-4" />} className="bg-[var(--dash-surface)]/10 text-white hover:bg-[var(--dash-surface)]/20 border-white/20">
+                  Secretaria & Padres
+                </Button>
+              </Link>
               <a href="#dizimo">
                 <Button variant="liturgical" size="md" icon={<Heart className="w-4 h-4" />}>
-                  Dízimo via PIX
+                  Dízimo PIX
                 </Button>
               </a>
             </div>
