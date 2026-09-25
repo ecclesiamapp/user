@@ -96,3 +96,11 @@ Implementar o **Cadastro e Hierarquia de CEBs (Comunidades)** vinculado à Paró
   * Select interativo: *"Todas as Comunidades"* ou selecionar uma capela específica.
 * Seção *"Nossas Comunidades & Capelas"*:
   * Grid com fotos das capelas, nome do padroeiro e botão de rotas GPS (Google Maps).
+
+### 5.3 Mini-Site Exclusivo da CEB (`/comunidades/[slug]`)
+Cada capela conta com uma página dinâmica própria:
+* **Identificação e Padroeiro:** Foto principal, história da comunidade e padroeiro.
+* **Horários Locais:** Apenas missas e cultos daquela capela.
+* **Calendário Mensal da CEB:** Atividades pastorais, reuniões de movimentos locais e novenas/tríduos do padroeiro.
+* **Galeria de Fotos Própria:** Coberturas das festas e celebrações da comunidade.
+* **Rotas GPS & Contato:** Localização e botão direto de WhatsApp da coordenação da CEB.
