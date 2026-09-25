@@ -2,7 +2,7 @@
 
 > **Documento Oficial de Registro de Recursos Futuros**  
 > **Status:** Registrado para Implementação Futura  
-> **Data de Criação:** Setembro de 2026  
+> **Data de Atualização:** Setembro de 2026  
 > **Referência:** Decisões Arquiteturais alinhadas via `/grill-me`  
 
 Este documento reúne todas as funcionalidades e estruturas aprovadas conceitualmente que serão implementadas em etapas subsequentes, após a validação e consolidação do núcleo principal da Catedral de Colatina.
@@ -73,12 +73,26 @@ Este documento reúne todas as funcionalidades e estruturas aprovadas conceitual
 
 ## 📌 6. Área Privada do Fiel ("Meu Espaço Paroquial")
 
-* **Documento de Especificação Completa:** [`[documentation]/planejamento/ESCOPO_AREA_DO_FIEL.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/ESCOPO_AREA_DO_FIEL.md)
-* **Quando implementar:** Na fase de engajamento do membro.
-* **Escopo Funcional:**
-  * **Acesso sem senha (Passwordless):** Magic Link ou Código OTP de 6 dígitos via WhatsApp/E-mail.
-  * **Carteirinha Digital do Dizimista & Histórico:** Registro de dízimos e doações PIX com 1 clique.
-  * **Meus Agendamentos:** Visualização de confissões e atendimentos com os padres.
-  * **Minha Comunidade (CEB):** Feed customizado da capela favorita do fiel.
-  * **Intenções de Missa:** Pedidos de saúde, falecidos e graças para o altar da missa.
-
+* **Documento Detalhado de Especificação:** [`[documentation]/planejamento/ESCOPO_AREA_DO_FIEL.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/ESCOPO_AREA_DO_FIEL.md)
+* **Quando implementar:** Na fase de engajamento do membro paroquiano.
+* **Rota Prevista:** `/meu-espaco` ou `/fiel` (com layout mobile-first).
+* **Escopo Funcional Detalhado:**
+  1. **Autenticação sem Senha (Passwordless):**
+     * Acesso rápido via **Código OTP de 6 dígitos** ou **Magic Link** enviado para o WhatsApp ou E-mail.
+     * Elimina atritos de esquecimento de senhas para fiéis idosos ou com pouca intimidade tecnológica.
+  2. **Carteirinha Digital do Dizimista & Histórico de Partilha:**
+     * Visualização do cartão de membro com brasão paroquial e número de dizimista oficial.
+     * Histórico de contribuições de Dízimo e Ofertas realizadas via PIX com comprovantes pastorais.
+     * Botão de doação com 1 clique pré-vinculada ao CPF do fiel.
+  3. **Meus Agendamentos com os Padres:**
+     * Acompanhamento de confissões sacramentais e conversas pastorais marcadas com Pe. Irineu, Pe. Deivid ou Pe. Ernandes.
+     * Status em tempo real (`Pendente`, `Confirmado`) e cancelamento com aviso prévio.
+  4. **Minha Comunidade (CEB Favorita):**
+     * Seleção da capela que o fiel frequenta (Matriz, Perpétuo Socorro, Santa Luzia, etc.).
+     * Feed priorizado com horários de missas, tríduos e avisos pastorais daquela CEB.
+  5. **Pedidos de Intenções de Santa Missa:**
+     * Envio direto de pedidos de oração (Saúde, Falecidos, Ação de Graças) para as próximas missas do altar.
+* **Estrutura Relacional no Banco de Dados:**
+  * `public.parishioner_profiles`: Perfil do membro com chave estrangeira em `auth.users(id)` e `parishes(id)`.
+  * `public.pastoral_appointments`: Agendamentos de confissão com `clergy_id` e status de aprovação.
+  * `public.mass_intentions`: Pedidos de oração com `mass_date` e vínculo à celebração paroquial.
