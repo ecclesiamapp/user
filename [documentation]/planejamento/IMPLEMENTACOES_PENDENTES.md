@@ -68,3 +68,17 @@ Este documento reúne todas as funcionalidades e estruturas aprovadas conceitual
   * Tabela `public.galleries` conectada ao Supabase Storage.
   * Álbuns categorizados por solenidade (Festa do Sagrado Coração, Corpus Christi, Crisma, Padroeiros).
   * Visualizador em lightbox responsivo para fotos em alta resolução.
+
+---
+
+## 📌 6. Área Privada do Fiel ("Meu Espaço Paroquial")
+
+* **Documento de Especificação Completa:** [`[documentation]/planejamento/ESCOPO_AREA_DO_FIEL.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/ESCOPO_AREA_DO_FIEL.md)
+* **Quando implementar:** Na fase de engajamento do membro.
+* **Escopo Funcional:**
+  * **Acesso sem senha (Passwordless):** Magic Link ou Código OTP de 6 dígitos via WhatsApp/E-mail.
+  * **Carteirinha Digital do Dizimista & Histórico:** Registro de dízimos e doações PIX com 1 clique.
+  * **Meus Agendamentos:** Visualização de confissões e atendimentos com os padres.
+  * **Minha Comunidade (CEB):** Feed customizado da capela favorita do fiel.
+  * **Intenções de Missa:** Pedidos de saúde, falecidos e graças para o altar da missa.
+
