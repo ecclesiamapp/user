@@ -11,7 +11,8 @@ import {
   ChevronRight,
   ExternalLink,
   Heart,
-  Navigation
+  Navigation,
+  User
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { Card, Badge, Button } from '@/components/ui';

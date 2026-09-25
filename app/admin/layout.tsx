@@ -11,7 +11,8 @@ import {
   Settings, 
   ExternalLink,
   ShieldCheck,
-  MapPin
+  MapPin,
+  User
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
