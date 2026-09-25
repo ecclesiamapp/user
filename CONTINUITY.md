@@ -22,3 +22,7 @@ Consulte [`[documentation]/planejamento/PROMPT_DE_CONTINUIDADE.md`](file:///c:/U
 ### 🎯 Próximo Foco Imediato (Fase 2):
 1. **"Sou do Sagrado Missa":** Ambiente organizado de download de folhetos litúrgicos impressos com calendário e pesquisa por domingo/solenidade.
 2. **Widget Nativo de Liturgia Diária:** Leituras do dia e cor litúrgica integradas na página inicial do portal.
+
+### 📚 Documentação de Referência Futura:
+* Consulte [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/IMPLEMENTACOES_PENDENTES.md) para a especificação do **[MainAdmin]**, **Mini-Sites das CEBs** e **Agendamento de Confissões**.
+
