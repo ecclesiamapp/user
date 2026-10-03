@@ -39,6 +39,10 @@ export interface Community {
   contact_name?: string; // Coordenador da comunidade
   contact_phone?: string;
   is_active: boolean;
+  slug?: string;
+  history?: string;
+  foundation_year?: string;
+  feast_day?: string;
   created_at: string;
   updated_at?: string;
 }

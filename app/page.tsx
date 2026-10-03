@@ -17,6 +17,9 @@ import {
 import { createClient } from '@/utils/supabase/server';
 import { Card, Badge, Button } from '@/components/ui';
 import { Community, Parish } from '@/types';
+import { fallbackCommunitiesList, getCommunitySlug } from '@/lib/communities';
+import { LiturgicalBanner } from '@/components/liturgy/LiturgicalBanner';
+import { MissalBookletsSection } from '@/components/liturgy/MissalBookletsSection';
 
 export default async function ParishPublicPortalPage() {
   const cookieStore = await cookies();
@@ -46,7 +49,7 @@ export default async function ParishPublicPortalPage() {
     created_at: new Date().toISOString(),
   };
 
-  const communities: Community[] = communitiesData || [];
+  const communities: Community[] = communitiesData && communitiesData.length > 0 ? communitiesData : fallbackCommunitiesList;
 
   const todayMasses = [
     { time: '07:00', label: 'Santa Missa Matriz', location: 'Catedral - Altar Principal' },
@@ -146,6 +149,9 @@ export default async function ParishPublicPortalPage() {
           </div>
         </section>
 
+        {/* Faixa da Liturgia Diária Oficial (CNBB) & Cor Canônica */}
+        <LiturgicalBanner />
+
         {/* Seção 1: Celebrações de Hoje */}
         <section id="horarios" className="space-y-4">
           <div className="flex items-center justify-between">
@@ -218,21 +224,31 @@ export default async function ParishPublicPortalPage() {
                 </div>
 
                 <div className="pt-2 border-t border-[var(--dash-border)] flex items-center justify-between text-xs">
-                  <span className="text-[var(--dash-text-secondary)]">{c.contact_name || 'Comunidade Ativa'}</span>
+                  <Link
+                    href={`/comunidades/${getCommunitySlug(c)}`}
+                    className="inline-flex items-center gap-1 text-[var(--primary)] font-semibold hover:underline"
+                  >
+                    <span>Conhecer Capela</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </Link>
                   <a
                     href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${c.name}, ${c.city} - ${c.state}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[var(--primary)] font-semibold hover:underline"
+                    className="inline-flex items-center gap-1 text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] transition-colors"
+                    title="Abrir no Google Maps"
                   >
                     <Navigation className="w-3.5 h-3.5" />
-                    <span>Como Chegar</span>
+                    <span>GPS</span>
                   </a>
                 </div>
               </Card>
             ))}
           </div>
         </section>
+
+        {/* Seção: Folhetos das Santas Missas (Sou do Sagrado Missa) */}
+        <MissalBookletsSection />
 
         {/* Seção 3: Dízimo Paroquial e Ofertas via PIX */}
         <section id="dizimo">

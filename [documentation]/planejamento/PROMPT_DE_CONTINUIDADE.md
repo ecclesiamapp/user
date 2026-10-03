@@ -1,47 +1,25 @@
-# 🚀 Prompt de Continuidade - Início da Próxima Sessão (Fase 2: Folhetos Litúrgicos & Liturgia Diária)
+# 🚀 Prompt de Continuidade — Ecclesiam App & Catedral de Colatina
 
-Copie e cole a instrução abaixo no início da próxima sessão para continuar o desenvolvimento exatamente de onde paramos:
+Copie e cole este bloco de texto no início da próxima sessão para restaurar instantaneamente todo o contexto, as regras inquebráveis e o estado exato da aplicação.
 
 ---
 
 ```markdown
-Atue como Arquiteto Principal e Engenheiro Full-Stack do Ecclesiam App.
-Consulte o arquivo de continuidade [documentation]/planejamento/PROMPT_DE_CONTINUIDADE.md e execute o PROTOCOLO_START.md.
+Olá! Sou o desenvolvedor do Ecclesiam App (SaaS Multi-Paróquia) e da Catedral de Colatina (paróquia piloto).
 
-Nosso objetivo para esta sessão (Fase 2 da Renovação da Catedral):
-1. Implementar o módulo "Sou do Sagrado Missa" no Portal Público:
-   - Repositório organizado e limpo para download dos folhetos de missa semanais impressos (PDF).
-   - Calendário litúrgico e buscador por domingos/datas com identificação do tempo litúrgico.
-2. Implementar a tela administrativa em /admin/folhetos:
-   - Upload de novos arquivos PDF e gerenciamento do acervo da equipe de liturgia.
-3. Implementar o Widget Nativo de Liturgia Diária na Home (/):
-   - Exibição da Primeira Leitura, Salmo Responsorial e Evangelho do dia com indicação da cor litúrgica.
-4. Integrar o filtro dinâmico de celebrações por CEB/Matriz na seção de Horários do Portal do Fiel.
+Estamos operando sob as seguintes diretrizes fundamentais:
+1. Sincronização Local Obrigatória: Qualquer documentação técnica ou de planejamento gerada deve residir em C:\Users\Start\ecclesiam-app\[documentation]\ e [documentation]\planejamento\.
+2. White-Label Absoluto: No portal público do fiel, a marca "Ecclesiam" NUNCA aparece em destaque; a Catedral do Sagrado Coração de Jesus é o centro de toda a identidade.
+3. Regra de Menus Select: Sempre usar a classe .dash-select (pl-3.5 pr-10 py-2 com setinha customizada).
+4. Código SQL Obrigatório no Chat: Toda migração gerada DEVE ser exibida na íntegra em bloco markdown no chat.
+5. Anti-Monolito & UX/UI: Arquivos até 350 linhas, paleta sem bg-white/bg-black puros em estrutura, botões e cards rounded-2xl/rounded-xl.
+
+ESTADO ATUAL DO PROJETO (03/10/2026):
+- 4 Padres Ativos: Pe. Irineu Claudino Sales (Pároco), Pe. Adilson Ramos de Melo, Pe. Deivid José e Pe. Ernandes Samuel (Vigários) totalmente integrados em /secretaria e /admin/secretaria.
+- Mini-Sites das 11 CEBs: Rota dinâmica /comunidades/[slug] funcional com história, padroeiro, celebrações e botões GPS (Google Maps e Waze).
+- Liturgia Diária & Folhetos: Faixa da Liturgia Oficial CNBB com leituras completas e módulo "Sou do Sagrado Missa" com download de folhetos em PDF na Home.
+- PWA & Atalho no Celular: manifest.ts, ícones 192/512 e prompt inteligente PwaInstallPrompt configurados.
+- Build Next.js 16 (Turbopack): 100% verde com 0 erros de compilação.
+
+Por favor, confirme a leitura do estado atual e me informe quais os próximos passos de desenvolvimento ou testes.
 ```
-
----
-
-## 📌 Estado Atual do Projeto ao Encerrar esta Sessão
-
-1. **Supabase PostgreSQL & Carga Real da Catedral (100% Ativa):**
-   * **Clero Oficial:** 3 padres ativos (`clergy`): Pároco Pe. Irineu Claudino Sales, Vigários Pe. Deivid José e Pe. Ernandes Samuel.
-   * **Rede Paroquial:** As 11 CEBs reais da Catedral migradas (`communities`) com endereços, bairros e fundações.
-   * **Pastorais e Movimentos:** 10 pastorais reais cadastradas (`pastorals`): EAC, ECC, PASCOM, Catequese, Liturgia, Escuta, Criança, etc.
-   * **Tabelas Prontas:** `liturgy_booklets` e `galleries` criadas com RLS e índices.
-2. **Telas e Rotas em Produção Local:**
-   * `/` (Portal do Fiel): Hero litúrgico, horários, grade de CEBs reais com botão de rotas GPS e dízimo PIX.
-   * `/secretaria`: Página pública institucional com perfil canônico dos sacerdotes, expediente, ramais setorizados e Linha do Tempo desde 1927.
-   * `/admin`: Dashboard com métricas consolidadas (incluindo Rede Paroquial de CEBs) e sidebar ativa.
-   * `/admin/secretaria`: Gestão do clero e horários de atendimento.
-   * `/admin/comunidades`: Gestão interativa das CEBs conectada ao Supabase Live.
-   * `/admin/horarios`: Filtro de horários por CEB e modal de cadastro.
-3. **Design System & Engenharia:**
-   * Biblioteca centralizada em `components/ui/` (`Button`, `Card`, `Badge`, `Input`, `Select`, `Modal`).
-   * 0 arquivos violando o limite anti-monolito (todos abaixo de 320 linhas).
-   * Auditoria UX/UI: 18 arquivos verificados com 0 avisos pendentes.
-   * Compilação Next.js 16 (Turbopack) com 100% de sucesso.
-4. **Documentos Oficiais de Referência:**
-   * [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/IMPLEMENTACOES_PENDENTES.md): Backlog futuro detalhado ([MainAdmin], Mini-Sites das CEBs, Agendamento de Confissões, Área do Fiel e Movimentos ECC/EAC/EJC).
-   * [`[documentation]/planejamento/CUSTOS_INFRAESTRUTURA.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/CUSTOS_INFRAESTRUTURA.md): Análise financeira completa em Reais (R$), guia de operação a custo R$ 0,00 e escalabilidade SaaS.
-5. **Repositório GitHub:**
-   * URL: `https://github.com/ecclesiamapp/user.git` (Branch `main` limpa e 100% sincronizada).

@@ -123,7 +123,7 @@ export default function AdminSecretariaPage() {
           <p className="text-sm text-[var(--dash-text-secondary)]">Carregando dados do clero...</p>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {clergyList.map((priest) => (
             <Card
               key={priest.id}

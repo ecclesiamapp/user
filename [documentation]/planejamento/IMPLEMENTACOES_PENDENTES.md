@@ -123,3 +123,22 @@ Assim como as CEBs, cada movimento contará com um **mini-site próprio com info
 * **Gestão de Encontros e Calendário:** Cadastro das datas do cronograma anual do movimento.
 * **Fila de Inscrições:** Painel de recebimento de fichas de casais e jovens interessados, com status (`Nova`, `Em Contato`, `Confirmado`) e exportação para as equipes de visitação e recepção.
 * **Galeria e Comunicados do Movimento:** Upload de fotos dos retiros e publicação de avisos direcionados aos encontristas.
+
+---
+
+## 📌 8. Calendário Litúrgico Inteligente & Identidade Cromática Dinâmica
+
+* **Documento Detalhado de Especificação:** [`[documentation]/planejamento/ESCOPO_CALENDARIO_LITURGICO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/ESCOPO_CALENDARIO_LITURGICO.md)
+* **Quando implementar:** Na fase de enriquecimento da identidade litúrgica da plataforma.
+* **Escopo Funcional:**
+  1. **Resposta Cromática Automática e Sutil:**
+     * Cores canônicas da Igreja Católica refletidas de modo refinado (sem quebrar o tema neutro escuro): Verde (Tempo Comum), Roxo (Quaresma e Advento), Vermelho (Santos Mártires, Pentecostes, Ramos) e Branco/Dourado (Solenidades e Santos do Senhor e da Virgem Maria).
+  2. **No Painel Administrativo (`/admin`):**
+     * **Sidebar com Acentos Elegantes:** Indicador de borda/glow com a cor litúrgica do dia e badge de identificação (ex: `Tempo Comum • 26ª Semana`).
+     * **Tela de Gestão Litúrgica (`/admin/calendario`):** Visualização mensal em grade, com modal para cadastro de festas de Padroeiros, Novenas e Tríduos da Matriz e das CEBs, além de override manual de cor litúrgica para missas pontuais.
+  3. **No Portal Público do Fiel (Home & CEBs):**
+     * **Faixa Litúrgica Rica:** Localizada logo abaixo dos banners principais, exibindo a cor do dia, a celebração e a leitura do Evangelho com botão para expandir a Liturgia Diária completa.
+     * **Integração com as CEBs:** Destaque para as festas e padroeiros de cada comunidade na Home da Matriz e nas respectivas páginas das CEBs.
+  4. **Arquitetura (Motor Híbrido Resiliente):**
+     * Cálculo canônico oficial do Vaticano/CNBB sincronizado em tabelas do Supabase (`liturgical_calendar`, `liturgical_readings`, `parish_liturgical_events`), garantindo 100% de disponibilidade offline/cache e alta performance.
+

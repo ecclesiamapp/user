@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extrações de Design Systems & Referências — Ecclesiam App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@400;600&family=Suez+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #F8F7F4;
+            --surface: #FFFFFF;
+            --surface-dark: #16181B;
+            --surface-elevated: #F5EFE7;
+            --border: #E2DDD5;
+            --gold: #C5A059;
+            --gold-bright: #FFA82A;
+            --bordeaux: #721C24;
+            --blue-sacred: #1B365D;
+            --text-main: #1A1D20;
+            --text-muted: #5E6268;
+            --live-red: #D32F2F;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.65;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1040px;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(22, 24, 27, 0.05);
+            padding: 50px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+        }
+
+        .badge-header {
+            display: inline-block;
+            background: var(--surface-dark);
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 99rem;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--surface-dark);
+            letter-spacing: 0.02em;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.45rem;
+            color: var(--blue-sacred);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            color: var(--surface-dark);
+            margin: 22px 0 10px 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--text-main);
+        }
+
+        ul, ol {
+            margin-left: 24px;
+            margin-bottom: 18px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0 26px 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--surface-elevated);
+            color: var(--surface-dark);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #FAF9F6;
+        }
+
+        /* Color Palettes */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .color-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .color-swatch {
+            height: 60px;
+            width: 100%;
+        }
+
+        .color-info {
+            padding: 10px;
+            font-size: 0.85rem;
+        }
+
+        .color-hex {
+            font-family: monospace;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .color-name {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--surface-dark);
+            color: #E2E8F0;
+            padding: 18px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            margin: 16px 0;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+
+        /* Callout Box */
+        .callout {
+            background-color: var(--surface-elevated);
+            border-left: 4px solid var(--gold);
+            padding: 18px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+        }
+
+        .callout strong {
+            color: var(--surface-dark);
+        }
+
+        .tag-pill {
+            display: inline-block;
+            background: #F5EFE7;
+            color: #2D1A16;
+            border-radius: 99rem;
+            padding: 3px 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #DBE1E6;
+        }
+
+        footer {
+            margin-top: 50px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span class="badge-header">Engenharia de UI/UX & Design System</span>
+        <h1>Ecclesiam App — Documento de Extrações Técnicas</h1>
+        <p class="subtitle">Benchmarks eclesiásticos: St. Patrick's Cathedral, Padre Alex Nogueira, Padre Paulo Ricardo e Vaticano.</p>
+    </header>
+
+    <!-- SEÇÃO 1 -->
+    <section>
+        <h2>1. Design System: St. Patrick's Cathedral (NY)</h2>
+        <div class="callout">
+            <strong>Pilar Conceitual:</strong> Monumentalidade histórica aliada à <em>"Regra dos 4 Segundos"</em>. Em menos de quatro segundos na página inicial, o fiel descobre: <strong>(1) Quando tem Missa hoje</strong>, <strong>(2) Se há transmissão ao vivo</strong> e <strong>(3) Endereço e visitação</strong>.
+        </div>
+
+        <h3>Paleta de Cores Extraída</h3>
+        <div class="color-grid">
+            <div class="color-card">
+                <div class="color-swatch" style="background-color: #16181B;"></div>
+                <div class="color-info"><div class="color-hex">#16181B</div><div class="color-name">Basalto / Ébano Catedral</div></div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background-color: #C8A463;"></div>
+                <div class="color-info"><div class="color-hex">#C8A463</div><div class="color-name">Ouro Sacro / Champagne</div></div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background-color: #F8F7F4;"></div>
+                <div class="color-info"><div class="color-hex">#F8F7F4</div><div class="color-name">Mármore Alabastro (Fundo)</div></div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background-color: #D32F2F;"></div>
+                <div class="color-info"><div class="color-hex">#D32F2F</div><div class="color-name">Status Ao Vivo (Live)</div></div>
+            </div>
+        </div>
+
+        <h3>Tipografia e Aplicação</h3>
+        <ul>
+            <li><strong>Títulos Solenes (Serif):</strong> <code>Cinzel</code> em caixa alta (*UPPERCASE*) com espaçamento amplo entre letras (*letter-spacing: 0.15em*).</li>
+            <li><strong>Horários e Interface (Sans-Serif):</strong> <code>Plus Jakarta Sans</code> com numerais tabulares (<code>tabular-nums</code>) para alinhamento vertical estrito de relógio (ex: 07:00, 12:00, 19:30).</li>
+        </ul>
+    </section>
+
+    <!-- SEÇÃO 2 -->
+    <section>
+        <h2>2. Design System: Padre Alex Nogueira (padrealexnogueira.com)</h2>
+        <div class="callout">
+            <strong>Pilar Conceitual:</strong> Acolhimento caloroso, conexão popular e acessibilidade para idosos. Tokens extraídos diretamente das variáveis <code>:root</code> do CSS de produção.
+        </div>
+
+        <h3>Tipografia Identificada no Código</h3>
+        <ul>
+            <li><strong>Display & Títulos:</strong> <span style="font-family: 'Suez One', serif; font-size: 1.1rem; color: #2D1A16;">Suez One</span> (Google Fonts) — Encorpada, acolhedora, com serifa arredondada.</li>
+            <li><strong>Corpo de Texto & Menus:</strong> <span style="font-family: 'Sora', sans-serif; font-size: 1rem;">Sora (300 a 700)</span> (Google Fonts) — Geométrica moderna e ultra legível.</li>
+        </ul>
+
+        <h3>Tokens CSS Oficiais (:root)</h3>
+        <pre><code>:root {
+  --background--50: #F5EFE7;           /* Fundo pergaminho quente */
+  --background--100: #EEE3D4;          /* Fundo areia */
+  --background--950: #131313;          /* Fundo grafite profundo */
+  --text--primary: #2D1A16;            /* Marrom ébano de alto contraste */
+  --text--secondary: #514D4B;          /* Sépia médio */
+  --brand--gold-500: #FFA82A;          /* Ouro vivo / âmbar */
+  --brand--gold-700: #B75319;          /* Ouro queimado / terracota */
+  --brand--twilight-600: #03637A;      /* Azul petróleo (Orações) */
+  --brand--como-500: #356B58;          /* Verde litúrgico nobre */
+  --brand--blue-700: #305AAD;          /* Azul Mariano */
+}</code></pre>
+
+        <h3>Componentes em Destaque</h3>
+        <ul>
+            <li><strong>Marquee de Avisos (<code>banner_horizontal</code>):</strong> Faixa animada superior contínua para chamadas urgentes de catequese ou festas da padroeira.</li>
+            <li><strong>Badges de Categoria:</strong> Formato pílula <span class="tag-pill">Formação</span> <span class="tag-pill">Novenas</span> com <code>border-radius: 99rem</code>.</li>
+            <li><strong>Hero Slider Responsivo:</strong> Imagens em <code>.webp</code> com recortes próprios para Desktop e Mobile.</li>
+        </ul>
+    </section>
+
+    <!-- SEÇÃO 3 -->
+    <section>
+        <h2>3. Sidebar System: Padre Paulo Ricardo (padrepauloricardo.org)</h2>
+        <div class="callout">
+            <strong>Pilar Conceitual:</strong> Filosofia *"Beneditina Digital"* — Escuro, solene, monástico e estritamente focado no conteúdo pastoral e de estudo.
+        </div>
+
+        <h3>Arquitetura para Mobile (Drawer do Fiel)</h3>
+        <ul>
+            <li><strong>Comportamento:</strong> Desliza da esquerda cobrindo 82% da tela com <code>backdrop-filter: blur(8px)</code>.</li>
+            <li><strong>Topo:</strong> Brasão da Paróquia + Botão de Login <code>[ Entrar / Meu Dízimo ]</code>.</li>
+            <li><strong>4 Grupos Estruturados:</strong>
+                <ol>
+                    <li><em>Liturgia & Celebrações:</em> Missas, Confissões, Leituras Bíblicas, Ao Vivo.</li>
+                    <li><em>Comunicação:</em> Avisos da Semana, Notícias, Folheto Dominical em PDF.</li>
+                    <li><em>Secretaria:</em> Sacramentos (Batismo, Casamento), Agendamento com o Padre, WhatsApp.</li>
+                    <li><em>Partilha Fraterna:</em> Devolução do Dízimo via PIX e Campanhas do Templo.</li>
+                </ol>
+            </li>
+            <li><strong>Rodapé de Acessibilidade:</strong> Alternador de escala <code>[ A- | Normal | A+ ]</code> e redes sociais.</li>
+        </ul>
+
+        <h3>Arquitetura para Backend (Painel da Paróquia)</h3>
+        <ul>
+            <li>Sidebar persistente de <strong>260px</strong> (expandida) e <strong>72px</strong> (colapsada em modo ícones).</li>
+            <li><strong>Módulos:</strong> Dashboard $\rightarrow$ Horários & Missas $\rightarrow$ Comunicação (Avisos & Live) $\rightarrow$ Dízimo (Extrato PIX) $\rightarrow$ Secretaria $\rightarrow$ Personalização White-Label.</li>
+        </ul>
+    </section>
+
+    <!-- SEÇÃO 4 -->
+    <section>
+        <h2>4. Galeria de Párocos: Modelo Vaticano (vatican.va)</h2>
+        <div class="callout">
+            <strong>Pilar Conceitual:</strong> Adaptação da Sucessão Apostólica dos Sumos Pontífices para eternizar a história dos sacerdotes e fundadores de cada paróquia do Ecclesiam App.
+        </div>
+
+        <h3>Schema SQL de Dados (Supabase / PostgreSQL)</h3>
+        <pre><code>create table parish_pastors (
+  id uuid primary key default gen_random_uuid(),
+  parish_id uuid not null references parishes(id) on delete cascade,
+  priest_name text not null,               -- Ex: "Côn. José Maria dos Santos"
+  secular_name text,                       -- Nome civil
+  origin_city text,                        -- Origem
+  order_number int not null,               -- 1º Pároco, 2º Pároco...
+  start_date date not null,                -- Data de posse
+  end_date date,                           -- Término do ministério (null se atual)
+  is_current boolean default false,        -- Indicador de Pároco Atual
+  motto text,                              -- Lema sacerdotal
+  biography text,                          -- Resumo biográfico
+  legacy_highlights jsonb default '[]',    -- Marcos históricos
+  portrait_url text,                       -- Retrato oficial
+  created_at timestamptz default now()
+);</code></pre>
+
+        <h3>Interface: Linha do Tempo Eclesial</h3>
+        <ul>
+            <li><strong>Destaque Superior:</strong> Card de honra do Pároco Atual com foto solene, lema pastoral e carta de acolhimento.</li>
+            <li><strong>Timeline Vertical:</strong> Linha dourada cronológica reversa unindo retratos dos antecessores com sanfona expansível de realizações históricas de cada sacerdote.</li>
+        </ul>
+    </section>
+
+    <footer>
+        Ecclesiam App — Documento de Referências de Engenharia de Interface • Start Agência Digital • 2026
+    </footer>
+</div>
+
+</body>
+</html>

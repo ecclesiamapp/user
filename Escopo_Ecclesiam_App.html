@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Escopo do Projeto: Ecclesiam App</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; margin: 50px; color: #333; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        h3 { color: #34495e; margin-top: 20px; }
+        p { margin-bottom: 15px; }
+        ul { margin-bottom: 15px; }
+        li { margin-bottom: 8px; }
+        .highlight { background-color: #f8f9fa; padding: 15px; border-left: 4px solid #e74c3c; margin: 20px 0; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Escopo do Projeto: Ecclesiam App (Plataforma SaaS Multi-Paróquias)</h1>
+
+    <h2>1. Visão Geral do Produto e Filosofia White-Label</h2>
+    <p>O objetivo é transformar o projeto que nasceu para a Catedral de Colatina em uma <strong>Plataforma SaaS Multi-Cliente 100% White-Label</strong>. O Ecclesiam App será uma solução invisível de infraestrutura que fornecerá sites e aplicativos móveis para diversas paróquias.</p>
+    <div class="highlight">
+        Regra de Ouro: A marca "EcclesiamApp" NÃO aparecerá de modo destacado para o usuário final (o fiel). Toda a experiência (site, app, comunicações) será centrada exclusivamente na marca, cores e identidade da paróquia cliente. As paróquias acessarão um painel administrativo intuitivo para gerenciar seus canais digitais.
+    </div>
+
+    <h2>2. Decisões Arquiteturais e de Negócios</h2>
+    <ul>
+        <li><strong>Arquitetura Base:</strong> Desenvolvimento customizado do zero.</li>
+        <li><strong>Criação Visual (Sites):</strong> Uso de Templates Fixos Customizáveis (A paróquia altera cores, logotipos e conteúdos em layouts profissionais pré-aprovados).</li>
+        <li><strong>Modelo de Negócios (SaaS):</strong> Planos baseados em Funcionalidades/Tiers (Ex: Plano Básico só com Site; Plano Avançado com Dízimo online e App).</li>
+        <li><strong>Distribuição do App:</strong> Modelo <em>White-Label</em>. Cada paróquia do plano avançado terá o seu próprio aplicativo publicado individualmente nas lojas (Ex: "App da Catedral de Colatina").</li>
+        <li><strong>Profundidade do Sistema (MVP):</strong> Foco em ser um poderoso CMS (Gestor de Conteúdo) + Portal de Arrecadação via PIX. Recursos complexos de ERP/Secretaria (contabilidade pesada, certidões de batismo) não farão parte da versão inicial, agilizando o lançamento.</li>
+    </ul>
+
+    <h2>3. Funcionalidades do Produto Inicial (MVP)</h2>
+
+    <h3>3.1 Painel Administrativo da Paróquia (O "WordPress" católico)</h3>
+    <ul>
+        <li>Dashboard de Gestão: Visão geral de acessos e arrecadações.</li>
+        <li>Gestão de Conteúdo: Postagem de Avisos, Notícias e Mural.</li>
+        <li>Gestão de Horários: Missas, Confissões e Expediente.</li>
+        <li>Módulo de Doações: Acompanhamento e relatórios de Dízimo/Intenções de Missa gerados via PIX.</li>
+        <li>Personalização: Alteração da identidade visual do Site/App.</li>
+    </ul>
+
+    <h3>3.2 O Site da Paróquia</h3>
+    <ul>
+        <li>Interface web amigável e responsiva baseada no template escolhido.</li>
+        <li>Exibição clara de horários, notícias e links de transmissão ao vivo.</li>
+        <li>Central de Atendimento (redirecionamento rápido para o WhatsApp da Secretaria).</li>
+        <li>Página de Dízimo e Intenções de Missa (Check-out de Pagamento).</li>
+    </ul>
+
+    <h3>3.3 O Aplicativo Exclusivo (White-label)</h3>
+    <ul>
+        <li>Espelhamento do conteúdo do site em formato nativo.</li>
+        <li>Envio de Notificações Push (avisos urgentes, lembrete de eventos).</li>
+        <li>(Opcional Futuro) Integração com Liturgia Diária e área logada do paroquiano.</li>
+    </ul>
+
+    <h2>4. Stack Tecnológica Definida</h2>
+    <ul>
+        <li><strong>Frontend e Painel Admin:</strong> Next.js (React)</li>
+        <li><strong>Banco de Dados, Autenticação e Storage:</strong> Supabase (PostgreSQL)</li>
+        <li><strong>App Mobile:</strong> React Native (provavelmente usando Expo) para facilitar a automação de compilação dos múltiplos apps white-label.</li>
+    </ul>
+</body>
+</html>

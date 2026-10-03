@@ -46,7 +46,62 @@ export default async function SecretariaInstitucionalPage() {
     created_at: new Date().toISOString(),
   };
 
-  const clergyList: Clergy[] = clergyData || [];
+  const defaultClergyList: Clergy[] = [
+    {
+      id: 'c0000000-0000-0000-0000-000000000001',
+      parish_id: parish.id,
+      name: 'Padre Irineu Claudino Sales',
+      role: 'paroco',
+      title: 'Pároco e Cura da Catedral de Colatina',
+      birthday: '24 de julho',
+      ordination_date: '12 de agosto de 2017',
+      office_hours: 'Terça e Quinta-feira: 14:30h às 16:30h',
+      order_index: 1,
+      is_active: true,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: 'c0000000-0000-0000-0000-000000000004',
+      parish_id: parish.id,
+      name: 'Padre Adilson Ramos de Melo',
+      role: 'vigario',
+      title: 'Vigário Paroquial',
+      birthday: '28 de outubro',
+      ordination_date: '15 de dezembro de 2007',
+      office_hours: 'Quarta e Sexta-feira: 14:00h às 16:30h',
+      order_index: 2,
+      is_active: true,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: 'c0000000-0000-0000-0000-000000000002',
+      parish_id: parish.id,
+      name: 'Padre Deivid José Langa Lopes',
+      role: 'vigario',
+      title: 'Vigário Paroquial',
+      birthday: '08 de março',
+      ordination_date: '25 de março de 2023',
+      office_hours: 'Conforme agendamento na secretaria',
+      order_index: 3,
+      is_active: true,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: 'c0000000-0000-0000-0000-000000000003',
+      parish_id: parish.id,
+      name: 'Padre Ernandes Samuel Fantin',
+      role: 'vigario',
+      title: 'Vigário Paroquial',
+      birthday: '13 de julho',
+      ordination_date: '12 de dezembro de 1971',
+      office_hours: 'Conforme agendamento na secretaria',
+      order_index: 4,
+      is_active: true,
+      created_at: new Date().toISOString(),
+    },
+  ];
+
+  const clergyList: Clergy[] = clergyData && clergyData.length > 0 ? clergyData : defaultClergyList;
 
   const contactsSectorized = [
     { label: 'Secretaria Paroquial', phone: '(27) 2102-5010', email: 'secretaria@catedraldecolatina.org.br', desc: 'Certidões, intenções de missa e informações gerais' },
@@ -100,7 +155,7 @@ export default async function SecretariaInstitucionalPage() {
             <h2 className="text-xl font-bold">Nossos Sacerdotes</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {clergyList.map((priest) => (
               <Card key={priest.id} className="flex flex-col justify-between space-y-4 hover:border-[var(--primary)]/50">
                 <div className="space-y-3">

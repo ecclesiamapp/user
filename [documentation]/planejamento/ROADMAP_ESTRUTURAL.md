@@ -56,3 +56,19 @@ Sistema onde o paroquiano pode agendar confissões sacramentais e atendimentos c
   2. Informa seu Nome completo e WhatsApp.
   3. A solicitação entra com status `pendente` no painel da paróquia.
   4. A secretaria aprova e o sistema dispara a confirmação com lembrete direto no WhatsApp do fiel.
+
+---
+
+## 🎨 5. Calendário Litúrgico Inteligente & Identidade Cromática Dinâmica
+Integração com o ritmo do Ano Litúrgico da Igreja Católica universal e local:
+* **Paleta Canônica em Acentos Sutis:**
+  * Verde (Tempo Comum), Roxo (Quaresma e Advento), Vermelho (Santos Mártires, Pentecostes, Ramos) e Branco/Dourado (Solenidades e Festas).
+* **No Painel Administrativo (`/admin`):**
+  * Sidebar com borda/glow sutil da cor litúrgica do dia e badge de identificação do tempo/festa.
+  * Tela de Calendário (`/admin/calendario`) para visualização mensal e agendamento de Padroeiros, Novenas e Tríduos da Matriz e das CEBs com suporte a override da cor litúrgica.
+* **No Portal Público do Fiel (Home & CEBs):**
+  * Faixa litúrgica rica logo abaixo do topo/banners com a cor do dia, celebração e o resumo do Evangelho, expansível para a Liturgia Diária completa.
+  * Destaque integrado para os padroeiros das comunidades na Home e nas páginas das CEBs.
+* **Arquitetura (Motor Híbrido Resiliente):**
+  * Cálculo canônico oficial do Vaticano/CNBB sincronizado em tabelas do Supabase (`liturgical_calendar`, `liturgical_readings`, `parish_liturgical_events`).
+

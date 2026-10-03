@@ -2,29 +2,25 @@
 
 Consulte [`[documentation]/planejamento/PROMPT_DE_CONTINUIDADE.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PROMPT_DE_CONTINUIDADE.md) para o prompt oficial de ativação da próxima sessão.
 
-### 📌 Conquistas Desta Sessão:
-1. **Migração & Carga Real da Catedral de Colatina:**
-   - 3 Padres cadastrados no clero (`clergy`): Pe. Irineu Claudino Sales (Pároco), Pe. Deivid José e Pe. Ernandes Samuel (Vigários).
-   - 11 Comunidades Eclesiais de Base (CEBs) reais migradas com endereços, bairros e padroeiros.
-   - 10 Pastorais e Movimentos reais (EAC, ECC, PASCOM, Catequese, Liturgia, Escuta...).
-2. **Fase 1 Concluída (Institucional & Secretaria):**
-   - Rota pública [`/secretaria`](http://localhost:3000/secretaria): Perfil dos sacerdotes, expediente da secretaria, ramais setorizados e Linha do Tempo histórica (1927 aos dias de hoje).
-   - Gestão administrativa [`/admin/secretaria`](http://localhost:3000/admin/secretaria): Cadastro e edição de padres e horários de atendimento pastoral.
-   - Menu lateral e links no portal integrados.
-3. **Design System & Anti-Monolito:**
-   - Biblioteca de componentes em `components/ui/` (`Button`, `Card`, `Badge`, `Input`, `Select`, `Modal`).
-   - 100% de conformidade: 0 arquivos acima de 320 linhas.
-   - Auditoria UX/UI: 18 arquivos validados com 0 avisos pendentes.
-4. **Deploy & Repositório:**
-   - Build Next.js 16 (Turbopack) com 0 erros.
-   - Branch `main` sincronizada no GitHub (`https://github.com/ecclesiamapp/user`).
+### 📌 Conquistas Desta Sessão (Cruzamento Apresentação Pe. Irineu x Escopo 100% Entregue):
+1. **Cadastro Oficial do 4º Sacerdote (Pe. Adilson Ramos de Melo):**
+   - Inserido no banco via migração `20261003_add_padre_adilson.sql`.
+   - Grid do clero adaptado para 4 colunas em `/secretaria` e `/admin/secretaria` (Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes).
+2. **Mini-Sites das 11 CEBs (`/comunidades/[slug]`):**
+   - Rota dinâmica criada com hero da capela, ano de fundação, festa do padroeiro, história dos pioneiros, horários de celebração e botões de GPS (Google Maps e Waze).
+   - Integração completa nos cards da Home (`/`).
+   - Migração `20261003_add_cebs_minisites_fields.sql` aplicada.
+3. **Liturgia Diária (CNBB) & Folhetos de Missa ("Sou do Sagrado Missa"):**
+   - Faixa da Liturgia com resposta cromática canônica e modal das leituras oficiais (1ª Leitura, Salmo Responsorial e Evangelho).
+   - Módulo de folhetos em PDF das missas dominicais com visualizador e download direto.
+   - Migração `20261003_add_liturgical_booklets.sql` gerada.
+4. **PWA & Atalho no Celular sem Lojas (Slide 10):**
+   - `app/manifest.ts` e ícones oficiais gerados em `/public/icon-192.png` e `/public/icon-512.png`.
+   - Componente `PwaInstallPrompt` com suporte nativo a Android e instruções guiadas para iOS/Safari.
+5. **Build de Produção:**
+   - `npm run build` executado com **0 erros** no Next.js 16 (Turbopack). Todas as rotas geradas estática/dinamicamente com sucesso.
 
-### 🎯 Próximo Foco Imediato (Fase 2):
-1. **"Sou do Sagrado Missa":** Ambiente organizado de download de folhetos litúrgicos impressos com calendário e pesquisa por domingo/solenidade.
-2. **Painel Litúrgico:** Tela de upload de folhetos em `/admin/folhetos`.
-3. **Widget Nativo de Liturgia Diária:** Leituras do dia e cor litúrgica integradas na página inicial do portal.
-4. **Filtro dinâmico por CEB:** Seleção de capela na grade de horários do portal do fiel.
-
-### 📚 Documentação Oficial de Referência:
-* [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/IMPLEMENTACOES_PENDENTES.md): Especificação do **[MainAdmin]**, **Mini-Sites das CEBs**, **Movimentos (ECC, EAC, EJC)**, **Agendamento de Confissões** e **Área do Fiel**.
-* [`[documentation]/planejamento/CUSTOS_INFRAESTRUTURA.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/CUSTOS_INFRAESTRUTURA.md): Análise completa de custos em Reais (R$), limitações de planos gratuitos e modelo de margem SaaS.
+### 🎯 Próximo Foco Imediato:
+1. Painel de upload de folhetos em `/admin/folhetos` para a equipe litúrgica.
+2. Inclusão de fotos oficiais das capelas fornecidas pela PASCOM.
+3. Simulação da apresentação com o pároco Pe. Irineu.
