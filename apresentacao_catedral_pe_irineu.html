@@ -560,7 +560,8 @@
       display: inline-flex;
       align-items: center;
       gap: 3px;
-      font-size: 9px;
+      font-size: 8.5px;
+      white-space: nowrap;
       font-weight: 600;
       padding: 2px 6px;
       border-radius: 6px;
@@ -568,6 +569,58 @@
       color: var(--brand-red);
       align-self: flex-start;
       margin-top: 5px;
+    }
+
+    /* Estilos Elegantes para a Secretaria On-line (Slide 12) */
+    .sec-feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .sec-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #FDFBF8;
+      border: 1px solid rgba(139, 30, 34, 0.09);
+      border-radius: 10px;
+      padding: 8px 10px;
+      transition: all 0.2s ease;
+    }
+
+    .sec-feature-item:hover {
+      background: #FFFFFF;
+      border-color: rgba(139, 30, 34, 0.25);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(139, 30, 34, 0.06);
+    }
+
+    .sec-item-icon {
+      font-size: 15px;
+      line-height: 1.2;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .sec-item-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sec-item-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .sec-item-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.35;
     }
 
     /* Controls Bar */
@@ -748,7 +801,7 @@
       <div class="hero-pills">
         <div class="hero-pill">⛪ Identidade & Acessibilidade para Idosos</div>
         <div class="hero-pill">⏰ Missas de Hoje (07:00, 09:00 e 19h) & Confissões</div>
-        <div class="hero-pill">📍 Mini-Sites das 11 CEBs com GPS</div>
+        <div class="hero-pill">📍 Mini-Sites das 11 CEBs com Localização no Maps</div>
         <div class="hero-pill">📲 Atalho Instantâneo no Celular (PWA)</div>
       </div>
     </section>
@@ -778,7 +831,7 @@
           <ul class="comp-list" style="gap: 10px; font-size: 12.5px;">
             <li>✅ <strong>Card de Missas de Hoje:</strong> Destaque na primeira página informando horário e celebrante de forma imediata.</li>
             <li>✅ <strong>Atendimento em 1 Clique:</strong> Botões direcionados para o WhatsApp da secretaria (Batismo, Casamento, Confissões).</li>
-            <li>✅ <strong>Páginas Individuais para cada CEB:</strong> Cada comunidade com fotos, localização GPS, história e programação da comunidade.</li>
+            <li>✅ <strong>Páginas Individuais para cada CEB:</strong> Cada comunidade com fotos, Localização no Maps, história e programação da comunidade.</li>
             <li>✅ <strong>Sessão de Folhetos das Missas:</strong> Sessão dedicada e organizada com calendário e download direto dos folhetos.</li>
             <li>✅ <strong>Portal Completo e Acessível:</strong> Experiência moderna, solene e intuitiva para aproximar os fiéis da vida da Catedral.</li>
           </ul>
@@ -950,7 +1003,7 @@
 
         <div class="card">
           <div class="card-icon">📍</div>
-          <h3 class="card-title">GPS Integrado</h3>
+          <h3 class="card-title">Localização em Destaque na Página</h3>
           <p class="card-text">Botão "Como Chegar" com rotas diretas no Google Maps para visitantes e fiéis.</p>
         </div>
 
@@ -973,7 +1026,7 @@
       <div class="slide-tag">Parte 01 • O Serviço: Rede Comunitária</div>
       <h2 class="slide-title">A Rede Paroquial: <span>A Catedral Abraça as 11 CEBs</span></h2>
       <p class="slide-description" style="margin-bottom: 10px;">
-        A Matriz atua como centro gerador de comunhão. Cada uma das 11 comunidades possui seu mini-site próprio com mapa GPS, história e programação:
+        A Matriz atua como centro gerador de comunhão. Cada uma das 11 comunidades possui seu mini-site próprio com Localização no Maps, história e programação:
       </p>
 
       <div class="diagram-container">
@@ -991,77 +1044,77 @@
           <div class="ceb-node-card">
             <div class="ceb-node-title">1. Perpétuo Socorro</div>
             <div class="ceb-node-meta">📍 B. Perpétuo Socorro • 1956</div>
-            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+            <span class="ceb-node-pill">🗺️ Localização no Maps + Mini-Site</span>
           </div>
 
           <!-- CEB 2 -->
           <div class="ceb-node-card">
             <div class="ceb-node-title">2. Sagrada Família</div>
             <div class="ceb-node-meta">📍 B. Maria Ismênia • 1968</div>
-            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+            <span class="ceb-node-pill">🗺️ Localização no Maps + Mini-Site</span>
           </div>
 
           <!-- CEB 3 -->
           <div class="ceb-node-card">
             <div class="ceb-node-title">3. São Francisco</div>
             <div class="ceb-node-meta">📍 B. Operário • 1974</div>
-            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+            <span class="ceb-node-pill">🗺️ Localização no Maps + Mini-Site</span>
           </div>
 
           <!-- CEB 4 -->
           <div class="ceb-node-card">
             <div class="ceb-node-title">4. São Pedro</div>
             <div class="ceb-node-meta">📍 B. Tropical • 1981</div>
-            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+            <span class="ceb-node-pill">🗺️ Localização no Maps + Mini-Site</span>
           </div>
 
           <!-- CEB 5 -->
           <div class="ceb-node-card">
             <div class="ceb-node-title">5. N. Sra. Guadalupe</div>
             <div class="ceb-node-meta">📍 Vista da Serra • 1989</div>
-            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+            <span class="ceb-node-pill">🗺️ Localização no Maps + Mini-Site</span>
           </div>
 
           <!-- CEB 6 -->
           <div class="ceb-node-card">
             <div class="ceb-node-title">6. Santa Luzia</div>
             <div class="ceb-node-meta">📍 Alto Vila Nova • 1979</div>
-            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+            <span class="ceb-node-pill">🗺️ Localização no Maps + Mini-Site</span>
           </div>
 
           <!-- CEB 7 -->
           <div class="ceb-node-card">
             <div class="ceb-node-title">7. N. Sra. da Penha</div>
             <div class="ceb-node-meta">📍 Moacir Brotas • 1962</div>
-            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+            <span class="ceb-node-pill">🗺️ Localização no Maps + Mini-Site</span>
           </div>
 
           <!-- CEB 8 -->
           <div class="ceb-node-card">
             <div class="ceb-node-title">8. Santo Expedito</div>
             <div class="ceb-node-meta">📍 Jardim Planalto • 1995</div>
-            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+            <span class="ceb-node-pill">🗺️ Localização no Maps + Mini-Site</span>
           </div>
 
           <!-- CEB 9 -->
           <div class="ceb-node-card">
             <div class="ceb-node-title">9. São Bento</div>
             <div class="ceb-node-meta">📍 Residencial Nobre • 2004</div>
-            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+            <span class="ceb-node-pill">🗺️ Localização no Maps + Mini-Site</span>
           </div>
 
           <!-- CEB 10 -->
           <div class="ceb-node-card">
             <div class="ceb-node-title">10. São Lucas</div>
             <div class="ceb-node-meta">📍 Noêmia Vitalli • 2008</div>
-            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+            <span class="ceb-node-pill">🗺️ Localização no Maps + Mini-Site</span>
           </div>
 
           <!-- Destaque de Integração -->
           <div class="ceb-node-card" style="grid-column: span 2; background: rgba(139, 30, 34, 0.04); border-color: rgba(139, 30, 34, 0.3);">
             <div class="ceb-node-title" style="color: var(--brand-red);">✨ Integração Total com a Catedral</div>
             <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
-              Cada comunidade conta com rota GPS no Google Maps/Waze, história dos fundadores, celebrações e acolhimento pastoral próprio.
+              Cada comunidade conta com Localização no Maps/Waze, história dos fundadores, celebrações e acolhimento pastoral próprio.
             </div>
           </div>
         </div>
@@ -1148,7 +1201,7 @@
           <div class="card-icon">📝</div>
           <h3 class="card-title">Avisos em 30 Segundos</h3>
           <p class="card-text">
-            Publicou a novena ou a quermesse no painel, já aparece instantaneamente na Home da Catedral.
+            Publicou a novena ou a quermesse no painel, já aparece instantaneamente na Home da Catedral. A secretaria pode <strong>selecionar quais comunicados e avisos são enviados diretamente para os celulares dos fiéis cadastrados</strong> (via notificação e e-mail).
           </p>
         </div>
 
@@ -1156,15 +1209,15 @@
           <div class="card-icon">🗓️</div>
           <h3 class="card-title">Grade Semanal Dinâmica</h3>
           <p class="card-text">
-            Mudança rápida de horário de missa de feriado ou celebração especial com 2 cliques no calendário.
+            Mudança rápida de horário de missa de feriado ou celebração especial com 2 cliques no calendário — <strong>também com notificação instantânea no celular</strong> de todos os fiéis cadastrados.
           </p>
         </div>
 
         <div class="card">
-          <div class="card-icon">🛡️</div>
-          <h3 class="card-title">Proteção e Simplicidade</h3>
+          <div class="card-icon">📲</div>
+          <h3 class="card-title">Disparo Seletivo & Simplicidade</h3>
           <p class="card-text">
-            Interface 100% em português, limpa e segura. A secretária tem autonomia total às funcionalidades do site.
+            A secretária escolhe com um clique quem recebe cada aviso: fiéis da Matriz, de uma CEB específica ou toda a paróquia. Painel 100% em português, seguro e sem complicações.
           </p>
         </div>
       </div>
@@ -1187,12 +1240,36 @@
           <p class="card-text">
             O paroquiano reserva horários individuais com clareza e discrição pelo celular:
           </p>
-          <ul class="comp-list" style="margin-top: 8px; font-size: 12px; gap: 6px;">
-            <li>🕊️ <strong>Confissões:</strong> Vagas na grade dos padres.</li>
-            <li>📖 <strong>Direção Espiritual:</strong> Atendimento com o sacerdote.</li>
-            <li>❤️ <strong>Pastoral da Escuta:</strong> Acolhimento fraterno e oração.</li>
-            <li>💬 <strong>Atendimento do Padre:</strong> Assuntos e bênçãos.</li>
-          </ul>
+          <div class="sec-feature-list">
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">🕊️</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">Confissões</span>
+                <span class="sec-item-desc">Vagas e plantões na grade dos padres</span>
+              </div>
+            </div>
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">📖</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">Direção Espiritual</span>
+                <span class="sec-item-desc">Atendimento reservado com o sacerdote</span>
+              </div>
+            </div>
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">❤️</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">Pastoral da Escuta</span>
+                <span class="sec-item-desc">Acolhimento fraterno e oração</span>
+              </div>
+            </div>
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">💬</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">Atendimento do Padre</span>
+                <span class="sec-item-desc">Bênçãos e orientações pastorais</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Card 2: Inscrições & Matrículas -->
@@ -1203,12 +1280,36 @@
           <p class="card-text">
             Fichas digitais preenchidas no celular, sem papelada perdida na secretaria:
           </p>
-          <ul class="comp-list" style="margin-top: 8px; font-size: 12px; gap: 6px;">
-            <li>💧 <strong>Batismo:</strong> Dados da criança, pais e padrinhos.</li>
-            <li>✝️ <strong>Catequese:</strong> Eucaristia e Crisma por comunidade.</li>
-            <li>💍 <strong>Curso de Noivos:</strong> Preparação matrimonial com vagas.</li>
-            <li>👶 <strong>Curso de Gestantes:</strong> Apoio à vida e acolhimento.</li>
-          </ul>
+          <div class="sec-feature-list">
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">💧</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">Batismo</span>
+                <span class="sec-item-desc">Cadastro da criança, pais e padrinhos</span>
+              </div>
+            </div>
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">✝️</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">Catequese</span>
+                <span class="sec-item-desc">Eucaristia e Crisma por comunidade</span>
+              </div>
+            </div>
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">💍</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">Curso de Noivos</span>
+                <span class="sec-item-desc">Preparação matrimonial com vagas</span>
+              </div>
+            </div>
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">👶</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">Curso de Gestantes</span>
+                <span class="sec-item-desc">Apoio à vida, acolhimento e formação</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Card 3: Guia de Documentos & Informações -->
@@ -1219,12 +1320,36 @@
           <p class="card-text">
             Checklist pastoral que esvazia a fila e as ligações repetitivas da secretaria:
           </p>
-          <ul class="comp-list" style="margin-top: 8px; font-size: 12px; gap: 6px;">
-            <li>✓ <strong>Checklist de Batismo:</strong> Requisitos canônicos claros.</li>
-            <li>✓ <strong>Prazos de Casamento:</strong> Etapas e certidões necessárias.</li>
-            <li>✓ <strong>Intenções no Altar:</strong> Pedidos formatados em 1 clique.</li>
-            <li>✓ <strong>WhatsApp Integrado:</strong> A secretária recebe tudo pronto.</li>
-          </ul>
+          <div class="sec-feature-list">
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">📋</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">Checklist de Batismo</span>
+                <span class="sec-item-desc">Requisitos canônicos claros e documentos</span>
+              </div>
+            </div>
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">⛪</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">Prazos de Casamento</span>
+                <span class="sec-item-desc">Etapas e certidões necessárias</span>
+              </div>
+            </div>
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">🕯️</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">Intenções no Altar</span>
+                <span class="sec-item-desc">Pedidos de missa formatados em 1 clique</span>
+              </div>
+            </div>
+            <div class="sec-feature-item">
+              <span class="sec-item-icon">📲</span>
+              <div class="sec-item-body">
+                <span class="sec-item-title">WhatsApp Integrado</span>
+                <span class="sec-item-desc">A secretária recebe tudo pronto</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1348,7 +1473,7 @@
           <div style="font-size: 11px; font-weight: 700; color: #b45309; text-transform: uppercase;">Implantação & Treinamento</div>
           <h3 class="card-title" style="margin-top: 4px; font-size: 20px;">Taxa Única: R$ 1.200</h3>
           <p class="card-text">
-            Carga completa das 11 comunidades (CEBs), mapas GPS, escalas e treinamento presencial VIP da equipe da secretaria.
+            Carga completa das 11 comunidades (CEBs), Localização no Maps, escalas e treinamento presencial VIP da equipe da secretaria.
           </p>
           <div style="margin-top: 10px; font-size: 11.5px; color: #b45309; background: rgba(255, 168, 42, 0.12); padding: 6px 10px; border-radius: 8px; font-weight: 600;">
             ⭐ Condição Piloto: parcelamento flexível
@@ -1427,7 +1552,7 @@
 
             <ul class="comp-list" style="font-size: 11px; border-top: 1px solid var(--border-subtle); padding-top: 8px; line-height: 1.4;">
               <li>✓ Tudo do Plano Semente</li>
-              <li>✓ Até 8 CEBs com GPS</li>
+              <li>✓ Até 8 CEBs com Localização no Maps</li>
               <li>✓ Pastorais e Movimentos</li>
               <li>✓ Notificações diretas aos fiéis</li>
               <li>✓ Até 5 Acessos com permissões</li>
