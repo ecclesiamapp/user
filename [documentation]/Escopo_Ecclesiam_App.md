@@ -33,6 +33,10 @@ O objetivo é transformar o projeto que nasceu para a Catedral de Colatina em um
 * Envio de Notificações Push (avisos urgentes, lembrete de eventos e novenas).
 * Integração nativa com o Calendário Litúrgico e Liturgia Diária completa.
 
+### 3.4 Módulo Secretaria On-line (Balcão de Serviços Pastorais)
+* **Agendamentos Pastorais:** Marcação de Confissões individuais, Direção Espiritual com sacerdotes, Pastoral da Escuta e atendimentos canônicos com controle de vagas e confirmação automática.
+* **Inscrições & Matrículas:** Fichas digitais para Batismo, Catequese (Eucaristia e Crisma), Curso de Noivos e Curso de Gestantes, eliminando papelada na secretaria.
+* **Guia de Documentação & Informações:** Checklist completo e afetuoso dos documentos exigidos para sacramentos e certidões, eliminando dúvidas repetitivas no WhatsApp e telefone.
 
 ## 4. Stack Tecnológica Definida
 * **Frontend e Painel Admin:** Next.js (React)

@@ -10,14 +10,11 @@
 
 ## 📌 Visão Panorâmica da Reunião
 
-A apresentação foi estruturada em uma narrativa progressiva de **3 Blocos Complementares**, desenhada para conduzir o pároco da aprovação emocional e pastoral até a viabilidade prática e financeira:
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
+A apresentação foi estruturada em uma narrativa progressiva de **3 Blocos Complementares**, desenhada para conduzir o pároco da aprovação emocional e pastoral até a viabilidad┌────────────────────────────────────────────────────────────────────────┐
 │                        NARRATIVA DA APRESENTAÇÃO                       │
 ├─────────────────────┬───────────────────────────┬──────────────────────┤
 │  PARTE 01           │  PARTE 02                 │  PARTE 03            │
-│  Sobre o Serviço    │  Sobre Prazo              │  Custos &            │
+│  Sobre o Serviço    │  A Tecnologia             │  Custos &            │
 │  (A Experiência     │  (A Plataforma por trás:  │  Sustentabilidade    │
 │   do Fiel & Paróquia)│   O Ecclesiam App)        │  (Investimento & ROI)│
 └─────────────────────┴───────────────────────────┴──────────────────────┘
@@ -29,51 +26,40 @@ A apresentação foi estruturada em uma narrativa progressiva de **3 Blocos Comp
 *Status: 100% pronta e aprovada nos slides interativos (`apresentacao_catedral_pe_irineu.html`).*
 
 ### Objetivo deste Bloco:
-Despertar o encanto pastoral do pároco, mostrando que a solução foi feita sob medida para a Catedral, resolve o caos de horários, acolhe os idosos e valoriza todas as comunidades filiadas.
+Despertar o encanto pastoral do pároco, mostrando que a solução foi feita sob medida para a Catedral, resolve o caos de horários, acolhe os idosos, traz a Secretaria On-line (agendamentos e inscrições) e valoriza todas as comunidades filiadas.
 
 ### Conteúdo Abordado:
 1. **Slide 1 — Capa Geral & Abertura:** A Nova Catedral Digital (acolhimento, fé e comunhão no celular do paroquiano) com visão panorâmica dos 3 blocos.
 2. **Slide 2 — Capa da Sessão 01:** Estrutura do Portal Digital (Acolhimento pastoral solene, clareza de horários, CEBs e atalho no celular).
-3. **Slide 3 — Diagnóstico Pastoral:** As dores do modelo legado (dúvidas de horários, sobrecarga na secretaria, comunidades invisíveis, dificuldade para achar e baixar folhetos de missa) vs. As soluções da nova plataforma (card de missas, botão de WhatsApp, páginas das CEBs e sessão dedicada com calendário e download de folhetos).
-4. **Slide 4 — Identidade Sagrada & Acessibilidade:** Dignidade visual da Catedral, tipografia Clara com traços abertos e controle de tamanho de fonte para fiéis idosos.
-5. **Slide 5 — Coração Pastoral:** Missas de hoje na Catedral (07:00, 09:00 e 19h), escala de confissões dos padres (Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes) e WhatsApp direto da secretaria.
-6. **Slide 6 — Força das Comunidades (CEBs):** Espaço exclusivo para cada uma das comunidades com foto da fachada, GPS "Como Chegar", grade de atividades semanais e notificação e e-mails no celular dos fiéis.
-7. **Slide 7 — Calendário Litúrgico:** Festas e solenidades universais integradas ao Padroeiro da Catedral e à Liturgia Diária oficial da CNBB.
-8. **Slide 8 — Pastoral do Dízimo:** Contribuição fraterna facilitada com PIX em 1 clique (copia e cola), 100% direto na conta da paróquia.
-9. **Slide 9 — Gestão Descomplicada:** Painel da secretaria intuitivo em português (mudança de avisos e horários em segundos).
-10. **Slide 10 — Atalho no Celular (PWA):** Instalação com 1 toque sem depender de lojas de aplicativos (Google Play / App Store) e sem ocupar a memória do aparelho.
+3. **Slide 3 — Diagnóstico Pastoral:** As dores do modelo legado vs. As soluções da nova plataforma (card de missas, botões de WhatsApp, páginas das CEBs e download de folhetos).
+4. **Slide 4 — Identidade Sagrada & Acessibilidade:** Dignidade visual da Catedral, tipografia Clara com controle de tamanho de fonte para fiéis idosos.
+5. **Slide 5 — Coração Pastoral:** Missas de hoje, confissões, liturgia, dízimo e Secretaria On-line.
+6. **Slide 6 — Missas e Padres:** Escala de confissões dos padres (Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes) e WhatsApp da secretaria.
+7. **Slide 7 — Força das Comunidades (CEBs):** Espaço exclusivo para cada uma das comunidades com foto, GPS "Como Chegar" e avisos.
+8. **Slide 8 — Rede Paroquial (11 CEBs):** Catedral Matriz no centro gerador e a grade das 10 CEBs filiadas.
+9. **Slide 9 — Calendário Litúrgico:** Festas mundiais, Padroeiro Sagrado Coração de Jesus e Leituras CNBB.
+10. **Slide 10 — Pastoral do Dízimo:** Contribuição fraterna facilitada com PIX em 1 clique (copia e cola) 100% direto na conta da paróquia.
+11. **Slide 11 — Gestão Descomplicada:** Painel da secretaria intuitivo em português.
+12. **Slide 12 — Secretaria On-line:** Agendamentos de Confissões/Direção Espiritual, Inscrições (Batismo, Catequese, Noivos) e Balcão de Documentos.
+13. **Slide 13 — Atalho no Celular (PWA):** Instalação com 1 toque sem depender de lojas de aplicativos.
 
 ---
 
-# ⏱️ PARTE 02 — SOBRE PRAZO & A PLATAFORMA ECCLESIAM APP
-*Objetivo: Explicar por que o prazo é surpreendentemente rápido, seguro e sem riscos de atraso.*
+# ⚡ PARTE 02 — A PLATAFORMA ECCLESIAM APP (TECNOLOGIA & ROBUSTEZ)
+*Objetivo: Demonstrar maturidade tecnológica, segurança e por que a implementação é rápida, segura e sem riscos.*
 
 ### O Argumento Central:
-> *"Padre Irineu, o senhor deve estar se perguntando: 'Um projeto dessa grandeza, com mini-sites para as comunidades e painel administrativo, vai demorar meses para ser desenvolvido?'.*  
-> *A resposta é **não**. E o motivo é que o senhor **não está contratando um site artesanal feito do zero**.*  
+> *"Padre Irineu, o senhor deve estar se perguntando: 'Um projeto dessa grandeza, com mini-sites para as comunidades, secretaria on-line e painel administrativo, vai demorar muito para ficar pronto?'.*  
+> *A resposta é **não**. O motivo é que o senhor **não está contratando um site artesanal feito do zero**.*  
 > *Por trás do portal da Catedral existe o **Ecclesiam App**, uma plataforma tecnológica especializada e dedicada exclusivamente à Igreja Católica."*
 
 ### O que Apresentar sobre a Plataforma Ecclesiam App:
 1. **O Motor Especializado:**
-   - O Ecclesiam App é um ecossistema desenvolvido especificamente para a dinâmica eclesial (não é um WordPress adaptado nem um template genérico).
-   - Ele já possui pré-construídos os blocos fundamentais:
-     - Gestor de Escalas Sacerdotais e Confissões.
-     - Sistema de Mini-Portais Multi-Comunidades (CEBs) com geolocalização.
-     - Módulo de arrecadação do Dízimo com chave PIX instantânea.
-     - Calendário Litúrgico católico brasileiro.
-     - Painel administrativo blindado para secretárias leigas.
+   - O Ecclesiam App já conta com base pronta: Gestor de Escalas Sacerdotais, Sistema de Mini-Portais Multi-Comunidades (CEBs) com GPS, Dízimo PIX, Secretaria On-line e Painel da Secretaria.
 2. **A Catedral de Colatina como Paróquia Piloto e Farol da Diocese:**
    - A Catedral do Sagrado Coração de Jesus é o modelo de referência (*Flagship*).
-   - O sistema nasce robusto para atender à paróquia-mãe da diocese e replicar com dignidade nas demais paróquias.
-3. **Cronograma Prático de Implementação (Meta Estratégica: Segunda Quinzena de Novembro):**
-
-| Etapa | Ação | Responsáveis | Período / Prazo |
-| :--- | :--- | :--- | :--- |
-| **Etapa 1 (Outubro)** | **Homologação e Ajustes Finais do Layout**<br>Revisão de textos, fotos oficiais e bênção do Pe. Irineu. | Pe. Irineu + Equipe Start | **Outubro (trabalho noturno sem pressa)** |
-| **Etapa 2 (Início Nov)** | **Comunidades & Treinamento da Secretaria**<br>Páginas das 11 comunidades (fotos e mapas GPS) e treino de 1 hora com a secretaria. | Secretaria + Equipe Start | **1ª Quinzena de Novembro** |
-| **Etapa 3 (22 ou 29/Nov)** | **Lançamento Oficial no Advento**<br>Anúncio solene nas missas dominicais, folhetos e QR Code, preparando a Catedral para as Missas de Fim de Ano. | Pascom + Padres | **Domingo de Cristo Rei (22/11) ou 1º Domingo do Advento (29/11)** |
-
-> **Vantagem Pastoral:** Permite que a paróquia e a equipe trabalhem com total tranquilidade, aproveitando o momento litúrgico de maior público e arrecadação do ano (Advento e Natal).
+3. **Flexibilidade de Cronograma (Negociação Direta):**
+   - Os prazos e etapas de homologação, treinamento da secretaria e lançamento oficial serão combinados e alinhados diretamente com o Pe. Irineu conforme o ritmo e conveniência da paróquia.
 
 ---
 
@@ -126,10 +112,10 @@ Despertar o encanto pastoral do pároco, mostrando que a solução foi feita sob
 
 ---
 
-## 📋 Resumo Executivo para a Reunião (17 Slides em 3 Sessões)
+## 📋 Resumo Executivo para a Reunião (19 Slides em 3 Sessões)
 
 * **Duração Total:** 25 a 30 minutos
-  * **00m – 15m (Sessão 01 — Slides 1 a 10):** Estrutura do Portal Digital (Acolhimento, Missas, CEBs, Liturgia, Dízimo, Secretaria, PWA).
-  * **15m – 22m (Sessão 02 — Slides 11 a 13):** Apresentação do Ecclesiam App (Logo oficial, estrutura já implementada e cronograma no Advento).
-  * **22m – 28m (Sessão 03 — Slides 14 a 16):** Custos, Sustentabilidade Pastoral (Slide 15: O Sistema que se Paga) e Tabela dos 4 Planos com Nomes Bíblicos (Slide 16: Semente, Semeador, Pescador e Videira).
-  * **28m – 30m (Encerramento — Slide 17):** Start Agência Digital, dúvidas, bênção do Pe. Irineu e próximos passos.
+  * **00m – 16m (Sessão 01 — Slides 1 a 13):** Estrutura do Portal Digital (Acolhimento, Missas, CEBs, Liturgia, Dízimo, Secretaria, Secretaria On-line com Agendamentos/Inscrições e Atalho PWA no celular).
+  * **16m – 20m (Sessão 02 — Slides 14 a 15):** Apresentação do Ecclesiam App (Logo oficial, robustez tecnológica e estrutura já implementada para a Catedral).
+  * **20m – 26m (Sessão 03 — Slides 16 a 18):** Custos, Sustentabilidade Pastoral (Slide 17: O Sistema que se Paga) e Tabela dos 4 Planos com Nomes Bíblicos (Slide 18: Semente, Semeador, Pescador e Videira).
+  * **26m – 30m (Encerramento — Slide 19):** Start Agência Digital, dúvidas, negociação de prazos e bênção do Pe. Irineu.
