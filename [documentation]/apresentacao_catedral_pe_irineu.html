@@ -629,6 +629,77 @@
       border-radius: 12px;
       background: var(--brand-gold);
     }
+
+    /* Scrollbar personalizada suave */
+    .slide::-webkit-scrollbar {
+      width: 6px;
+    }
+    .slide::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .slide::-webkit-scrollbar-thumb {
+      background: rgba(139, 30, 34, 0.25);
+      border-radius: 4px;
+    }
+    .slide::-webkit-scrollbar-thumb:hover {
+      background: rgba(139, 30, 34, 0.5);
+    }
+
+    /* Responsividade completa para tablets, smartphones e projetores */
+    @media (max-width: 1024px) {
+      .slide {
+        padding: 30px;
+        width: 94%;
+        height: 86vh;
+      }
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .cebs-network-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 16px;
+      }
+      .brand-subtitle {
+        display: none;
+      }
+      .slide {
+        padding: 24px 20px;
+        width: 96%;
+        height: 88vh;
+        border-radius: 18px;
+      }
+      .slide-title {
+        font-size: 24px;
+      }
+      .hero-slide .slide-title {
+        font-size: 28px;
+      }
+      .grid-2, .grid-3, .grid-4, .comparison-container {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .cebs-network-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .diagram-branches-grid {
+        grid-template-columns: 1fr;
+      }
+      footer {
+        padding: 10px 16px;
+      }
+      .nav-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      .dots-container {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1475,8 +1546,36 @@
         changeSlide(1);
       } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
         changeSlide(-1);
+      } else if (e.key === 'Home') {
+        goToSlide(1);
+      } else if (e.key === 'End') {
+        goToSlide(totalSlides);
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
       }
     });
+
+    // Touch Swipe Navigation para celulares e tablets
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const deck = document.querySelector('.deck-container');
+    if (deck) {
+      deck.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      deck.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diffX = touchEndX - touchStartX;
+        if (Math.abs(diffX) > 45) {
+          if (diffX < 0) {
+            changeSlide(1); // Swipe esquerda -> avança
+          } else {
+            changeSlide(-1); // Swipe direita -> recua
+          }
+        }
+      }, { passive: true });
+    }
 
     // Fullscreen toggle
     function toggleFullscreen() {

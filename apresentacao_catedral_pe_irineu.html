@@ -414,6 +414,162 @@
       line-height: 1.6;
     }
 
+    /* Diagram Tree Styles */
+    .diagram-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      flex: 1;
+      justify-content: center;
+      position: relative;
+    }
+
+    .diagram-hub {
+      background: linear-gradient(135deg, var(--brand-red-dark), var(--brand-red));
+      color: #FFF;
+      border: 2px solid var(--brand-gold);
+      border-radius: 20px;
+      padding: 14px 28px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(139, 30, 34, 0.35);
+      position: relative;
+      z-index: 2;
+    }
+
+    .diagram-hub-title {
+      font-family: 'Cinzel', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #FFF;
+    }
+
+    .diagram-hub-subtitle {
+      font-size: 11px;
+      color: var(--brand-gold-glow);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    .diagram-connector-line {
+      width: 2px;
+      height: 18px;
+      background: linear-gradient(to bottom, var(--brand-gold), rgba(139, 30, 34, 0.4));
+      margin: 0 auto;
+    }
+
+    .diagram-branches-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .diagram-branch-card {
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+
+    .diagram-branch-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--brand-red-light);
+    }
+
+    .diagram-branch-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: rgba(139, 30, 34, 0.08);
+      color: var(--brand-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    .diagram-branch-title {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .diagram-branch-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.35;
+      margin-top: 2px;
+    }
+
+    /* CEBs Network Tree Styles */
+    .cebs-network-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .ceb-node-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(35, 24, 21, 0.04);
+    }
+
+    .ceb-node-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--brand-gold);
+      box-shadow: 0 8px 20px rgba(139, 30, 34, 0.12);
+    }
+
+    .ceb-node-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    .ceb-node-meta {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ceb-node-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(139, 30, 34, 0.08);
+      color: var(--brand-red);
+      align-self: flex-start;
+      margin-top: 5px;
+    }
+
     /* Controls Bar */
     footer {
       background: #18110E;
@@ -473,6 +629,77 @@
       border-radius: 12px;
       background: var(--brand-gold);
     }
+
+    /* Scrollbar personalizada suave */
+    .slide::-webkit-scrollbar {
+      width: 6px;
+    }
+    .slide::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .slide::-webkit-scrollbar-thumb {
+      background: rgba(139, 30, 34, 0.25);
+      border-radius: 4px;
+    }
+    .slide::-webkit-scrollbar-thumb:hover {
+      background: rgba(139, 30, 34, 0.5);
+    }
+
+    /* Responsividade completa para tablets, smartphones e projetores */
+    @media (max-width: 1024px) {
+      .slide {
+        padding: 30px;
+        width: 94%;
+        height: 86vh;
+      }
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .cebs-network-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 16px;
+      }
+      .brand-subtitle {
+        display: none;
+      }
+      .slide {
+        padding: 24px 20px;
+        width: 96%;
+        height: 88vh;
+        border-radius: 18px;
+      }
+      .slide-title {
+        font-size: 24px;
+      }
+      .hero-slide .slide-title {
+        font-size: 28px;
+      }
+      .grid-2, .grid-3, .grid-4, .comparison-container {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .cebs-network-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .diagram-branches-grid {
+        grid-template-columns: 1fr;
+      }
+      footer {
+        padding: 10px 16px;
+      }
+      .nav-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      .dots-container {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -487,7 +714,7 @@
       </div>
     </div>
     <div class="header-actions">
-      <div class="slide-badge" id="slideIndicator">Slide 1 de 17</div>
+      <div class="slide-badge" id="slideIndicator">Slide 1 de 19</div>
       <button class="btn-fullscreen" onclick="toggleFullscreen()">Tela Cheia ⛶</button>
     </div>
   </header>
@@ -594,8 +821,85 @@
       </div>
     </section>
 
-    <!-- Slide 5: Missas, Confissões e Padres (Com Pe. Adilson incluído) -->
+    <!-- Slide 5: Diagrama da Estrutura do Serviço (Ramificação de Funções) -->
     <section class="slide" data-slide="5">
+      <div class="slide-tag">Parte 01 • O Serviço: Arquitetura da Solução</div>
+      <h2 class="slide-title">Estrutura do Portal: <span>A Central Pastoral Digital</span></h2>
+      <p class="slide-description" style="margin-bottom: 12px;">
+        A partir de uma única entrada clara e acolhedora, o paroquiano acessa todas as dimensões da vida eclesial da Catedral:
+      </p>
+
+      <div class="diagram-container">
+        <!-- Hub Central -->
+        <div class="diagram-hub">
+          <div style="font-size: 22px; margin-bottom: 2px;">⛪</div>
+          <div class="diagram-hub-title">Portal Oficial da Catedral de Colatina</div>
+          <div class="diagram-hub-subtitle">O Coração Digital do Sagrado Coração de Jesus</div>
+        </div>
+
+        <div class="diagram-connector-line"></div>
+
+        <!-- 6 Ramos Principais -->
+        <div class="diagram-branches-grid">
+          <!-- Ramo 1 -->
+          <div class="diagram-branch-card">
+            <div class="diagram-branch-icon">⏰</div>
+            <div>
+              <div class="diagram-branch-title">Missas & Celebrações</div>
+              <div class="diagram-branch-desc">Grade do dia com horários grandes (07h, 09h e 19h), celebrantes e link de transmissão ao vivo.</div>
+            </div>
+          </div>
+
+          <!-- Ramo 2 -->
+          <div class="diagram-branch-card">
+            <div class="diagram-branch-icon">🕊️</div>
+            <div>
+              <div class="diagram-branch-title">Confissões & Atendimento</div>
+              <div class="diagram-branch-desc">Escala transparente dos 4 padres (Pe. Irineu, Pe. Adilson, Pe. Deivid e Pe. Ernandes) no confessionário.</div>
+            </div>
+          </div>
+
+          <!-- Ramo 3 -->
+          <div class="diagram-branch-card">
+            <div class="diagram-branch-icon">📖</div>
+            <div>
+              <div class="diagram-branch-title">Liturgia Diária (CNBB)</div>
+              <div class="diagram-branch-desc">Cor canônica do dia, evangelho diário na primeira página e leituras completas em 1 toque.</div>
+            </div>
+          </div>
+
+          <!-- Ramo 4 -->
+          <div class="diagram-branch-card">
+            <div class="diagram-branch-icon">📄</div>
+            <div>
+              <div class="diagram-branch-title">Folhetos da Missa (PDF)</div>
+              <div class="diagram-branch-desc">Área organizada com download direto dos folhetos semanais ("Sou do Sagrado Missa") para o celular.</div>
+            </div>
+          </div>
+
+          <!-- Ramo 5 -->
+          <div class="diagram-branch-card">
+            <div class="diagram-branch-icon">💛</div>
+            <div>
+              <div class="diagram-branch-title">Dízimo & Ofertas no PIX</div>
+              <div class="diagram-branch-desc">Botão Copia e Cola, sem taxas, 100% direto na conta bancária oficial da paróquia.</div>
+            </div>
+          </div>
+
+          <!-- Ramo 6 -->
+          <div class="diagram-branch-card">
+            <div class="diagram-branch-icon">💬</div>
+            <div>
+              <div class="diagram-branch-title">WhatsApp da Secretaria</div>
+              <div class="diagram-branch-desc">Atalhos pré-formatados para marcar batismo, casamento, certidões e intenções no altar.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6: Missas, Confissões e Padres (Com Pe. Adilson incluído) -->
+    <section class="slide" data-slide="6">
       <div class="slide-tag">Parte 01 • O Serviço: Missas & Confissões</div>
       <h2 class="slide-title">Missas do Dia, Confissões e <span>Escala dos Sacerdotes</span></h2>
       <p class="slide-description">
@@ -629,8 +933,8 @@
       </div>
     </section>
 
-    <!-- Slide 6: Força das Comunidades (Sem número hardcoded) -->
-    <section class="slide" data-slide="6">
+    <!-- Slide 7: Força das Comunidades (Sem número hardcoded) -->
+    <section class="slide" data-slide="7">
       <div class="slide-tag">Parte 01 • O Serviço: Comunidades & CEBs</div>
       <h2 class="slide-title">Todas as Comunidades (CEBs) <span>Vivas e Valorizadas</span></h2>
       <p class="slide-description">
@@ -664,8 +968,108 @@
       </div>
     </section>
 
-    <!-- Slide 7: Calendário Litúrgico (Ênfase nas Festas e Solenidades) -->
-    <section class="slide" data-slide="7">
+    <!-- Slide 8: Diagrama da Rede de Comunidades (Ramificação da Matriz nas 11 CEBs) -->
+    <section class="slide" data-slide="8">
+      <div class="slide-tag">Parte 01 • O Serviço: Rede Comunitária</div>
+      <h2 class="slide-title">A Rede Paroquial: <span>A Catedral Abraça as 11 CEBs</span></h2>
+      <p class="slide-description" style="margin-bottom: 10px;">
+        A Matriz atua como centro gerador de comunhão. Cada uma das 11 comunidades possui seu mini-site próprio com mapa GPS, história e programação:
+      </p>
+
+      <div class="diagram-container">
+        <!-- Hub Matriz -->
+        <div class="diagram-hub" style="background: linear-gradient(135deg, #1e3a8a, #0f172a); border-color: #60a5fa; padding: 12px 24px;">
+          <div class="diagram-hub-title" style="font-size: 16px;">🏛️ CATEDRAL DO SAGRADO CORAÇÃO DE JESUS (MATRIZ)</div>
+          <div class="diagram-hub-subtitle" style="color: #93c5fd;">Governo Pastoral & Centro da Rede Comunitária • Fundada em 1927</div>
+        </div>
+
+        <div class="diagram-connector-line" style="height: 14px; background: linear-gradient(to bottom, #60a5fa, #8B1E22);"></div>
+
+        <!-- Grade das 11 CEBs -->
+        <div class="cebs-network-grid">
+          <!-- CEB 1 -->
+          <div class="ceb-node-card">
+            <div class="ceb-node-title">1. Perpétuo Socorro</div>
+            <div class="ceb-node-meta">📍 B. Perpétuo Socorro • 1956</div>
+            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+          </div>
+
+          <!-- CEB 2 -->
+          <div class="ceb-node-card">
+            <div class="ceb-node-title">2. Sagrada Família</div>
+            <div class="ceb-node-meta">📍 B. Maria Ismênia • 1968</div>
+            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+          </div>
+
+          <!-- CEB 3 -->
+          <div class="ceb-node-card">
+            <div class="ceb-node-title">3. São Francisco</div>
+            <div class="ceb-node-meta">📍 B. Operário • 1974</div>
+            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+          </div>
+
+          <!-- CEB 4 -->
+          <div class="ceb-node-card">
+            <div class="ceb-node-title">4. São Pedro</div>
+            <div class="ceb-node-meta">📍 B. Tropical • 1981</div>
+            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+          </div>
+
+          <!-- CEB 5 -->
+          <div class="ceb-node-card">
+            <div class="ceb-node-title">5. N. Sra. Guadalupe</div>
+            <div class="ceb-node-meta">📍 Vista da Serra • 1989</div>
+            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+          </div>
+
+          <!-- CEB 6 -->
+          <div class="ceb-node-card">
+            <div class="ceb-node-title">6. Santa Luzia</div>
+            <div class="ceb-node-meta">📍 Alto Vila Nova • 1979</div>
+            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+          </div>
+
+          <!-- CEB 7 -->
+          <div class="ceb-node-card">
+            <div class="ceb-node-title">7. N. Sra. da Penha</div>
+            <div class="ceb-node-meta">📍 Moacir Brotas • 1962</div>
+            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+          </div>
+
+          <!-- CEB 8 -->
+          <div class="ceb-node-card">
+            <div class="ceb-node-title">8. Santo Expedito</div>
+            <div class="ceb-node-meta">📍 Jardim Planalto • 1995</div>
+            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+          </div>
+
+          <!-- CEB 9 -->
+          <div class="ceb-node-card">
+            <div class="ceb-node-title">9. São Bento</div>
+            <div class="ceb-node-meta">📍 Residencial Nobre • 2004</div>
+            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+          </div>
+
+          <!-- CEB 10 -->
+          <div class="ceb-node-card">
+            <div class="ceb-node-title">10. São Lucas</div>
+            <div class="ceb-node-meta">📍 Noêmia Vitalli • 2008</div>
+            <span class="ceb-node-pill">🗺️ GPS + Mini-Site</span>
+          </div>
+
+          <!-- Destaque de Integração -->
+          <div class="ceb-node-card" style="grid-column: span 2; background: rgba(139, 30, 34, 0.04); border-color: rgba(139, 30, 34, 0.3);">
+            <div class="ceb-node-title" style="color: var(--brand-red);">✨ Integração Total com a Catedral</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
+              Cada comunidade conta com rota GPS no Google Maps/Waze, história dos fundadores, celebrações e acolhimento pastoral próprio.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 9: Calendário Litúrgico (Ênfase nas Festas e Solenidades) -->
+    <section class="slide" data-slide="9">
       <div class="slide-tag">Parte 01 • O Serviço: Liturgia & Tradição</div>
       <h2 class="slide-title">Calendário Litúrgico: <span>Festas, Solenidades e Leituras</span></h2>
       <p class="slide-description">
@@ -696,8 +1100,8 @@
       </div>
     </section>
 
-    <!-- Slide 8: Pastoral do Dízimo & PIX -->
-    <section class="slide" data-slide="8">
+    <!-- Slide 10: Pastoral do Dízimo & PIX -->
+    <section class="slide" data-slide="10">
       <div class="slide-tag">Parte 01 • O Serviço: Pastoral do Dízimo</div>
       <h2 class="slide-title">Dízimo & Ofertas: <span>Partilha Fraterna no PIX</span></h2>
       <p class="slide-description">
@@ -731,8 +1135,8 @@
       </div>
     </section>
 
-    <!-- Slide 9: Secretaria Descomplicada -->
-    <section class="slide" data-slide="9">
+    <!-- Slide 11: Secretaria Descomplicada -->
+    <section class="slide" data-slide="11">
       <div class="slide-tag">Parte 01 • O Serviço: Gestão Sem Esforço</div>
       <h2 class="slide-title">Painel da Secretaria: <span>Zero Complicação</span></h2>
       <p class="slide-description">
@@ -766,8 +1170,8 @@
       </div>
     </section>
 
-    <!-- Slide 10: App Direto no Celular (Sem Lojas / PWA) -->
-    <section class="slide" data-slide="10">
+    <!-- Slide 12: App Direto no Celular (Sem Lojas / PWA) -->
+    <section class="slide" data-slide="12">
       <div class="slide-tag">Parte 01 • O Serviço: Atalho no Celular</div>
       <h2 class="slide-title">O Atalho da Catedral <span>na Tela do Celular</span></h2>
       <p class="slide-description">
@@ -801,8 +1205,8 @@
       </div>
     </section>
 
-    <!-- SLIDE 11: CAPA DA SESSÃO 02 (APRESENTAÇÃO DO ECCLESIAM APP E PRAZOS) -->
-    <section class="slide hero-slide" data-slide="11">
+    <!-- SLIDE 13: CAPA DA SESSÃO 02 (APRESENTAÇÃO DO ECCLESIAM APP E PRAZOS) -->
+    <section class="slide hero-slide" data-slide="13">
       <div class="hero-badge" style="background: rgba(255, 168, 42, 0.18); border-color: var(--brand-gold);">Sessão 02 • Plataforma & Prazos</div>
       
       <div style="margin: 16px 0 8px; display: flex; justify-content: center; align-items: center;">
@@ -821,8 +1225,8 @@
       </div>
     </section>
 
-    <!-- SLIDE 12: PARTE 02 • A PLATAFORMA ECCLESIAM APP -->
-    <section class="slide" data-slide="12">
+    <!-- SLIDE 14: PARTE 02 • A PLATAFORMA ECCLESIAM APP -->
+    <section class="slide" data-slide="14">
       <div class="slide-tag" style="background: rgba(255, 168, 42, 0.15); color: #B75319;">Parte 02 • Sobre Prazo & Tecnologia</div>
       <h2 class="slide-title">Por Trás do Portal: <span>O Ecclesiam App</span></h2>
       <p class="slide-description">
@@ -856,8 +1260,8 @@
       </div>
     </section>
 
-    <!-- SLIDE 13: PARTE 02 • CRONOGRAMA PASTORAL (ADVENTO) -->
-    <section class="slide hero-slide" data-slide="13">
+    <!-- SLIDE 15: PARTE 02 • CRONOGRAMA PASTORAL (ADVENTO) -->
+    <section class="slide hero-slide" data-slide="15">
       <div class="hero-badge">Parte 02 • Cronograma Pastoral</div>
       <h2 class="slide-title">Meta de Lançamento: <span>2ª Quinzena de Novembro</span></h2>
       <p style="font-size: 15px; color: #FFA82A; max-width: 820px; margin: 12px auto 0; font-weight: 600; line-height: 1.5;">
@@ -885,8 +1289,8 @@
       </div>
     </section>
 
-    <!-- SLIDE 14: CAPA DA SESSÃO 03 (CUSTOS E MANUTENÇÃO) -->
-    <section class="slide hero-slide" data-slide="14">
+    <!-- SLIDE 16: CAPA DA SESSÃO 03 (CUSTOS E MANUTENÇÃO) -->
+    <section class="slide hero-slide" data-slide="16">
       <div class="hero-badge" style="background: rgba(22, 163, 74, 0.18); border-color: #4ade80; color: #86efac;">Sessão 03 • Viabilidade & Sustentabilidade</div>
       <h1 class="slide-title" style="font-size: 36px; margin-top: 14px;">Custos e <span>Manutenção</span></h1>
       <p style="font-size: 16px; color: #E8DFD5; max-width: 760px; margin: 16px auto 0; line-height: 1.6;">
@@ -900,8 +1304,8 @@
       </div>
     </section>
 
-    <!-- SLIDE 15: PARTE 03 • CUSTOS & SUSTENTABILIDADE PASTORAL (O SISTEMA QUE SE PAGA) -->
-    <section class="slide" data-slide="15">
+    <!-- SLIDE 17: PARTE 03 • CUSTOS & SUSTENTABILIDADE PASTORAL (O SISTEMA QUE SE PAGA) -->
+    <section class="slide" data-slide="17">
       <div class="slide-tag" style="background: rgba(22, 163, 74, 0.12); color: #15803d;">Parte 03 • Custos & Sustentabilidade</div>
       <h2 class="slide-title">Investimento Transparente: <span>O Sistema que se Paga</span></h2>
       <p class="slide-description">
@@ -947,8 +1351,8 @@
       </div>
     </section>
 
-    <!-- SLIDE 16: PARTE 03 • TABELA DE PLANOS & PRECIFICAÇÃO ECCLESIAM APP -->
-    <section class="slide" data-slide="16">
+    <!-- SLIDE 18: PARTE 03 • TABELA DE PLANOS & PRECIFICAÇÃO ECCLESIAM APP -->
+    <section class="slide" data-slide="18">
       <div class="slide-tag" style="background: rgba(22, 163, 74, 0.12); color: #15803d;">Parte 03 • Planos & Valores</div>
       <h2 class="slide-title">Planos de Assinatura: <span>Ecclesiam App</span></h2>
       <p class="slide-description" style="margin-bottom: 16px;">
@@ -1061,8 +1465,8 @@
       </div>
     </section>
 
-    <!-- Slide 17: Apresentação da Agência (Start Agência Digital) -->
-    <section class="slide agency-slide" data-slide="17">
+    <!-- Slide 19: Apresentação da Agência (Start Agência Digital) -->
+    <section class="slide agency-slide" data-slide="19">
       <div class="agency-logo-container">
         <img src="logo_start_agencia.png" alt="Start Agência Digital" class="agency-logo-img">
       </div>
@@ -1142,8 +1546,36 @@
         changeSlide(1);
       } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
         changeSlide(-1);
+      } else if (e.key === 'Home') {
+        goToSlide(1);
+      } else if (e.key === 'End') {
+        goToSlide(totalSlides);
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
       }
     });
+
+    // Touch Swipe Navigation para celulares e tablets
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const deck = document.querySelector('.deck-container');
+    if (deck) {
+      deck.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      deck.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diffX = touchEndX - touchStartX;
+        if (Math.abs(diffX) > 45) {
+          if (diffX < 0) {
+            changeSlide(1); // Swipe esquerda -> avança
+          } else {
+            changeSlide(-1); // Swipe direita -> recua
+          }
+        }
+      }, { passive: true });
+    }
 
     // Fullscreen toggle
     function toggleFullscreen() {
