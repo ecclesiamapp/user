@@ -103,28 +103,20 @@
 
 ### 💰 SESSÃO 03 — CUSTOS & SUSTENTABILIDADE PASTORAL
 
-### Slide 16 — Capa da Sessão 03: Custos e Manutenção
-* **Visual:** Capa solene verde-esperança e dourada, transmitindo transparência, sustentabilidade e clareza de investimento.
+### Slide 16 — Capa da Sessão 03: Valores e Manutenção
+* **Visual:** Capa solene verde-esperança e dourada, transmitindo transparência, sustentabilidade e simplicidade com valores acessíveis.
 * **O que dizer:**
-  > *"Entramos na nossa terceira parte: a viabilidade orçamentária, os planos de mercado e a sustentabilidade pastoral do projeto."*
+  > *"Entramos na nossa terceira parte: a manutenção do portal, os planos mensais transparentes e a condição especial de capacitação para a nossa Catedral."*
 
-### Slide 17 — Investimento Transparente: O Sistema que se Paga
-* **Objetivo:** Demonstrar viabilidade financeira, transparência e retorno em dízimo e produtividade com valores claros.
+### Slide 17 — Planos de Assinatura & Condição Especial da Catedral
+* **Objetivo:** Apresentar a modelagem de mercado em 4 faixas com inspiração bíblica, posicionar a Catedral no Plano Pescador (até 20 CEBs) e destacar o Sticker de Implantação e Treinamento.
 * **O que dizer ao Pároco:**
-  > *"Padre, pensamos em uma estrutura financeira extremamente justa, transparente e calculada com base no nosso estudo de mercado:*
-  > *1. **Setup de Implantação & Treinamento VIP (Taxa Única: R$ 1.200):** Cobre a carga completa das 11 comunidades (CEBs), mapas GPS, escalas e treinamento presencial VIP da secretária e equipe pastoral (com condição piloto flexível e parcelada para a Catedral).*
-  > *2. **Plano Pescador • Manutenção & Infraestrutura (R$ 490/mês ou R$ 390/mês no plano anual):** Plano completo que cobre até 20 comunidades (atendendo perfeitamente as 11 CEBs da Catedral com margem de crescimento), servidores em nuvem de alta velocidade, backup diário de segurança, atualizações contínuas e suporte técnico prioritário via WhatsApp.*
-  > *E o mais importante: com o botão do **PIX em 1 clique** no celular, se a plataforma trouxer apenas 4 a 5 novos dizimistas por mês ou recolher as doações dos fiéis que não andam com dinheiro físico na missa, o sistema já se paga integralmente e passa a gerar superávit contínuo para a paróquia."*
-
-### Slide 18 — Planos de Assinatura: Ecclesiam App
-* **Objetivo:** Apresentar a modelagem de mercado em 4 faixas com inspiração bíblica e posicionar a Catedral no Plano Pescador (até 20 CEBs) com benefício de Paróquia Piloto.
-* **O que dizer ao Pároco:**
-  > *"Fizemos um estudo aprofundado do mercado católico e estruturamos os planos com nomes bíblicos que refletem cada etapa da vida comunitária:*
-  > *1. **01 • Plano Semente (R$ 149/mês | Setup R$ 350):** voltado para capelas e paróquias menores com até 3 comunidades.*
-  > *2. **02 • Plano Semeador (R$ 289/mês | Setup R$ 600):** atende a média das paróquias brasileiras com até 8 comunidades, mapas GPS e gestão pastoral.*
-  > *3. **03 • Plano Pescador (R$ 490/mês | Setup R$ 1.200):** planejado sob medida para a nossa Catedral, com capacidade para **até 20 Comunidades (CEBs)** — atendendo com folga as nossas 11 comunidades —, múltiplos sacerdotes, QR codes de bancos e onboarding VIP presencial.*
-  > *4. **04 • Plano Videira (R$ 649/mês | Setup R$ 1.500):** o plano teto para grandes santuários e basílicas com **todos os recursos anteriores inclusos**, **CEBs ilimitadas**, **acessos ilimitados** e infraestrutura para **alta volumetria de fiéis**.*
-  > *Para a nossa Catedral de Colatina, como **Paróquia Piloto e Referência**, teremos a condição especial de implantação facilitada e suporte direto prioritário no **Plano Pescador**."*
+  > *"Fizemos um estudo aprofundado do mercado católico e estruturamos os planos de acordo com o tamanho de cada paróquia:*
+  > *1. **01 • Plano Semente (R$ 149/mês | Setup R$ 350):** para capelas e paróquias menores com até 3 comunidades.*
+  > *2. **02 • Plano Semeador (R$ 289/mês | Setup R$ 600):** para paróquias de médio porte com até 8 comunidades e Localização no Maps.*
+  > *3. **03 • Plano Pescador (R$ 490/mês ou R$ 390/mês no anual):** planejado sob medida para a nossa Catedral, cobrindo com folga as nossas 11 comunidades (capacidade para até 20 CEBs), múltiplos sacerdotes e suporte prioritário.*
+  > *4. **04 • Plano Videira (R$ 649/mês):** voltado para grandes santuários e basílicas com CEBs e acessos ilimitados.*
+  > *E no rodapé, Padre, temos o nosso compromisso prático com a Catedral: a **Taxa Única de Implantação e Capacitação VIP (R$ 1.200)** — com parcelamento flexível. Ela cobre toda a estruturação digital de bastidores das 11 comunidades e garante **até 8 horas de capacitação presencial**: 4 horas exclusivas com a secretária na paróquia + 4 horas de treinamento com os representantes e coordenadores das CEBs."*
 
 ---
 

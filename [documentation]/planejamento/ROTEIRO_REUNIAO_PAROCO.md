@@ -66,24 +66,31 @@
 * **O que dizer:**
   > *"Sabemos que hoje a maioria das pessoas não carrega dinheiro físico no bolso. Por isso, criamos o espaço 'Sou do Sagrado, Sou Dizimista'. Em um único clique, o paroquiano copia a chave PIX oficial da paróquia e realiza a sua doação ou devolução do dízimo com rapidez e total segurança diretamente para a conta da paróquia. Isso gera aumento imediato na arrecadação espontânea."*
 
-### Slide 9 — Gestão Descomplicada para a Secretaria
+### Slide 11 — Gestão Descomplicada para a Secretaria
 * **O que dizer:**
   > *"O senhor pode estar se perguntando: 'Isso vai dar trabalho para a secretária?'. A resposta é não. Criamos um painel administrativo extremamente simples, em português claro. Se a secretária quiser mudar um horário de missa, publicar o aviso da catequese ou subir uma foto, ela faz isso em menos de 1 minuto pelo computador ou até pelo celular, sem precisar de nenhum técnico ou programador."*
 
-### Slide 10 — O Atalho da Catedral na Tela do Celular (PWA Sem Lojas)
+### Slide 12 — Secretaria On-line: Acolhimento e Serviços a 1 Toque
+* **Visual:** 3 cards nobres destacando: (1) Agendamentos Pastorais (Confissões, Direção Espiritual com os padres, Pastoral da Escuta); (2) Inscrições Digitais (Batismo, Catequese, Curso de Noivos e Curso de Gestantes); (3) Guia de Documentos e Requisitos sem dúvidas.
+* **O que dizer ao Pároco:**
+  > *"Padre Irineu, além de informar os horários e acolher os fiéis, a plataforma traz a **Secretaria On-line**:*
+  > *Hoje muitas pessoas trabalham o dia inteiro e não conseguem vir à paróquia em horário comercial. Com a Secretaria On-line, o paroquiano agenda um horário de confissão ou direção espiritual com o senhor e os demais padres diretamente pelo celular com horários transparentes.*
+  > *Além disso, as inscrições para Batismo, Catequese de Eucaristia/Crisma, Curso de Noivos e Curso de Gestantes são preenchidas online, e os pais já veem na hora a lista exata de documentos que precisam apresentar. A secretária recebe tudo pronto no painel e o senhor tem sua agenda de atendimento pastoral organizada sem nenhum estresse."*
+
+### Slide 13 — O Atalho da Catedral na Tela do Celular (PWA Sem Lojas)
 * **O que dizer:**
   > *"Padre, o fiel não precisará entrar na Google Play ou App Store, nem baixar aplicativos pesados que ocupam a memória do celular. Ao abrir o site da Catedral, surge um botão inteligente onde ele clica e instala o ícone da paróquia diretamente na tela inicial do celular, funcionando leve, rápido e em tela cheia em qualquer smartphone Android ou iPhone."*
 
 ---
 
-### ⏱️ SESSÃO 02 — APRESENTAÇÃO DO ECCLESIAM APP & PRAZOS
+### ⏱️ SESSÃO 02 — APRESENTAÇÃO DO ECCLESIAM APP (TECNOLOGIA & ROBUSTEZ)
 
-### Slide 11 — Capa da Sessão 02: Apresentação do Ecclesiam App & Prazos
-* **Visual:** Capa solene exibindo a logomarca oficial do **Ecclesiam App**, destacando a maturidade tecnológica do sistema e o cronograma seguro.
+### Slide 14 — Capa da Sessão 02: Apresentação do Ecclesiam App
+* **Visual:** Capa solene exibindo a logomarca oficial do **Ecclesiam App**, destacando a maturidade tecnológica do sistema e a segurança de dados.
 * **O que dizer:**
-  > *"Passamos agora para a nossa segunda parte. Quero apresentar a tecnologia por trás do portal — a plataforma Ecclesiam App — e o nosso cronograma de entrega."*
+  > *"Passamos agora para a nossa segunda parte. Quero apresentar a tecnologia por trás do portal — a plataforma Ecclesiam App — e a robustez que garante a estabilidade de toda a Catedral."*
 
-### Slide 12 — Por Trás do Portal: O Ecclesiam App (Estrutura Já Implementada)
+### Slide 15 — Por Trás do Portal: O Ecclesiam App (Estrutura Já Implementada)
 * **Objetivo:** Demonstrar que não é um site feito do zero, mas um ecossistema pronto e especializado.
 * **O que dizer ao Pároco:**
   > *"Padre Irineu, o senhor pode estar pensando: 'Um portal com essa beleza, com mini-sites para as nossas 11 comunidades e painel administrativo, vai demorar meses para ficar pronto?'.*
@@ -92,44 +99,28 @@
   > *O site da Catedral não começa do zero: toda a infraestrutura já conta com **recursos digitais estruturados para receber o site da Catedral**, com os nossos sacerdotes já cadastrados (o senhor Pe. Irineu, Pe. Adilson, Pe. Deivid e Pe. Ernandes), as 11 comunidades mapeadas e o painel administrativo da secretaria funcional.*
   > *A Catedral entra como nossa **Paróquia Piloto e Referência** em toda a Diocese."*
 
-### Slide 13 — Cronograma Pastoral: Meta na 2ª Quinzena de Novembro (Advento)
-* **Objetivo:** Apresentar a meta com tranquilidade e inteligência litúrgica.
-* **O que dizer ao Pároco:**
-  > *"Fizemos um planejamento com timing cirúrgico, alinhado ao calendário da Igreja Católica:*
-  > *Nossa meta de lançamento oficial é na **segunda quinzena de Novembro (22 ou 29 de Novembro)**, abrindo o tempo do **Advento**.*
-  > *Assim, aproveitamos Outubro para homologar fotos e textos com o senhor sem correria, no início de Novembro treinamos a secretaria (1 hora) e integramos as 11 capelas.*
-  > *Quando chegar o Advento e as grandes celebrações de Natal e Fim de Ano, a Catedral estará 100% pronta para atender aos fiéis no Natal e Fim de Ano com excelência."*
-
 ---
 
 ### 💰 SESSÃO 03 — CUSTOS & SUSTENTABILIDADE PASTORAL
 
-### Slide 14 — Capa da Sessão 03: Custos e Manutenção
-* **Visual:** Capa solene verde-esperança e dourada, transmitindo transparência, sustentabilidade e clareza de investimento.
+### Slide 16 — Capa da Sessão 03: Valores e Manutenção
+* **Visual:** Capa solene verde-esperança e dourada, transmitindo transparência, sustentabilidade e simplicidade com valores acessíveis.
 * **O que dizer:**
-  > *"Entramos na nossa terceira parte: a viabilidade orçamentária, os planos de mercado e a sustentabilidade pastoral do projeto."*
+  > *"Entramos na nossa terceira parte: a manutenção do portal, os planos mensais transparentes e a condição especial de capacitação para a nossa Catedral."*
 
-### Slide 15 — Investimento Transparente: O Sistema que se Paga
-* **Objetivo:** Demonstrar viabilidade financeira, transparência e retorno em dízimo e produtividade com valores claros.
+### Slide 17 — Planos de Assinatura & Condição Especial da Catedral
+* **Objetivo:** Apresentar a modelagem de mercado em 4 faixas com inspiração bíblica, posicionar a Catedral no Plano Pescador (até 20 CEBs) e destacar o Sticker de Implantação e Treinamento.
 * **O que dizer ao Pároco:**
-  > *"Padre, pensamos em uma estrutura financeira extremamente justa, transparente e calculada com base no nosso estudo de mercado:*
-  > *1. **Setup de Implantação & Treinamento VIP (Taxa Única: R$ 1.200):** Cobre a carga completa das 11 comunidades (CEBs), mapas GPS, escalas e treinamento presencial VIP da secretária e equipe pastoral (com condição piloto flexível e parcelada para a Catedral).*
-  > *2. **Plano Pescador • Manutenção & Infraestrutura (R$ 490/mês ou R$ 390/mês no plano anual):** Plano completo que cobre até 20 comunidades (atendendo perfeitamente as 11 CEBs da Catedral com margem de crescimento), servidores em nuvem de alta velocidade, backup diário de segurança, atualizações contínuas e suporte técnico prioritário via WhatsApp.*
-  > *E o mais importante: com o botão do **PIX em 1 clique** no celular, se a plataforma trouxer apenas 4 a 5 novos dizimistas por mês ou recolher as doações dos fiéis que não andam com dinheiro físico na missa, o sistema já se paga integralmente e passa a gerar superávit contínuo para a paróquia."*
-
-### Slide 16 — Planos de Assinatura: Ecclesiam App
-* **Objetivo:** Apresentar a modelagem de mercado em 4 faixas com inspiração bíblica e posicionar a Catedral no Plano Pescador (até 20 CEBs) com benefício de Paróquia Piloto.
-* **O que dizer ao Pároco:**
-  > *"Fizemos um estudo aprofundado do mercado católico e estruturamos os planos com nomes bíblicos que refletem cada etapa da vida comunitária:*
-  > *1. **01 • Plano Semente (R$ 149/mês | Setup R$ 350):** voltado para capelas e paróquias menores com até 3 comunidades.*
-  > *2. **02 • Plano Semeador (R$ 289/mês | Setup R$ 600):** atende a média das paróquias brasileiras com até 8 comunidades, mapas GPS e gestão pastoral.*
-  > *3. **03 • Plano Pescador (R$ 490/mês | Setup R$ 1.200):** planejado sob medida para a nossa Catedral, com capacidade para **até 20 Comunidades (CEBs)** — atendendo com folga as nossas 11 comunidades —, múltiplos sacerdotes, QR codes de bancos e onboarding VIP presencial.*
-  > *4. **04 • Plano Videira (R$ 649/mês | Setup R$ 1.500):** o plano teto para grandes santuários e basílicas com **todos os recursos anteriores inclusos**, **CEBs ilimitadas**, **acessos ilimitados** e infraestrutura para **alta volumetria de fiéis**.*
-  > *Para a nossa Catedral de Colatina, como **Paróquia Piloto e Referência**, teremos a condição especial de implantação facilitada e suporte direto prioritário no **Plano Pescador**."*
+  > *"Fizemos um estudo aprofundado do mercado católico e estruturamos os planos de acordo com o tamanho de cada paróquia:*
+  > *1. **01 • Plano Semente (R$ 149/mês | Setup R$ 350):** para capelas e paróquias menores com até 3 comunidades.*
+  > *2. **02 • Plano Semeador (R$ 289/mês | Setup R$ 600):** para paróquias de médio porte com até 8 comunidades e Localização no Maps.*
+  > *3. **03 • Plano Pescador (R$ 490/mês ou R$ 390/mês no anual):** planejado sob medida para a nossa Catedral, cobrindo com folga as nossas 11 comunidades (capacidade para até 20 CEBs), múltiplos sacerdotes e suporte prioritário.*
+  > *4. **04 • Plano Videira (R$ 649/mês):** voltado para grandes santuários e basílicas com CEBs e acessos ilimitados.*
+  > *E no rodapé, Padre, temos o nosso compromisso prático com a Catedral: a **Taxa Única de Implantação e Capacitação VIP (R$ 1.200)** — com parcelamento flexível. Ela cobre toda a estruturação digital de bastidores das 11 comunidades e garante **até 8 horas de capacitação presencial**: 4 horas exclusivas com a secretária na paróquia + 4 horas de treinamento com os representantes e coordenadores das CEBs."*
 
 ---
 
-### 🤝 Slide 17 — Encerramento: Start Agência Digital
+### 🤝 Slide 19 — Encerramento: Start Agência Digital
 * **O que dizer:**
   > *"Finalizando a apresentação, queremos nos apresentar com muita alegria e humildade: somos a Start Agência Digital, liderada por Fauzer Cruz e Marcella Boeloni Cruz. Estamos à disposição do senhor, da secretaria e de toda a Catedral para caminhar juntos nessa missão de evangelização digital."*
 
