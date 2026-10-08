@@ -98,7 +98,7 @@ export default async function CommunityDetailPage({ params }: Props) {
               )}
             </div>
 
-            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+            <h1 className="font-display text-2xl sm:text-4xl font-bold tracking-tight leading-tight">
               {community.name}
             </h1>
 
@@ -114,7 +114,7 @@ export default async function CommunityDetailPage({ params }: Props) {
                 href={googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm transition-all shadow-md cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--brand-gold-soft)] hover:bg-[var(--brand-gold-500)] text-[var(--brand-coffee)] font-bold text-sm transition-all shadow-md cursor-pointer"
               >
                 <Navigation className="w-4 h-4" />
                 <span>Como Chegar (Google Maps)</span>

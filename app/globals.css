@@ -1,22 +1,38 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #FFFFFF;
+  --foreground: #2D1A16;
   
-  /* Ecclesiam Design System Tokens */
-  --dash-bg: #f8fafc;
-  --dash-surface: #ffffff;
-  --dash-surface-secondary: #f1f5f9;
-  --dash-text-primary: #0f172a;
-  --dash-text-secondary: #475569;
-  --dash-text-muted: #94a3b8;
-  --dash-border: #e2e8f0;
+  /* Design System Padre Alex Nogueira (Fiel à Produção padrealexnogueira.com) */
+  --dash-bg: #F5EFE7;                   /* Fundo pergaminho quente acolhedor */
+  --dash-surface: #FFFFFF;              /* Cartões brancos limpos e elegantes */
+  --dash-surface-secondary: #EEE3D4;    /* Fundo areia acolhedor */
+  --dash-surface-elevated: #FCF7F1;     /* Superfície marfim suave */
   
-  /* Parish Accent Liturgical / Primary Color (Customizable per Tenant) */
-  --primary: #1e3a8a;
-  --primary-foreground: #ffffff;
-  --primary-hover: #1e40af;
+  --dash-text-primary: #2D1A16;         /* Marrom ébano profundo (legibilidade alta) */
+  --dash-text-secondary: #514D4B;       /* Sépia médio acolhedor */
+  --dash-text-muted: #86898C;           /* Texto atenuado / placeholder */
+  --dash-text-light: #FCF7F1;           /* Texto claro para fotos/banners */
+  
+  --dash-border: #E8DFD3;               /* Borda neutra suave pergaminho */
+  --dash-border-subtle: #F2ECE3;
+  
+  /* Acentos de Marca Padre Alex Nogueira */
+  --brand-gold-500: #FFA82A;            /* Ouro vivo / âmbar principal */
+  --brand-gold-400: #FFCC36;            /* Ouro suave */
+  --brand-gold-700: #B75319;            /* Ouro queimado / terracota */
+  --brand-coffee: #211A14;              /* Café escuro */
+  --brand-twilight: #03637A;            /* Azul petróleo (orações / links) */
+  --brand-como: #356B58;                /* Verde pastoral */
+  
+  /* Litúrgico Sagrado Coração */
+  --primary: #8B1E22;                   /* Vermelho Sagrado Coração */
+  --primary-foreground: #FFFFFF;
+  --primary-hover: #721C24;
+  
+  --whatsapp: #25D366;
+  --live: #D32F2F;
 }
 
 @theme inline {
@@ -25,45 +41,79 @@
   --color-dash-bg: var(--dash-bg);
   --color-dash-surface: var(--dash-surface);
   --color-dash-surface-secondary: var(--dash-surface-secondary);
+  --color-dash-surface-elevated: var(--dash-surface-elevated);
   --color-dash-text-primary: var(--dash-text-primary);
   --color-dash-text-secondary: var(--dash-text-secondary);
   --color-dash-text-muted: var(--dash-text-muted);
+  --color-dash-text-light: var(--dash-text-light);
   --color-dash-border: var(--dash-border);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #090d16;
-    --foreground: #f8fafc;
-    
-    --dash-bg: #090d16;
-    --dash-surface: #111827;
-    --dash-surface-secondary: #1f2937;
-    --dash-text-primary: #f8fafc;
-    --dash-text-secondary: #94a3b8;
-    --dash-text-muted: #64748b;
-    --dash-border: #1e293b;
-    
-    --primary: #3b82f6;
-    --primary-foreground: #ffffff;
-    --primary-hover: #60a5fa;
-  }
+  --color-primary-hover: var(--primary-hover);
+  --color-brand-gold: var(--brand-gold-500);
+  --color-brand-gold-soft: var(--brand-gold-400);
+  --color-brand-gold-dark: var(--brand-gold-700);
+  --color-brand-coffee: var(--brand-coffee);
+  --font-sans: var(--font-sora), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-suez-one), serif;
 }
 
 body {
-  background: var(--dash-bg);
+  background-color: var(--dash-bg);
   color: var(--dash-text-primary);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: var(--font-sora), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   min-height: 100vh;
+}
+
+/* Tipografia Oficial: Sora é a fonte de 100% dos Títulos e Interface */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sora), system-ui, -apple-system, sans-serif;
+  color: var(--dash-text-primary);
+}
+
+/* Numerais Tabulares para Horários */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tag Pílula Oficial Pe. Alex Nogueira (.tag-gold) */
+.tag-gold {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  background-color: var(--dash-surface-secondary);
+  color: var(--dash-text-primary);
+  border: 1px solid var(--dash-border);
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+}
+
+/* Marquee Horizontal Contínuo (banner_horizontal Pe. Alex) */
+@keyframes banner_horizontal {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: banner_horizontal 38s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 /* Regra Mandatória de Selects estilizados (PROTOCOLO_DEV_UX_UI) */
 .dash-select {
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%238A8481' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 0.75rem center;
   background-repeat: no-repeat;
   background-size: 1.25em 1.25em;

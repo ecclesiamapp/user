@@ -37,8 +37,8 @@ export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProp
             <BookOpen className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-lg sm:text-xl font-bold tracking-tight">
-              {isBispo ? 'A Palavra do Nosso Bispo' : 'A Palavra do Nosso Pároco'}
+            <h3 className="text-xl sm:text-2xl font-extrabold text-[var(--dash-text-primary)] tracking-tight">
+              <span className="text-[var(--brand-gold-500)]">A Palavra</span> do Nosso {isBispo ? 'Bispo' : 'Pároco'}
             </h3>
             <p className="text-xs text-[var(--dash-text-secondary)]">
               Reflexão espiritual e orientação pastoral para a nossa comunidade
@@ -54,15 +54,15 @@ export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProp
         </Link>
       </div>
 
-      <Card className="relative overflow-hidden p-6 sm:p-8 bg-gradient-to-br from-[var(--dash-surface)] via-[var(--dash-surface)] to-[var(--dash-surface-secondary)] border border-[var(--dash-border)] hover:border-[var(--primary)]/40 transition-all shadow-md">
+      <Card className="relative overflow-hidden p-6 sm:p-8 bg-white border border-[#E8DFD3] hover:border-[var(--brand-gold-500)]/60 transition-all shadow-md">
         {/* Ícone de Aspas decorativo no fundo */}
-        <Quote className="absolute right-4 bottom-4 w-32 h-32 text-[var(--primary)]/5 pointer-events-none -rotate-12" />
+        <Quote className="absolute right-4 bottom-4 w-32 h-32 text-[var(--brand-gold-500)]/10 pointer-events-none -rotate-12" />
 
         <div className="relative z-10 flex flex-col md:flex-row gap-6 items-start">
           {/* Avatar com identificação do autor */}
           <div className="flex sm:flex-col items-center sm:items-start gap-4 shrink-0">
             <div className="relative">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden ring-3 ring-[var(--primary)]/20 shadow-lg bg-[var(--dash-surface-secondary)] flex items-center justify-center">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden ring-3 ring-[var(--brand-gold-500)]/30 shadow-lg bg-[var(--dash-surface-secondary)] flex items-center justify-center">
                 {current.author_photo_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -74,13 +74,13 @@ export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProp
                   <UserCheck className="w-10 h-10 text-[var(--primary)]" />
                 )}
               </div>
-              <div className="absolute -bottom-2 -right-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[var(--primary)] text-[var(--primary-foreground)] shadow-xs">
+              <div className="absolute -bottom-2 -right-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[var(--brand-gold-500)] text-[#2D1A16] shadow-xs">
                 {isBispo ? 'Episcopal' : 'Pároco'}
               </div>
             </div>
 
             <div className="sm:mt-2 space-y-0.5">
-              <h4 className="font-bold text-sm sm:text-base text-[var(--dash-text-primary)] leading-tight">
+              <h4 className="font-extrabold text-sm sm:text-base text-[var(--dash-text-primary)] leading-tight">
                 {current.author_name}
               </h4>
               <p className="text-xs text-[var(--dash-text-secondary)] font-medium">
@@ -92,8 +92,8 @@ export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProp
           {/* Conteúdo da Mensagem */}
           <div className="flex-1 space-y-3">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/10 text-amber-500 border border-amber-500/20">
-                <Sparkles className="w-3 h-3" />
+              <span className="tag-gold text-[11px] gap-1 font-bold">
+                <Sparkles className="w-3 h-3 text-[var(--brand-gold-500)]" />
                 Destaque Pastoral
               </span>
               {current.liturgical_season && (
@@ -103,12 +103,12 @@ export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProp
               )}
             </div>
 
-            <h4 className="text-lg sm:text-xl font-extrabold text-[var(--dash-text-primary)] leading-snug">
+            <h4 className="text-lg sm:text-xl font-bold text-[var(--dash-text-primary)] leading-snug">
               {current.title}
             </h4>
 
             {current.subtitle && (
-              <p className="text-xs sm:text-sm italic text-amber-400/90 font-medium leading-relaxed bg-[var(--dash-surface-secondary)]/50 p-3 rounded-xl border-l-4 border-amber-500">
+              <p className="text-xs sm:text-sm italic text-[var(--dash-text-primary)] font-medium leading-relaxed bg-[var(--dash-surface-secondary)]/70 p-3 rounded-xl border-l-4 border-[var(--brand-gold-500)]">
                 {current.subtitle}
               </p>
             )}

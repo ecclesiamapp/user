@@ -21,7 +21,7 @@ export function MissalBookletsSection() {
           <div className="flex items-center gap-2.5">
             <FileText className="w-5 h-5 text-amber-500" />
             <div>
-              <h3 className="text-lg sm:text-xl font-bold">Folhetos das Santas Missas («Sou do Sagrado Missa»)</h3>
+              <h3 className="font-display text-lg sm:text-xl font-bold">Folhetos das Santas Missas («Sou do Sagrado Missa»)</h3>
               <p className="text-xs text-[var(--dash-text-secondary)]">
                 Baixe e acompanhe as celebrações da Catedral e das CEBs em seu celular ou impresso
               </p>

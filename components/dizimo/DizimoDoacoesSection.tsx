@@ -40,7 +40,7 @@ export function DizimoDoacoesSection({ parish }: DizimoDoacoesSectionProps) {
             <HeartHandshake className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-lg sm:text-xl font-bold tracking-tight">
+            <h3 className="font-display text-lg sm:text-xl font-bold tracking-tight">
               Dízimo Pastoral & Ofertas de Solidariedade
             </h3>
             <p className="text-xs text-[var(--dash-text-secondary)]">
@@ -68,7 +68,7 @@ export function DizimoDoacoesSection({ parish }: DizimoDoacoesSectionProps) {
               </span>
             </div>
 
-            <h4 className="text-xl font-bold text-[var(--dash-text-primary)] leading-snug">
+            <h4 className="font-display text-xl font-bold text-[var(--dash-text-primary)] leading-snug">
               O Que é o Dízimo? Um Ato de Amor, Gratidão e Fidelidade a Deus
             </h4>
 
@@ -156,7 +156,7 @@ export function DizimoDoacoesSection({ parish }: DizimoDoacoesSectionProps) {
             </div>
 
             <div>
-              <h4 className="text-lg font-bold text-[var(--dash-text-primary)] leading-snug">
+              <h4 className="font-display text-lg font-bold text-[var(--dash-text-primary)] leading-snug">
                 Ofertas da Santa Missa & Obras da Catedral
               </h4>
               <p className="text-xs text-[var(--dash-text-secondary)] mt-1">
@@ -165,9 +165,9 @@ export function DizimoDoacoesSection({ parish }: DizimoDoacoesSectionProps) {
             </div>
 
             {/* Container do QR Code Visual Escaneável */}
-            <div className="flex flex-col items-center justify-center p-5 rounded-2xl bg-white border border-[var(--dash-border)] text-slate-900 shadow-inner space-y-3">
+            <div className="flex flex-col items-center justify-center p-5 rounded-2xl bg-[var(--dash-surface)] border border-[var(--dash-border)] text-slate-900 shadow-inner space-y-3">
               {/* QR Code SVG Vetorial Limpo e Escaneável */}
-              <div className="relative p-2 bg-white rounded-xl shadow-xs">
+              <div className="relative p-2 bg-[var(--dash-surface)] rounded-xl shadow-xs">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(pixKey)}&margin=4`}
@@ -176,8 +176,8 @@ export function DizimoDoacoesSection({ parish }: DizimoDoacoesSectionProps) {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-9 h-9 rounded-full bg-white shadow-md border border-slate-200 flex items-center justify-center">
-                    <Church className="w-5 h-5 text-blue-900" />
+                  <div className="w-9 h-9 rounded-full bg-[var(--dash-surface)] shadow-md border border-slate-200 flex items-center justify-center">
+                    <Church className="w-5 h-5 text-[var(--primary)]" />
                   </div>
                 </div>
               </div>

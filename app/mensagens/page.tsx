@@ -90,16 +90,16 @@ export default async function MensagensPastoraisPage() {
       {/* Conteúdo Principal */}
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-10 w-full">
         {/* Banner de Apresentação das Colunas */}
-        <section className="relative overflow-hidden rounded-3xl p-8 sm:p-10 bg-gradient-to-br from-blue-900 to-indigo-950 text-white shadow-xl">
+        <section className="relative overflow-hidden rounded-3xl p-8 sm:p-10 bg-gradient-to-br from-[var(--primary)] via-[#5E1417] to-[var(--brand-coffee)] text-[#FCF7F1] shadow-xl border border-[var(--primary-hover)]/40">
           <div className="relative z-10 max-w-2xl space-y-4">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-blue-200">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/25 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-[var(--brand-gold-soft)] border border-[var(--brand-gold-soft)]/30">
               <BookOpen className="w-3.5 h-3.5" />
               Magistério e Acolhimento Espiritual
             </span>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+            <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight leading-tight text-[#FCF7F1]">
               A Palavra dos Nossos Pastores
             </h1>
-            <p className="text-sm sm:text-base text-blue-100/90 leading-relaxed">
+            <p className="text-sm sm:text-base text-[#FCF7F1]/90 leading-relaxed">
               Mensagens, cartas pastorais e reflexões periódicas do <strong>Padre Irineu Claudino Sales</strong> (Pároco) e de <strong>Dom Lauro Sérgio Versiani Barbosa</strong> (Bispo Diocesano) para iluminar a caminhada das nossas famílias e comunidades.
             </p>
           </div>
@@ -157,12 +157,12 @@ export default async function MensagensPastoraisPage() {
                   )}
                 </div>
 
-                <h3 className="text-xl font-extrabold text-[var(--dash-text-primary)] leading-snug">
+                <h3 className="font-display text-xl font-bold text-[var(--dash-text-primary)] leading-snug">
                   {latestParoco.title}
                 </h3>
 
                 {latestParoco.subtitle && (
-                  <p className="text-xs sm:text-sm italic text-amber-400/90 leading-relaxed bg-[var(--dash-surface-secondary)]/50 p-3 rounded-xl border-l-4 border-amber-500">
+                  <p className="text-xs sm:text-sm italic text-[var(--dash-text-primary)] font-medium leading-relaxed bg-[var(--dash-surface-secondary)]/70 p-3 rounded-xl border-l-4 border-[var(--brand-gold-500)]">
                     {latestParoco.subtitle}
                   </p>
                 )}
@@ -207,13 +207,13 @@ export default async function MensagensPastoraisPage() {
           </Card>
 
           {/* Card Nobre 2: A Palavra do Nosso Bispo */}
-          <Card className="flex flex-col justify-between p-6 sm:p-8 space-y-6 bg-[var(--dash-surface)] border border-[var(--dash-border)] hover:border-blue-500/40 transition-all shadow-md">
+          <Card className="flex flex-col justify-between p-6 sm:p-8 space-y-6 bg-[var(--dash-surface)] border border-[var(--dash-border)] hover:border-[var(--brand-gold-500)]/40 transition-all shadow-md">
             <div className="space-y-5">
               {/* Cabeçalho do Bispo */}
               <div className="flex items-center justify-between pb-4 border-b border-[var(--dash-border)]">
                 <div className="flex items-center gap-4">
                   <div className="relative">
-                    <div className="w-16 h-16 rounded-2xl overflow-hidden ring-2 ring-blue-500/30 shadow-md bg-[var(--dash-surface-secondary)] flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-2xl overflow-hidden ring-2 ring-[var(--primary)]/30 shadow-md bg-[var(--dash-surface-secondary)] flex items-center justify-center">
                       {latestBispo.author_photo_url ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
@@ -225,7 +225,7 @@ export default async function MensagensPastoraisPage() {
                         <Church className="w-8 h-8 text-[var(--primary)]" />
                       )}
                     </div>
-                    <span className="absolute -bottom-1 -right-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-blue-600 text-white shadow-xs">
+                    <span className="absolute -bottom-1 -right-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-[var(--primary)] text-[var(--brand-gold-soft)] shadow-xs">
                       Bispo
                     </span>
                   </div>
@@ -256,12 +256,12 @@ export default async function MensagensPastoraisPage() {
                   )}
                 </div>
 
-                <h3 className="text-xl font-extrabold text-[var(--dash-text-primary)] leading-snug">
+                <h3 className="font-display text-xl font-bold text-[var(--dash-text-primary)] leading-snug">
                   {latestBispo.title}
                 </h3>
 
                 {latestBispo.subtitle && (
-                  <p className="text-xs sm:text-sm italic text-blue-400/90 leading-relaxed bg-[var(--dash-surface-secondary)]/50 p-3 rounded-xl border-l-4 border-blue-500">
+                  <p className="text-xs sm:text-sm italic text-[var(--dash-text-primary)] font-medium leading-relaxed bg-[var(--dash-surface-secondary)]/70 p-3 rounded-xl border-l-4 border-[var(--primary)]">
                     {latestBispo.subtitle}
                   </p>
                 )}

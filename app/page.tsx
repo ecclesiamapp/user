@@ -4,16 +4,12 @@ import { cookies } from 'next/headers';
 import { 
   Church, 
   Clock, 
-  QrCode, 
   MessageCircle, 
   MapPin, 
   Calendar, 
   ChevronRight,
   ExternalLink,
-  Heart,
-  Navigation,
-  User,
-  BookOpen
+  Navigation
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { Card, Badge, Button } from '@/components/ui';
@@ -23,6 +19,8 @@ import { LiturgicalBanner } from '@/components/liturgy/LiturgicalBanner';
 import { MissalBookletsSection } from '@/components/liturgy/MissalBookletsSection';
 import { PastoralMessageFeatured } from '@/components/pastoral/PastoralMessageFeatured';
 import { DizimoDoacoesSection } from '@/components/dizimo/DizimoDoacoesSection';
+import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
+import { HomeHeroSection } from '@/components/home/HomeHeroSection';
 
 export default async function ParishPublicPortalPage() {
   const cookieStore = await cookies();
@@ -58,7 +56,7 @@ export default async function ParishPublicPortalPage() {
     whatsapp_number: '5527999990000',
     pix_key: 'secretaria@catedral.org.br',
     pix_key_type: 'email',
-    primary_color: '#1e3a8a',
+    primary_color: '#8B1E22',
     created_at: new Date().toISOString(),
   };
 
@@ -87,15 +85,18 @@ export default async function ParishPublicPortalPage() {
 
   return (
     <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex flex-col justify-between">
-      {/* Header com Glassmorphism (PROTOCOLO_DEV_UX_UI) */}
-      <header className="sticky top-0 z-30 bg-[var(--dash-surface)]/80 backdrop-blur-md border-b border-[var(--dash-border)]">
+      {/* 1. Marquee Superior Contínuo Pe. Alex Nogueira (banner_horizontal) */}
+      <MarqueeAvisos />
+
+      {/* 2. Header com Estilo Limpo Pe. Alex Nogueira */}
+      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#E8DFD3]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[var(--primary)] text-[var(--primary-foreground)] flex items-center justify-center shadow-xs">
-              <Church className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--brand-gold-500)] to-[var(--brand-gold-700)] text-[#2D1A16] flex items-center justify-center shadow-xs">
+              <Church className="w-5 h-5 text-[#2D1A16]" />
             </div>
             <div>
-              <h1 className="font-bold text-sm sm:text-base leading-tight text-[var(--dash-text-primary)]">
+              <h1 className="font-extrabold text-sm sm:text-base leading-tight text-[var(--dash-text-primary)]">
                 {parish.name}
               </h1>
               <p className="text-xs text-[var(--dash-text-secondary)]">{parish.diocese}</p>
@@ -104,7 +105,7 @@ export default async function ParishPublicPortalPage() {
 
           <div className="flex items-center gap-2">
             <Link href="/secretaria">
-              <Button variant="outline" size="sm" className="hidden sm:inline-flex text-xs">
+              <Button variant="outline" size="sm" className="hidden sm:inline-flex text-xs border-[#E8DFD3] text-[var(--dash-text-primary)] hover:bg-[var(--dash-surface-secondary)]">
                 Secretaria & Clero
               </Button>
             </Link>
@@ -113,9 +114,9 @@ export default async function ParishPublicPortalPage() {
               href={`https://wa.me/${parish.whatsapp_number.replace(/\D/g, '')}?text=Olá,%20gostaria%20de%20informações%20da%20secretaria%20paroquial.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold transition-all shadow-xs cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[var(--brand-gold-500)] hover:bg-[var(--brand-gold-400)] text-[#2D1A16] text-xs sm:text-sm font-bold transition-all shadow-xs cursor-pointer"
             >
-              <MessageCircle className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4 text-[#2D1A16]" />
               <span className="hidden sm:inline">Falar no</span> WhatsApp
             </a>
           </div>
@@ -124,67 +125,32 @@ export default async function ParishPublicPortalPage() {
 
       {/* Conteúdo Principal do Portal */}
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-10 w-full">
-        {/* Hero Section Litúrgica */}
-        <section className="relative overflow-hidden rounded-3xl p-8 sm:p-10 bg-gradient-to-br from-[var(--primary)] to-blue-950 text-white shadow-xl">
-          <div className="relative z-10 max-w-2xl space-y-4">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[var(--dash-surface)]/15 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-blue-100">
-              Seja Bem-vindo(a) à nossa Paróquia
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-              Uma comunidade de fé, acolhimento e oração.
-            </h2>
-            <p className="text-sm sm:text-base text-blue-100/90 leading-relaxed">
-              Consulte os horários das celebrações em nossa matriz e capelas, contribua com seu dízimo paroquial via PIX e acompanhe os avisos da comunidade.
-            </p>
+        {/* 3. Hero Section Monumental & Acolhedora + Floating Schedule Card */}
+        <HomeHeroSection
+          parishName={parish.name}
+          dioceseName={parish.diocese}
+        />
 
-            <div className="pt-2 flex flex-wrap gap-3">
-              <a href="#horarios">
-                <Button variant="secondary" size="md" icon={<Clock className="w-4 h-4 text-[var(--primary)]" />}>
-                  Horários de Missa
-                </Button>
-              </a>
-              <a href="#comunidades">
-                <Button variant="outline" size="md" icon={<Church className="w-4 h-4" />} className="bg-[var(--dash-surface)]/10 text-white hover:bg-[var(--dash-surface)]/20 border-white/20">
-                  Nossas CEBs & Capelas
-                </Button>
-              </a>
-              <Link href="/secretaria">
-                <Button variant="outline" size="md" icon={<User className="w-4 h-4" />} className="bg-[var(--dash-surface)]/10 text-white hover:bg-[var(--dash-surface)]/20 border-white/20">
-                  Secretaria & Padres
-                </Button>
-              </Link>
-              <a href="#pastoral">
-                <Button variant="outline" size="md" icon={<BookOpen className="w-4 h-4" />} className="bg-[var(--dash-surface)]/10 text-white hover:bg-[var(--dash-surface)]/20 border-white/20">
-                  Palavra do Pároco
-                </Button>
-              </a>
-              <a href="#dizimo">
-                <Button variant="liturgical" size="md" icon={<Heart className="w-4 h-4" />}>
-                  Dízimo & Ofertas
-                </Button>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Faixa da Liturgia Diária Oficial (CNBB) & Cor Canônica */}
+        {/* 4. Faixa da Liturgia Diária Oficial (CNBB) & Cor Canônica */}
         <LiturgicalBanner />
 
-        {/* Seção 1: Celebrações de Hoje */}
+        {/* 5. Celebrações e Missas de Hoje */}
         <section id="horarios" className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <Clock className="w-5 h-5 text-[var(--primary)]" />
-              <h3 className="text-lg sm:text-xl font-bold">Celebrações e Missas de Hoje</h3>
+              <Clock className="w-5 h-5 text-[var(--brand-gold-700)]" />
+              <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[var(--dash-text-primary)]">
+                <span className="text-[var(--brand-gold-500)]">Celebrações</span> de Hoje
+              </h3>
             </div>
-            <Badge variant="active">Horários Confirmados</Badge>
+            <span className="tag-gold">Horários Confirmados</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {todayMasses.map((item, index) => (
-              <Card key={index} className="flex flex-col justify-between hover:border-[var(--primary)]/50">
+              <Card key={index} className="flex flex-col justify-between hover:border-[var(--brand-gold-500)]/60 transition-colors">
                 <div>
-                  <span className="text-2xl font-black text-[var(--primary)]">{item.time}</span>
+                  <span className="text-2xl font-black text-[var(--primary)] tabular-nums">{item.time}</span>
                   <h4 className="font-bold text-sm mt-1">{item.label}</h4>
                 </div>
                 <p className="text-xs text-[var(--dash-text-secondary)] mt-3 flex items-center gap-1">
@@ -196,18 +162,20 @@ export default async function ParishPublicPortalPage() {
           </div>
         </section>
 
-        {/* Seção: A Palavra do Nosso Pároco / Bispo (Coluna Pastoral de Destaque) */}
+        {/* 6. A Palavra do Nosso Pároco / Bispo (Coluna Editorial Pastoral) */}
         <div id="pastoral">
           <PastoralMessageFeatured message={featuredMessage} />
         </div>
 
-        {/* Seção 2: Nossas Comunidades & Capelas (Hierarquia CEBs) */}
+        {/* 7. Nossas Comunidades & Capelas (Hierarquia CEBs) */}
         <section id="comunidades" className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <Church className="w-5 h-5 text-[var(--primary)]" />
               <div>
-                <h3 className="text-lg sm:text-xl font-bold">Rede de Comunidades & Capelas (CEBs)</h3>
+                <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[var(--dash-text-primary)]">
+                  <span className="text-[var(--brand-gold-500)]">Comunidades</span> & Capelas (CEBs)
+                </h3>
                 <p className="text-xs text-[var(--dash-text-secondary)]">Conheça todas as comunidades que formam nossa paróquia</p>
               </div>
             </div>
@@ -223,7 +191,7 @@ export default async function ParishPublicPortalPage() {
               <Card
                 key={c.id}
                 className={`flex flex-col justify-between space-y-3 ${
-                  c.is_headquarters ? 'border-amber-500/40 ring-1 ring-amber-500/20' : ''
+                  c.is_headquarters ? 'border-[var(--brand-gold-500)]/50 ring-1 ring-[var(--brand-gold-500)]/30' : ''
                 }`}
               >
                 <div className="space-y-2">
@@ -270,24 +238,26 @@ export default async function ParishPublicPortalPage() {
           </div>
         </section>
 
-        {/* Seção: Folhetos das Santas Missas (Sou do Sagrado Missa) */}
+        {/* 8. Folhetos das Santas Missas (Sou do Sagrado Missa) */}
         <MissalBookletsSection />
 
-        {/* Seção 3: Conscientização Pastoral do Dízimo (Theòs) & Ofertas via PIX */}
+        {/* 9. Conscientização Pastoral do Dízimo (Theòs) & Ofertas via PIX */}
         <DizimoDoacoesSection parish={parish} />
 
-        {/* Seção 4: Avisos e Notícias da Paróquia */}
+        {/* 10. Mural e Avisos Pastorais */}
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <Calendar className="w-5 h-5 text-[var(--primary)]" />
-              <h3 className="text-lg sm:text-xl font-bold">Mural e Avisos Pastorais</h3>
+              <Calendar className="w-5 h-5 text-[var(--brand-gold-700)]" />
+              <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[var(--dash-text-primary)]">
+                <span className="text-[var(--brand-gold-500)]">Mural</span> de Avisos
+              </h3>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {recentAnnouncements.map((news) => (
-              <Card key={news.id} className="flex flex-col justify-between space-y-3 hover:border-[var(--primary)]/50">
+              <Card key={news.id} className="flex flex-col justify-between space-y-3 hover:border-[var(--brand-gold-500)]/60 transition-colors">
                 <div>
                   <Badge variant="default">{news.category}</Badge>
                   <h4 className="text-base font-bold mt-2 leading-snug">{news.title}</h4>
@@ -303,12 +273,12 @@ export default async function ParishPublicPortalPage() {
           </div>
         </section>
 
-        {/* Localização e Atendimento */}
-        <Card className="bg-[var(--dash-surface-secondary)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        {/* 11. Localização e Atendimento da Secretaria */}
+        <Card className="bg-[var(--dash-surface-secondary)] flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-[var(--dash-border)]">
           <div className="space-y-1">
-            <h4 className="font-bold text-sm sm:text-base flex items-center gap-2 text-[var(--dash-text-primary)]">
-              <MapPin className="w-4 h-4 text-[var(--primary)]" />
-              Secretaria Paroquial e Endereço
+            <h4 className="text-sm sm:text-base flex items-center gap-2 text-[var(--dash-text-primary)] font-extrabold">
+              <MapPin className="w-4 h-4 text-[var(--brand-gold-700)]" />
+              <span className="text-[var(--brand-gold-500)]">Secretaria</span> Paroquial e Endereço
             </h4>
             <p className="text-xs text-[var(--dash-text-secondary)]">{parish.address}</p>
             <p className="text-xs text-[var(--dash-text-secondary)]">Atendimento de Segunda a Sexta: 08:00 às 17:00</p>
@@ -327,7 +297,7 @@ export default async function ParishPublicPortalPage() {
         </Card>
       </main>
 
-      {/* Rodapé 100% White-Label (NENHUMA menção ao Ecclesiam) */}
+      {/* 12. Rodapé 100% White-Label (NENHUMA menção ao Ecclesiam) */}
       <footer className="mt-12 border-t border-[var(--dash-border)] bg-[var(--dash-surface)] py-6 text-center text-xs text-[var(--dash-text-secondary)]">
         <div className="max-w-5xl mx-auto px-4 space-y-1">
           <p className="font-semibold text-[var(--dash-text-primary)]">

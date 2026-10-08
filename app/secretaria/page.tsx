@@ -42,7 +42,7 @@ export default async function SecretariaInstitucionalPage() {
     whatsapp_number: '5527999990000',
     pix_key: 'secretaria@catedraldecolatina.org.br',
     pix_key_type: 'email',
-    primary_color: '#1e3a8a',
+    primary_color: '#8B1E22',
     created_at: new Date().toISOString(),
   };
 
@@ -114,7 +114,7 @@ export default async function SecretariaInstitucionalPage() {
     { year: '1927', title: 'Fundação da Paróquia', desc: 'Em 24 de dezembro de 1927 é criada a Paróquia do Sagrado Coração de Jesus sob bênção episcopal.' },
     { year: '1956', title: 'Expansão Comunitária', desc: 'Início da criação das primeiras CEBs nos bairros urbanos de Colatina.' },
     { year: '1990', title: 'Criação da Diocese de Colatina', desc: 'A Matriz é solenemente elevada à dignidade de Catedral Diocesana.' },
-    { year: '2026', title: 'Acolhimento Digital Ecclesiam', desc: 'Modernização digital de atendimento pastoral, folhetos litúrgicos e transparência.' },
+    { year: '2026', title: 'Acolhimento Digital da Catedral', desc: 'Modernização digital de atendimento pastoral, folhetos litúrgicos e transparência.' },
   ];
 
   return (
@@ -140,7 +140,7 @@ export default async function SecretariaInstitucionalPage() {
           <span className="text-xs font-bold uppercase tracking-wider text-[var(--primary)]">
             Acolhimento e Governo Pastoral
           </span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+          <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">
             Secretaria Paroquial & Clero
           </h1>
           <p className="text-sm sm:text-base text-[var(--dash-text-secondary)] max-w-2xl leading-relaxed">

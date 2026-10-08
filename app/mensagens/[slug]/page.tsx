@@ -115,8 +115,8 @@ export default async function MensagemDetalhePage({ params }: PageProps) {
         {/* Identificação do Autor e Metadados */}
         <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[var(--primary)]/10 text-[var(--primary)]">
-              <Sparkles className="w-3 h-3" />
+            <span className="tag-gold text-xs gap-1">
+              <Sparkles className="w-3 h-3 text-[var(--brand-gold-500)]" />
               {isBispo ? 'Mensagem Episcopal' : 'Mensagem Paroquial'}
             </span>
             {message.liturgical_season && (
@@ -130,7 +130,7 @@ export default async function MensagemDetalhePage({ params }: PageProps) {
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-[var(--dash-text-primary)] leading-tight tracking-tight">
+          <h1 className="font-display text-2xl sm:text-4xl font-bold text-[var(--dash-text-primary)] leading-tight tracking-tight">
             {message.title}
           </h1>
 
@@ -162,7 +162,7 @@ export default async function MensagemDetalhePage({ params }: PageProps) {
 
         {/* Subtítulo / Citação em Destaque */}
         {message.subtitle && (
-          <div className="p-5 rounded-2xl bg-[var(--dash-surface-secondary)]/80 border-l-4 border-amber-500 text-amber-400 font-medium italic text-sm sm:text-base leading-relaxed shadow-xs">
+          <div className="p-5 rounded-2xl bg-[var(--dash-surface-secondary)]/80 border-l-4 border-[var(--brand-gold-500)] text-[var(--dash-text-primary)] font-medium italic text-sm sm:text-base leading-relaxed shadow-xs">
             {message.subtitle}
           </div>
         )}

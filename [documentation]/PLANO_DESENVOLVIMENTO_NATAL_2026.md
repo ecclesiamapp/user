@@ -101,9 +101,11 @@ Outubro 2026                     Novembro 2026                    Dezembro 2026
 5. **Refinamento do Clero (4 Padres) & WhatsApp:**
    - Clero oficial renderizado: Pe. Irineu Claudino Sales, Pe. Adilson Ramos de Melo, Pe. Deivid José e Pe. Ernandes Samuel.
    - Canais de WhatsApp da secretaria com links diretos categorizados (Geral, Batismos, Casamentos).
-6. **Auditoria de UX/UI & Build:**
-   - Execução do script de auditoria UX/UI (`audit-ux.js`) para validar tokens de cores, paddings de selects (`.dash-select`) e modo escuro.
-   - `npm run build` com 0 erros de compilação TypeScript.
+6. **Consolidação Estética & Auditoria UX/UI (Design System Padre Alex Nogueira):**
+   - Adoção oficial dos tokens e componentes de [padrealexnogueira.com](https://www.padrealexnogueira.com/): tipografia solene display `Suez One` + corpo/numerais tabulares `Sora`.
+   - Paleta calorosa eclesial: Fundo Pergaminho (`#F5EFE7`), Areia (`#EEE3D4`), Vermelho Sagrado Coração (`#8B1E22`), Marrom Ébano (`#2D1A16`), Ouro Âmbar (`#FFA82A`) e Café (`#211A14`).
+   - Componentes oficiais: Marquee Contínuo de Avisos (`banner_horizontal`), Floating Schedule Card de missas de hoje e badges `.tag-gold`.
+   - Execução do script de auditoria UX/UI (`audit_ux_ui.js`) e validação de 0 erros no `npm run build`.
 7. **Capacitação da Secretária (4 horas):**
    - Treinamento presencial na secretaria da Catedral: gerenciamento de horários no `/admin/horarios`, avisos no `/admin/conteudo` e mensagens no `/admin/mensagens`.
 8. **Checklist Go-Live 01/11:**
