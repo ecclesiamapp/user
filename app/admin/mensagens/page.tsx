@@ -1,15 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Plus, 
-  BookOpen, 
-  Star, 
-  Calendar, 
-  Edit3, 
-  Trash2, 
-  UserCheck, 
-  Church, 
+import {
+  Plus,
+  BookOpen,
+  Star,
+  Calendar,
+  Edit3,
+  Trash2,
+  UserCheck,
+  Church,
   Sparkles,
   ExternalLink,
   Check
@@ -119,19 +119,17 @@ export default function AdminMensagensPage() {
         {messages.map((item) => (
           <div
             key={item.id}
-            className={`p-5 rounded-2xl bg-[var(--dash-surface)] border transition-all shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-5 ${
-              item.is_featured_home
+            className={`p-5 rounded-2xl bg-[var(--dash-surface)] border transition-all shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-5 ${item.is_featured_home
                 ? 'border-amber-500/50 ring-1 ring-amber-500/20'
                 : 'border-[var(--dash-border)]'
-            }`}
+              }`}
           >
             <div className="space-y-2 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <span className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full ${
-                  item.author_type === 'bispo' 
-                    ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20' 
+                <span className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full ${item.author_type === 'bispo'
+                    ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
                     : 'bg-amber-500/10 text-amber-500 border border-amber-500/20'
-                }`}>
+                  }`}>
                   {item.author_type === 'bispo' ? <Church className="w-3 h-3" /> : <UserCheck className="w-3 h-3" />}
                   {item.author_type === 'bispo' ? 'Palavra do Bispo' : 'Palavra do Pároco'}
                 </span>
