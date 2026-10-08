@@ -17,16 +17,19 @@ O objetivo é transformar o projeto que nasceu para a Catedral de Colatina em um
 * Dashboard de Gestão: Visão geral de acessos e arrecadações.
 * Gestão de Conteúdo: Postagem de Avisos, Notícias e Mural.
 * Gestão de Horários: Missas, Confissões e Expediente.
-* Módulo de Doações: Acompanhamento e relatórios de Dízimo/Intenções de Missa gerados via PIX.
+* Módulo de Doações e Ofertas: Central de informações da paróquia com acompanhamento de doações via PIX (QR Code dinâmico e chave Copia-e-Cola para obras, campanhas e caridade).
+* Coluna Editorial Pastoral: Gestão de artigos e mensagens periódicas com seletor de destaque na Home ("A Palavra do Nosso Pároco" e "A Palavra do Nosso Bispo").
 * Personalização: Alteração da identidade visual do Site/App.
-* Calendário Litúrgico & Festas: Grade mensal com cores canônicas e cadastro de festas de padroeiros da Matriz e das CEBs.
+* Calendário Litúrgico & Festas: Grade mensal com cores canônicas e cadastro de festas de padroeiros da Matriz, das CEBs e dos Grupos de Reflexão.
 
 ### 3.2 O Site da Paróquia
 * Interface web amigável e responsiva baseada no template escolhido.
 * Faixa Litúrgica Dinâmica: Adaptação cromática sutil à cor do dia (Verde, Roxo, Vermelho, Branco), com celebração e Liturgia Diária.
 * Exibição clara de horários, notícias e links de transmissão ao vivo.
 * Central de Atendimento (redirecionamento rápido para o WhatsApp da Secretaria).
-* Página de Dízimo e Intenções de Missa (Check-out de Pagamento).
+* Destaque Solene da Palavra do Pastor: Card exclusivo e refinado na Home (Pároco ou Bispo) com frase de impacto e link para leitura completa.
+* Página Dedicada de Mensagens Pastorais (`/mensagens`): Dois grandes cards solenes (Pároco e Bispo) para acesso à mensagem atual e acervo histórico de reflexões espirituais.
+* Central de Conscientização Pastoral do Dízimo (Theòs) & Ofertas via PIX: Conscientização bíblica das 4 dimensões da CNBB, orientações da secretaria e exibição de QR Code visual escaneável para ofertas e doações imediatas.
 
 ### 3.3 O Aplicativo Exclusivo (White-label)
 * Espelhamento do conteúdo do site em formato nativo.

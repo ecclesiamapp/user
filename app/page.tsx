@@ -12,14 +12,17 @@ import {
   ExternalLink,
   Heart,
   Navigation,
-  User
+  User,
+  BookOpen
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { Card, Badge, Button } from '@/components/ui';
-import { Community, Parish } from '@/types';
+import { Community, Parish, PastoralMessage } from '@/types';
 import { fallbackCommunitiesList, getCommunitySlug } from '@/lib/communities';
 import { LiturgicalBanner } from '@/components/liturgy/LiturgicalBanner';
 import { MissalBookletsSection } from '@/components/liturgy/MissalBookletsSection';
+import { PastoralMessageFeatured } from '@/components/pastoral/PastoralMessageFeatured';
+import { DizimoDoacoesSection } from '@/components/dizimo/DizimoDoacoesSection';
 
 export default async function ParishPublicPortalPage() {
   const cookieStore = await cookies();
@@ -33,6 +36,16 @@ export default async function ParishPublicPortalPage() {
     .eq('is_active', true)
     .order('is_headquarters', { ascending: false })
     .order('name');
+
+  // Buscar mensagem pastoral em destaque para a Home (Palavra do Pároco / Palavra do Bispo)
+  const { data: featuredMessageData } = await supabase
+    .from('pastoral_messages')
+    .select('*')
+    .eq('is_featured_home', true)
+    .eq('is_active', true)
+    .limit(1);
+
+  const featuredMessage: PastoralMessage | null = featuredMessageData?.[0] || null;
 
   const parish: Parish = parishesData?.[0] || {
     id: 'c0000000-0000-0000-0000-000000000001',
@@ -140,9 +153,14 @@ export default async function ParishPublicPortalPage() {
                   Secretaria & Padres
                 </Button>
               </Link>
+              <a href="#pastoral">
+                <Button variant="outline" size="md" icon={<BookOpen className="w-4 h-4" />} className="bg-[var(--dash-surface)]/10 text-white hover:bg-[var(--dash-surface)]/20 border-white/20">
+                  Palavra do Pároco
+                </Button>
+              </a>
               <a href="#dizimo">
                 <Button variant="liturgical" size="md" icon={<Heart className="w-4 h-4" />}>
-                  Dízimo PIX
+                  Dízimo & Ofertas
                 </Button>
               </a>
             </div>
@@ -177,6 +195,11 @@ export default async function ParishPublicPortalPage() {
             ))}
           </div>
         </section>
+
+        {/* Seção: A Palavra do Nosso Pároco / Bispo (Coluna Pastoral de Destaque) */}
+        <div id="pastoral">
+          <PastoralMessageFeatured message={featuredMessage} />
+        </div>
 
         {/* Seção 2: Nossas Comunidades & Capelas (Hierarquia CEBs) */}
         <section id="comunidades" className="space-y-4">
@@ -250,47 +273,8 @@ export default async function ParishPublicPortalPage() {
         {/* Seção: Folhetos das Santas Missas (Sou do Sagrado Missa) */}
         <MissalBookletsSection />
 
-        {/* Seção 3: Dízimo Paroquial e Ofertas via PIX */}
-        <section id="dizimo">
-          <Card className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <span className="text-xs font-semibold text-[var(--primary)] uppercase tracking-wider">Ato de Fidelidade e Partilha</span>
-                <h3 className="text-xl sm:text-2xl font-bold mt-1">Dízimo e Intenções de Santa Missa via PIX</h3>
-              </div>
-              <Badge variant="active" icon={<QrCode className="w-4 h-4" />}>
-                PIX Direto na Conta da Paróquia
-              </Badge>
-            </div>
-
-            <p className="text-xs sm:text-sm text-[var(--dash-text-secondary)] leading-relaxed">
-              Seu dízimo sustenta as obras de caridade pastoral, a manutenção do templo e os trabalhos de evangelização em nossa comunidade.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center pt-2">
-              <div className="p-5 rounded-xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)] space-y-3">
-                <div>
-                  <span className="text-xs text-[var(--dash-text-secondary)] block">Chave PIX Oficial ({parish.pix_key_type?.toUpperCase() || 'E-MAIL'}):</span>
-                  <span className="text-base font-mono font-bold select-all text-[var(--primary)]">{parish.pix_key}</span>
-                </div>
-                <div className="text-xs text-[var(--dash-text-secondary)] pt-2 border-t border-[var(--dash-border)]">
-                  <p><strong>Favorecido:</strong> {parish.name}</p>
-                  <p><strong>Cidade:</strong> {parish.city}/{parish.state}</p>
-                </div>
-              </div>
-
-              <div className="space-y-3 text-xs sm:text-sm text-[var(--dash-text-secondary)]">
-                <p className="font-semibold text-[var(--dash-text-primary)]">Como realizar sua contribuição:</p>
-                <ol className="list-decimal list-inside space-y-1.5">
-                  <li>Abra o aplicativo do seu banco de preferência.</li>
-                  <li>Escolha a opção de pagamento via <strong>PIX</strong>.</li>
-                  <li>Copie e cole a chave paroquial ao lado.</li>
-                  <li>Se desejar marcar como Dízimo ou Intenção, adicione na descrição do PIX.</li>
-                </ol>
-              </div>
-            </div>
-          </Card>
-        </section>
+        {/* Seção 3: Conscientização Pastoral do Dízimo (Theòs) & Ofertas via PIX */}
+        <DizimoDoacoesSection parish={parish} />
 
         {/* Seção 4: Avisos e Notícias da Paróquia */}
         <section className="space-y-4">

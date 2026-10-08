@@ -149,3 +149,24 @@ export interface Gallery {
   created_at: string;
   updated_at?: string;
 }
+
+export interface PastoralMessage {
+  id: string;
+  parish_id: string;
+  author_type: 'paroco' | 'bispo' | 'vigario';
+  author_name: string;
+  author_title: string;
+  author_photo_url?: string;
+  title: string;
+  slug: string;
+  subtitle?: string;
+  content: string;
+  liturgical_season?: string;
+  cover_image_url?: string;
+  is_featured_home: boolean;
+  is_active: boolean;
+  published_at: string;
+  created_at?: string;
+  updated_at?: string;
+}
+

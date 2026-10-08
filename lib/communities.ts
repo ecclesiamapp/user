@@ -188,6 +188,23 @@ export const fallbackCommunities: Record<string, Community> = {
     is_active: true,
     created_at: new Date().toISOString(),
   },
+  'santa-rita-brisa-do-vale': {
+    id: 'c0000000-0000-0000-0000-000000000022',
+    parish_id: 'c0000000-0000-0000-0000-000000000001',
+    name: 'Grupo de Reflexão Santa Rita',
+    slug: 'santa-rita-brisa-do-vale',
+    patron_saint: 'Santa Rita de Cássia',
+    is_headquarters: false,
+    address: 'Bairro Brisa do Vale',
+    neighborhood: 'Brisa do Vale',
+    city: 'Colatina',
+    state: 'ES',
+    foundation_year: '2018',
+    feast_day: '22 de Maio',
+    history: 'Núcleo vivo de oração e partilha da Palavra de Deus reunido no Bairro Brisa do Vale. Sob a poderosa intercessão de Santa Rita de Cássia, as famílias do bairro se reúnem semanalmente em círculos bíblicos de reflexão, terço e fraternidade cristã em profunda união com a Catedral.',
+    is_active: true,
+    created_at: new Date().toISOString(),
+  },
 };
 
 export const fallbackCommunitiesList: Community[] = Object.values(fallbackCommunities);
@@ -206,5 +223,6 @@ export function getCommunitySlug(c: Community): string {
   if (name.includes('expedito')) return 'santo-expedito';
   if (name.includes('bento')) return 'sao-bento';
   if (name.includes('lucas')) return 'sao-lucas';
+  if (name.includes('rita')) return 'santa-rita-brisa-do-vale';
   return 'catedral-matriz';
 }

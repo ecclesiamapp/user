@@ -2,25 +2,26 @@
 
 Consulte [`[documentation]/planejamento/PROMPT_DE_CONTINUIDADE.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PROMPT_DE_CONTINUIDADE.md) para o prompt oficial de ativação da próxima sessão.
 
-### 📌 Conquistas Desta Sessão (Cruzamento Apresentação Pe. Irineu x Escopo 100% Entregue):
-1. **Cadastro Oficial do 4º Sacerdote (Pe. Adilson Ramos de Melo):**
-   - Inserido no banco via migração `20261003_add_padre_adilson.sql`.
-   - Grid do clero adaptado para 4 colunas em `/secretaria` e `/admin/secretaria` (Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes).
-2. **Mini-Sites das 11 CEBs (`/comunidades/[slug]`):**
-   - Rota dinâmica criada com hero da capela, ano de fundação, festa do padroeiro, história dos pioneiros, horários de celebração e botões de GPS (Google Maps e Waze).
-   - Integração completa nos cards da Home (`/`).
-   - Migração `20261003_add_cebs_minisites_fields.sql` aplicada.
-3. **Liturgia Diária (CNBB) & Folhetos de Missa ("Sou do Sagrado Missa"):**
-   - Faixa da Liturgia com resposta cromática canônica e modal das leituras oficiais (1ª Leitura, Salmo Responsorial e Evangelho).
-   - Módulo de folhetos em PDF das missas dominicais com visualizador e download direto.
-   - Migração `20261003_add_liturgical_booklets.sql` gerada.
-4. **PWA & Atalho no Celular sem Lojas (Slide 10):**
-   - `app/manifest.ts` e ícones oficiais gerados em `/public/icon-192.png` e `/public/icon-512.png`.
-   - Componente `PwaInstallPrompt` com suporte nativo a Android e instruções guiadas para iOS/Safari.
-5. **Build de Produção:**
-   - `npm run build` executado com **0 erros** no Next.js 16 (Turbopack). Todas as rotas geradas estática/dinamicamente com sucesso.
+### 📌 Conquistas Desta Sessão (Aprovação Pe. Irineu & Plano Mestre de Natal 2026):
+1. **Aprovação Histórica com o Pároco Pe. Irineu:**
+   - Proposta da Catedral do Sagrado Coração de Jesus aprovada com sucesso no dia 07/10/2026.
+   - Paróquia Piloto oficial do Ecclesiam App confirmada com Setup VIP (R$ 1.200 - 8h) e recorrência mensal.
+2. **Plano Mestre de Desenvolvimento até o Natal 2026:**
+   - Elaborado e estruturado em 11 semanas (~78 dias) com 4 Sprints até 25/12/2026.
+   - Sincronizado em `[documentation]/planejamento/PLANO_DESENVOLVIMENTO_NATAL_2026.md`, `[documentation]/` e Google Drive.
+3. **Marcos Litúrgicos Definidos:**
+   - **01/11/2026 (Todos os Santos):** Go-Live Fase 1 (Portal Matriz + Domínio + 4h treino secretária).
+   - **22/11/2026 (Cristo Rei):** Go-Live Fase 2 (11 CEBs + Folhetos de Missa + 4h treino CEBs).
+   - **06/12/2026 (2º Dom. Advento):** Go-Live Fase 3 (Secretaria Online: Agendamentos e Inscrições).
+   - **25/12/2026 (Natal):** Operação Plena com grade especial da Novena e Vigília de Natal.
 
-### 🎯 Próximo Foco Imediato:
-1. Painel de upload de folhetos em `/admin/folhetos` para a equipe litúrgica.
-2. Inclusão de fotos oficiais das capelas fornecidas pela PASCOM.
-3. Simulação da apresentação com o pároco Pe. Irineu.
+4. **Ajustes de Ata da Reunião com o Pároco Integrados:**
+   - **Grupo de Reflexão Santa Rita (Brisa do Vale):** Adicionado como a 12ª comunidade oficial da Catedral com rota `/comunidades/santa-rita-brisa-do-vale` e migração `20261007_add_grupo_reflexao_santa_rita.sql`.
+   - **Dízimo & Doações:** Redefinido como Central de Conscientização Pastoral do Dízimo (fidelidade às diretrizes CNBB e integração pastoral com o sistema Theòs na secretaria) + Card dedicado de Doações e Ofertas via PIX com QR Code escaneável de alta resolução.
+   - **Palavra do Pároco & Palavra do Bispo:** Módulo editorial integrado ao escopo e Sprint 1 (Go-Live 01/11). 1 card nobre em destaque na Home + página dedicada `/mensagens` com dois grandes cards e acervo histórico. Migração `20261007_add_pastoral_messages.sql` gerada.
+
+### 🎯 Próximo Foco Imediato (Sprint 1 - Go-Live 01/11):
+1. Aplicar as migrações SQL no Supabase (`20261007_add_grupo_reflexao_santa_rita.sql` e `20261007_add_pastoral_messages.sql`).
+2. Implementar na Home (`app/page.tsx`) o card solene da **Palavra do Pároco** e a seção de **Conscientização do Dízimo + QR Code de Doações**.
+3. Criar a página de leitura `/mensagens` e a gestão no `/admin/mensagens`.
+4. Criação da tela `/admin/folhetos` para upload de folhetos em PDF.
