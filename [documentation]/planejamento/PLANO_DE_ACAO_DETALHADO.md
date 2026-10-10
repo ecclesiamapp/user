@@ -19,7 +19,7 @@
 - [x] **TASK-06:** Gestão de Prazos: implementação da skill `project_health_timeline` com auditoria contínua dos 4 marcos dominicais.
 - [x] **TASK-07:** CRUD completo de Mensagens Pastorais em `/admin/mensagens` com modal `MessageFormModal` e card `MessageCard` integrados ao Supabase.
 - [x] **TASK-08:** Motor Dinâmico de Liturgia Diária Oficial (CNBB): rota `/api/liturgia` com cache resiliente e cores canônicas dinâmicas.
-- [ ] **TASK-09:** Guia & Roteiro de Treinamento da Secretária Paroquial (4 horas presenciais para uso do painel `/admin`).
+- [x] **TASK-09:** Guia & Roteiro de Treinamento da Secretária Paroquial (4 horas presenciais para uso do painel `/admin`).
 - [ ] **TASK-10:** Auditoria de Segurança RLS no Supabase (validação de isolamento multi-tenant por `parish_id` e políticas de escrita).
 - [ ] **TASK-11:** Auditoria de Dependências (`npm audit`) e validação de variáveis de ambiente de produção na Vercel.
 - [ ] **TASK-12:** Apontamento de DNS e Escudo Cloudflare (quando acesso for liberado pela paróquia: Proxy Laranja, SSL Full Strict e registros A/CNAME).
