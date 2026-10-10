@@ -137,6 +137,20 @@ export interface LiturgyBooklet {
   updated_at?: string;
 }
 
+export interface LiturgicalBooklet {
+  id: string;
+  parish_id: string;
+  title: string;
+  celebration_date: string;
+  sunday_label: string;
+  theme?: string | null;
+  pdf_url?: string | null;
+  is_active: boolean;
+  download_count: number;
+  created_at: string;
+  updated_at?: string;
+}
+
 export interface Gallery {
   id: string;
   parish_id: string;

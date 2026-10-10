@@ -2,26 +2,25 @@
 
 Consulte [`[documentation]/planejamento/PROMPT_DE_CONTINUIDADE.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PROMPT_DE_CONTINUIDADE.md) para o prompt oficial de ativação da próxima sessão.
 
-### 📌 Conquistas Desta Sessão (Aprovação Pe. Irineu & Plano Mestre de Natal 2026):
-1. **Aprovação Histórica com o Pároco Pe. Irineu:**
-   - Proposta da Catedral do Sagrado Coração de Jesus aprovada com sucesso no dia 07/10/2026.
-   - Paróquia Piloto oficial do Ecclesiam App confirmada com Setup VIP (R$ 1.200 - 8h) e recorrência mensal.
-2. **Plano Mestre de Desenvolvimento até o Natal 2026:**
-   - Elaborado e estruturado em 11 semanas (~78 dias) com 4 Sprints até 25/12/2026.
-   - Sincronizado em `[documentation]/planejamento/PLANO_DESENVOLVIMENTO_NATAL_2026.md`, `[documentation]/` e Google Drive.
-3. **Marcos Litúrgicos Definidos:**
-   - **01/11/2026 (Todos os Santos):** Go-Live Fase 1 (Portal Matriz + Domínio + 4h treino secretária).
-   - **22/11/2026 (Cristo Rei):** Go-Live Fase 2 (11 CEBs + Folhetos de Missa + 4h treino CEBs).
-   - **06/12/2026 (2º Dom. Advento):** Go-Live Fase 3 (Secretaria Online: Agendamentos e Inscrições).
-   - **25/12/2026 (Natal):** Operação Plena com grade especial da Novena e Vigília de Natal.
+### 📌 Conquistas Desta Sessão (09/10/2026):
+1. **Nova Skill de Gestão: «project_health_timeline» Implementada via /grill-me:**
+   - Skill criada em `.agents/skills/project_health_timeline/` com script automatizado `check_health.js`.
+   - Avaliação contínua da saúde dos prazos baseada no `PLANO_DESENVOLVIMENTO_NATAL_2026.md` (23 dias para a Fase 1).
+   - Mecanismo interativo de timeboxing que pergunta ao dev o tempo disponível na sessão e orienta a rota cirúrgica.
+   - Regra mandatória registrada em `.agents/AGENTS.md` e sincronizada na documentação oficial.
+2. **Módulo Completo de Folhetos Litúrgicos («Sou do Sagrado Missa»):**
+   - Criada a tela administrativa modular `/admin/folhetos` com métricas em tempo real (total de folhetos, ativos e downloads).
+   - Componentes modulares `BookletFormModal.tsx` e `BookletCard.tsx` com upload de PDFs para o Supabase Storage (`booklets`) e seletor `.dash-select`.
+   - Atalho "Folhetos de Missa" na sidebar administrativa (`app/admin/layout.tsx`).
+   - Seção pública `MissalBookletsSection.tsx` sincronizada com o Supabase.
+3. **Migrações Supabase Executadas com Sucesso:**
+   - Tabelas `pastoral_messages` e `liturgical_booklets` ativas com RLS e dados inaugurais.
+   - 12ª comunidade cadastrada: Grupo de Reflexão Santa Rita (Brisa do Vale).
+   - Bucket público `booklets` provisionado no Supabase Storage com RLS para upload e download.
+4. **Saúde Técnica e Build de Produção:**
+   - **17 rotas** estáticas e dinâmicas geradas e validadas com sucesso (0 erros no build de produção).
 
-4. **Ajustes de Ata da Reunião com o Pároco Integrados:**
-   - **Grupo de Reflexão Santa Rita (Brisa do Vale):** Adicionado como a 12ª comunidade oficial da Catedral com rota `/comunidades/santa-rita-brisa-do-vale` e migração `20261007_add_grupo_reflexao_santa_rita.sql`.
-   - **Dízimo & Doações:** Redefinido como Central de Conscientização Pastoral do Dízimo (fidelidade às diretrizes CNBB e integração pastoral com o sistema Theòs na secretaria) + Card dedicado de Doações e Ofertas via PIX com QR Code escaneável de alta resolução.
-   - **Palavra do Pároco & Palavra do Bispo:** Módulo editorial integrado ao escopo e Sprint 1 (Go-Live 01/11). 1 card nobre em destaque na Home + página dedicada `/mensagens` com dois grandes cards e acervo histórico. Migração `20261007_add_pastoral_messages.sql` gerada.
+### 🎯 Próximo Foco Imediato (Sprint 1 - Go-Live 01/11/2026):
+1. Implementar o modal de CRUD real em `/admin/mensagens` integrado à tabela `pastoral_messages` do Supabase.
+2. Preparar checklist de Go-Live da Fase 1: Cloudflare (Proxy Laranja + SSL Full Strict), apontamento de DNS e publicação na Vercel com variáveis de ambiente.
 
-### 🎯 Próximo Foco Imediato (Sprint 1 - Go-Live 01/11):
-1. Aplicar as migrações SQL no Supabase (`20261007_add_grupo_reflexao_santa_rita.sql` e `20261007_add_pastoral_messages.sql`).
-2. Implementar na Home (`app/page.tsx`) o card solene da **Palavra do Pároco** e a seção de **Conscientização do Dízimo + QR Code de Doações**.
-3. Criar a página de leitura `/mensagens` e a gestão no `/admin/mensagens`.
-4. Criação da tela `/admin/folhetos` para upload de folhetos em PDF.

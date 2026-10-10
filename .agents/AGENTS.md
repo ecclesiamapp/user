@@ -48,3 +48,10 @@ Sempre que criar ou editar uma interface:
 2. Utilize cantos arredondados generosos (`rounded-2xl` para containers, `rounded-xl` para botões/inputs). **NUNCA** use `rounded-none`.
 3. Garanta feedback visual de carregamento (`Loader2`) e interações de hover em botões.
 Sempre que um usuário mencionar "implementar interface", "UX", "UI", "adicionar botão", ou se o "protocolo start" for iniciado, você deve acionar a Skill `Auditoria UX/UI` para rodar o script de varredura.
+
+## Auditoria de Saúde do Prazo & Relatório Situacional
+Sempre que o usuário utilizar termos de gatilho como **"relatorio de pendencia"**, **"relatorio situacional"**, **"pendencias"**, **"saude do projeto"** ou **"status do projeto"**, a IA deve OBRIGATORIAMENTE acionar a Skill `Avaliação de Saúde do Prazo & Relatório Situacional` (`project_health_timeline`):
+1. Executar o script `node .agents/skills/project_health_timeline/scripts/check_health.js`.
+2. Apresentar o diagnóstico comparando a data atual com os 4 marcos dominicais do `PLANO_DESENVOLVIMENTO_NATAL_2026.md` e o estado das pendências.
+3. Perguntar ativamente ao desenvolvedor quanto tempo ele tem na sessão atual para recomendar a trilha cirúrgica mais eficiente.
+

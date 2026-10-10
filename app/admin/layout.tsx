@@ -13,7 +13,8 @@ import {
   ShieldCheck,
   MapPin,
   User,
-  BookOpen
+  BookOpen,
+  FileText
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -30,6 +31,7 @@ export default function AdminLayout({
     { href: '/admin/horarios', label: 'Horários de Missa', icon: Calendar },
     { href: '/admin/secretaria', label: 'Clero & Secretaria', icon: User },
     { href: '/admin/mensagens', label: 'Palavra do Pároco/Bispo', icon: BookOpen },
+    { href: '/admin/folhetos', label: 'Folhetos de Missa', icon: FileText },
     { href: '/admin/conteudo', label: 'Avisos e Notícias', icon: Newspaper },
     { href: '/admin/dizimo', label: 'Dízimo e Doações PIX', icon: HeartHandshake },
     { href: '/admin/configuracoes', label: 'Identidade Visual & Contato', icon: Settings },

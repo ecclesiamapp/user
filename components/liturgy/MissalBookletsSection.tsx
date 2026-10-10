@@ -1,16 +1,63 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FileText, Download, Eye, Calendar, Sparkles, CheckCircle2 } from 'lucide-react';
 import { Card, Badge, Button, Modal } from '@/components/ui';
 import { sampleMissalBooklets, MissalBooklet } from '@/lib/liturgy';
+import { createClient } from '@/utils/supabase/client';
+import { LiturgicalBooklet } from '@/types';
 
 export function MissalBookletsSection() {
+  const [booklets, setBooklets] = useState<MissalBooklet[]>(sampleMissalBooklets);
   const [selectedBooklet, setSelectedBooklet] = useState<MissalBooklet | null>(null);
   const [downloadSuccessId, setDownloadSuccessId] = useState<string | null>(null);
 
+  useEffect(() => {
+    async function loadBooklets() {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from('liturgical_booklets')
+          .select('*')
+          .eq('is_active', true)
+          .order('celebration_date', { ascending: false });
+
+        if (!error && data && data.length > 0) {
+          const mapped: MissalBooklet[] = (data as LiturgicalBooklet[]).map((item) => ({
+            id: item.id,
+            title: item.title,
+            celebrationDate: new Date(item.celebration_date + 'T12:00:00').toLocaleDateString('pt-BR', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+            }),
+            sundayLabel: item.sunday_label,
+            theme: item.theme || 'Celebração da Palavra e Santo Sacrifício',
+            pdfUrl: item.pdf_url || '#',
+            downloadCount: item.download_count,
+          }));
+          setBooklets(mapped);
+        }
+      } catch (err) {
+        console.warn('Usando folhetos de contingência local:', err);
+      }
+    }
+
+    loadBooklets();
+  }, []);
+
   const handleDownload = (booklet: MissalBooklet) => {
     setDownloadSuccessId(booklet.id);
+    if (booklet.pdfUrl && booklet.pdfUrl !== '#') {
+      window.open(booklet.pdfUrl, '_blank', 'noopener,noreferrer');
+      // Incrementa download_count silenciosamente
+      try {
+        const supabase = createClient();
+        supabase.rpc('increment_booklet_downloads', { booklet_id: booklet.id }).then(() => {});
+      } catch {
+        // Ignora silenciosamente se a RPC não existir
+      }
+    }
     setTimeout(() => setDownloadSuccessId(null), 3000);
   };
 
@@ -31,7 +78,7 @@ export function MissalBookletsSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {sampleMissalBooklets.map((booklet, idx) => (
+          {booklets.map((booklet, idx) => (
             <Card
               key={booklet.id}
               className={`flex flex-col justify-between space-y-4 ${
@@ -55,7 +102,7 @@ export function MissalBookletsSection() {
                   <h4 className="font-bold text-sm leading-snug line-clamp-2 text-[var(--dash-text-primary)]">
                     {booklet.title}
                   </h4>
-                  <p className="text-xs text-[var(--dash-text-secondary)] italic mt-1">
+                  <p className="text-xs text-[var(--dash-text-secondary)] italic mt-1 line-clamp-2">
                     Tema: {booklet.theme}
                   </p>
                 </div>
@@ -85,7 +132,7 @@ export function MissalBookletsSection() {
                     )
                   }
                 >
-                  {downloadSuccessId === booklet.id ? 'Baixado!' : 'Baixar PDF'}
+                  {downloadSuccessId === booklet.id ? 'Abrindo...' : 'Baixar PDF'}
                 </Button>
               </div>
             </Card>

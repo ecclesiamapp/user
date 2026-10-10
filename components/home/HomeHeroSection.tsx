@@ -25,7 +25,7 @@ export function HomeHeroSection({ parishName, dioceseName }: HomeHeroSectionProp
 
         {/* Conteúdo Sobreposto */}
         <div className="relative z-10 max-w-2xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-xs font-semibold text-[var(--brand-gold-soft)] tracking-wider uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--dash-surface)]/15 backdrop-blur-md border border-white/20 text-xs font-semibold text-[var(--brand-gold-soft)] tracking-wider uppercase">
             <Sparkles className="w-3.5 h-3.5 text-[var(--brand-gold-500)]" />
             <span>{dioceseName} • Paróquia Catedral</span>
           </div>
@@ -50,7 +50,7 @@ export function HomeHeroSection({ parishName, dioceseName }: HomeHeroSectionProp
 
             <a
               href="#comunidades"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-semibold text-sm border border-white/25 transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--dash-surface)]/20 hover:bg-[var(--dash-surface)]/30 backdrop-blur-md text-white font-semibold text-sm border border-white/25 transition-all cursor-pointer"
             >
               <Church className="w-4 h-4" />
               <span>12 CEBs & Capelas</span>
@@ -58,7 +58,7 @@ export function HomeHeroSection({ parishName, dioceseName }: HomeHeroSectionProp
 
             <Link
               href="/secretaria"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-semibold text-sm border border-white/25 transition-all"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--dash-surface)]/20 hover:bg-[var(--dash-surface)]/30 backdrop-blur-md text-white font-semibold text-sm border border-white/25 transition-all"
             >
               <User className="w-4 h-4" />
               <span>Secretaria</span>
@@ -66,7 +66,7 @@ export function HomeHeroSection({ parishName, dioceseName }: HomeHeroSectionProp
 
             <a
               href="#dizimo"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-semibold text-sm border border-white/25 transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--dash-surface)]/20 hover:bg-[var(--dash-surface)]/30 backdrop-blur-md text-white font-semibold text-sm border border-white/25 transition-all cursor-pointer"
             >
               <Heart className="w-4 h-4 text-[var(--brand-gold-soft)]" />
               <span>Dízimo & Ofertas</span>
@@ -77,14 +77,14 @@ export function HomeHeroSection({ parishName, dioceseName }: HomeHeroSectionProp
         {/* Indicadores de Slide Inspirados no Carrossel do Pe. Alex */}
         <div className="relative z-10 flex items-center justify-center gap-2 mt-6 pt-2">
           <div className="w-8 h-1.5 rounded-full bg-[var(--brand-gold-500)]" />
-          <div className="w-2 h-1.5 rounded-full bg-white/40" />
-          <div className="w-2 h-1.5 rounded-full bg-white/40" />
+          <div className="w-2 h-1.5 rounded-full bg-[var(--dash-surface)]/40" />
+          <div className="w-2 h-1.5 rounded-full bg-[var(--dash-surface)]/40" />
         </div>
       </section>
 
       {/* 2. Floating Schedule Card (Card Branco Limpo com Numerais Tabulares) */}
       <div className="relative -mt-3 sm:-mt-5 mx-2 sm:mx-6 z-20">
-        <div className="bg-white border border-[#E8DFD3] rounded-2xl p-4 sm:p-5 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="bg-[var(--dash-surface)] border border-[#E8DFD3] rounded-2xl p-4 sm:p-5 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-start sm:items-center gap-3.5">
             <div className="w-12 h-12 rounded-xl bg-[var(--dash-surface-secondary)] border border-[#E8DFD3] text-[var(--brand-gold-700)] flex items-center justify-center shrink-0">
               <Clock className="w-6 h-6 text-[var(--brand-gold-700)]" />

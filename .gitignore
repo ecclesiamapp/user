@@ -41,3 +41,12 @@ clear_users.ts
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# supabase cli temp
+supabase/.temp/
+
+# local mcp config with tokens
+.mcp.json
+mcp_config.json
+
+

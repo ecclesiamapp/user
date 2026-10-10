@@ -89,7 +89,7 @@ export default async function ParishPublicPortalPage() {
       <MarqueeAvisos />
 
       {/* 2. Header com Estilo Limpo Pe. Alex Nogueira */}
-      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#E8DFD3]">
+      <header className="sticky top-0 z-30 bg-[var(--dash-surface)]/95 backdrop-blur-md border-b border-[#E8DFD3]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--brand-gold-500)] to-[var(--brand-gold-700)] text-[#2D1A16] flex items-center justify-center shadow-xs">

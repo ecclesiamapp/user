@@ -54,7 +54,7 @@ export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProp
         </Link>
       </div>
 
-      <Card className="relative overflow-hidden p-6 sm:p-8 bg-white border border-[#E8DFD3] hover:border-[var(--brand-gold-500)]/60 transition-all shadow-md">
+      <Card className="relative overflow-hidden p-6 sm:p-8 bg-[var(--dash-surface)] border border-[#E8DFD3] hover:border-[var(--brand-gold-500)]/60 transition-all shadow-md">
         {/* Ícone de Aspas decorativo no fundo */}
         <Quote className="absolute right-4 bottom-4 w-32 h-32 text-[var(--brand-gold-500)]/10 pointer-events-none -rotate-12" />
 
