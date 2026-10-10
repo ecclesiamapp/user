@@ -17,10 +17,15 @@ Consulte [`[documentation]/planejamento/PROMPT_DE_CONTINUIDADE.md`](file:///c:/U
    - Tabelas `pastoral_messages` e `liturgical_booklets` ativas com RLS e dados inaugurais.
    - 12ª comunidade cadastrada: Grupo de Reflexão Santa Rita (Brisa do Vale).
    - Bucket público `booklets` provisionado no Supabase Storage com RLS para upload e download.
-4. **Saúde Técnica e Build de Produção:**
-   - **17 rotas** estáticas e dinâmicas geradas e validadas com sucesso (0 erros no build de produção).
+4. **Módulo Completo de Mensagens Pastorais («Palavra do Pároco/Bispo»):**
+   - Criados os sub-componentes modulares `MessageFormModal.tsx` e `MessageCard.tsx` no padrão UI-as-a-Service.
+   - Integração direta e operações CRUD completas no Supabase (`pastoral_messages`).
+   - Controle inteligente do Destaque Solene Único na Home e status de rascunho/publicado.
+5. **Saúde Técnica e Build de Produção:**
+   - **17 rotas** estáticas e dinâmicas geradas e validadas com sucesso (0 erros de tipagem TypeScript e 0 avisos de UX/UI).
 
 ### 🎯 Próximo Foco Imediato (Sprint 1 - Go-Live 01/11/2026):
-1. Implementar o modal de CRUD real em `/admin/mensagens` integrado à tabela `pastoral_messages` do Supabase.
-2. Preparar checklist de Go-Live da Fase 1: Cloudflare (Proxy Laranja + SSL Full Strict), apontamento de DNS e publicação na Vercel com variáveis de ambiente.
+1. Preparar checklist de Go-Live da Fase 1: Cloudflare (Proxy Laranja + SSL Full Strict), apontamento de DNS e publicação na Vercel com variáveis de ambiente.
+2. Agendar Capacitação 1: Secretária Paroquial (4h presenciais no fim de outubro).
+
 

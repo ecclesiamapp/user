@@ -1,76 +1,168 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  Plus,
   BookOpen,
+  Plus,
   Star,
-  Calendar,
-  Edit3,
-  Trash2,
-  UserCheck,
-  Church,
   Sparkles,
-  ExternalLink,
-  Check
+  Loader2,
+  Check,
+  Church,
+  UserCheck,
+  AlertCircle
 } from 'lucide-react';
-import { Badge, Button } from '@/components/ui';
+import { createClient } from '@/utils/supabase/client';
+import { PastoralMessage } from '@/types';
+import { MessageCard } from '@/components/admin/mensagens/MessageCard';
+import { MessageFormModal } from '@/components/admin/mensagens/MessageFormModal';
 
-interface AdminMessageItem {
-  id: string;
-  author_type: 'paroco' | 'bispo';
-  author_name: string;
-  author_title: string;
-  title: string;
-  slug: string;
-  subtitle: string;
-  liturgical_season: string;
-  is_featured_home: boolean;
-  published_at: string;
-}
-
-const initialMessages: AdminMessageItem[] = [
-  {
-    id: 'a0000000-0000-0000-0000-000000000001',
-    author_type: 'paroco',
-    author_name: 'Padre Irineu Claudino Sales',
-    author_title: 'Pároco e Cura da Catedral',
-    title: 'Uma Igreja em Saída nos Meios Digitais: Bem-vindos ao Novo Portal da Catedral!',
-    slug: 'palavra-do-paroco-uma-igreja-em-saida-digital',
-    subtitle: 'A beleza de nossa fé precisa resplandecer onde o povo está...',
-    liturgical_season: 'Solenidade de Todos os Santos',
-    is_featured_home: true,
-    published_at: '07 de Outubro, 2026',
-  },
-  {
-    id: 'a0000000-0000-0000-0000-000000000002',
-    author_type: 'bispo',
-    author_name: 'Dom Lauro Sérgio Versiani Barbosa',
-    author_title: 'Bispo Diocesano de Colatina',
-    title: 'Comunhão, Participação e Missão: A Catedral como Mãe e Referência Pastoral',
-    slug: 'palavra-do-bispo-catedral-mae-e-referencia-pastoral',
-    subtitle: 'A Catedral é a cátedra de onde emana a unidade da Diocese de Colatina...',
-    liturgical_season: 'Tempo Comum',
-    is_featured_home: false,
-    published_at: '05 de Outubro, 2026',
-  },
-];
+const CATEDRAL_PARISH_ID = 'c0000000-0000-0000-0000-000000000001';
 
 export default function AdminMensagensPage() {
-  const [messages, setMessages] = useState<AdminMessageItem[]>(initialMessages);
+  const [messages, setMessages] = useState<PastoralMessage[]>([]);
+  const [loading, setLoading] = useState(true);
   const [feedback, setFeedback] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const handleSetFeatured = (id: string) => {
-    setMessages((prev) =>
-      prev.map((m) => ({
-        ...m,
-        is_featured_home: m.id === id,
-      }))
-    );
-    const selected = messages.find((m) => m.id === id);
-    setFeedback(`"${selected?.title}" foi definida como o destaque oficial na Home!`);
-    setTimeout(() => setFeedback(null), 3000);
+  // Modal State
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [messageToEdit, setMessageToEdit] = useState<PastoralMessage | null>(null);
+  const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
+
+  const fetchMessages = async () => {
+    try {
+      setLoading(true);
+      setErrorMsg(null);
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from('pastoral_messages')
+        .select('*')
+        .eq('parish_id', CATEDRAL_PARISH_ID)
+        .order('published_at', { ascending: false });
+
+      if (error) {
+        console.error('Erro ao buscar mensagens pastorais:', error);
+        setErrorMsg('Erro ao carregar mensagens do banco de dados.');
+      } else if (data) {
+        setMessages(data as PastoralMessage[]);
+      }
+    } catch (err) {
+      console.error('Falha de requisição:', err);
+      setErrorMsg('Falha ao conectar ao servidor do Supabase.');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  const showFeedback = (text: string) => {
+    setFeedback(text);
+    setTimeout(() => setFeedback(null), 3500);
+  };
+
+  const handleOpenCreateModal = () => {
+    setMessageToEdit(null);
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEditModal = (message: PastoralMessage) => {
+    setMessageToEdit(message);
+    setIsModalOpen(true);
+  };
+
+  const handleSetFeatured = async (id: string) => {
+    try {
+      setActionLoadingId(id);
+      const supabase = createClient();
+
+      // 1. Remove o destaque de todas as outras mensagens da paróquia
+      await supabase
+        .from('pastoral_messages')
+        .update({ is_featured_home: false })
+        .eq('parish_id', CATEDRAL_PARISH_ID);
+
+      // 2. Aplica o destaque na mensagem selecionada
+      const { error } = await supabase
+        .from('pastoral_messages')
+        .update({ is_featured_home: true, is_active: true })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      setMessages((prev) =>
+        prev.map((m) => ({
+          ...m,
+          is_featured_home: m.id === id,
+          is_active: m.id === id ? true : m.is_active,
+        }))
+      );
+
+      const target = messages.find((m) => m.id === id);
+      showFeedback(`"${target?.title}" agora é o destaque oficial na Home!`);
+    } catch (err) {
+      console.error('Erro ao definir mensagem em destaque:', err);
+      showFeedback('Erro ao definir destaque na Home.');
+    } finally {
+      setActionLoadingId(null);
+    }
+  };
+
+  const handleToggleActive = async (id: string, currentStatus: boolean) => {
+    try {
+      setActionLoadingId(id);
+      const supabase = createClient();
+      const newStatus = !currentStatus;
+
+      const { error } = await supabase
+        .from('pastoral_messages')
+        .update({ is_active: newStatus })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      setMessages((prev) =>
+        prev.map((m) => (m.id === id ? { ...m, is_active: newStatus } : m))
+      );
+
+      showFeedback(newStatus ? 'Mensagem publicada no portal!' : 'Mensagem salva como rascunho.');
+    } catch (err) {
+      console.error('Erro ao alternar status da mensagem:', err);
+      showFeedback('Erro ao alterar status.');
+    } finally {
+      setActionLoadingId(null);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    const target = messages.find((m) => m.id === id);
+    if (!target) return;
+
+    if (!confirm(`Tem certeza que deseja excluir a mensagem "${target.title}"?`)) {
+      return;
+    }
+
+    try {
+      setActionLoadingId(id);
+      const supabase = createClient();
+      const { error } = await supabase.from('pastoral_messages').delete().eq('id', id);
+
+      if (error) throw error;
+
+      setMessages((prev) => prev.filter((m) => m.id !== id));
+      showFeedback('Mensagem removida com sucesso!');
+    } catch (err) {
+      console.error('Erro ao deletar mensagem:', err);
+      showFeedback('Erro ao excluir mensagem.');
+    } finally {
+      setActionLoadingId(null);
+    }
+  };
+
+  const featuredMessage = messages.find((m) => m.is_featured_home);
 
   return (
     <div className="space-y-6">
@@ -86,13 +178,16 @@ export default function AdminMensagensPage() {
           </p>
         </div>
 
-        <button className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--primary)] text-[var(--primary-foreground)] text-sm font-semibold hover:opacity-95 transition-all shadow-sm cursor-pointer">
+        <button
+          onClick={handleOpenCreateModal}
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--primary)] text-[var(--primary-foreground)] text-sm font-semibold hover:opacity-95 transition-all shadow-sm cursor-pointer"
+        >
           <Plus className="w-4 h-4" />
           Nova Mensagem
         </button>
       </div>
 
-      {/* Alerta de Feedback de Alteração */}
+      {/* Alerta de Feedback */}
       {feedback && (
         <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-semibold flex items-center gap-2 transition-all">
           <Check className="w-4 h-4" />
@@ -100,7 +195,15 @@ export default function AdminMensagensPage() {
         </div>
       )}
 
-      {/* Regra de Destaque da Home */}
+      {/* Alerta de Erro */}
+      {errorMsg && (
+        <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-semibold flex items-center gap-2 transition-all">
+          <AlertCircle className="w-4 h-4" />
+          <span>{errorMsg}</span>
+        </div>
+      )}
+
+      {/* Card Informativo de Destaque da Home */}
       <div className="p-4 rounded-2xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[var(--dash-text-secondary)]">
         <div className="flex items-center gap-2.5">
           <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
@@ -110,104 +213,58 @@ export default function AdminMensagensPage() {
         </div>
 
         <span className="font-semibold text-[var(--dash-text-primary)]">
-          Destaque Atual: {messages.find((m) => m.is_featured_home)?.author_name}
+          Destaque Atual:{' '}
+          {featuredMessage ? (
+            <span className="text-amber-500">{featuredMessage.author_name}</span>
+          ) : (
+            <span className="text-zinc-400">Nenhum definido</span>
+          )}
         </span>
       </div>
 
       {/* Lista de Mensagens */}
-      <div className="space-y-4">
-        {messages.map((item) => (
-          <div
-            key={item.id}
-            className={`p-5 rounded-2xl bg-[var(--dash-surface)] border transition-all shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-5 ${item.is_featured_home
-                ? 'border-amber-500/50 ring-1 ring-amber-500/20'
-                : 'border-[var(--dash-border)]'
-              }`}
-          >
-            <div className="space-y-2 flex-1">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full ${item.author_type === 'bispo'
-                    ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
-                    : 'bg-amber-500/10 text-amber-500 border border-amber-500/20'
-                  }`}>
-                  {item.author_type === 'bispo' ? <Church className="w-3 h-3" /> : <UserCheck className="w-3 h-3" />}
-                  {item.author_type === 'bispo' ? 'Palavra do Bispo' : 'Palavra do Pároco'}
-                </span>
+      {loading ? (
+        <div className="p-12 text-center text-[var(--dash-text-secondary)] space-y-3">
+          <Loader2 className="w-6 h-6 animate-spin mx-auto text-amber-500" />
+          <p className="text-xs">Carregando colunas pastorais do banco de dados...</p>
+        </div>
+      ) : messages.length === 0 ? (
+        <div className="p-12 text-center border border-dashed border-[var(--dash-border)] rounded-2xl space-y-3">
+          <BookOpen className="w-8 h-8 mx-auto text-[var(--dash-text-secondary)]/50" />
+          <p className="text-sm font-semibold text-[var(--dash-text-primary)]">
+            Nenhuma mensagem pastoral cadastrada ainda.
+          </p>
+          <p className="text-xs text-[var(--dash-text-secondary)]">
+            Clique no botão acima para publicar a primeira reflexão do Pároco ou Bispo.
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {messages.map((item) => (
+            <MessageCard
+              key={item.id}
+              message={item}
+              onSetFeatured={handleSetFeatured}
+              onToggleActive={handleToggleActive}
+              onEdit={handleOpenEditModal}
+              onDelete={handleDelete}
+              isActionLoading={actionLoadingId === item.id}
+            />
+          ))}
+        </div>
+      )}
 
-                {item.is_featured_home && (
-                  <Badge variant="active" icon={<Star className="w-3 h-3 fill-current" />}>
-                    Destaque na Home
-                  </Badge>
-                )}
-
-                <span className="text-xs text-[var(--dash-text-secondary)]">
-                  {item.liturgical_season}
-                </span>
-              </div>
-
-              <h2 className="text-base sm:text-lg font-bold text-[var(--dash-text-primary)] leading-snug">
-                {item.title}
-              </h2>
-
-              <p className="text-xs text-[var(--dash-text-secondary)] line-clamp-1 italic">
-                {item.subtitle}
-              </p>
-
-              <div className="flex items-center gap-3 text-xs text-[var(--dash-text-secondary)] pt-1">
-                <span>Por: <strong className="text-[var(--dash-text-primary)]">{item.author_name}</strong></span>
-                <span>•</span>
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-3 h-3" />
-                  {item.published_at}
-                </span>
-              </div>
-            </div>
-
-            {/* Ações da Mensagem */}
-            <div className="flex items-center gap-2.5 shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-[var(--dash-border)]">
-              {!item.is_featured_home ? (
-                <button
-                  onClick={() => handleSetFeatured(item.id)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-[var(--dash-border)] hover:border-amber-500 text-xs font-semibold text-[var(--dash-text-secondary)] hover:text-amber-500 transition-all cursor-pointer"
-                  title="Exibir esta mensagem na Home da paróquia"
-                >
-                  <Star className="w-3.5 h-3.5" />
-                  <span>Destacar na Home</span>
-                </button>
-              ) : (
-                <span className="text-xs font-bold text-amber-500 flex items-center gap-1 px-3 py-1.5 rounded-xl bg-amber-500/10">
-                  <Star className="w-3.5 h-3.5 fill-current" />
-                  Ativo na Home
-                </span>
-              )}
-
-              <a
-                href={`/mensagens/${item.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-xl text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-surface-secondary)] transition-colors"
-                title="Visualizar mensagem publicada"
-              >
-                <ExternalLink className="w-4 h-4" />
-              </a>
-
-              <button
-                className="p-2 rounded-xl text-[var(--dash-text-secondary)] hover:text-[var(--primary)] hover:bg-[var(--dash-surface-secondary)] transition-colors cursor-pointer"
-                title="Editar texto da mensagem"
-              >
-                <Edit3 className="w-4 h-4" />
-              </button>
-
-              <button
-                className="p-2 rounded-xl text-[var(--dash-text-secondary)] hover:text-red-500 hover:bg-red-500/10 transition-colors cursor-pointer"
-                title="Remover mensagem"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Modal Modular de Criação e Edição */}
+      <MessageFormModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={(msg) => {
+          showFeedback(msg);
+          fetchMessages();
+        }}
+        messageToEdit={messageToEdit}
+        parishId={CATEDRAL_PARISH_ID}
+      />
     </div>
   );
 }
