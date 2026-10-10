@@ -154,7 +154,11 @@ export interface LiturgicalBooklet {
 export interface Gallery {
   id: string;
   parish_id: string;
+  community_id?: string | null;
+  community?: Community;
   title: string;
+  slug?: string;
+  description?: string;
   event_date?: string;
   cover_image_url?: string;
   photos_count: number;

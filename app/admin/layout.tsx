@@ -14,7 +14,8 @@ import {
   MapPin,
   User,
   BookOpen,
-  FileText
+  FileText,
+  Image as ImageIcon
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -29,6 +30,7 @@ export default function AdminLayout({
     { href: '/admin', label: 'Visão Geral', icon: Church, exact: true },
     { href: '/admin/comunidades', label: 'Comunidades (CEBs)', icon: MapPin },
     { href: '/admin/horarios', label: 'Horários de Missa', icon: Calendar },
+    { href: '/admin/galerias', label: 'Galerias & Fotos', icon: ImageIcon },
     { href: '/admin/secretaria', label: 'Clero & Secretaria', icon: User },
     { href: '/admin/mensagens', label: 'Palavra do Pároco/Bispo', icon: BookOpen },
     { href: '/admin/folhetos', label: 'Folhetos de Missa', icon: FileText },

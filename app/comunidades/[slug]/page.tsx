@@ -15,11 +15,12 @@ import {
   MessageCircle,
   ExternalLink,
   ShieldCheck,
-  ChevronRight
+  ChevronRight,
+  Image as ImageIcon
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { Card, Badge, Button } from '@/components/ui';
-import { Community, MassSchedule } from '@/types';
+import { Community, MassSchedule, Gallery } from '@/types';
 
 import { fallbackCommunities } from '@/lib/communities';
 
@@ -55,6 +56,16 @@ export default async function CommunityDetailPage({ params }: Props) {
     .order('time');
 
   const schedules: MassSchedule[] = massSchedulesData || [];
+
+  // 3. Buscar álbuns de fotos desta comunidade
+  const { data: galleriesData } = await supabase
+    .from('galleries')
+    .select('*')
+    .eq('community_id', community.id)
+    .eq('is_active', true)
+    .order('event_date', { ascending: false });
+
+  const galleries: Gallery[] = galleriesData || [];
 
   const mapsQuery = encodeURIComponent(`${community.name}, ${community.address || ''}, ${community.city} - ${community.state}`);
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
@@ -227,6 +238,83 @@ export default async function CommunityDetailPage({ params }: Props) {
             </Card>
           </div>
         </div>
+
+        {/* Galeria de Fotos & Momentos da Comunidade */}
+        {galleries.length > 0 && (
+          <section className="space-y-6 pt-4 border-t border-[var(--dash-border)]">
+            <div className="flex items-center gap-2">
+              <ImageIcon className="w-5 h-5 text-amber-500" />
+              <div>
+                <h2 className="text-xl font-bold tracking-tight">Álbuns & Momentos da Comunidade</h2>
+                <p className="text-xs text-[var(--dash-text-secondary)]">
+                  Registros fotográficos de festas de padroeiros, sacramentos e confraternizações.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {galleries.map((album) => {
+                const photos = Array.isArray(album.photos) ? album.photos : [];
+                return (
+                  <Card key={album.id} className="overflow-hidden p-0 flex flex-col justify-between">
+                    <div>
+                      {album.cover_image_url && (
+                        <div className="h-44 w-full bg-[var(--dash-surface-secondary)] overflow-hidden">
+                          <img
+                            src={album.cover_image_url}
+                            alt={album.title}
+                            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                          />
+                        </div>
+                      )}
+                      <div className="p-4 space-y-2">
+                        <div className="flex items-center justify-between text-xs text-amber-400 font-semibold">
+                          <span>
+                            {album.event_date
+                              ? new Date(album.event_date + 'T12:00:00').toLocaleDateString('pt-BR', {
+                                  day: '2-digit',
+                                  month: 'short',
+                                  year: 'numeric',
+                                })
+                              : 'Registro Pastoral'}
+                          </span>
+                          <span className="text-[11px] text-[var(--dash-text-secondary)]">
+                            {photos.length} fotos
+                          </span>
+                        </div>
+                        <h3 className="font-bold text-sm text-[var(--dash-text-primary)]">
+                          {album.title}
+                        </h3>
+                        {album.description && (
+                          <p className="text-xs text-[var(--dash-text-secondary)] line-clamp-2">
+                            {album.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {photos.length > 1 && (
+                      <div className="px-4 pb-4 pt-1 flex gap-2 overflow-x-auto">
+                        {photos.slice(0, 4).map((photoUrl, idx) => (
+                          <div
+                            key={idx}
+                            className="w-12 h-12 rounded-lg bg-[var(--dash-surface-secondary)] overflow-hidden shrink-0 border border-[var(--dash-border)]"
+                          >
+                            <img
+                              src={photoUrl}
+                              alt={`Foto ${idx + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </Card>
+                );
+              })}
+            </div>
+          </section>
+        )}
       </main>
 
       {/* Footer Simples */}

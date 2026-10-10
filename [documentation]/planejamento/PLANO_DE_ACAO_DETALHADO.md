@@ -36,7 +36,7 @@
 - [x] **TASK-15:** Painel de Gestão de Conteúdo das CEBs no `/admin/comunidades` (edição de história, fundadores e contatos dos coordenadores).
 - [x] **TASK-16:** Gestão de Horários por Comunidade no `/admin/horarios` (filtro e cadastro de missas e celebrações da palavra específicas por capela).
 - [ ] **TASK-17:** Coleta e inserção de fotos oficiais das fachadas das 12 capelas com a PASCOM e lideranças locais.
-- [ ] **TASK-18:** Galeria de Fotos das Comunidades (`public.galleries` conectada ao Supabase Storage para álbuns de padroeiros).
+- [x] **TASK-18:** Galeria de Fotos das Comunidades (`public.galleries` conectada ao Supabase Storage para álbuns de padroeiros).
 - [ ] **TASK-19:** Roteiro da Capacitação 2: Lideranças das 12 CEBs e Equipe Litúrgica/PASCOM (4 horas presenciais na Catedral).
 
 ---
