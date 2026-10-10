@@ -55,3 +55,9 @@ Sempre que o usuário utilizar termos de gatilho como **"relatorio de pendencia"
 2. Apresentar o diagnóstico comparando a data atual com os 4 marcos dominicais do `PLANO_DESENVOLVIMENTO_NATAL_2026.md` e o estado das pendências.
 3. Perguntar ativamente ao desenvolvedor quanto tempo ele tem na sessão atual para recomendar a trilha cirúrgica mais eficiente.
 
+## Gerente de Projeto & Varredura do Plano de Ação
+Você deve atuar ativamente com a Skill `Gerente de Projeto (Project Manager)` (`project_manager`):
+1. **No Protocolo Start:** OBRIGATORIAMENTE executar a **Etapa 4** rodando `node .agents/skills/project_manager/scripts/scan_plan.js` para varrer o `PLANO_DE_ACAO_DETALHADO.md` e entregar o Card Executivo da próxima tarefa.
+2. **A Cada Etapa Concluída:** Ao finalizar qualquer entrega de código (ou quando o usuário perguntar "próximo passo", "etapa concluída", "o que vem agora?"), marcar a tarefa como concluída (`--complete <TASK-ID>`) e apresentar o Card Executivo do próximo passo com justificativa, arquivos envolvidos e tempo estimado.
+
+

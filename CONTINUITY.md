@@ -27,10 +27,16 @@ Consulte [`[documentation]/planejamento/PROMPT_DE_CONTINUIDADE.md`](file:///c:/U
    - Modal responsivo com 1ª Leitura, Salmo Responsorial (refrão destacado), 2ª Leitura, Evangelho e Oração do Dia.
 6. **Saúde Técnica e Build de Produção:**
    - **18 rotas** estáticas e dinâmicas geradas e validadas com sucesso (0 erros de tipagem TypeScript e 0 avisos de UX/UI).
+7. **Skill «project_manager» (Gerente de Projeto) & Plano Vivo:**
+   - Criada a skill em `.agents/skills/project_manager/` com script automatizado `scan_plan.js`.
+   - Criado o `PLANO_DE_ACAO_DETALHADO.md` com 30 tarefas das 4 Fases (33% concluído globalmente, 67% da Fase 1).
+   - Integrada como Etapa 4 mandatória no Protocolo Start e com loop automático a cada etapa concluída.
 
 ### 🎯 Próximo Foco Imediato (Sprint 1 - Go-Live 01/11/2026):
-1. Preparar checklist de Go-Live da Fase 1: Cloudflare (Proxy Laranja + SSL Full Strict), apontamento de DNS e publicação na Vercel com variáveis de ambiente.
-2. Agendar Capacitação 1: Secretária Paroquial (4h presenciais no fim de outubro).
+1. **TASK-09:** Guia & Roteiro de Treinamento da Secretária Paroquial (4h presenciais no fim de outubro).
+2. **TASK-10:** Auditoria de Segurança RLS no Supabase.
+3. **TASK-11:** Auditoria de Dependências (`npm audit`) e variáveis de ambiente na Vercel.
+
 
 
 

@@ -36,15 +36,16 @@ Por favor, adote e siga rigorosamente as seguintes DIRETRIZES E REGRAS MANDATÓR
 5. **Módulo de Folhetos Litúrgicos («Sou do Sagrado Missa»):** Painel administrativo completo em `/admin/folhetos` com upload para o Supabase Storage (`booklets`), vinculação na sidebar (`app/admin/layout.tsx`) e sincronização dinâmica na Home (`MissalBookletsSection.tsx`).
 6. **Motor Dinâmico de Liturgia Diária Oficial (CNBB):** Integração automática via `/api/liturgia` com cache resiliente, detecção de cores canônicas e modal com leituras completas (1ª leitura, salmo, evangelho, coleta).
 7. **Nova Skill de Gestão («project_health_timeline»):** Monitoramento contínuo de prazo (23 dias para 01/11), cálculo automatizado de saúde e timeboxing interativo por sessão.
-8. **Compilação e Saúde:** 18 rotas estáticas e dinâmicas compilando perfeitamente com 0 erros no build de produção.
-
-8. **Repositório Sincronizado:** Branch `main` atualizada no GitHub com Protocolo Deploy executado (commit `b25475e`).
+8. **Skill «project_manager» (Gerente de Projeto):** Monitoramento e varredura contínua do `PLANO_DE_ACAO_DETALHADO.md` na Etapa 4 do Protocolo Start e a cada etapa concluída.
+9. **Compilação e Saúde:** 18 rotas estáticas e dinâmicas compilando perfeitamente com 0 erros no build de produção.
 
 ---
 
 ### PRÓXIMAS AÇÕES IMEDIATAS:
-1. Preparar checklist de Go-Live da Fase 1 (Cloudflare, DNS, Vercel, Variáveis de Produção).
-2. Agendar Capacitação 1: Secretária Paroquial (4h presenciais no fim de outubro).
+1. **TASK-09:** Guia & Roteiro de Treinamento da Secretária Paroquial (4h presenciais no fim de outubro).
+2. **TASK-10:** Auditoria de Segurança RLS no Supabase.
+3. **TASK-11:** Auditoria de Dependências (`npm audit`) e variáveis de ambiente na Vercel.
+
 
 
 

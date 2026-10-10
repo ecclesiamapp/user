@@ -47,7 +47,17 @@ node .agents/skills/ux_ui_auditor/scripts/audit_ux_ui.js
 
 Após o script, verificar tamanho dos arquivos editados e acionar a Skill Anti-Monolito se algum ultrapassar 350 linhas.
 
+### Etapa 4 — Ativação do Gerente de Projeto (Varredura do Plano)
+Somente após concluir as etapas 1, 2 e 3, acione a skill `project_manager`:
+
+```bash
+node .agents/skills/project_manager/scripts/scan_plan.js
+```
+
+Apresente o resumo de progresso das fases e entregue o **Card Executivo do Próximo Passo** para direcionar o trabalho da sessão.
+
 ---
+
 
 ## O que deve ser avaliado/corrigido?
 1. **Cores estáticas no Dark Mode**: Classes como `bg-white`, `bg-black`, `text-black` avulsas em layouts.
