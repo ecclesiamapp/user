@@ -34,8 +34,10 @@ Por favor, adote e siga rigorosamente as seguintes DIRETRIZES E REGRAS MANDATÓR
 3. **Clero Atualizado:** 4 Padres ativos integrados em `/secretaria` e `/admin/secretaria` (Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes).
 4. **12 Comunidades & Grupos de Reflexão:** Mapeadas com mini-sites dinâmicos `/comunidades/[slug]` com mapas GPS (Google Maps e Waze), incluindo o recém-integrado Grupo de Reflexão Santa Rita (Brisa do Vale).
 5. **Módulo de Folhetos Litúrgicos («Sou do Sagrado Missa»):** Painel administrativo completo em `/admin/folhetos` com upload para o Supabase Storage (`booklets`), vinculação na sidebar (`app/admin/layout.tsx`) e sincronização dinâmica na Home (`MissalBookletsSection.tsx`).
-6. **Nova Skill de Gestão («project_health_timeline»):** Monitoramento contínuo de prazo (23 dias para 01/11), cálculo automatizado de saúde e timeboxing interativo por sessão.
-7. **Compilação e Saúde:** 17 rotas estáticas e dinâmicas compilando perfeitamente com 0 erros no build de produção.
+6. **Motor Dinâmico de Liturgia Diária Oficial (CNBB):** Integração automática via `/api/liturgia` com cache resiliente, detecção de cores canônicas e modal com leituras completas (1ª leitura, salmo, evangelho, coleta).
+7. **Nova Skill de Gestão («project_health_timeline»):** Monitoramento contínuo de prazo (23 dias para 01/11), cálculo automatizado de saúde e timeboxing interativo por sessão.
+8. **Compilação e Saúde:** 18 rotas estáticas e dinâmicas compilando perfeitamente com 0 erros no build de produção.
+
 8. **Repositório Sincronizado:** Branch `main` atualizada no GitHub com Protocolo Deploy executado (commit `b25475e`).
 
 ---

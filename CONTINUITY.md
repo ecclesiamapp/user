@@ -21,11 +21,16 @@ Consulte [`[documentation]/planejamento/PROMPT_DE_CONTINUIDADE.md`](file:///c:/U
    - Criados os sub-componentes modulares `MessageFormModal.tsx` e `MessageCard.tsx` no padrão UI-as-a-Service.
    - Integração direta e operações CRUD completas no Supabase (`pastoral_messages`).
    - Controle inteligente do Destaque Solene Único na Home e status de rascunho/publicado.
-5. **Saúde Técnica e Build de Produção:**
-   - **17 rotas** estáticas e dinâmicas geradas e validadas com sucesso (0 erros de tipagem TypeScript e 0 avisos de UX/UI).
+5. **Motor Dinâmico da Liturgia Diária Oficial (CNBB):**
+   - Rota `/api/liturgia` criada com fetch resiliente da CNBB, cache de 1 hora na Vercel e contingência local graciosa.
+   - Mapeamento dinâmico de cores canônicas (Verde, Vermelho, Roxo, Branco, Rosa) com pulso e borda cromática.
+   - Modal responsivo com 1ª Leitura, Salmo Responsorial (refrão destacado), 2ª Leitura, Evangelho e Oração do Dia.
+6. **Saúde Técnica e Build de Produção:**
+   - **18 rotas** estáticas e dinâmicas geradas e validadas com sucesso (0 erros de tipagem TypeScript e 0 avisos de UX/UI).
 
 ### 🎯 Próximo Foco Imediato (Sprint 1 - Go-Live 01/11/2026):
 1. Preparar checklist de Go-Live da Fase 1: Cloudflare (Proxy Laranja + SSL Full Strict), apontamento de DNS e publicação na Vercel com variáveis de ambiente.
 2. Agendar Capacitação 1: Secretária Paroquial (4h presenciais no fim de outubro).
+
 
 
