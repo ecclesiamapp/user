@@ -30,19 +30,19 @@ Por favor, adote e siga rigorosamente as seguintes DIRETRIZES E REGRAS MANDATÓR
 
 ### ESTADO ATUAL DO PROJETO (09/10/2026):
 1. **Design System & Home:** Paleta pergaminho, Marquee contínuo de avisos, Floating schedule card de missas de hoje, Destaque da Palavra do Pároco/Bispo e Central de Conscientização do Dízimo + QR Code de Doações PIX 100% integrados.
-2. **Coluna Editorial Pastoral:** Rota `/mensagens` com leitor de artigos na íntegra (`/mensagens/[slug]`) e painel de controle `/admin/mensagens`.
-3. **Coluna Editorial Pastoral & CRUD:** Rota pública `/mensagens` com leitor de artigos na íntegra (`/mensagens/[slug]`) e painel de controle `/admin/mensagens` 100% integrado ao Supabase com modal `MessageFormModal` e `MessageCard`.
-4. **Clero Atualizado:** 4 Padres ativos integrados em `/secretaria` e `/admin/secretaria` (Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes).
-5. **12 Comunidades & Grupos de Reflexão:** Mapeadas com mini-sites dinâmicos `/comunidades/[slug]` com mapas GPS (Google Maps e Waze), incluindo o recém-integrado Grupo de Reflexão Santa Rita (Brisa do Vale).
-6. **Módulo de Folhetos Litúrgicos («Sou do Sagrado Missa»):** Painel administrativo completo em `/admin/folhetos` com upload para o Supabase Storage (`booklets`), vinculação na sidebar (`app/admin/layout.tsx`) e sincronização dinâmica na Home (`MissalBookletsSection.tsx`).
-7. **Nova Skill de Gestão («project_health_timeline»):** Monitoramento contínuo de prazo (23 dias para 01/11), cálculo automatizado de saúde e timeboxing interativo por sessão.
-8. **Compilação e Saúde:** 17 rotas estáticas e dinâmicas compilando perfeitamente com 0 erros no build de produção.
+2. **Coluna Editorial Pastoral & CRUD:** Rota pública `/mensagens` com leitor de artigos na íntegra (`/mensagens/[slug]`) e painel administrativo `/admin/mensagens` 100% integrado ao Supabase com modal `MessageFormModal` e `MessageCard`.
+3. **Clero Atualizado:** 4 Padres ativos integrados em `/secretaria` e `/admin/secretaria` (Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes).
+4. **12 Comunidades & Grupos de Reflexão:** Mapeadas com mini-sites dinâmicos `/comunidades/[slug]` com mapas GPS (Google Maps e Waze), incluindo o recém-integrado Grupo de Reflexão Santa Rita (Brisa do Vale).
+5. **Módulo de Folhetos Litúrgicos («Sou do Sagrado Missa»):** Painel administrativo completo em `/admin/folhetos` com upload para o Supabase Storage (`booklets`), vinculação na sidebar (`app/admin/layout.tsx`) e sincronização dinâmica na Home (`MissalBookletsSection.tsx`).
+6. **Nova Skill de Gestão («project_health_timeline»):** Monitoramento contínuo de prazo (23 dias para 01/11), cálculo automatizado de saúde e timeboxing interativo por sessão.
+7. **Compilação e Saúde:** 17 rotas estáticas e dinâmicas compilando perfeitamente com 0 erros no build de produção.
+8. **Repositório Sincronizado:** Branch `main` atualizada no GitHub com Protocolo Deploy executado (commit `b25475e`).
 
 ---
 
 ### PRÓXIMAS AÇÕES IMEDIATAS:
-1. Checklist de Go-Live da Fase 1 (Cloudflare, DNS, Vercel, Variáveis de Produção).
-2. Protocolo Deploy para envio das alterações ao repositório remoto.
+1. Preparar checklist de Go-Live da Fase 1 (Cloudflare, DNS, Vercel, Variáveis de Produção).
+2. Agendar Capacitação 1: Secretária Paroquial (4h presenciais no fim de outubro).
 
 
 
