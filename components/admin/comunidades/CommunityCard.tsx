@@ -34,14 +34,26 @@ export function CommunityCard({
 }: CommunityCardProps) {
   return (
     <div
-      className={`rounded-2xl border p-5 flex flex-col justify-between transition-all duration-200 bg-[var(--dash-surface)] ${
+      className={`rounded-2xl border flex flex-col justify-between transition-all duration-200 overflow-hidden bg-[var(--dash-surface)] ${
         community.is_headquarters
           ? 'border-amber-500/40 ring-1 ring-amber-500/20 shadow-xs'
           : 'border-[var(--dash-border)] hover:border-[var(--dash-border-hover,rgba(255,255,255,0.2))]'
       } ${!community.is_active ? 'opacity-65 bg-[var(--dash-surface-secondary)]/50' : ''}`}
     >
-      <div className="space-y-4">
+      {community.image_url ? (
+        <div className="relative h-32 w-full bg-[var(--dash-surface-secondary)] overflow-hidden border-b border-[var(--dash-border)]">
+          <img
+            src={community.image_url}
+            alt={community.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        </div>
+      ) : null}
+
+      <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
         {/* Badges de Identificação e Ações Rápidas */}
+
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5 flex-wrap">
             {community.is_headquarters ? (

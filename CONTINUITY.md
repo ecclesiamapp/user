@@ -2,42 +2,29 @@
 
 Consulte [`[documentation]/planejamento/PROMPT_DE_CONTINUIDADE.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PROMPT_DE_CONTINUIDADE.md) para o prompt oficial de ativação da próxima sessão.
 
-### 📌 Conquistas Desta Sessão (10/10/2026):
+### 📌 Conquistas Desta Sessão (11/10/2026):
 1. **Marcos Globais do Projeto:**
-   * **53% de conclusão de todo o Roadmap (16 de 30 tarefas entregues)**.
+   * **60% de conclusão de todo o Roadmap (18 de 30 tarefas entregues)**.
    * **Fase 1 (01/11/2026 - Solenidade de Todos os Santos):** **92% concluída** (11 de 12 tarefas). Resta apenas o apontamento de DNS da Catedral.
-   * **Fase 2 (22/11/2026 - Solenidade de Cristo Rei):** **71% adiantada** (5 de 7 tarefas entregues).
+   * **Fase 2 (22/11/2026 - Solenidade de Cristo Rei):** **100% CONCLUÍDA** (7 de 7 tarefas entregues 🎉).
 
-2. **Novas Skills Criadas e Integradas ao Agente:**
-   * **`project_health_timeline`:** Script `check_health.js` que audita o cronograma contra os 4 marcos dominicais e faz timeboxing interativo por sessão.
-   * **`project_manager`:** Script `scan_plan.js` que rastreia as 30 tarefas do `PLANO_DE_ACAO_DETALHADO.md`, entrega o Card Executivo do próximo passo e marca tarefas concluídas via flag `--complete`.
+2. **Upload e Gestão de Fotos de Fachadas das Capelas ([TASK-17]):**
+   * Criado o componente modular anti-monolito `CommunityFacadeUploader.tsx` com drag & drop, upload direto ao Supabase Storage (bucket `galleries/facades/`) e preview.
+   * Integrado no modal `CommunityFormModal.tsx` e exibição de capa nos cards de `/admin/comunidades` (`CommunityCard.tsx`).
+   * Minisites das capelas (`/comunidades/[slug]`) atualizados para renderizar a fachada real tanto no background escuro do Hero quanto com destaque solene dentro da seção *"Nossa História & Vocação Pastoral"*.
 
-3. **Módulo de Galerias Fotográficas & Supabase Storage ([TASK-18]):**
-   * Criada rota dedicada `/admin/galerias` com componentes modulares `GalleryCard.tsx` e `GalleryFormModal.tsx`.
-   * Modelagem SQL com colunas `community_id`, `description`, `slug` e índices na tabela `public.galleries`.
-   * Bucket de armazenamento público `'galleries'` criado no Supabase Storage com suporte a upload direto de múltiplas fotos.
-   * Minisite das capelas (`/comunidades/[slug]`) atualizado com a seção dinâmica *"Álbuns & Momentos da Comunidade"*.
+3. **Roteiro da Capacitação 2: Lideranças das 12 CEBs & PASCOM ([TASK-19]):**
+   * Elaborado o guia presencial pedagógico de 4 horas em `[documentation]/ROTEIRO_CAPACITACAO_LIDERANCAS_CEBS.md`.
+   * Estruturação de 6 blocos práticos: eclesiologia digital, gestão do minisite, horários locais, cobertura de fotos com a PASCOM, oficina hands-on no celular e envio pastoral.
+   * Ficha cadastral anexa para coleta de histórias de fundadores e pioneiros das 12 capelas.
+   * Sincronizado integralmente no repositório local e no Google Drive oficial.
 
-4. **Gestão de Horários Litúrgicos por CEB ([TASK-16]):**
-   * Refatoração completa de `/admin/horarios` com componentes modulares `ScheduleItem.tsx` e `ScheduleFormModal.tsx`.
-   * Suporte a query params (`?community_id=...`) vindo diretamente dos cards de comunidades.
-   * Filtros combinados por capela e por modalidade litúrgica (Missa, Palavra, Adoração, Confissão, Expediente).
-
-5. **Gestão de Conteúdo e História das CEBs ([TASK-15]):**
-   * Refatoração completa de `/admin/comunidades` com `CommunityCard.tsx` e `CommunityFormModal.tsx` com 3 abas estruturadas (Dados Gerais, História/Fundadores e Localização/Contatos).
-
-6. **Hardening de Segurança RLS & Auditoria de Dependências ([TASK-10] & [TASK-11]):**
-   * Auditoria de RLS concluída com 100% das 13 tabelas públicas blindadas e função RPC `increment_booklet_downloads`.
-   * Auditoria `npm audit` executada e bibliotecas atualizadas (`sharp` e `source-map-js`).
-   * Validação de variáveis de ambiente de produção para a Vercel.
-
-7. **Execução SQL em Tempo Real via MCP Supabase:**
-   * Integração direta com o projeto remoto `rlcaapydcozsshafyvxx` (ecclesiamapp), permitindo aplicar DDL, DML, buckets e índices automaticamente.
-
-8. **Saúde Técnica do Código:**
-   * **19 rotas** geradas no Next.js 16 (0 erros de TypeScript e 0 warnings de compilação).
-   * Repositório Git sincronizado na branch `main` (`Everything up-to-date`).
+4. **Saúde Técnica do Código & Auditorias:**
+   * **0 erros de TypeScript** em `npx tsc --noEmit`.
+   * **42 arquivos inspecionados** na Auditoria UX/UI com 0 pendências.
+   * Turbopack ativo e validado.
 
 ### 🎯 Próximo Foco Imediato (Início da Próxima Sessão):
-1. **[TASK-19]:** Elaborar o Guia & Roteiro da Capacitação 2: Lideranças das 12 CEBs e Equipe PASCOM (4 horas presenciais na Catedral Diocesana) em `[documentation]/planejamento/ROTEIRO_TREINAMENTO_LIDERANCAS_CEBS.md`.
-2. **Fase 3 (Secretaria On-line):** Iniciar modelagem das tabelas `pastoral_appointments` (agendamentos com os 4 padres) e `sacramental_registrations` (inscrições de sacramentos).
+1. **Inauguração da Fase 3 (06/12/2026 - 2º Domingo do Advento):**
+   * **[TASK-20]:** Modelagem de Dados Supabase: criação da tabela `pastoral_appointments` (vínculo aos 4 padres: Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes, horários, slots de confissão e atendimento pastoral).
+   * **[TASK-21]:** Modelagem da tabela `sacramental_registrations` (Batismo, Catequese, Noivos e Gestantes).

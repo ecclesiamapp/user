@@ -96,6 +96,16 @@ export default async function CommunityDetailPage({ params }: Props) {
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-8 w-full">
         {/* Banner Hero da Comunidade */}
         <section className="relative overflow-hidden rounded-3xl p-8 sm:p-10 bg-gradient-to-br from-red-950 via-[var(--dash-surface)] to-[var(--dash-bg)] border border-[var(--dash-border)] shadow-xl">
+          {community.image_url && (
+            <div className="absolute inset-0 z-0 pointer-events-none">
+              <img
+                src={community.image_url}
+                alt={community.name}
+                className="w-full h-full object-cover opacity-25 filter brightness-75 scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-transparent" />
+            </div>
+          )}
           <div className="relative z-10 max-w-3xl space-y-4">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
@@ -149,7 +159,21 @@ export default async function CommunityDetailPage({ params }: Props) {
           {/* Coluna 1 & 2: História e Localização */}
           <div className="md:col-span-2 space-y-6">
             {/* História da Capela */}
-            <Card className="space-y-4">
+            <Card className="space-y-4 overflow-hidden">
+              {community.image_url && (
+                <div className="relative h-64 -mx-6 -mt-6 mb-4 overflow-hidden border-b border-[var(--dash-border)]">
+                  <img
+                    src={community.image_url}
+                    alt={`Fachada da ${community.name}`}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent flex items-end p-4">
+                    <span className="text-xs font-semibold text-white/95 bg-black/60 px-3 py-1 rounded-lg backdrop-blur-xs border border-white/10">
+                      Fachada Oficial da Capela
+                    </span>
+                  </div>
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 <Church className="w-5 h-5 text-amber-500" />
                 <h2 className="text-lg font-bold">Nossa História & Vocação Pastoral</h2>
@@ -158,6 +182,7 @@ export default async function CommunityDetailPage({ params }: Props) {
                 {community.history || 'Comunidade vibrante de fé e partilha cristã, em profunda comunhão com a Catedral Diocesana de Colatina.'}
               </p>
             </Card>
+
 
             {/* Localização GPS Detalhada */}
             <Card className="space-y-4">

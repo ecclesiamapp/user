@@ -17,6 +17,8 @@ import {
 import { createClient } from '@/utils/supabase/client';
 import { Community } from '@/types';
 import { Button, Input } from '@/components/ui';
+import { CommunityFacadeUploader } from './CommunityFacadeUploader';
+
 
 interface CommunityFormModalProps {
   isOpen: boolean;
@@ -280,12 +282,13 @@ export function CommunityFormModal({
                 />
               </div>
 
-              <Input
-                label="URL da Imagem da Fachada / Capela"
+              <CommunityFacadeUploader
                 value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="https://exemplo.com/fotos/capela.jpg"
+                onChange={setImageUrl}
+                communitySlug={slug}
+                communityName={name}
               />
+
 
               <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)]">
                 <div className="flex items-center gap-2.5">
