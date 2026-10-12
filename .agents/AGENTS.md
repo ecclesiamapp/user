@@ -57,7 +57,17 @@ Sempre que o usuário utilizar termos de gatilho como **"relatorio de pendencia"
 
 ## Gerente de Projeto & Varredura do Plano de Ação
 Você deve atuar ativamente com a Skill `Gerente de Projeto (Project Manager)` (`project_manager`):
-1. **No Protocolo Start:** OBRIGATORIAMENTE executar a **Etapa 4** rodando `node .agents/skills/project_manager/scripts/scan_plan.js` para varrer o `PLANO_DE_ACAO_DETALHADO.md` e entregar o Card Executivo da próxima tarefa.
+1. **No Protocolo Start:** OBRIGATORIAMENTE executar a **Etapa 4** rodando `node .agents/skills/project_manager/scripts/scan_plan.js` para varrer o `PLANO_DE_ACAO_DETALHADO.md` e entregar o Card Executivo da próxima tarefa. Em seguida, executar a **Etapa 5** perguntando se o desenvolvedor deseja convocar o Squad Multi-Agente (`/team` ou `/autopilot`) para a tarefa.
 2. **A Cada Etapa Concluída:** Ao finalizar qualquer entrega de código (ou quando o usuário perguntar "próximo passo", "etapa concluída", "o que vem agora?"), marcar a tarefa como concluída (`--complete <TASK-ID>`) e apresentar o Card Executivo do próximo passo com justificativa, arquivos envolvidos e tempo estimado.
+
+## Squad Multi-Agente Sob Demanda (multi_agent_team)
+Sempre que o usuário utilizar comandos ou termos de convocação multi-agente, a IA deve OBRIGATORIAMENTE acionar a Skill `multi_agent_team`:
+1. **Comandos Reconhecidos:**
+   - `/team <papeis> "<tarefa>"` ou `convocar time de <papeis>` ➔ executa `node .agents/skills/multi_agent_team/scripts/dispatch_team.js --team <papeis> "<tarefa>"`.
+   - `/autopilot "<tarefa>"` ou `modo autopilot` ➔ executa `node .agents/skills/multi_agent_team/scripts/dispatch_team.js --autopilot "<tarefa>"`.
+   - `/especialista <papel>` ou `chamar especialista <papel>` ➔ aciona a persona de especialista solicitada.
+   - `listar especialistas` ou `/team --list` ➔ executa `node .agents/skills/multi_agent_team/scripts/dispatch_team.js --list`.
+2. **Operação das Personas:** Após o disparo da squad, o agente deve incorporar ativamente os pontos de vista e o rigor dos papéis convocados durante a análise, codificação e verificação.
+
 
 

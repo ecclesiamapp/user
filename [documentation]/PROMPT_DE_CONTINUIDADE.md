@@ -19,6 +19,7 @@ Por favor, adote e siga rigorosamente as seguintes DIRETRIZES E REGRAS MANDATÓR
 8. **Skills Ativas Mandatórias:**
    - `project_health_timeline`: Acionada por "relatorio situacional", "pendencias", etc., avaliando os dias restantes para os 4 marcos dominicais e timeboxing da sessão.
    - `project_manager`: Integrada ao Protocolo Start (Etapa 4) e acionada a cada etapa concluída para escanear `PLANO_DE_ACAO_DETALHADO.md` via `scan_plan.js`.
+   - `multi_agent_team`: Convocação sob demanda de 19 especialistas em 4 pods via `/team <papeis>`, `/autopilot` ou verbalmente ("convocar time de...", "chamar especialista...").
 
 ---
 
