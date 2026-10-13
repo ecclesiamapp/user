@@ -49,7 +49,7 @@
 - [x] **TASK-20:** Modelagem de Dados Supabase: criação da tabela `pastoral_appointments` (vínculo aos 4 padres, horários, slots e status).
 - [x] **TASK-21:** Modelagem de Dados Supabase: criação da tabela `sacramental_registrations` (Batismo, Catequese, Noivos e Gestantes) com RLS e status.
 - [x] **TASK-22:** Subpágina `/secretaria/agendamentos`: interface pública do fiel para seleção de sacerdote (4 padres), tipo de atendimento (confissão/escuta) e slots de horários.
-- [ ] **TASK-23:** Subpágina `/secretaria/sacramentos`: guia e formulários guiados de inscrição sacramental (Batismo, Crisma, Casamento) com checklist de documentos.
+- [x] **TASK-23:** Subpágina `/secretaria/sacramentos`: guia e formulários guiados de inscrição sacramental (Batismo, Crisma, Casamento) com checklist de documentos.
 - [ ] **TASK-24:** Painel Administrativo da Secretaria: rotas `/admin/secretaria` (sub-abas `/admin/agendamentos` e `/admin/inscricoes`) com aprovação rápida em 1 clique.
 - [ ] **TASK-25:** Notificações Transacionais: integração de e-mails (Resend) e WhatsApp para avisar a secretária e confirmar o fiel.
 
