@@ -50,8 +50,8 @@ export function HomeHeroSection({
           }}
         />
 
-        {/* VÍDEO AMBIENTAL DE FUNDO (St. Patrick's Cathedral NYC — Altar & Liturgia em Loop Visível) */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-1">
+        {/* VÍDEO AMBIENTAL DE FUNDO (St. Patrick's Cathedral NYC — Ativo a partir de telas sm: para poupar bateria e dados móveis em celulares populares) */}
+        <div className="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none select-none z-1">
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${stPatricksVideoId}?autoplay=1&mute=1&loop=1&playlist=${stPatricksVideoId}&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1&enablejsapi=1`}
             title="St. Patrick's Cathedral NYC Ambient Footage"

@@ -69,5 +69,18 @@ Sempre que o usuário utilizar comandos ou termos de convocação multi-agente, 
    - `listar especialistas` ou `/team --list` ➔ executa `node .agents/skills/multi_agent_team/scripts/dispatch_team.js --list`.
 2. **Operação das Personas:** Após o disparo da squad, o agente deve incorporar ativamente os pontos de vista e o rigor dos papéis convocados durante a análise, codificação e verificação.
 
+## Diretriz Mandatória: Mobile-First Extremo & Hiper-Desempenho (Low-End Devices)
+O portal público do Ecclesiam App será acessado majoritariamente (> 85%) por smartphones, muitos deles aparelhos de entrada ou modelos antigos pertencentes a paroquianos e fiéis idosos. Por determinação expressa do desenvolvedor:
+1. **Diagramação e CSS Mobile-First:** Todo componente, tela, menu e formulário DEVE ser projetado prioritariamente para telas verticais pequenas (`360px` a `414px`) e apenas expandido progressivamente para desktop.
+   - Alvos de toque (*touch targets*) mínimos de `44px x 44px` ou `min-h-[44px]` em todos os botões e links clicáveis.
+   - Textos confortáveis para fiéis de qualquer faixa etária (nunca abaixo de 14px em corpo e 12px em legendas).
+   - Zero vazamento ou rolagem horizontal acidental (`overflow-x-hidden`).
+2. **Hiper-Desempenho e Leveza para Aparelhos Antigos (Low-End Devices):**
+   - Evitar processamento excessivo de JavaScript no cliente e bibliotecas de animação desnecessárias (usar transições CSS nativas com aceleração por hardware).
+   - Mídias compactadas: imagens sempre em `.webp`, com carregamento preguiçoso (`loading="lazy"`).
+   - Vídeos e iframes: Carregamento sob demanda (*lazy/on-demand*); no mobile, nunca travar a renderização com loops pesados de alta resolução quando a conexão 3G/4G ou CPU do aparelho for modesta.
+   - Árvore DOM enxuta e pré-renderização estática prioritária.
+
+
 
 

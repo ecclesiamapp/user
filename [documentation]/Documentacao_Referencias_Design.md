@@ -173,3 +173,25 @@ create table parish_pastors (
    * Tags arredondadas estilo pílula (`border-radius: 99rem; padding: 0.25rem 0.625rem`) com fundo claro e texto de categoria (ex.: *"Novenas"*, *"Liturgia"*, *"Pastorais"*).
 4. **Cards de Conteúdo com Truncamento Suave:**
    * Classes `.text-style-2lines` e `.text-style-3lines` via `-webkit-line-clamp` para manter a grade alinhada perfeitamente independentemente do tamanho do título ou resumo.
+
+---
+
+## 5. Diretriz Técnica Mandatória: Mobile-First Extremo & Hiper-Desempenho (Low-End Devices)
+**Princípio Reitor:** O portal paroquial será acessado majoritariamente (> 85%) por smartphones, muitos deles aparelhos de entrada ou modelos com 4 a 6 anos de uso, pertencentes a fiéis e paroquianos de todas as idades (com destaque para a pastoral da terceira idade).
+
+### 5.1 Regras de Diagramação e CSS
+* **Arquitetura 100% Mobile-First:** Todo componente nasce empilhado verticalmente (`grid-cols-1`, `flex-col`, `w-full`) e só expande para colunas em breakpoints maiores (`sm:` ou `lg:`).
+* **Alvos de Toque Mínimos (*Touch Targets*):** Área mínima de clique de **`44px x 44px`** (`min-h-[44px]`) em todos os botões, links de menu e cards clicáveis, facilitando o uso para dedos idosos.
+* **Tipografia e Contraste Confortáveis:**
+  * Corpo de texto nunca inferior a `15px-16px` (`text-sm` a `text-base`).
+  * Metadados e horários nunca inferiores a `12px` (`text-xs`).
+  * Numerais tabulares (`tabular-nums`) para horários e chaves PIX.
+  * Proteção mandatória contra rolagem horizontal acidental (`overflow-x-hidden` e `break-words`).
+
+### 5.2 Estratégia de Desempenho para Celulares Antigos
+* **Leveza de Scripts:** Zero bibliotecas inchadas de física ou animação JS no cliente. Uso exclusivo de transições CSS nativas aceleradas por GPU (`transition-transform`, `opacity`).
+* **Carregamento Otimizado de Mídia:**
+  * Imagens sempre compactadas em `.webp` com dimensões explícitas e `loading="lazy"`.
+  * No mobile, vídeos em loop de alta resolução no topo devem ter fallback leve (poster estático de alta resolução) para poupar memória RAM e planos de dados 3G/4G modestos, ativando players sob demanda (*Tap-to-Play*).
+* **PWA & Cache Local:** Instalação leve com Service Worker ativo para carregamento instantâneo mesmo sob conexões oscilantes no interior da nave da igreja ou em áreas rurais das CEBs.
+

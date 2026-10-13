@@ -30,10 +30,25 @@ Para dar um aspecto moderno e sofisticado, elementos flutuantes (como Headers fi
 
 ---
 
-## 04. Responsividade e Layout (Mobile-First para o Fiel)
-* O fiel acessará a programação de missas e doações principalmente pelo smartphone. As telas públicas do portal devem ser 100% pensadas para mobile-first.
-* O Painel Administrativo deve adaptar suas tabelas e formulários para telas compactas sem estourar o viewport lateral.
-* **Otimização de Espaços:** Em formulários e cards de gerenciamento com poucos campos, evite vazios excessivos distribuindo os inputs em duas colunas responsivas (`grid grid-cols-1 md:grid-cols-2 gap-4`).
+## 04. Responsividade e Diagramação (Mobile-First Extremo para o Fiel)
+Mais de **85% a 90%** dos acessos ao portal público da paróquia serão realizados via smartphones, incluindo uma parcela significativa de paroquianos idosos e fiéis portando aparelhos populares ou antigos (ex.: linhas de entrada Android e iPhones anteriores).
+
+### 4.1 Regras de Diagramação e CSS
+* **Arquitetura Visual 100% Mobile-First:** Todo layout, card, tabela e formulário DEVE ser projetado primeiro para larguras entre `360px` e `414px` (`flex-col`, `grid-cols-1`, `w-full`) e só expandir para `md:` e `lg:` quando estritamente necessário.
+* **Alvos de Toque Acessíveis (Touch Targets):** Todo botão, link ou item clicável DEVE possuir altura e área de clique mínima de **`44px x 44px`** (classe Tailwind recomendada: `min-h-[44px]` ou `p-3`), prevenindo cliques acidentais e facilitando o toque de pessoas idosas.
+* **Tipografia Adaptativa e Legibilidade Alta:**
+  * O tamanho mínimo para texto de leitura contínua é **`15px-16px`** (`text-sm` a `text-base`).
+  * Legendas e metadados nunca devem ser inferiores a **`12px`** (`text-xs`).
+  * Textos longos devem sempre ter proteção contra estouro de linha com `break-words` e o container pai com `overflow-x-hidden`.
+* **Navegação Rápida:** Drawer lateral móvel fluido com botão de fechamento evidente (`X`), fundo com desfoque moderado e atalhos diretos para WhatsApp e Dízimo.
+
+### 4.2 Hiper-Desempenho para Celulares Populares e Antigos (Low-End Devices)
+* **Zero Bloqueio de Thread de UI:** Não utilizar bibliotecas pesadas de animação em JavaScript (ex.: evitar pacotes desnecessários de física/3D). Utilize animações puramente via CSS nativo (`transition-transform`, `opacity`, `translate-y`) com aceleração por GPU.
+* **Gestão Consciente de Mídia:**
+  * **Imagens:** Devem ser servidas obrigatoriamente no formato moderno `.webp` ou `.avif`, com atributo `loading="lazy"` para qualquer imagem fora da primeira dobra.
+  * **Vídeos e Iframes no Mobile:** Loops de vídeo pesados no topo NÃO devem sobrecarregar celulares antigos com conexões 3G/4G instáveis. No mobile, dê preferência a um poster/fotografia leve e carregue o streaming de vídeo apenas mediante clique explícito do usuário (*Tap-to-Play*).
+* **DOM Leve e Rápido:** Limitar o aninhamento de `divs` a um máximo de 4 a 5 níveis para que o motor de renderização de navegadores mais antigos (ex.: Chrome 80-90 / Safari iOS antigos) processe a árvore de layout em menos de 100ms.
+* **Capacidade PWA e Cache Offline:** Aproveitar o Service Worker do PWA para servir dados em cache instantâneo e garantir que a programação de missas abra mesmo na ausência de sinal.
 
 ---
 
