@@ -15,13 +15,13 @@ const defaultItems = [
 
 export function MarqueeAvisos({ items = defaultItems }: MarqueeAvisosProps) {
   return (
-    <div className="w-full bg-[#211A14] text-[#FCF7F1] overflow-hidden py-2 text-xs sm:text-sm font-medium border-b border-[#352A20] select-none">
+    <div className="w-full bg-[#8B1E22] text-[#FFFFFF] overflow-hidden py-1.5 text-xs sm:text-sm font-semibold border-b border-[#A62428] select-none shadow-xs">
       <div className="relative flex overflow-x-hidden">
         <div className="animate-marquee flex items-center">
           {items.map((item, index) => (
             <span key={`m1-${index}`} className="inline-flex items-center mx-6 tracking-wide">
               <span>{item}</span>
-              <span className="ml-6 text-[var(--brand-gold-500)] font-bold text-base">✦</span>
+              <span className="ml-6 text-[#FFCC36] font-bold text-base">✦</span>
             </span>
           ))}
         </div>
@@ -29,7 +29,7 @@ export function MarqueeAvisos({ items = defaultItems }: MarqueeAvisosProps) {
           {items.map((item, index) => (
             <span key={`m2-${index}`} className="inline-flex items-center mx-6 tracking-wide">
               <span>{item}</span>
-              <span className="ml-6 text-[var(--brand-gold-500)] font-bold text-base">✦</span>
+              <span className="ml-6 text-[#FFCC36] font-bold text-base">✦</span>
             </span>
           ))}
         </div>

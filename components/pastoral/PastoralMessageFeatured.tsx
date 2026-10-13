@@ -37,10 +37,10 @@ export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProp
             <BookOpen className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-xl sm:text-2xl font-extrabold text-[var(--dash-text-primary)] tracking-tight">
+            <h3 className="font-cinzel text-xl sm:text-2xl font-bold uppercase tracking-[0.06em] text-[var(--dash-text-primary)]">
               <span className="text-[var(--brand-gold-500)]">A Palavra</span> do Nosso {isBispo ? 'Bispo' : 'Pároco'}
             </h3>
-            <p className="text-xs text-[var(--dash-text-secondary)]">
+            <p className="text-xs text-[var(--dash-text-secondary)] font-sans">
               Reflexão espiritual e orientação pastoral para a nossa comunidade
             </p>
           </div>
@@ -103,12 +103,12 @@ export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProp
               )}
             </div>
 
-            <h4 className="text-lg sm:text-xl font-bold text-[var(--dash-text-primary)] leading-snug">
+            <h4 className="font-cinzel text-base sm:text-lg font-bold uppercase tracking-wide text-[var(--dash-text-primary)] leading-snug">
               {current.title}
             </h4>
 
             {current.subtitle && (
-              <p className="text-xs sm:text-sm italic text-[var(--dash-text-primary)] font-medium leading-relaxed bg-[var(--dash-surface-secondary)]/70 p-3 rounded-xl border-l-4 border-[var(--brand-gold-500)]">
+              <p className="font-serif italic text-sm sm:text-base text-[var(--dash-text-primary)] font-medium leading-relaxed bg-[var(--dash-surface-secondary)]/70 p-3.5 rounded-xl border-l-4 border-[var(--brand-gold-500)]">
                 {current.subtitle}
               </p>
             )}

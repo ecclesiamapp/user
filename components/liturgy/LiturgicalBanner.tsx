@@ -103,12 +103,12 @@ export function LiturgicalBanner() {
             </div>
 
             {/* Título da Celebração do Dia */}
-            <h3 className="text-base sm:text-lg font-bold text-[var(--dash-text-primary)] leading-snug">
+            <h3 className="font-cinzel text-base sm:text-lg font-bold text-[var(--dash-text-primary)] leading-snug uppercase tracking-wide">
               {liturgy.celebrationTitle}
             </h3>
 
             {/* Trecho Breve do Evangelho do Dia */}
-            <p className="text-xs sm:text-sm text-[var(--dash-text-secondary)] italic border-l-2 border-amber-500/40 pl-3 leading-relaxed">
+            <p className="font-serif italic text-sm sm:text-base text-[var(--dash-text-secondary)] border-l-2 border-amber-500/40 pl-3 leading-relaxed">
               &ldquo;{evangelhoSnippet}&rdquo;
             </p>
           </div>

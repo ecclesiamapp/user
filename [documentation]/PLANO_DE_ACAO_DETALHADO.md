@@ -46,7 +46,7 @@
 * **Objetivo:** Automatização de agendamentos de confissões sacramentais e formulários de inscrições de sacramentos.
 
 ### Tarefas Técnicas & Entregas:
-- [ ] **TASK-20:** Modelagem de Dados Supabase: criação da tabela `pastoral_appointments` (vínculo aos 4 padres, horários, slots e status).
+- [x] **TASK-20:** Modelagem de Dados Supabase: criação da tabela `pastoral_appointments` (vínculo aos 4 padres, horários, slots e status).
 - [ ] **TASK-21:** Modelagem de Dados Supabase: criação da tabela `sacramental_registrations` (Batismo, Catequese, Noivos e Gestantes).
 - [ ] **TASK-22:** Interface Pública do Fiel: tela `/agendamentos` com seleção de sacerdote, tipo de atendimento (confissão/escuta) e WhatsApp.
 - [ ] **TASK-23:** Interface Pública do Fiel: formulários guiados de inscrição sacramental com checklist de documentos obrigatórios.

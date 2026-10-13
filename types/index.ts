@@ -188,3 +188,43 @@ export interface PastoralMessage {
   updated_at?: string;
 }
 
+export type AppointmentType = 
+  | 'confissao' 
+  | 'direcao_espiritual' 
+  | 'pastoral_escuta' 
+  | 'atendimento_padre' 
+  | 'bencao' 
+  | 'processo_matrimonial';
+
+export type AppointmentStatus = 
+  | 'pendente' 
+  | 'confirmado' 
+  | 'concluido' 
+  | 'cancelado' 
+  | 'ausente';
+
+export interface PastoralAppointment {
+  id: string;
+  parish_id: string;
+  clergy_id?: string | null;
+  clergy?: Clergy | null;
+  community_id?: string | null;
+  community?: Community | null;
+  parishioner_name: string;
+  parishioner_phone: string;
+  parishioner_email?: string | null;
+  community_name?: string | null;
+  appointment_type: AppointmentType;
+  appointment_date: string;
+  appointment_time: string;
+  duration_minutes: number;
+  status: AppointmentStatus;
+  notes?: string | null;
+  internal_notes?: string | null;
+  confirmed_at?: string | null;
+  confirmed_by?: string | null;
+  created_at: string;
+  updated_at?: string;
+}
+
+

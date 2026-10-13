@@ -40,10 +40,10 @@ export function DizimoDoacoesSection({ parish }: DizimoDoacoesSectionProps) {
             <HeartHandshake className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="font-display text-lg sm:text-xl font-bold tracking-tight">
+            <h3 className="font-cinzel text-lg sm:text-xl font-bold uppercase tracking-[0.06em] text-[var(--dash-text-primary)]">
               Dízimo Pastoral & Ofertas de Solidariedade
             </h3>
-            <p className="text-xs text-[var(--dash-text-secondary)]">
+            <p className="text-xs text-[var(--dash-text-secondary)] font-sans">
               Conscientização evangélica da partilha e canal direto para ofertas e obras da Catedral
             </p>
           </div>
@@ -54,7 +54,7 @@ export function DizimoDoacoesSection({ parish }: DizimoDoacoesSectionProps) {
         </Badge>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch font-sans">
         {/* Bloco 1: Conscientização Pastoral do Dízimo (Theòs) - 7 colunas */}
         <Card className="lg:col-span-7 flex flex-col justify-between p-6 sm:p-7 space-y-6 bg-[var(--dash-surface)] border border-[var(--dash-border)]">
           <div className="space-y-4">
@@ -68,7 +68,7 @@ export function DizimoDoacoesSection({ parish }: DizimoDoacoesSectionProps) {
               </span>
             </div>
 
-            <h4 className="font-display text-xl font-bold text-[var(--dash-text-primary)] leading-snug">
+            <h4 className="font-cinzel text-lg sm:text-xl font-bold uppercase tracking-wide text-[var(--dash-text-primary)] leading-snug">
               O Que é o Dízimo? Um Ato de Amor, Gratidão e Fidelidade a Deus
             </h4>
 
