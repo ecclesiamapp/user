@@ -18,9 +18,11 @@ import {
   Image as ImageIcon,
   X,
   Sparkles,
-  Inbox
+  Inbox,
+  Palette
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAdminAppearance } from '@/components/admin/context/AdminAppearanceContext';
 
 interface NavGroup {
   category: string;
@@ -67,6 +69,7 @@ const NAV_GROUPS: NavGroup[] = [
     category: 'Administração',
     items: [
       { href: '/admin/configuracoes', label: 'Identidade & Contato', icon: Settings },
+      { href: '/admin/aparencia', label: 'Aparência & Tema', icon: Palette },
     ],
   },
 ];
@@ -78,6 +81,48 @@ interface AdminSidebarProps {
 
 export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
   const pathname = usePathname();
+  const { liturgicalColoringEnabled, liturgy } = useAdminAppearance();
+
+  // Define a estilização do item ativo: litúrgico dinâmico ou bordeaux clássico
+  const getActiveStyle = () => {
+    if (!liturgicalColoringEnabled) {
+      return {
+        container: 'bg-gradient-to-r from-[#8B1E22] to-[#6E161A] text-white font-bold border border-[#FFA82A]/40 shadow-md shadow-black/40',
+        icon: 'text-[#FFCC36]',
+      };
+    }
+
+    switch (liturgy.corLiturgica) {
+      case 'verde':
+        return {
+          container: 'bg-gradient-to-r from-emerald-700 to-emerald-900 text-white font-bold border border-emerald-400/50 shadow-md shadow-emerald-950/40',
+          icon: 'text-emerald-200',
+        };
+      case 'roxo':
+        return {
+          container: 'bg-gradient-to-r from-purple-800 to-purple-950 text-white font-bold border border-purple-400/50 shadow-md shadow-purple-950/40',
+          icon: 'text-purple-200',
+        };
+      case 'vermelho':
+        return {
+          container: 'bg-gradient-to-r from-rose-800 to-rose-950 text-white font-bold border border-rose-400/50 shadow-md shadow-rose-950/40',
+          icon: 'text-rose-200',
+        };
+      case 'rosa':
+        return {
+          container: 'bg-gradient-to-r from-pink-700 to-pink-900 text-white font-bold border border-pink-400/50 shadow-md shadow-pink-950/40',
+          icon: 'text-pink-200',
+        };
+      case 'branco':
+      default:
+        return {
+          container: 'bg-gradient-to-r from-amber-600 to-amber-850 text-white font-bold border border-amber-300/50 shadow-md shadow-amber-950/40',
+          icon: 'text-amber-100',
+        };
+    }
+  };
+
+  const activeStyle = getActiveStyle();
 
   const sidebarContent = (
     <div className="h-full flex flex-col justify-between overflow-y-auto bg-[#16181B] text-[#EAE3D9] select-none">
@@ -133,14 +178,14 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
                       className={cn(
                         'flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all min-h-[42px] group',
                         isActive
-                          ? 'bg-gradient-to-r from-[#8B1E22] to-[#6E161A] text-white font-bold border border-[#FFA82A]/40 shadow-md shadow-black/40'
+                          ? activeStyle.container
                           : 'text-[#D2CBC1] hover:text-white hover:bg-white/10'
                       )}
                     >
                       <div className="flex items-center gap-2.5">
                         <Icon className={cn(
                           'w-4 h-4 shrink-0 transition-colors',
-                          isActive ? 'text-[#FFCC36]' : 'text-[#9E988F] group-hover:text-[#FFCC36]'
+                          isActive ? activeStyle.icon : 'text-[#9E988F] group-hover:text-[#FFCC36]'
                         )} />
                         <span className="text-xs">{item.label}</span>
                       </div>

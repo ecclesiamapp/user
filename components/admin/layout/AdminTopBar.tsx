@@ -21,6 +21,8 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui';
 
+import { LiturgicalSticker } from './LiturgicalSticker';
+
 interface AdminTopBarProps {
   onOpenMobileMenu: () => void;
 }
@@ -78,6 +80,9 @@ export function AdminTopBar({ onOpenMobileMenu }: AdminTopBarProps) {
 
       {/* Lado Direito: Ações Rápidas */}
       <div className="flex items-center gap-2 sm:gap-3">
+        {/* Sticker Litúrgico Solene */}
+        <LiturgicalSticker />
+
         {/* Atalho para Simular Agendamento do Fiel */}
         <Link
           href="/secretaria/agendamentos"
