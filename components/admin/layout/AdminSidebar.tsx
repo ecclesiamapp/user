@@ -35,7 +35,7 @@ interface NavGroup {
 
 const NAV_GROUPS: NavGroup[] = [
   {
-    category: 'Geral',
+    category: 'Principal',
     items: [
       { href: '/admin', label: 'Visão Geral', icon: Church, exact: true },
     ],
@@ -64,7 +64,7 @@ const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    category: 'Configurações',
+    category: 'Administração',
     items: [
       { href: '/admin/configuracoes', label: 'Identidade & Contato', icon: Settings },
     ],
@@ -80,41 +80,41 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
   const pathname = usePathname();
 
   const sidebarContent = (
-    <div className="h-full flex flex-col justify-between overflow-y-auto">
-      {/* Topo: Identidade da Catedral */}
+    <div className="h-full flex flex-col justify-between overflow-y-auto bg-[#16181B] text-[#EAE3D9] select-none">
+      {/* Topo: Identidade Visual da Catedral (Estilo St. Patrick's Cathedral) */}
       <div>
-        <div className="p-4 sm:p-5 border-b border-[var(--dash-border)] flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[var(--primary)] text-white flex items-center justify-center font-bold text-lg shadow-sm shrink-0">
-              <Church className="w-5 h-5" />
+        <div className="p-4 sm:p-5 border-b border-[#262A30] flex items-center justify-between bg-[#131417]">
+          <Link href="/admin" className="flex items-center gap-3 group text-decoration-none overflow-hidden">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8B1E22] via-[#5E1417] to-[#2D1A16] border border-[#C8A463]/50 flex items-center justify-center text-[#FFCC36] shadow-md shadow-black/50 group-hover:border-[#FFCC36] transition-colors shrink-0">
+              <span className="font-serif text-xl font-bold leading-none select-none">✝</span>
             </div>
             <div className="overflow-hidden">
-              <h2 className="text-sm font-bold truncate text-[var(--dash-text-primary)]">
+              <h2 className="text-sm font-bold truncate text-white tracking-wide group-hover:text-[#FFCC36] transition-colors font-display">
                 Catedral de Colatina
               </h2>
-              <div className="flex items-center gap-1.5 text-[11px] text-[var(--dash-text-secondary)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Painel Paroquial</span>
+              <div className="flex items-center gap-1.5 text-[11px] text-[#A39E98]">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[#C8A463] font-medium">Painel da Secretaria</span>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Botão fechar (apenas no mobile) */}
           <button
             type="button"
             onClick={onCloseMobile}
-            className="md:hidden p-2 rounded-xl text-[var(--dash-text-muted)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-surface-secondary)]"
+            className="md:hidden p-2 rounded-xl text-[#7E838B] hover:text-white hover:bg-white/10 transition-colors"
             aria-label="Fechar menu"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Navegação por Categorias */}
+        {/* Navegação por Categorias com Alto Contraste */}
         <nav className="p-3 space-y-4 text-xs font-medium">
           {NAV_GROUPS.map((group) => (
             <div key={group.category} className="space-y-1">
-              <span className="px-3 text-[10px] font-bold uppercase tracking-wider text-[var(--dash-text-muted)] block">
+              <span className="px-3 text-[10px] font-bold uppercase tracking-wider text-[#C8A463]/90 block">
                 {group.category}
               </span>
 
@@ -131,19 +131,22 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
                       href={item.href}
                       onClick={onCloseMobile}
                       className={cn(
-                        'flex items-center justify-between px-3 py-2.5 rounded-xl transition-all min-h-[40px]',
+                        'flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all min-h-[42px] group',
                         isActive
-                          ? 'bg-[var(--primary)] text-white font-bold shadow-xs'
-                          : 'text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-surface-secondary)]'
+                          ? 'bg-gradient-to-r from-[#8B1E22] to-[#6E161A] text-white font-bold border border-[#FFA82A]/40 shadow-md shadow-black/40'
+                          : 'text-[#D2CBC1] hover:text-white hover:bg-white/10'
                       )}
                     >
                       <div className="flex items-center gap-2.5">
-                        <Icon className={cn('w-4 h-4 shrink-0', isActive ? 'text-white' : 'text-[var(--dash-text-secondary)]')} />
+                        <Icon className={cn(
+                          'w-4 h-4 shrink-0 transition-colors',
+                          isActive ? 'text-[#FFCC36]' : 'text-[#9E988F] group-hover:text-[#FFCC36]'
+                        )} />
                         <span className="text-xs">{item.label}</span>
                       </div>
 
                       {item.badge && !isActive && (
-                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-[#FFA82A]/20 text-[#FFCC36] border border-[#FFA82A]/30">
                           {item.badge}
                         </span>
                       )}
@@ -156,29 +159,29 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
         </nav>
       </div>
 
-      {/* Rodapé: Atalho Portal do Fiel + Perfil */}
-      <div className="p-3 border-t border-[var(--dash-border)] space-y-2 bg-[var(--dash-surface)]">
+      {/* Rodapé: Atalho Portal do Fiel + Perfil da Secretária */}
+      <div className="p-3 border-t border-[#262A30] space-y-2 bg-[#131417]">
         <Link
           href="/"
           target="_blank"
-          className="flex items-center justify-between w-full px-3 py-2 rounded-xl bg-[var(--dash-surface-secondary)] hover:bg-[var(--dash-surface-hover)] text-xs font-semibold text-[var(--dash-text-primary)] border border-[var(--dash-border)] transition-all"
+          className="flex items-center justify-between w-full px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-[#EAE3D9] hover:text-white border border-white/10 hover:border-[#C8A463]/40 transition-all group"
         >
           <div className="flex items-center gap-2">
-            <Church className="w-3.5 h-3.5 text-[var(--primary)]" />
+            <Church className="w-3.5 h-3.5 text-[#FFCC36]" />
             <span>Ver Portal do Fiel</span>
           </div>
-          <ExternalLink className="w-3.5 h-3.5 text-[var(--dash-text-muted)]" />
+          <ExternalLink className="w-3.5 h-3.5 text-[#7E838B] group-hover:text-white transition-colors" />
         </Link>
 
-        <div className="px-3 py-2 rounded-xl bg-[var(--dash-surface-secondary)]/50 border border-[var(--dash-border)]/50 flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] flex items-center justify-center font-bold text-xs shrink-0">
+        <div className="px-3.5 py-2.5 rounded-xl bg-[#1A1C20] border border-white/5 flex items-center gap-2.5">
+          <div className="w-7 h-7 rounded-lg bg-[#8B1E22] text-[#FFCC36] flex items-center justify-center font-bold text-xs shrink-0 border border-[#C8A463]/30 shadow-xs">
             SP
           </div>
           <div className="overflow-hidden">
-            <p className="text-xs font-bold text-[var(--dash-text-primary)] truncate">
+            <p className="text-xs font-bold text-white truncate">
               Secretária Paroquial
             </p>
-            <p className="text-[10px] text-[var(--dash-text-muted)] truncate">
+            <p className="text-[10px] text-[#A39E98] truncate">
               Matriz da Catedral
             </p>
           </div>
@@ -189,22 +192,22 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
 
   return (
     <>
-      {/* 1. Sidebar Fixa no Desktop (sticky top-0 h-screen) */}
-      <aside className="hidden md:flex flex-col w-64 lg:w-72 h-screen sticky top-0 shrink-0 bg-[var(--dash-surface)] border-r border-[var(--dash-border)] z-40">
+      {/* 1. Sidebar Fixa no Desktop (sticky top-0 h-screen com fundo nobre escuro) */}
+      <aside className="hidden md:flex flex-col w-64 lg:w-72 h-screen sticky top-0 shrink-0 bg-[#16181B] border-r border-[#262A30] z-40 shadow-xl shadow-black/20">
         {sidebarContent}
       </aside>
 
       {/* 2. Gaveta Lateral Móvel no Mobile */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 md:hidden animate-fade-in">
-          {/* Backdrop Escuro */}
+          {/* Backdrop Escuro Translúcido */}
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-black/75 backdrop-blur-xs transition-opacity"
             onClick={onCloseMobile}
           />
 
           {/* Conteúdo da Gaveta */}
-          <div className="fixed inset-y-0 left-0 w-4/5 max-w-xs bg-[var(--dash-surface)] border-r border-[var(--dash-border)] shadow-2xl flex flex-col z-50">
+          <div className="fixed inset-y-0 left-0 w-4/5 max-w-xs bg-[#16181B] border-r border-[#262A30] shadow-2xl flex flex-col z-50">
             {sidebarContent}
           </div>
         </div>
