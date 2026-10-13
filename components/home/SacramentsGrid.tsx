@@ -64,7 +64,7 @@ export function SacramentsGrid({ whatsappNumber = '552737221234' }: SacramentsGr
         {services.map((item, index) => (
           <div
             key={index}
-            className="bg-white rounded-2xl border border-[#EAE3D9] p-6 shadow-sm hover:shadow-md hover:border-[#C8A463]/60 transition-all flex flex-col justify-between"
+            className="bg-[var(--dash-surface)] rounded-2xl border border-[#EAE3D9] p-6 shadow-sm hover:shadow-md hover:border-[#C8A463]/60 transition-all flex flex-col justify-between"
           >
             <div>
               <div className="w-12 h-12 rounded-xl bg-[#F5EFE7] border border-[#EAE3D9] flex items-center justify-center text-2xl mb-4 shadow-xs">

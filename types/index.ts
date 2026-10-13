@@ -227,4 +227,89 @@ export interface PastoralAppointment {
   updated_at?: string;
 }
 
+export type SacramentType = 
+  | 'batismo' 
+  | 'eucaristia' 
+  | 'crisma' 
+  | 'noivos' 
+  | 'gestantes' 
+  | 'outro';
 
+export type RegistrationStatus = 
+  | 'pendente' 
+  | 'em_analise' 
+  | 'documentacao_pendente' 
+  | 'aprovado' 
+  | 'concluido' 
+  | 'cancelado';
+
+export type ApplicantRole = 
+  | 'proprio' 
+  | 'mae' 
+  | 'pai' 
+  | 'responsavel' 
+  | 'noivo' 
+  | 'noiva' 
+  | 'outro';
+
+export interface BaptismDetails {
+  father_name?: string;
+  mother_name?: string;
+  godfather_name?: string;
+  godmother_name?: string;
+  godparents_church_marriage?: boolean;
+  godparents_confirmed?: boolean;
+  preparation_course_date?: string;
+  celebration_date?: string;
+}
+
+export interface CatechesisDetails {
+  stage: 'eucaristia_infantil' | 'crisma_jovens' | 'crisma_adultos' | 'catequese_adultos';
+  already_baptized: boolean;
+  baptism_parish?: string;
+  school_grade?: string;
+  parent_name?: string;
+  parent_phone?: string;
+}
+
+export interface MarriagePrepDetails {
+  groom_name: string;
+  groom_phone: string;
+  groom_parish?: string;
+  bride_name: string;
+  bride_phone: string;
+  bride_parish?: string;
+  wedding_date?: string;
+  wedding_church?: string;
+}
+
+export interface PregnantCourseDetails {
+  gestational_weeks?: number;
+  expected_due_date?: string;
+  companion_name?: string;
+  first_child?: boolean;
+}
+
+export interface SacramentalRegistration {
+  id: string;
+  parish_id: string;
+  community_id?: string | null;
+  community?: Community | null;
+  sacrament_type: SacramentType;
+  status: RegistrationStatus;
+  applicant_name: string;
+  applicant_phone: string;
+  applicant_email?: string | null;
+  applicant_role?: ApplicantRole;
+  candidate_name?: string | null;
+  candidate_birth_date?: string | null;
+  preferred_date?: string | null;
+  details: Record<string, any>;
+  documents_urls?: string[];
+  notes?: string | null;
+  internal_notes?: string | null;
+  reviewed_by?: string | null;
+  reviewed_at?: string | null;
+  created_at: string;
+  updated_at?: string;
+}

@@ -137,7 +137,7 @@ export default async function ParishPublicPortalPage() {
             {communities.map((c) => (
               <Card
                 key={c.id}
-                className={`bg-white rounded-2xl border border-[#EAE3D9] p-5 flex flex-col justify-between space-y-4 shadow-sm hover:shadow-md hover:border-[#FFA82A] transition-all ${
+                className={`bg-[var(--dash-surface)] rounded-2xl border border-[#EAE3D9] p-5 flex flex-col justify-between space-y-4 shadow-sm hover:shadow-md hover:border-[#FFA82A] transition-all ${
                   c.is_headquarters ? 'ring-2 ring-[#FFA82A]/50 border-[#FFA82A]' : ''
                 }`}
               >
@@ -216,7 +216,7 @@ export default async function ParishPublicPortalPage() {
             {recentAnnouncements.map((news) => (
               <div
                 key={news.id}
-                className="bg-white rounded-2xl border border-[#EAE3D9] p-6 shadow-sm hover:shadow-md hover:border-[#FFA82A] transition-all flex flex-col justify-between"
+                className="bg-[var(--dash-surface)] rounded-2xl border border-[#EAE3D9] p-6 shadow-sm hover:shadow-md hover:border-[#FFA82A] transition-all flex flex-col justify-between"
               >
                 <div className="space-y-2.5">
                   <span className="tag-gold text-[11px] font-bold">

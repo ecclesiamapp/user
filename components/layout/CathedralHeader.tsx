@@ -111,7 +111,7 @@ export function CathedralHeader({
             <button
               onClick={() => setMobileMenuOpen(true)}
               type="button"
-              className="lg:hidden p-2 rounded-xl text-[#EAE3D9] hover:text-white hover:bg-white/10 transition-colors"
+              className="lg:hidden p-2 rounded-xl text-[#EAE3D9] hover:text-white hover:bg-[var(--dash-surface)]/10 transition-colors"
               aria-label="Abrir menu"
             >
               <Menu className="w-6 h-6" />
@@ -151,7 +151,7 @@ export function CathedralHeader({
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   type="button"
-                  className="p-1.5 rounded-lg text-[#7E838B] hover:text-white hover:bg-white/10"
+                  className="p-1.5 rounded-lg text-[#7E838B] hover:text-white hover:bg-[var(--dash-surface)]/10"
                 >
                   <X className="w-5 h-5" />
                 </button>

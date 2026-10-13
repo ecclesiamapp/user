@@ -29,7 +29,7 @@ export function PastorSpotlight({ whatsappNumber = '552737221234' }: PastorSpotl
         </a>
       </div>
 
-      <div className="bg-white rounded-2xl border border-[#EAE3D9] p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8">
+      <div className="bg-[var(--dash-surface)] rounded-2xl border border-[#EAE3D9] p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8">
         {/* Retrato Oficial com Moldura Dourada da Catedral */}
         <div className="relative shrink-0">
           <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl bg-gradient-to-br from-[#8B1E22] via-[#211A14] to-[#121314] border-4 border-[#FFA82A] shadow-xl overflow-hidden flex items-center justify-center text-center p-2">

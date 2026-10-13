@@ -12,8 +12,10 @@ import {
   User, 
   Heart, 
   ArrowLeft,
+  ArrowRight,
   History,
-  Sparkles
+  Sparkles,
+  FileText
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { Card, Badge, Button } from '@/components/ui';
@@ -147,6 +149,59 @@ export default async function SecretariaInstitucionalPage() {
             Conheça os sacerdotes responsáveis pelo pastoreio da Catedral, nossos expedientes de atendimento e a história de nossa paróquia.
           </p>
         </div>
+
+        {/* Balcão de Serviços On-line (Acesso Rápido) */}
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Link href="/secretaria/agendamentos" className="block group">
+            <Card className="p-5 h-full flex flex-col justify-between border-[var(--primary)]/30 bg-[var(--primary)]/5 hover:border-[var(--primary)] transition-all">
+              <div className="space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <div className="p-2.5 rounded-xl bg-[var(--primary)] text-white">
+                    <Calendar className="w-5 h-5" />
+                  </div>
+                  <Badge variant="matriz" className="text-[10px] uppercase font-bold tracking-wider">
+                    Disponível On-line
+                  </Badge>
+                </div>
+                <h3 className="text-base font-bold text-[var(--dash-text-primary)] group-hover:text-[var(--primary)] transition-colors">
+                  Agendamento com os Padres
+                </h3>
+                <p className="text-xs text-[var(--dash-text-secondary)] leading-relaxed">
+                  Confissão individual, direção espiritual e atendimento pastoral com horários reservados e confirmação no WhatsApp.
+                </p>
+              </div>
+              <div className="mt-4 flex items-center text-xs font-bold text-[var(--primary)] gap-1">
+                <span>Agendar Horário</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
+          </Link>
+
+          <Link href="/secretaria/sacramentos" className="block group">
+            <Card className="p-5 h-full flex flex-col justify-between hover:border-[var(--dash-border)] transition-all">
+              <div className="space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <div className="p-2.5 rounded-xl bg-[var(--dash-surface-secondary)] text-[var(--dash-text-primary)]">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <Badge variant="ceb" className="text-[10px] uppercase font-bold tracking-wider">
+                    Inscrições Digitais
+                  </Badge>
+                </div>
+                <h3 className="text-base font-bold text-[var(--dash-text-primary)] group-hover:text-[var(--primary)] transition-colors">
+                  Inscrições Sacramentais
+                </h3>
+                <p className="text-xs text-[var(--dash-text-secondary)] leading-relaxed">
+                  Batismo infantil, catequese paroquial (Eucaristia/Crisma), Curso de Noivos e Curso de Gestantes.
+                </p>
+              </div>
+              <div className="mt-4 flex items-center text-xs font-bold text-[var(--dash-text-primary)] gap-1">
+                <span>Ver Requisitos & Inscrições</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
+          </Link>
+        </section>
 
         {/* Seção 1: O Clero (Pároco e Vigários) */}
         <section className="space-y-4">

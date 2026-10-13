@@ -73,7 +73,7 @@ export function CathedralLiveBroadcastSection({
               href="https://www.youtube.com/@SaintPatricksCathedralNYC"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-[#EAE3D9] text-xs font-bold uppercase tracking-wider font-sans transition-all border border-white/10"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[var(--dash-surface)]/10 hover:bg-[var(--dash-surface)]/15 text-[#EAE3D9] text-xs font-bold uppercase tracking-wider font-sans transition-all border border-white/10"
             >
               <ExternalLink className="w-3.5 h-3.5" />
               <span>Canal St. Patrick's</span>

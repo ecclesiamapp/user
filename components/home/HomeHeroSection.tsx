@@ -125,7 +125,7 @@ export function HomeHeroSection({
 
       {/* 2. FLOATING SCHEDULE CARD (St. Patrick's "Today's Schedule" — 3 Colunas Alabastro) */}
       <div className="relative z-20 max-w-[1240px] mx-auto px-4 sm:px-6 -mt-16 sm:-mt-20">
-        <div className="bg-white rounded-2xl border border-[#C8A463]/40 shadow-2xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 divide-y md:divide-y-0 md:divide-x divide-[#EAE3D9]">
+        <div className="bg-[var(--dash-surface)] rounded-2xl border border-[#C8A463]/40 shadow-2xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 divide-y md:divide-y-0 md:divide-x divide-[#EAE3D9]">
           
           {/* Coluna 1: Celebração de Hoje */}
           <div className="flex flex-col justify-between space-y-3 md:pr-6">
@@ -240,7 +240,7 @@ export function HomeHeroSection({
 
               <button
                 onClick={() => setModalOpen(false)}
-                className="p-2 rounded-xl text-[#A39E98] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                className="p-2 rounded-xl text-[#A39E98] hover:text-white hover:bg-[var(--dash-surface)]/10 transition-colors cursor-pointer"
                 aria-label="Fechar vídeo"
               >
                 <X className="w-5 h-5" />
