@@ -91,10 +91,110 @@ const TASK_METADATA = {
     category: 'Modelagem Supabase & Agendamentos',
     estimated_time: '1 hora',
     files: [
-      'supabase/migrations/20261101_create_pastoral_appointments.sql',
+      'supabase/migrations/20261012_create_pastoral_appointments.sql',
       'types/index.ts'
     ],
     objective: 'Criar tabela pastoral_appointments com suporte a horários e slots dos 4 sacerdotes (Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes).'
+  },
+  'TASK-21': {
+    phase: 'Fase 3 (2º Domingo do Advento)',
+    category: 'Modelagem Supabase & Secretaria',
+    estimated_time: '35 a 45 minutos',
+    files: [
+      'supabase/migrations/20261012_create_sacramental_registrations.sql',
+      'types/index.ts'
+    ],
+    objective: 'Criar tabela sacramental_registrations no Supabase com suporte a inscrições de Batismo, Catequese, Noivos e Gestantes com RLS e status.'
+  },
+  'TASK-22': {
+    phase: 'Fase 3 (2º Domingo do Advento)',
+    category: 'Front-end & Secretaria On-line',
+    estimated_time: '45 minutos',
+    files: [
+      'app/secretaria/agendamentos/page.tsx',
+      'components/secretaria/PastoralAppointmentBooking.tsx'
+    ],
+    objective: 'Desenvolver a subpágina pública /secretaria/agendamentos permitindo ao fiel agendar confissão/atendimento com os 4 sacerdotes.'
+  },
+  'TASK-23': {
+    phase: 'Fase 3 (2º Domingo do Advento)',
+    category: 'Front-end & Formulários Sacramentais',
+    estimated_time: '50 minutos',
+    files: [
+      'app/secretaria/sacramentos/page.tsx',
+      'components/secretaria/SacramentRegistrationForm.tsx'
+    ],
+    objective: 'Desenvolver a subpágina pública /secretaria/sacramentos com formulários guiados de inscrição para Batismo, Catequese e Noivos.'
+  },
+  'TASK-24': {
+    phase: 'Fase 3 (2º Domingo do Advento)',
+    category: 'Admin & Gestão de Pedidos',
+    estimated_time: '45 minutos',
+    files: [
+      'app/admin/secretaria/page.tsx',
+      'components/admin/secretaria/'
+    ],
+    objective: 'Atualizar o painel /admin/secretaria com sub-abas de agendamentos e inscrições sacramentais com aprovação rápida em 1 clique.'
+  },
+  'TASK-25': {
+    phase: 'Fase 3 (2º Domingo do Advento)',
+    category: 'Integrações & Notificações',
+    estimated_time: '30 minutos',
+    files: [
+      'utils/resend.ts',
+      'app/api/notifications/'
+    ],
+    objective: 'Implementar notificações de confirmação para a secretária e paroquianos via e-mail transacional (Resend) e WhatsApp.'
+  },
+  'TASK-26A': {
+    phase: 'Fase 4 (Natividade do Senhor)',
+    category: 'Front-end & Liturgia',
+    estimated_time: '45 minutos',
+    files: [
+      'app/horarios/page.tsx',
+      'components/horarios/LiturgicalScheduleView.tsx'
+    ],
+    objective: 'Desenvolver a subpágina pública /horarios com grade interativa da Matriz e 12 CEBs com filtros por dia e modal de confissões.'
+  },
+  'TASK-26B': {
+    phase: 'Fase 4 (Natividade do Senhor)',
+    category: 'Front-end & Dízimo',
+    estimated_time: '40 minutos',
+    files: [
+      'app/dizimo/page.tsx',
+      'components/dizimo/DizimoPortalView.tsx'
+    ],
+    objective: 'Desenvolver a subpágina pública /dizimo («Sou do Sagrado») com formulário de adesão, transparência de obras e PIX dinâmico.'
+  },
+  'TASK-26C': {
+    phase: 'Fase 4 (Natividade do Senhor)',
+    category: 'Front-end & Memória Paroquial',
+    estimated_time: '45 minutos',
+    files: [
+      'app/historia/page.tsx',
+      'components/historia/ApostolicSuccessionTimeline.tsx'
+    ],
+    objective: 'Desenvolver a subpágina pública /historia com Linha do Tempo e Galeria dos Párocos da Sucessão Apostólica.'
+  },
+  'TASK-26D': {
+    phase: 'Fase 4 (Natividade do Senhor)',
+    category: 'Front-end & Notícias',
+    estimated_time: '45 minutos',
+    files: [
+      'app/noticias/page.tsx',
+      'app/noticias/[slug]/page.tsx'
+    ],
+    objective: 'Desenvolver a subpágina pública /noticias com mural completo de notícias e leitor de comunicados da PASCOM.'
+  },
+  'TASK-26E': {
+    phase: 'Fase 4 (Natividade do Senhor)',
+    category: 'Front-end & Comunidades',
+    estimated_time: '35 minutos',
+    files: [
+      'app/comunidades/page.tsx',
+      'components/comunidades/CommunitiesDirectory.tsx'
+    ],
+    objective: 'Desenvolver a subpágina pública /comunidades com diretório central das 12 CEBs, mapa diocesano e rotas GPS.'
   }
 };
 

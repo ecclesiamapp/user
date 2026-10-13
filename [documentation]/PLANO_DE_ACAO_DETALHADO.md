@@ -43,25 +43,30 @@
 
 ## 🔵 FASE 3: Secretaria On-line & Agendamentos com Padres
 * **Data Limite:** 06 de Dezembro de 2026 (2º Domingo do Advento)
-* **Objetivo:** Automatização de agendamentos de confissões sacramentais e formulários de inscrições de sacramentos.
+* **Objetivo:** Automatização de agendamentos de confissões sacramentais e formulários de inscrições de sacramentos sob arquitetura `/secretaria/...`.
 
 ### Tarefas Técnicas & Entregas:
 - [x] **TASK-20:** Modelagem de Dados Supabase: criação da tabela `pastoral_appointments` (vínculo aos 4 padres, horários, slots e status).
-- [ ] **TASK-21:** Modelagem de Dados Supabase: criação da tabela `sacramental_registrations` (Batismo, Catequese, Noivos e Gestantes).
-- [ ] **TASK-22:** Interface Pública do Fiel: tela `/agendamentos` com seleção de sacerdote, tipo de atendimento (confissão/escuta) e WhatsApp.
-- [ ] **TASK-23:** Interface Pública do Fiel: formulários guiados de inscrição sacramental com checklist de documentos obrigatórios.
-- [ ] **TASK-24:** Painel Administrativo da Secretaria: rotas `/admin/agendamentos` e `/admin/inscricoes` com aprovação rápida em 1 clique.
-- [ ] **TASK-25:** Integração de E-mails Transacionais (Resend) para avisar a secretária paroquial a cada nova solicitação recebida.
+- [ ] **TASK-21:** Modelagem de Dados Supabase: criação da tabela `sacramental_registrations` (Batismo, Catequese, Noivos e Gestantes) com RLS e status.
+- [ ] **TASK-22:** Subpágina `/secretaria/agendamentos`: interface pública do fiel para seleção de sacerdote (4 padres), tipo de atendimento (confissão/escuta) e slots de horários.
+- [ ] **TASK-23:** Subpágina `/secretaria/sacramentos`: guia e formulários guiados de inscrição sacramental (Batismo, Crisma, Casamento) com checklist de documentos.
+- [ ] **TASK-24:** Painel Administrativo da Secretaria: rotas `/admin/secretaria` (sub-abas `/admin/agendamentos` e `/admin/inscricoes`) com aprovação rápida em 1 clique.
+- [ ] **TASK-25:** Notificações Transacionais: integração de e-mails (Resend) e WhatsApp para avisar a secretária e confirmar o fiel.
 
 ---
 
-## 🌟 FASE 4: Solenidade do Natal & Consolidação Plena
+## 🌟 FASE 4: Subpáginas Institucionais, Solenidade do Natal & Consolidação Plena
 * **Data Limite:** 25 de Dezembro de 2026 (Natividade do Senhor)
-* **Objetivo:** Grade especial de fim de ano, promoção do PWA e formalização do plano de mensalidade SaaS.
+* **Objetivo:** Implantação das subpáginas institucionais (/horarios, /dizimo, /historia, /noticias, /comunidades), grade de fim de ano, PWA e mensalidade SaaS.
 
 ### Tarefas Técnicas & Entregas:
-- [ ] **TASK-26:** Módulo de Fim de Ano: destaque da Novena de Natal, Missa da Vigília (Missa do Galo) e celebrações de Ano Novo na Home.
-- [ ] **TASK-27:** Cartas Pastorais de Natal do Pároco Pe. Irineu e do Bispo Dom Lauro em destaque na Coluna Pastoral.
-- [ ] **TASK-28:** Campanha de Instalação do PWA: QR Code impresso nos bancos da Catedral para os fiéis salvarem o ícone no celular.
-- [ ] **TASK-29:** Auditoria Final de Performance e Segurança (Lighthouse, logs do Supabase e Cloudflare).
-- [ ] **TASK-30:** Emissão do Termo de Homologação Piloto e início do ciclo de mensalidade SaaS (R$ 390 - 490/mês).
+- [ ] **TASK-26A:** Subpágina `/horarios`: Grade Litúrgica interativa completa (Matriz + 12 CEBs) com filtros dinâmicos por dia da semana e modal de confissões.
+- [ ] **TASK-26B:** Subpágina `/dizimo`: Portal «Sou do Sagrado» com cadastro de novo dizimista, transparência de obras da Catedral e QR Code PIX dinâmico.
+- [ ] **TASK-26C:** Subpágina `/historia`: Linha do tempo histórica da Catedral de Colatina e Galeria dos Párocos da Sucessão Apostólica.
+- [ ] **TASK-26D:** Subpágina `/noticias`: Portal completo de notícias e avisos da PASCOM com leitor individual `/noticias/[slug]` e filtros por categoria.
+- [ ] **TASK-26E:** Subpágina `/comunidades`: Diretório geral e mapa das 12 capelas com endereços, padroeiros e rotas GPS (Google Maps e Waze).
+- [ ] **TASK-27:** Módulo Litúrgico de Fim de Ano: destaque da Novena de Natal, Missa da Vigília (Missa do Galo) e celebrações de Ano Novo na Home.
+- [ ] **TASK-28:** Cartas Pastorais de Natal do Pároco Pe. Irineu e do Bispo Dom Lauro em destaque na Coluna Pastoral.
+- [ ] **TASK-29:** Campanha de Instalação do PWA: QR Code impresso nos bancos da Catedral para os fiéis salvarem o ícone no celular.
+- [ ] **TASK-30:** Auditoria Final de Performance e Segurança (Lighthouse, logs do Supabase e Cloudflare).
+- [ ] **TASK-31:** Emissão do Termo de Homologação Piloto e início do ciclo de mensalidade SaaS (R$ 390 - 490/mês).
