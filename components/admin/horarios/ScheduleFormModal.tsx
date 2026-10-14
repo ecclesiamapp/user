@@ -197,7 +197,7 @@ export function ScheduleFormModal({
             onChange={(e) => setType(e.target.value as MassSchedule['type'])}
           >
             <option value="missa">Santa Missa</option>
-            <option value="celebracao_palavra">Celebração da Palavra (Culto)</option>
+            <option value="celebracao_palavra">Celebração da Palavra</option>
             <option value="adoracao">Adoração ao Santíssimo</option>
             <option value="confissao">Atendimento de Confissões</option>
             <option value="expediente">Expediente Paroquial</option>

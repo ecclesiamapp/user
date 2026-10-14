@@ -29,7 +29,7 @@ Este documento reúne todas as funcionalidades e estruturas aprovadas conceitual
 * **Escopo Funcional:**
   * **Página individual dinâmica** para cada uma das 11 comunidades da paróquia.
   * **Identificação e Padroeiro:** Foto de fachada da capela, histórico da comunidade, padroeiro e rota GPS integrada (Google Maps).
-  * **Horários Exclusivos:** Grade apenas com as celebrações e cultos daquela capela específica.
+  * **Horários Exclusivos:** Grade apenas com as missas e celebrações da palavra daquela capela específica.
   * **Calendário Mensal da Comunidade:** Missas, novenas, tríduos de padroeiro e encontros de movimentos locais (EAC, ECC, Terço).
   * **História da CEB:** Ano de fundação (ex: 1956, 1962, 1986), pioneiros e trajetória pastoral.
   * **Galeria de Fotos Própria:** Álbuns de festividades daquela comunidade.

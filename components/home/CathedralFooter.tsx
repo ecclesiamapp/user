@@ -43,9 +43,9 @@ export function CathedralFooter({
             </h5>
             <ul className="space-y-2 text-xs font-sans">
               <li>
-                <a href="#horarios" className="hover:text-white transition-colors">
-                  Horários de Missas & Confissões
-                </a>
+                <Link href="/agenda-liturgica" className="hover:text-white transition-colors">
+                  Agenda Litúrgica da Catedral
+                </Link>
               </li>
               <li>
                 <a href="#secretaria" className="hover:text-white transition-colors">
@@ -58,9 +58,9 @@ export function CathedralFooter({
                 </a>
               </li>
               <li>
-                <a href="#dizimo" className="hover:text-white transition-colors">
+                <Link href="/dizimo" className="hover:text-white transition-colors">
                   Sou do Sagrado (Dízimo & PIX)
-                </a>
+                </Link>
               </li>
               <li>
                 <Link href="/secretaria" className="hover:text-white transition-colors">

@@ -57,8 +57,33 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
+      suppressHydrationWarning
       className={`${plusJakartaSans.variable} ${cormorantGaramond.variable} ${cinzel.variable} ${suezOne.variable} font-sans h-full antialiased`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined') {
+                window.addEventListener('unhandledrejection', function(event) {
+                  var text = (event && event.reason) ? (event.reason.stack || event.reason.message || String(event.reason)) : '';
+                  if (text.indexOf('chrome-extension://') !== -1 || text.indexOf('chrome:') !== -1 || text.indexOf('moz-extension://') !== -1) {
+                    event.stopImmediatePropagation();
+                    event.preventDefault();
+                  }
+                });
+                window.addEventListener('error', function(event) {
+                  var file = (event && event.filename) || '';
+                  if (file.indexOf('chrome-extension://') !== -1 || file.indexOf('moz-extension://') !== -1) {
+                    event.stopImmediatePropagation();
+                    event.preventDefault();
+                  }
+                });
+              }
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col font-sans">
         {children}
         <PwaInstallPrompt />

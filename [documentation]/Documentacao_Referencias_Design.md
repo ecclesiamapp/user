@@ -195,3 +195,20 @@ create table parish_pastors (
   * No mobile, vídeos em loop de alta resolução no topo devem ter fallback leve (poster estático de alta resolução) para poupar memória RAM e planos de dados 3G/4G modestos, ativando players sob demanda (*Tap-to-Play*).
 * **PWA & Cache Local:** Instalação leve com Service Worker ativo para carregamento instantâneo mesmo sob conexões oscilantes no interior da nave da igreja ou em áreas rurais das CEBs.
 
+---
+
+## 6. Modelo Canônico de Landing Page para as CEBs (Comunidades Eclesiais de Base)
+**Referência Oficial de Produção:** Subpágina `/agenda-liturgica`  
+**Conceito Arquitetural:** O layout e a experiência de usuário desenvolvidos para a **Agenda Litúrgica da Catedral** funcionam como o molde oficial (*blueprint*) para as Landing Pages públicas individuais das 12 CEBs (`/comunidades/[slug]`).
+
+### 6.1 Anatomia da Página Comunitária
+1. **Header & Contexto:** Selo da Capela Padroeira, vínculo com a Paróquia Sagrado Coração de Jesus e Marquee de avisos exclusivos daquela comunidade.
+2. **Hero Monumental da Capela:** Foto de destaque da igreja da comunidade, nome do padroeiro e acolhida pastoral.
+3. **Cards de Destaque (Próximos Acontecimentos):**
+   * *Card 1:* Próxima celebração (Santa Missa com sacerdote ou Celebração da Palavra com os ministros leigos).
+   * *Card 2:* Próximo momento de oração comunitária (Adoração, Terço dos Homens, Grupo de Oração, Catequese).
+4. **Lista Semanal:** Grade cronológica dos compromissos da semana na capela.
+5. **Filtros Litúrgicos:** Pílulas ergonômicas para alternar entre Santa Missa, Celebração da Palavra, Adoração e Pastorais.
+6. **Calendário Mensal ("Google Agenda Litúrgico"):** Grade mensal interativa onde os fiéis visualizam toda a escala de missas e celebrações da comunidade, abrindo o modal com botões para **Adicionar ao Google Agenda** e **Compartilhar no WhatsApp**.
+7. **Rodapé Pastoral:** Endereço da capela, botão de rota GPS (Google Maps / Waze) e contato da liderança comunitária.
+

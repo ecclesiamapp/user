@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { 
   Clock, 
   Radio, 
@@ -86,18 +87,18 @@ export function HomeHeroSection({
 
           {/* Botões de Ação na Dobra de Destaque */}
           <div className="pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-4 font-sans">
-            <a
-              href="#horarios"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#FFA82A] via-[#FFCC36] to-[#FFA82A] hover:brightness-105 text-[#2D1A16] font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-[#FFA82A]/20 transition-all cursor-pointer"
+            <Link
+              href="/agenda-liturgica"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#FFA82A] via-[#FFCC36] to-[#FFA82A] hover:brightness-105 text-[#2D1A16] font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-[#FFA82A]/20 transition-all cursor-pointer min-h-[44px]"
             >
               <Clock className="w-4 h-4 text-[#2D1A16]" />
-              <span>Ver Horários de Missas</span>
-            </a>
+              <span>Agenda Litúrgica</span>
+            </Link>
 
             <button
               onClick={() => setModalOpen(true)}
               type="button"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#16181B]/90 hover:bg-[#8B1E22]/60 backdrop-blur-md text-white font-bold text-xs sm:text-sm uppercase tracking-wider border border-[#D32F2F] shadow-lg transition-all cursor-pointer group"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#16181B]/90 hover:bg-[#8B1E22]/60 backdrop-blur-md text-white font-bold text-xs sm:text-sm uppercase tracking-wider border border-[#D32F2F] shadow-lg transition-all cursor-pointer group min-h-[44px]"
             >
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D32F2F] opacity-75" />
@@ -150,13 +151,13 @@ export function HomeHeroSection({
               </p>
             </div>
 
-            <a
-              href="#horarios"
-              className="inline-flex items-center gap-1 text-xs font-bold text-[#03637A] hover:text-[#02495A] transition-colors pt-2"
+            <Link
+              href="/agenda-liturgica"
+              className="inline-flex items-center gap-1 text-xs font-bold text-[#03637A] hover:text-[#02495A] transition-colors pt-2 min-h-[44px]"
             >
-              <span>Ver grade de missas da semana</span>
+              <span>Ver agenda da semana</span>
               <ChevronRight className="w-3.5 h-3.5" />
-            </a>
+            </Link>
           </div>
 
           {/* Coluna 2: Sacramento do Perdão (Confissões) */}
@@ -177,13 +178,13 @@ export function HomeHeroSection({
               </p>
             </div>
 
-            <a
-              href="#secretaria"
-              className="inline-flex items-center gap-1 text-xs font-bold text-[#03637A] hover:text-[#02495A] transition-colors pt-2"
+            <Link
+              href="/agenda-liturgica"
+              className="inline-flex items-center gap-1 text-xs font-bold text-[#03637A] hover:text-[#02495A] transition-colors pt-2 min-h-[44px]"
             >
-              <span>Como se preparar para a confissão</span>
+              <span>Ver horários e orientações</span>
               <ChevronRight className="w-3.5 h-3.5" />
-            </a>
+            </Link>
           </div>
 
           {/* Coluna 3: Expediente Paroquial */}

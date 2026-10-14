@@ -229,6 +229,32 @@ export function PastoralAppointmentBooking({
       });
 
       if (error) throw error;
+
+      // Disparo de Notificação Transacional (Resend & Secretaria)
+      try {
+        fetch('/api/notifications', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'appointment',
+            protocol: generatedProtocol,
+            parishionerName: parishionerName.trim(),
+            parishionerPhone: parishionerPhone.trim(),
+            parishionerEmail: parishionerEmail.trim() || undefined,
+            appointmentTypeLabel: selectedTypeObj?.title || 'Atendimento Pastoral',
+            priestName: selectedPriest?.name || 'Qualquer Sacerdote Disponível',
+            formattedDate: selectedDate.split('-').reverse().join('/'),
+            time: selectedTime,
+            communityName: selectedCommunity?.name || 'Catedral Matriz',
+            notes: notes.trim() || undefined,
+          }),
+        }).catch((notifErr) => {
+          console.warn('Alerta silencioso de notificação:', notifErr);
+        });
+      } catch (e) {
+        // Envio assíncrono não impede o sucesso do agendamento
+      }
+
       setSuccessProtocol(generatedProtocol);
     } catch (err: any) {
       console.error('Erro ao registrar agendamento:', err);
@@ -258,6 +284,7 @@ export function PastoralAppointmentBooking({
         time={selectedTime}
         parishionerName={parishionerName}
         parishionerPhone={parishionerPhone}
+        parishionerEmail={parishionerEmail.trim() || undefined}
         communityName={selectedCommunity?.name}
         whatsappSecretaryNumber={parish.whatsapp_number}
         parishAddress={parish.address}

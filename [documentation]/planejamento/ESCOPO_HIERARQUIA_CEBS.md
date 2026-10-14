@@ -31,7 +31,7 @@ Sem uma hierarquia formal, os horários e avisos no sistema ficavam soltos em ca
 ### Solução:
 Implementar o **Cadastro e Hierarquia de CEBs (Comunidades)** vinculado à Paróquia (`parish_id`), permitindo:
 1. **Secretaria Paroquial:** Cadastrar e organizar todas as capelas e comunidades urbanas/rurais da paróquia.
-2. **Vínculo Relacional:** Conectar horários de missas, cultos, confissões e notícias diretamente à respectiva comunidade.
+2. **Vínculo Relacional:** Conectar horários de missas, celebrações da palavra, confissões e notícias diretamente à respectiva comunidade.
 3. **Portal do Fiel:** O paroquiano pode filtrar celebrações especificamente para a sua capela ou bairro, com mapa de localização GPS e detalhes da festa do padroeiro local.
 
 ---
@@ -100,7 +100,7 @@ Implementar o **Cadastro e Hierarquia de CEBs (Comunidades)** vinculado à Paró
 ### 5.3 Mini-Site Exclusivo da CEB (`/comunidades/[slug]`)
 Cada capela conta com uma página dinâmica própria:
 * **Identificação e Padroeiro:** Foto principal, história da comunidade e padroeiro.
-* **Horários Locais:** Apenas missas e cultos daquela capela.
+* **Horários Locais:** Apenas missas e celebrações da palavra daquela capela.
 * **Calendário Mensal da CEB:** Atividades pastorais, reuniões de movimentos locais e novenas/tríduos do padroeiro.
 * **Galeria de Fotos Própria:** Coberturas das festas e celebrações da comunidade.
 * **Rotas GPS & Contato:** Localização e botão direto de WhatsApp da coordenação da CEB.

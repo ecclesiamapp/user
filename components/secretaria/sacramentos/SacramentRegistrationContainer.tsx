@@ -224,6 +224,31 @@ export function SacramentRegistrationContainer({
       if (error) throw error;
 
       const generatedProtocol = `SAC-2026-${(record?.id || 'NOVO').slice(0, 6).toUpperCase()}`;
+
+      // Disparo de Notificação Transacional (Resend & Secretaria)
+      try {
+        fetch('/api/notifications', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'sacrament',
+            protocol: generatedProtocol,
+            applicantName: applicantName.trim(),
+            applicantPhone: applicantPhone.trim(),
+            applicantEmail: applicantEmail.trim() || undefined,
+            sacramentTitle: currentConfig?.title || 'Inscrição Sacramental',
+            candidateName: resolvedCandidateName || undefined,
+            communityName: targetCommunity?.name || undefined,
+            preferredDate: resolvedPreferredDate || undefined,
+            extraSummary: resolvedNotes || undefined,
+          }),
+        }).catch((notifErr) => {
+          console.warn('Alerta silencioso de notificação:', notifErr);
+        });
+      } catch (e) {
+        // Envio assíncrono não impede o sucesso
+      }
+
       setProtocol(generatedProtocol);
     } catch (err: any) {
       console.error('Erro ao registrar inscrição sacramental:', err);
@@ -254,6 +279,7 @@ export function SacramentRegistrationContainer({
         config={currentConfig}
         applicantName={applicantName}
         applicantPhone={applicantPhone}
+        applicantEmail={applicantEmail.trim() || undefined}
         communityName={targetCommunity?.name}
         whatsappSecretaryNumber={parish.whatsapp_number || '552721025010'}
         parishAddress={parish.address || 'Praça Frei José, Nº 26, Centro - Edifício João Paulo II'}

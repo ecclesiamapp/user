@@ -36,7 +36,7 @@ graph TD
 ## ⛪ 3. "Mini-Sites" das Comunidades (CEBs) — `/comunidades/[slug]`
 Cada uma das 11 CEBs da Catedral (e de futuras paróquias) contará com sua subpágina dinâmica (*mini-site*), contendo:
 1. **Identificação & Localização:** Foto da fachada da capela, padroeiro local, endereço com rotas GPS (Google Maps) e contato da coordenação.
-2. **Horários da Comunidade:** Missas, cultos da palavra e adorações fixas daquela capela.
+2. **Horários da Comunidade:** Missas, celebrações da palavra e adorações fixas daquela capela.
 3. **Calendário Mensal de Atividades:** Cronograma de missas, tríduos, novenas do padroeiro e reuniões de movimentos (EAC, ECC, Terço) exclusivos da CEB.
 4. **Breve História da Fundação:** Memória histórica da comunidade, ano de fundação (ex: 1956, 1962, 1986), marcos e fotos antigas.
 5. **Galeria de Fotos da Comunidade:** Álbuns das festas e celebrações locais.

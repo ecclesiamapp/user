@@ -81,6 +81,17 @@ O portal público do Ecclesiam App será acessado majoritariamente (> 85%) por s
    - Vídeos e iframes: Carregamento sob demanda (*lazy/on-demand*); no mobile, nunca travar a renderização com loops pesados de alta resolução quando a conexão 3G/4G ou CPU do aparelho for modesta.
    - Árvore DOM enxuta e pré-renderização estática prioritária.
 
+## Sugestão Proativa de Auditoria Visual Humana (Pausa para Inspeção do Dev)
+Sempre que uma nova tela, subpágina pública ou componente de interface significativo for criado ou refatorado, a IA deve sugerir ativamente uma **Auditoria Visual Humana** ao desenvolvedor:
+1. Fornecer o link local direto e clicável (ex: `http://localhost:3000/...`).
+2. Entregar uma micro-checklist rápida com 3 a 4 pontos-chave para o dev inspecionar no navegador (ex: diagramação em 375px/mobile, harmonia das cores catedral, contraste Dark Mode e alvos de clique).
+3. Perguntar expressamente se o dev aprova o resultado visual ou se prefere realizar algum polimento estético antes de saltar para a próxima tarefa de código.
+
+## Nomenclatura Litúrgica Católica Obrigatória (Proibição do Termo "Culto")
+No catolicismo romano, **NUNCA** se utiliza a palavra "culto" para designar os encontros de oração e celebrações comunitárias. 
+- **Termos Canônicos Oficiais:** **"Santa Missa"** (ou "Missas") e **"Celebração da Palavra"** (ou "Celebrações").
+- A IA está expressamente proibida de usar a palavra "culto" ou "cultos" em qualquer título, menu, card, formulário ou documentação do Ecclesiam App.
+
 
 
 

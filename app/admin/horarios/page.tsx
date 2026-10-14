@@ -214,7 +214,7 @@ function HorariosContent() {
           <Select value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
             <option value="all">Todos os Tipos de Celebração</option>
             <option value="missa">Santa Missa</option>
-            <option value="celebracao_palavra">Celebração da Palavra (Culto)</option>
+            <option value="celebracao_palavra">Celebração da Palavra</option>
             <option value="adoracao">Adoração ao Santíssimo</option>
             <option value="confissao">Atendimento de Confissões</option>
             <option value="expediente">Expediente Paroquial</option>

@@ -108,7 +108,7 @@ export default function AdminAparenciaPage() {
           </div>
 
           <div className={`px-3 py-1.5 rounded-full ${currentMeta.bg} text-white text-xs font-bold shadow-xs flex items-center gap-1.5`}>
-            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-[var(--dash-surface)] animate-pulse" />
             <span className="capitalize">{liturgy.corLiturgica}</span>
           </div>
         </div>
@@ -148,7 +148,7 @@ export default function AdminAparenciaPage() {
             aria-label="Alternar coloração litúrgica"
           >
             <div
-              className={`w-6 h-6 rounded-full bg-white shadow-md transition-transform absolute top-0.5 left-1 ${
+              className={`w-6 h-6 rounded-full bg-[var(--dash-surface)] shadow-md transition-transform absolute top-0.5 left-1 ${
                 liturgicalColoringEnabled ? 'translate-x-6' : 'translate-x-0'
               }`}
             />
@@ -181,7 +181,7 @@ export default function AdminAparenciaPage() {
               </div>
               <div className={`p-2.5 rounded-xl bg-gradient-to-r ${currentMeta.gradient} text-white font-bold text-xs flex items-center justify-between border ${currentMeta.border}`}>
                 <span>Secretaria & Inscrições</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/20">Ativo</span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--dash-surface)]/20">Ativo</span>
               </div>
             </div>
 
@@ -204,7 +204,7 @@ export default function AdminAparenciaPage() {
               </div>
               <div className="p-2.5 rounded-xl bg-gradient-to-r from-[#8B1E22] to-[#6E161A] text-white font-bold text-xs flex items-center justify-between border border-[#FFA82A]/40 shadow-xs">
                 <span>Secretaria & Inscrições</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/20">Ativo</span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--dash-surface)]/20">Ativo</span>
               </div>
             </div>
           </div>

@@ -15,7 +15,10 @@ const defaultItems = [
 
 export function MarqueeAvisos({ items = defaultItems }: MarqueeAvisosProps) {
   return (
-    <div className="w-full bg-[#8B1E22] text-[#FFFFFF] overflow-hidden py-1.5 text-xs sm:text-sm font-semibold border-b border-[#A62428] select-none shadow-xs">
+    <div
+      suppressHydrationWarning
+      className="w-full bg-[#8B1E22] text-[#FFFFFF] overflow-hidden py-1.5 text-xs sm:text-sm font-semibold border-b border-[#A62428] select-none shadow-xs"
+    >
       <div className="relative flex overflow-x-hidden">
         <div className="animate-marquee flex items-center">
           {items.map((item, index) => (

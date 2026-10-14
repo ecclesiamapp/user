@@ -313,3 +313,49 @@ export interface SacramentalRegistration {
   created_at: string;
   updated_at?: string;
 }
+
+export interface TitheRegistration {
+  id: string;
+  parish_id: string;
+  community_id?: string | null;
+  community?: Community | null;
+  full_name: string;
+  phone: string;
+  email?: string | null;
+  birth_date?: string | null;
+  address?: string | null;
+  neighborhood?: string | null;
+  preferred_payment_method: 'pix' | 'envelope' | 'transferencia' | 'debito' | 'secretaria';
+  preferred_day: number;
+  status: 'pendente' | 'cadastrado_theos' | 'ativo' | 'cancelado';
+  notes?: string | null;
+  theos_code?: string | null;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface TitheTransparencyItem {
+  id: string;
+  parish_id: string;
+  title: string;
+  tag: string;
+  highlight?: string | null;
+  description: string;
+  icon_name?: string;
+  order_index: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface TitheFaq {
+  id: string;
+  parish_id: string;
+  question: string;
+  answer: string;
+  order_index: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+

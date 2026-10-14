@@ -65,9 +65,9 @@ export function CathedralHeader({
 
           {/* 2. Menu Central Desktop (Links Diretos Solenes com Estilo St. Patrick's) */}
           <nav className="hidden lg:flex items-center gap-7 text-xs font-bold tracking-[0.08em] text-[#EAE3D9] uppercase font-sans">
-            <a href="#horarios" className="hover:text-[#FFCC36] transition-colors">
-              Missas & Horários
-            </a>
+            <Link href="/agenda-liturgica" className="hover:text-[#FFCC36] transition-colors">
+              Agenda Litúrgica
+            </Link>
             <a href="#comunidades" className="hover:text-[#FFCC36] transition-colors">
               12 Comunidades
             </a>
@@ -99,13 +99,13 @@ export function CathedralHeader({
             </button>
 
             {/* Botão Dourado de Dízimo / Sou do Sagrado */}
-            <a
-              href="#dizimo"
-              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-[#FFA82A] via-[#FFCC36] to-[#FFA82A] hover:brightness-105 text-[#2D1A16] text-xs font-extrabold uppercase tracking-wider font-sans transition-all shadow-md shadow-[#FFA82A]/20 cursor-pointer"
+            <Link
+              href="/dizimo"
+              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-[#FFA82A] via-[#FFCC36] to-[#FFA82A] hover:brightness-105 text-[#2D1A16] text-xs font-extrabold uppercase tracking-wider font-sans transition-all shadow-md shadow-[#FFA82A]/20 cursor-pointer min-h-[44px]"
             >
               <Sparkles className="w-3.5 h-3.5 text-[#2D1A16]" />
               <span>Sou do Sagrado</span>
-            </a>
+            </Link>
 
             {/* Botão Hambúrguer Mobile */}
             <button
@@ -190,14 +190,14 @@ export function CathedralHeader({
                   </span>
                   <ul className="space-y-1">
                     <li>
-                      <a
-                        href="#horarios"
+                      <Link
+                        href="/agenda-liturgica"
                         onClick={() => setMobileMenuOpen(false)}
                         className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#F4F3EF] hover:bg-[#1B1E22] hover:text-[#FFCC36] transition-colors text-sm font-medium"
                       >
                         <Calendar className="w-4 h-4 text-[#C8A463]" />
-                        <span>Missas & Confissões</span>
-                      </a>
+                        <span>Agenda Litúrgica</span>
+                      </Link>
                     </li>
                     <li>
                       <a
@@ -266,14 +266,14 @@ export function CathedralHeader({
                 <span>Assistir Missa Ao Vivo</span>
               </button>
 
-              <a
-                href="#dizimo"
+              <Link
+                href="/dizimo"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#FFA82A] to-[#FFCC36] text-[#2D1A16] text-xs font-extrabold flex items-center justify-center gap-2 shadow-sm"
+                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#FFA82A] to-[#FFCC36] text-[#2D1A16] text-xs font-extrabold flex items-center justify-center gap-2 shadow-sm min-h-[44px]"
               >
                 <Heart className="w-4 h-4 text-[#8B1E22]" />
                 <span>Sou do Sagrado (Dízimo & PIX)</span>
-              </a>
+              </Link>
 
               <a
                 href={`https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=Olá,%20gostaria%20de%20informações%20da%20secretaria%20da%20Catedral.`}

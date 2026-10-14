@@ -22,6 +22,7 @@ interface AppointmentSuccessCardProps {
   time: string;
   parishionerName: string;
   parishionerPhone: string;
+  parishionerEmail?: string;
   communityName?: string;
   whatsappSecretaryNumber: string;
   parishAddress: string;
@@ -36,6 +37,7 @@ export function AppointmentSuccessCard({
   time,
   parishionerName,
   parishionerPhone,
+  parishionerEmail,
   communityName,
   whatsappSecretaryNumber,
   parishAddress,
@@ -83,6 +85,16 @@ export function AppointmentSuccessCard({
           {protocol}
         </div>
       </div>
+
+      {/* Aviso de Confirmação por E-mail */}
+      {parishionerEmail && (
+        <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-xs text-blue-700 dark:text-blue-300 flex items-center gap-2">
+          <span className="text-base">📧</span>
+          <span>
+            Um comprovante completo foi enviado para <strong>{parishionerEmail}</strong>.
+          </span>
+        </div>
+      )}
 
       {/* Resumo do Atendimento */}
       <div className="space-y-3 pt-2 text-xs sm:text-sm border-t border-[var(--dash-border)]">

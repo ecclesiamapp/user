@@ -73,7 +73,7 @@
 
 ### Ponto Fraco 3: A Exclusão das Comunidades e Capelas (CEBs)
 * **Concorrente:** O sistema trata a paróquia como um bloco monolítico central. A Capela de Nossa Senhora Aparecida no bairro periférico não tem espaço próprio.
-* **Vantagem Ecclesiam:** **Arquitetura Multi-Comunidades nativa**. Cada capela/comunidade da paróquia tem sua própria "página/aba" dentro do Ecclesiam App: os avisos da comunidade, o horário de culto/missa local, a festa do padroeiro da capela e o dízimo direcionado especificamente para a manutenção daquela capela. O coordenador de capela vira o maior promotor do Ecclesiam.
+* **Vantagem Ecclesiam:** **Arquitetura Multi-Comunidades nativa**. Cada capela/comunidade da paróquia tem sua própria "página/aba" dentro do Ecclesiam App: os avisos da comunidade, o horário de missa e celebração local, a festa do padroeiro da capela e o dízimo direcionado especificamente para a manutenção daquela capela. O coordenador de capela vira o maior promotor do Ecclesiam.
 
 ### Ponto Fraco 4: Gestão do Caos Pastoral & Escalas Litúrgicas
 * **Concorrente:** Focam apenas no dinheiro (dízimo) ou na certidão. Zero suporte para a vida comunitária ativa.

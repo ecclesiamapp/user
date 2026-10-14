@@ -51,17 +51,17 @@
 - [x] **TASK-22:** Subpágina `/secretaria/agendamentos`: interface pública do fiel para seleção de sacerdote (4 padres), tipo de atendimento (confissão/escuta) e slots de horários.
 - [x] **TASK-23:** Subpágina `/secretaria/sacramentos`: guia e formulários guiados de inscrição sacramental (Batismo, Crisma, Casamento) com checklist de documentos.
 - [x] **TASK-24:** Painel Administrativo da Secretaria: rotas `/admin/secretaria` (sub-abas `/admin/agendamentos` e `/admin/inscricoes`) com aprovação rápida em 1 clique.
-- [ ] **TASK-25:** Notificações Transacionais: integração de e-mails (Resend) e WhatsApp para avisar a secretária e confirmar o fiel.
+- [x] **TASK-25:** Notificações Transacionais: integração de e-mails (Resend) e WhatsApp para avisar a secretária e confirmar o fiel.
 
 ---
 
 ## 🌟 FASE 4: Subpáginas Institucionais, Solenidade do Natal & Consolidação Plena
 * **Data Limite:** 25 de Dezembro de 2026 (Natividade do Senhor)
-* **Objetivo:** Implantação das subpáginas institucionais (/horarios, /dizimo, /historia, /noticias, /comunidades), grade de fim de ano, PWA e mensalidade SaaS.
+* **Objetivo:** Implantação das subpáginas institucionais (/agenda-liturgica, /dizimo, /historia, /noticias, /comunidades), grade de fim de ano, PWA e mensalidade SaaS.
 
 ### Tarefas Técnicas & Entregas:
-- [ ] **TASK-26A:** Subpágina `/horarios`: Grade Litúrgica interativa completa (Matriz + 12 CEBs) com filtros dinâmicos por dia da semana e modal de confissões.
-- [ ] **TASK-26B:** Subpágina `/dizimo`: Portal «Sou do Sagrado» com cadastro de novo dizimista, transparência de obras da Catedral e QR Code PIX dinâmico.
+- [x] **TASK-26A:** Subpágina `/agenda-liturgica`: Agenda Litúrgica da Catedral estilo Google Agenda (missas, celebrações da palavra, confissões, adoração) com calendário mensal, lista semanal e modal de sincronização. Redirecionamento 307 ativo a partir de `/horarios`.
+- [x] **TASK-26B:** Subpágina `/dizimo`: Portal «Sou do Sagrado» com cadastro de novo dizimista, transparência de obras da Catedral e QR Code PIX dinâmico.
 - [ ] **TASK-26C:** Subpágina `/historia`: Linha do tempo histórica da Catedral de Colatina e Galeria dos Párocos da Sucessão Apostólica.
 - [ ] **TASK-26D:** Subpágina `/noticias`: Portal completo de notícias e avisos da PASCOM com leitor individual `/noticias/[slug]` e filtros por categoria.
 - [ ] **TASK-26E:** Subpágina `/comunidades`: Diretório geral e mapa das 12 capelas com endereços, padroeiros e rotas GPS (Google Maps e Waze).

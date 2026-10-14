@@ -100,12 +100,12 @@ As Comunidades Eclesiais de Base (CEBs) são o coração missionário da Paróqu
 ---
 
 ### ⏰ BLOCO 3: Gestão de Horários Locais (45 min)
-* **Objetivo:** Capacitar as lideranças a manter a escala de culto rigorosamente precisa.
+* **Objetivo:** Capacitar as lideranças a manter a escala litúrgica rigorosamente precisa.
 * **Rota Administrativa:** `/admin/horarios`
 
 1. **Diferenciação Canônica das Celebrações:**
    * `Santa Missa`: quando há presença de um dos sacerdotes celebrantes.
-   * `Celebração da Palavra`: cultos conduzidos pelos ministros extraordinários da comunidade.
+   * `Celebração da Palavra`: celebrações conduzidas pelos ministros extraordinários da comunidade.
    * `Adoração ao Santíssimo`: momentos de oração eucarística comunitária.
    * `Grupos de Reflexão / Terço`: reuniões setoriais e terço dos homens.
 2. **Operando o Painel de Horários:**
@@ -175,7 +175,7 @@ Para garantir que a capacitação seja 100% prática, esta ficha deve ser preenc
 | **Ano Aproximado de Fundação:** | Ex: 1974 |
 | **Pioneiros / Primeiras Famílias:** | Nomes dos primeiros moradores que doaram o terreno ou ergueram a capela |
 | **Padroeiro(a) & Data da Festa:** | Ex: São Francisco de Assis (04 de Outubro) |
-| **Horários Fixos de Culto:** | Domingos às 08h / Quartas às 19h30 |
+| **Horários Fixos de Missas e Celebrações:** | Domingos às 08h / Quartas às 19h30 |
 | **Nome do Coordenador(a) Atual:** | Nome completo |
 | **WhatsApp para Contato Paroquial:** | (27) 9____-____ |
 

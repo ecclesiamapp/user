@@ -80,7 +80,7 @@ A melhor estratégia com sacerdotes e conselhos paroquiais é o **Lançamento Es
 * **Objetivo:** Incluir todas as capelas filiadas e os fiéis das comunidades no ecossistema paroquial.
 * **Entregas desta fase:**
   - Mini-sites individuais das 11 CEBs (`/comunidades/:slug`) com fotos das fachadas, localização GPS e história dos fundadores.
-  - Grade de missas e cultos da palavra específicos de cada comunidade.
+  - Grade de missas e celebrações da palavra específicas de cada comunidade.
   - Módulo de download de folhetos semanais em PDF (*"Sou do Sagrado Missa"*).
   - Integração da Liturgia Diária oficial da CNBB na primeira página.
 * **Argumento para o Padre:**  

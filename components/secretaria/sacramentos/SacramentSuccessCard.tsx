@@ -19,6 +19,7 @@ interface SacramentSuccessCardProps {
   config: SacramentConfig;
   applicantName: string;
   applicantPhone: string;
+  applicantEmail?: string;
   communityName?: string;
   whatsappSecretaryNumber: string;
   parishAddress: string;
@@ -30,6 +31,7 @@ export function SacramentSuccessCard({
   config,
   applicantName,
   applicantPhone,
+  applicantEmail,
   communityName,
   whatsappSecretaryNumber,
   parishAddress,
@@ -78,6 +80,16 @@ export function SacramentSuccessCard({
           Guarde este número para acompanhamento na secretaria paroquial.
         </p>
       </div>
+
+      {/* Aviso de Confirmação por E-mail */}
+      {applicantEmail && (
+        <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-xs text-blue-700 dark:text-blue-300 flex items-center gap-2">
+          <span className="text-base">📧</span>
+          <span>
+            Um comprovante de inscrição foi enviado para <strong>{applicantEmail}</strong>.
+          </span>
+        </div>
+      )}
 
       {/* Checklist de Documentos a Apresentar */}
       <div className="space-y-3 pt-2 text-xs sm:text-sm border-t border-[var(--dash-border)]">
