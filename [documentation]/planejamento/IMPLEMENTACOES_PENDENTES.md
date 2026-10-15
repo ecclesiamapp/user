@@ -142,3 +142,28 @@ Assim como as CEBs, cada movimento contará com um **mini-site próprio com info
   4. **Arquitetura (Motor Híbrido Resiliente):**
      * Cálculo canônico oficial do Vaticano/CNBB sincronizado em tabelas do Supabase (`liturgical_calendar`, `liturgical_readings`, `parish_liturgical_events`), garantindo 100% de disponibilidade offline/cache e alta performance.
 
+---
+
+## 📌 9. Auditoria & Refinamento da Memória & História (`/historia` e `/admin/historia`)
+
+* **Prioridade:** Imediata (Próxima Sessão de Desenvolvimento)
+* **Origem:** Solicitação do Desenvolvedor (15/10/2026)
+* **Escopo Detalhado da Auditoria:**
+  1. **Auditoria de Responsividade Mobile Extrema:**
+     * Investigar e solucionar o motivo de alguns cards da linha do tempo ou da galeria de pastores/bispos não estarem visíveis ou renderizando truncados em smartphones (360px a 414px).
+     * Garantir touch targets >= 44px e zero rolagem horizontal acidental (`overflow-x-hidden`).
+  2. **Galeria Fotográfica Oficial dos Bispos Diocesanos:**
+     * Coletar e padronizar fotos oficiais para os 4 bispos diocesanos da história de Colatina:
+       * Dom Geraldo Lyrio Rocha (1º Bispo Diocesano)
+       * Dom Décio Sossai Zandonade, SDB (2º Bispo Diocesano)
+       * Dom Joaquim Wladimir Lopes Dias (3º Bispo Diocesano)
+       * Dom Lauro Sérgio Versiani Barbosa (4º Bispo Diocesano - Atual)
+     * Compactar em WebP com o novo sistema de corte e associar no banco Supabase e nos fallbacks.
+  3. **Sistema Canônico "In Memoriam" para Sacerdotes e Bispos Falecidos:**
+     * Adicionar campos canônicos no banco (`is_deceased: boolean` e `deceased_year: text/integer`).
+     * Exibição de badge solene de respeito eterno: cruz latina (`✝`), texto *"In Memoriam"* e ano de falecimento (ex: *Dom Geraldo Lyrio Rocha ✝ 2023*, *Monsenhor Rubens Duque ✝*).
+     * Interface de toggle no `/admin/historia` (PastorModal) para marcar ministros falecidos.
+  4. **Censo Histórico Profundo de Todos os Párocos da Catedral (1928 – 2026):**
+     * Conduzir varredura detalhada na web, acervos diocesanos de Colatina e registros paroquiais para resgatar todos os párocos, vigários e curas que serviram a Matriz Sagrado Coração de Jesus desde a fundação em 1928.
+
+
