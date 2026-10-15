@@ -13,7 +13,8 @@ import {
   FileText, 
   MessageCircle, 
   Sparkles,
-  ExternalLink
+  ExternalLink,
+  BookOpen
 } from 'lucide-react';
 
 interface CathedralHeaderProps {
@@ -67,6 +68,9 @@ export function CathedralHeader({
           <nav className="hidden lg:flex items-center gap-7 text-xs font-bold tracking-[0.08em] text-[#EAE3D9] uppercase font-sans">
             <Link href="/agenda-liturgica" className="hover:text-[#FFCC36] transition-colors">
               Agenda Litúrgica
+            </Link>
+            <Link href="/historia" className="hover:text-[#FFCC36] transition-colors">
+              História & Fé
             </Link>
             <a href="#comunidades" className="hover:text-[#FFCC36] transition-colors">
               12 Comunidades
@@ -208,6 +212,16 @@ export function CathedralHeader({
                         <Church className="w-4 h-4 text-[#C8A463]" />
                         <span>12 Comunidades (CEBs)</span>
                       </a>
+                    </li>
+                    <li>
+                      <Link
+                        href="/historia"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#F4F3EF] hover:bg-[#1B1E22] hover:text-[#FFCC36] transition-colors text-sm font-medium"
+                      >
+                        <BookOpen className="w-4 h-4 text-[#C8A463]" />
+                        <span>Nossa História & Catedral</span>
+                      </Link>
                     </li>
                   </ul>
                 </div>

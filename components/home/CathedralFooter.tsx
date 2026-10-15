@@ -48,6 +48,11 @@ export function CathedralFooter({
                 </Link>
               </li>
               <li>
+                <Link href="/historia" className="hover:text-white transition-colors">
+                  Nossa História & Sucessão
+                </Link>
+              </li>
+              <li>
                 <a href="#secretaria" className="hover:text-white transition-colors">
                   Secretaria & Sacramentos
                 </a>

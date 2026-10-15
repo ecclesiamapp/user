@@ -62,7 +62,7 @@
 ### Tarefas Técnicas & Entregas:
 - [x] **TASK-26A:** Subpágina `/agenda-liturgica`: Agenda Litúrgica da Catedral estilo Google Agenda (missas, celebrações da palavra, confissões, adoração) com calendário mensal, lista semanal e modal de sincronização. Redirecionamento 307 ativo a partir de `/horarios`.
 - [x] **TASK-26B:** Subpágina `/dizimo`: Portal «Sou do Sagrado» com cadastro de novo dizimista, transparência de obras da Catedral e QR Code PIX dinâmico.
-- [ ] **TASK-26C:** Subpágina `/historia`: Linha do tempo histórica da Catedral de Colatina e Galeria dos Párocos da Sucessão Apostólica.
+- [x] **TASK-26C:** Subpágina `/historia`: Linha do tempo histórica da Catedral de Colatina e Galeria dos Párocos da Sucessão Apostólica.
 - [ ] **TASK-26D:** Subpágina `/noticias`: Portal completo de notícias e avisos da PASCOM com leitor individual `/noticias/[slug]` e filtros por categoria.
 - [ ] **TASK-26E:** Subpágina `/comunidades`: Diretório geral e mapa das 12 capelas com endereços, padroeiros e rotas GPS (Google Maps e Waze).
 - [ ] **TASK-27:** Módulo Litúrgico de Fim de Ano: destaque da Novena de Natal, Missa da Vigília (Missa do Galo) e celebrações de Ano Novo na Home.
