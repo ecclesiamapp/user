@@ -359,3 +359,58 @@ export interface TitheFaq {
   updated_at?: string;
 }
 
+export interface ParishHistoryMilestone {
+  id: string;
+  parish_id: string;
+  year: string;
+  year_order: number;
+  era: string;
+  title: string;
+  subtitle?: string | null;
+  description: string;
+  icon_name?: string | null;
+  highlight?: string | null;
+  image_url?: string | null;
+  image_caption?: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface ParishPastorSuccession {
+  id: string;
+  parish_id: string;
+  category: 'bishop' | 'pastor';
+  order_number: number;
+  order_label?: string | null;
+  name: string;
+  title?: string | null;
+  period: string;
+  motto?: string | null;
+  motto_translation?: string | null;
+  summary: string;
+  achievements?: string[] | null;
+  image_url?: string | null;
+  is_current: boolean;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface ParishSacredHeritage {
+  id: string;
+  parish_id: string;
+  title: string;
+  category: string;
+  description: string;
+  theological_meaning: string;
+  icon?: string | null;
+  image_url?: string | null;
+  image_caption?: string | null;
+  order_index: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+
+

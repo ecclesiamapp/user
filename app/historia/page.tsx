@@ -1,12 +1,26 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 import { ArrowLeft, Church, Heart, Calendar, Sparkles } from 'lucide-react';
+import { createClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
 import { ApostolicSuccessionTimeline } from '@/components/historia/ApostolicSuccessionTimeline';
 import { BishopsAndPastorsGallery } from '@/components/historia/BishopsAndPastorsGallery';
 import { HistoryHeritageGallery } from '@/components/historia/HistoryHeritageGallery';
+import { 
+  HistoricalMilestone, 
+  BishopSuccession, 
+  PastorSuccession, 
+  SacredHeritageItem 
+} from '@/lib/history';
+import { 
+  Parish, 
+  ParishHistoryMilestone, 
+  ParishPastorSuccession, 
+  ParishSacredHeritage 
+} from '@/types';
 
 export const metadata: Metadata = {
   title: 'Nossa História & Fé • Catedral do Sagrado Coração de Jesus • Colatina/ES',
@@ -14,7 +28,128 @@ export const metadata: Metadata = {
     'Conheça a história quase centenária da Catedral de Colatina, os marcos da sua construção, seus vitrais sagrados e a linha da Sucessão Apostólica e Párocos.',
 };
 
-export default function CathedralHistoryPage() {
+export default async function CathedralHistoryPage() {
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+
+  // 1. Obter dados da Paróquia
+  const { data: parishesData } = await supabase.from('parishes').select('*').limit(1);
+  const parish: Parish = parishesData?.[0] || {
+    id: 'c0000000-0000-0000-0000-000000000001',
+    name: 'Catedral do Sagrado Coração de Jesus',
+    diocese: 'Diocese de Colatina',
+    slug: 'catedral-colatina',
+    city: 'Colatina',
+    state: 'ES',
+    address: 'Praça da Catedral, s/n - Centro, Colatina/ES',
+    whatsapp_number: '552737221234',
+    pix_key: 'secretaria@catedraldecolatina.org.br',
+    pix_key_type: 'email',
+    primary_color: '#8B1E22',
+    created_at: new Date().toISOString(),
+  };
+
+  // 2. Buscar Marcos Históricos Ativos
+  let initialMilestones: HistoricalMilestone[] | undefined = undefined;
+  try {
+    const { data: dbMilestones } = await supabase
+      .from('parish_history_milestones')
+      .select('*')
+      .eq('parish_id', parish.id)
+      .eq('is_active', true)
+      .order('year_order', { ascending: true });
+
+    if (dbMilestones && dbMilestones.length > 0) {
+      initialMilestones = (dbMilestones as ParishHistoryMilestone[]).map((m) => ({
+        id: m.id,
+        year: m.year,
+        era: m.era,
+        title: m.title,
+        subtitle: m.subtitle || '',
+        description: m.description,
+        iconName: (m.icon_name || 'church') as any,
+        highlight: m.highlight || undefined,
+        imageUrl: m.image_url || undefined,
+        imageCaption: m.image_caption || undefined,
+      }));
+    }
+  } catch (err) {
+    console.warn('Fallback ativado para linha do tempo:', err);
+  }
+
+  // 3. Buscar Sucessão Pastoral Ativa
+  let initialBishops: BishopSuccession[] | undefined = undefined;
+  let initialPastors: PastorSuccession[] | undefined = undefined;
+  try {
+    const { data: dbPastors } = await supabase
+      .from('parish_pastors_succession')
+      .select('*')
+      .eq('parish_id', parish.id)
+      .eq('is_active', true)
+      .order('order_number', { ascending: true });
+
+    if (dbPastors && dbPastors.length > 0) {
+      const typedPastors = dbPastors as ParishPastorSuccession[];
+      
+      const bishopsFromDb = typedPastors.filter((p) => p.category === 'bishop');
+      if (bishopsFromDb.length > 0) {
+        initialBishops = bishopsFromDb.map((b) => ({
+          id: b.id,
+          orderNumber: b.order_number,
+          orderLabel: b.order_label || 'Bispo Diocesano',
+          name: b.name,
+          title: b.title || 'Bispo Diocesano',
+          period: b.period,
+          motto: b.motto || '',
+          mottoTranslation: b.motto_translation || '',
+          summary: b.summary,
+          achievements: Array.isArray(b.achievements) ? b.achievements : [],
+          isCurrent: b.is_current,
+        }));
+      }
+
+      const pastorsFromDb = typedPastors.filter((p) => p.category === 'pastor');
+      if (pastorsFromDb.length > 0) {
+        initialPastors = pastorsFromDb.map((p) => ({
+          id: p.id,
+          name: p.name,
+          role: p.order_label || p.title || 'Pároco',
+          period: p.period,
+          description: p.summary,
+          isCurrent: p.is_current,
+        }));
+      }
+    }
+  } catch (err) {
+    console.warn('Fallback ativado para galeria de pastores:', err);
+  }
+
+  // 4. Buscar Patrimônio Sacro Ativo
+  let initialHeritage: SacredHeritageItem[] | undefined = undefined;
+  try {
+    const { data: dbHeritage } = await supabase
+      .from('parish_sacred_heritage')
+      .select('*')
+      .eq('parish_id', parish.id)
+      .eq('is_active', true)
+      .order('order_index', { ascending: true });
+
+    if (dbHeritage && dbHeritage.length > 0) {
+      initialHeritage = (dbHeritage as ParishSacredHeritage[]).map((h) => ({
+        id: h.id,
+        title: h.title,
+        category: h.category,
+        description: h.description,
+        theologicalMeaning: h.theological_meaning,
+        icon: (h.icon || 'sparkles') as any,
+        imageUrl: h.image_url || undefined,
+        imageCaption: h.image_caption || undefined,
+      }));
+    }
+  } catch (err) {
+    console.warn('Fallback ativado para patrimônio sacro:', err);
+  }
+
   return (
     <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex flex-col justify-between selection:bg-[#FFA82A] selection:text-[#2D1A16]">
       {/* 1. Marquee Litúrgico Fino no Topo */}
@@ -91,13 +226,13 @@ export default function CathedralHistoryPage() {
       {/* 4. Corpo Principal com as Seções Históricas */}
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16 flex-grow w-full">
         {/* Bloco 1: Linha do Tempo Centenária (1928 - 2026) */}
-        <ApostolicSuccessionTimeline />
+        <ApostolicSuccessionTimeline initialMilestones={initialMilestones} />
 
         {/* Bloco 2: Galeria dos Bispos & Párocos da Sucessão Apostólica */}
-        <BishopsAndPastorsGallery />
+        <BishopsAndPastorsGallery initialBishops={initialBishops} initialPastors={initialPastors} />
 
         {/* Bloco 3: Arquitetura & Patrimônio Sacro da Catedral */}
-        <HistoryHeritageGallery />
+        <HistoryHeritageGallery initialItems={initialHeritage} />
 
         {/* Bloco 4: Convite Pastoral para Visitação e Celebração */}
         <section className="bg-gradient-to-br from-[#8B1E22] via-[#5E1417] to-[#2D1A16] text-white rounded-2xl p-8 sm:p-10 border border-[#C8A463]/40 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">

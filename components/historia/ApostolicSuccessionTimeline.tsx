@@ -14,14 +14,22 @@ import {
 } from 'lucide-react';
 import { CATHEDRAL_HISTORICAL_MILESTONES, HistoricalMilestone } from '@/lib/history';
 
-export function ApostolicSuccessionTimeline() {
+interface ApostolicSuccessionTimelineProps {
+  initialMilestones?: HistoricalMilestone[];
+}
+
+export function ApostolicSuccessionTimeline({ initialMilestones }: ApostolicSuccessionTimelineProps) {
+  const milestoneList = initialMilestones && initialMilestones.length > 0
+    ? initialMilestones
+    : CATHEDRAL_HISTORICAL_MILESTONES;
+
   const [activeMilestoneId, setActiveMilestoneId] = useState<string>(
-    CATHEDRAL_HISTORICAL_MILESTONES[0].id
+    milestoneList[0]?.id || ''
   );
 
   const activeMilestone =
-    CATHEDRAL_HISTORICAL_MILESTONES.find((m) => m.id === activeMilestoneId) ||
-    CATHEDRAL_HISTORICAL_MILESTONES[0];
+    milestoneList.find((m) => m.id === activeMilestoneId) ||
+    milestoneList[0];
 
   const getMilestoneIcon = (iconName: HistoricalMilestone['iconName']) => {
     switch (iconName) {
@@ -68,7 +76,7 @@ export function ApostolicSuccessionTimeline() {
         {/* Barra Cronológica / Botões de Épocas */}
         <div className="lg:col-span-5 space-y-2.5">
           <div className="space-y-2">
-            {CATHEDRAL_HISTORICAL_MILESTONES.map((milestone) => {
+            {milestoneList.map((milestone) => {
               const isActive = milestone.id === activeMilestoneId;
               return (
                 <button

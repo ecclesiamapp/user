@@ -19,7 +19,8 @@ import {
   X,
   Sparkles,
   Inbox,
-  Palette
+  Palette,
+  Scroll
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAdminAppearance } from '@/components/admin/context/AdminAppearanceContext';
@@ -62,6 +63,7 @@ const NAV_GROUPS: NavGroup[] = [
       { href: '/admin/conteudo', label: 'Avisos & Notícias', icon: Newspaper },
       { href: '/admin/mensagens', label: 'Palavra do Pároco/Bispo', icon: BookOpen },
       { href: '/admin/galerias', label: 'Galerias & Fotos', icon: ImageIcon },
+      { href: '/admin/historia', label: 'História & Memória', icon: Scroll, badge: 'Novo' },
       { href: '/admin/dizimo', label: 'Dízimo & Doações PIX', icon: HeartHandshake },
     ],
   },

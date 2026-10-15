@@ -2,10 +2,23 @@
 
 import React, { useState } from 'react';
 import { Crown, Sparkles, User, Award, ShieldCheck, Heart } from 'lucide-react';
-import { BISHOPS_SUCCESSION, PARISH_PRIESTS_SUCCESSION } from '@/lib/history';
+import { BISHOPS_SUCCESSION, PARISH_PRIESTS_SUCCESSION, BishopSuccession, PastorSuccession } from '@/lib/history';
 
-export function BishopsAndPastorsGallery() {
+interface BishopsAndPastorsGalleryProps {
+  initialBishops?: BishopSuccession[];
+  initialPastors?: PastorSuccession[];
+}
+
+export function BishopsAndPastorsGallery({ initialBishops, initialPastors }: BishopsAndPastorsGalleryProps) {
   const [activeTab, setActiveTab] = useState<'bishops' | 'pastors'>('bishops');
+
+  const bishopsList = initialBishops && initialBishops.length > 0
+    ? initialBishops
+    : BISHOPS_SUCCESSION;
+
+  const pastorsList = initialPastors && initialPastors.length > 0
+    ? initialPastors
+    : PARISH_PRIESTS_SUCCESSION;
 
   return (
     <section className="space-y-8">
@@ -55,7 +68,7 @@ export function BishopsAndPastorsGallery() {
       {/* Conteúdo Aba 1: Bispos Diocesanos */}
       {activeTab === 'bishops' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in duration-200">
-          {BISHOPS_SUCCESSION.map((bishop) => (
+          {bishopsList.map((bishop) => (
             <div
               key={bishop.id}
               className={`rounded-2xl border p-6 sm:p-7 flex flex-col justify-between transition-all relative overflow-hidden ${
@@ -136,7 +149,7 @@ export function BishopsAndPastorsGallery() {
       {activeTab === 'pastors' && (
         <div className="space-y-6 animate-in fade-in duration-200">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {PARISH_PRIESTS_SUCCESSION.map((pastor) => (
+            {pastorsList.map((pastor) => (
               <div
                 key={pastor.id}
                 className={`rounded-2xl border p-6 sm:p-7 flex flex-col justify-between transition-all ${

@@ -4,8 +4,16 @@ import React, { useState } from 'react';
 import { Armchair, Sun, Flame, Bell, Shield, Sparkles, Scroll, Maximize2, X } from 'lucide-react';
 import { SACRED_HERITAGE_ITEMS, SacredHeritageItem } from '@/lib/history';
 
-export function HistoryHeritageGallery() {
+interface HistoryHeritageGalleryProps {
+  initialItems?: SacredHeritageItem[];
+}
+
+export function HistoryHeritageGallery({ initialItems }: HistoryHeritageGalleryProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<{ src: string; caption: string; title: string } | null>(null);
+
+  const itemsList = initialItems && initialItems.length > 0
+    ? initialItems
+    : SACRED_HERITAGE_ITEMS;
 
   const getHeritageIcon = (icon: SacredHeritageItem['icon']) => {
     switch (icon) {
@@ -45,7 +53,7 @@ export function HistoryHeritageGallery() {
 
       {/* Grid de Itens de Patrimônio Sacro com Fotos */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {SACRED_HERITAGE_ITEMS.map((item) => (
+        {itemsList.map((item) => (
           <div
             key={item.id}
             className="bg-[var(--dash-surface)] rounded-2xl border border-[var(--dash-border)] overflow-hidden flex flex-col justify-between hover:border-[#8B1E22]/50 hover:shadow-md transition-all group"
