@@ -16,6 +16,7 @@ import {
 import { createClient } from '@/utils/supabase/client';
 import { Community, Gallery } from '@/types';
 import { Button, Input, Select } from '@/components/ui';
+import { ImageUploaderField } from '@/components/admin/shared/ImageUploaderField';
 
 interface GalleryFormModalProps {
   isOpen: boolean;
@@ -268,11 +269,13 @@ export function GalleryFormModal({
             />
           </div>
 
-          <Input
-            label="URL da Foto de Capa (Opcional)"
+          <ImageUploaderField
+            label="Foto de Capa do Álbum"
             value={coverImageUrl}
-            onChange={(e) => setCoverImageUrl(e.target.value)}
-            placeholder="https://exemplo.com/foto-capa.jpg"
+            onChange={setCoverImageUrl}
+            folder="galerias"
+            aspectRatio={16 / 9}
+            placeholder="https://exemplo.com/foto-capa.webp"
           />
 
           <div className="space-y-1.5">

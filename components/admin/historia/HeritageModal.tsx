@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Loader2, Sparkles, Image as ImageIcon } from 'lucide-react';
 import { ParishSacredHeritage } from '@/types';
+import { ImageUploaderField } from '@/components/admin/shared/ImageUploaderField';
 
 interface HeritageModalProps {
   isOpen: boolean;
@@ -200,20 +201,16 @@ export function HeritageModal({ isOpen, onClose, onSave, item }: HeritageModalPr
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[var(--dash-text-secondary)] mb-1 flex items-center gap-1.5">
-                <ImageIcon className="w-3.5 h-3.5" />
-                URL da Foto
-              </label>
-              <input
-                type="text"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="/images/historia/catedral-vitrais.jpg"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-sm focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/40"
-              />
-            </div>
+          <div className="space-y-4">
+            <ImageUploaderField
+              label="Foto da Obra Sacra / Vitral"
+              value={imageUrl}
+              onChange={setImageUrl}
+              folder="patrimonio"
+              aspectRatio={4 / 3}
+              placeholder="/images/historia/catedral-vitrais.jpg"
+            />
+
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-[var(--dash-text-secondary)] mb-1">
                 Legenda da Foto

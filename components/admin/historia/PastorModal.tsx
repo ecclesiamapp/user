@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Loader2, Crown, User, Check, Image as ImageIcon } from 'lucide-react';
 import { ParishPastorSuccession } from '@/types';
+import { ImageUploaderField } from '@/components/admin/shared/ImageUploaderField';
 
 interface PastorModalProps {
   isOpen: boolean;
@@ -255,22 +256,17 @@ export function PastorModal({ isOpen, onClose, onSave, pastor, defaultCategory =
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
-            <div className="flex-1">
-              <label className="block text-xs font-bold uppercase tracking-wider text-[var(--dash-text-secondary)] mb-1 flex items-center gap-1.5">
-                <ImageIcon className="w-3.5 h-3.5" />
-                Foto Oficial (URL)
-              </label>
-              <input
-                type="text"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="/images/pastores/nome.jpg"
-                className="w-full px-3.5 py-2 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-sm focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/40"
-              />
-            </div>
+          <div className="space-y-4 pt-1">
+            <ImageUploaderField
+              label="Foto Oficial do Bispo / Pároco"
+              value={imageUrl}
+              onChange={setImageUrl}
+              folder="pastores"
+              aspectRatio={3 / 4}
+              placeholder="/images/pastores/bispo.webp"
+            />
 
-            <label className="flex items-center gap-2 cursor-pointer pt-4 sm:pt-0">
+            <label className="flex items-center gap-2 cursor-pointer pt-2">
               <input
                 type="checkbox"
                 checked={isCurrent}

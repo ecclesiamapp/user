@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Loader2, Sparkles, Image as ImageIcon } from 'lucide-react';
 import { ParishHistoryMilestone } from '@/types';
+import { ImageUploaderField } from '@/components/admin/shared/ImageUploaderField';
 
 interface MilestoneModalProps {
   isOpen: boolean;
@@ -232,20 +233,16 @@ export function MilestoneModal({ isOpen, onClose, onSave, milestone }: Milestone
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[var(--dash-text-secondary)] mb-1 flex items-center gap-1.5">
-                <ImageIcon className="w-3.5 h-3.5" />
-                URL da Foto Histórica
-              </label>
-              <input
-                type="text"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="/images/historia/projeto-benedito-calixto.jpg"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-sm focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/40"
-              />
-            </div>
+          <div className="space-y-4">
+            <ImageUploaderField
+              label="Foto Histórica do Marco"
+              value={imageUrl}
+              onChange={setImageUrl}
+              folder="historia"
+              aspectRatio={16 / 9}
+              placeholder="/images/historia/projeto-benedito-calixto.jpg"
+            />
+
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-[var(--dash-text-secondary)] mb-1">
                 Legenda da Imagem
