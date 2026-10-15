@@ -14,11 +14,12 @@ Ao criar ou modificar elementos HTML `<select>` estilizados com Tailwind CSS, **
 - **Exemplo Correto:** `className="dash-select rounded-xl border pl-3.5 pr-10 py-2"`
 
 ## Protocolo Deploy (Build, Commit & Push)
-Sempre que o usuário requisitar a execução do comando **"deploy"** ou **"Protocolo Deploy"** para salvar as alterações, certifique-se OBRIGATORIAMENTE de compilar o projeto antes de fazer o commit/push, a fim de evitar que erros estritos do TypeScript cheguem até a Vercel. Siga os passos:
+Sempre que o usuário requisitar a execução do comando **"deploy"** ou **"Protocolo Deploy"** para salvar as alterações, certifique-se OBRIGATORIAMENTE de compilar o projeto e validar as integrações antes de fazer o commit/push:
 1. **Validar (Build):** Execute `npm run build` ou `npx tsc --noEmit` localmente.
 2. **Corrigir:** Se a compilação acusar algum erro de tipagem (`Type error`), corrija o código imediatamente e rode o build novamente até passar sem falhas.
-3. **Commit:** Após o sucesso, faça o staging (`git add .`) e o commit (`git commit -m "..."`).
-4. **Push:** Envie as alterações para o repositório remoto (`git push`).
+3. **Auditoria de Integrações Cloud (Vercel & Supabase):** Execute `node .agents/skills/vercel/scripts/check_pre_push.js`. Garanta que todos os projetos Supabase vinculados à integração da Vercel (ex: `supabase-lime-queen` ou o projeto oficial) estejam em estado `ACTIVE_HEALTHY`. Projetos no plano gratuito que entram em pausa (`INACTIVE`/`PAUSED`) abortam o deploy na Vercel no primeiro segundo com erro `Resource provisioning failed`. Se algum projeto estiver inativo, reative-o imediatamente via MCP `restore_project` antes do push.
+4. **Commit:** Após o sucesso, faça o staging (`git add .`) e o commit (`git commit -m "..."`).
+5. **Push:** Envie as alterações para o repositório remoto (`git push`).
 
 ## Protocolo de Lançamento em Produção / Go-Live de Segurança (Gatilhos de Deploy)
 Sempre que o usuário utilizar frases de gatilho para colocar o app no ar (como **"Vamos colocar no ar"**, **"Vamos migrar para o local online definitivo"**, **"Deploy em produção"**, **"Subir projeto"**), a IA está EXPRESSAMENTE PROIBIDA de concluir o deploy sem antes executar a checklist do **Protocolo de Segurança Pré-Lançamento**:
