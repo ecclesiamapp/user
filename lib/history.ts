@@ -27,7 +27,10 @@ export interface BishopSuccession {
   mottoTranslation: string;
   summary: string;
   achievements: string[];
+  imageUrl?: string;
   isCurrent?: boolean;
+  inMemoriam?: boolean;
+  deceasedYear?: string;
 }
 
 export interface PastorSuccession {
@@ -36,7 +39,11 @@ export interface PastorSuccession {
   role: string;
   period: string;
   description: string;
+  imageUrl?: string;
   isCurrent?: boolean;
+  inMemoriam?: boolean;
+  deceasedYear?: string;
+  cryptNote?: string;
 }
 
 export interface SacredHeritageItem {
@@ -138,13 +145,16 @@ export const BISHOPS_SUCCESSION: BishopSuccession[] = [
     motto: 'Opus Justitiae Pax',
     mottoTranslation: 'A paz é fruto da justiça (Is 32, 17)',
     summary:
-      'Primeiro bispo da Diocese de Colatina, nomeado pelo Papa São João Paulo II. Instalou a diocese, estruturou os conselhos pastorais e ordenou os primeiros padres diocesanos.',
+      'Primeiro bispo da Diocese de Colatina, nomeado pelo Papa São João Paulo II. Instalou solenemente a diocese, estruturou os conselhos pastorais e ordenou a primeira geração de padres diocesanos.',
     achievements: [
       'Instalação solene da Cátedra e da Cúria Diocesana em 1990',
       'Criação do Seminário Diocesano Maria Mãe da Igreja',
-      'Posteriormente foi Arcebispo de Mariana e Presidente da CNBB',
+      'Posteriormente foi Arcebispo Metropolitano de Mariana e Presidente da CNBB',
     ],
+    imageUrl: '/images/pastores/dom-geraldo-lyrio-rocha.webp',
     isCurrent: false,
+    inMemoriam: true,
+    deceasedYear: '2023',
   },
   {
     id: 'b-dom-decio',
@@ -156,13 +166,15 @@ export const BISHOPS_SUCCESSION: BishopSuccession[] = [
     motto: 'Domine, Ut Videam',
     mottoTranslation: 'Senhor, que eu veja! (Lc 18, 41)',
     summary:
-      'Bispo salesiano com forte carisma vocacional e juvenil. Impulsionou intensamente a juventude, a catequese paroquial e a devoção a Nossa Senhora da Saúde.',
+      'Bispo salesiano com vibrante carisma vocacional e juvenil. Impulsionou com ardor a juventude, a catequese paroquial e elevou o Santuário Diocesano de Nossa Senhora da Saúde.',
     achievements: [
       'Elevação do Santuário Diocesano de Nossa Senhora da Saúde em Ibiraçu',
       'Grande incentivo às vocações sacerdotais e religiosas',
       'Dinamização das pastorais sociais e caritativas em toda a diocese',
     ],
+    imageUrl: '/images/pastores/dom-decio-zandonade.webp',
     isCurrent: false,
+    inMemoriam: false,
   },
   {
     id: 'b-dom-wladimir',
@@ -174,13 +186,15 @@ export const BISHOPS_SUCCESSION: BishopSuccession[] = [
     motto: 'Caritas in Veritate',
     mottoTranslation: 'A caridade na verdade (Ef 4, 15)',
     summary:
-      'Dedicou seu ministério episcopal à proximidade com os párocos, formação doutrinal sólida dos fiéis e celebração dos 30 anos de criação da Diocese de Colatina.',
+      'Dedicou seu ministério episcopal à proximidade pastoral com os presbíteros, sólida formação doutrinal dos leigos e à histórica celebração dos 30 anos da Diocese de Colatina.',
     achievements: [
       'Iniciativa da grande obra de adequação litúrgica da Catedral',
-      'Fortalecimento da comunhão presbiteral e visitas pastorais nas paróquias',
-      'Conduziu a Igreja Diocesana com serenidade durante o período da pandemia',
+      'Fortalecimento da comunhão presbiteral e visitas pastorais contínuas',
+      'Conduziu a Igreja Diocesana com serenidade durante a pandemia da Covid-19',
     ],
+    imageUrl: '/images/pastores/dom-joaquim-wladimir.webp',
     isCurrent: false,
+    inMemoriam: false,
   },
   {
     id: 'b-dom-lauro',
@@ -192,13 +206,15 @@ export const BISHOPS_SUCCESSION: BishopSuccession[] = [
     motto: 'Caritas Christi Urget Nos',
     mottoTranslation: 'O amor de Cristo nos impele (2Cor 5, 14)',
     summary:
-      'Atual pastor da Diocese de Colatina. Conduz o povo de Deus com ardor missionário, foco na sinodalidade, escuta das comunidades e testemunho do Evangelho junto aos mais necessitados.',
+      'Atual pastor próprio da Diocese de Colatina. Conduz o rebanho do Senhor com ardor missionário, escuta sinodal das comunidades, zelo pelas vocações e amor preferencial aos pobres.',
     achievements: [
       'Posse canônica na Catedral do Sagrado Coração em 02 de fevereiro de 2022',
       'Implementação do processo sinodal nas 12 comunidades e paróquias',
-      'Intensa presença pastoral celebrativa e caritativa junto ao povo de Deus',
+      'Presidente do Regional Leste 3 da Conferência Nacional dos Bispos do Brasil (CNBB)',
     ],
+    imageUrl: '/images/pastores/dom-lauro-versiani.webp',
     isCurrent: true,
+    inMemoriam: false,
   },
 ];
 
@@ -206,29 +222,57 @@ export const PARISH_PRIESTS_SUCCESSION: PastorSuccession[] = [
   {
     id: 'p-irineu',
     name: 'Pe. Irineu Claudino Sales',
-    role: 'Pároco e Cura da Catedral',
-    period: '2021 – Presente',
+    role: 'Pároco Atual e Cura da Catedral',
+    period: '2024 – Presente',
     description:
       'Atual pároco responsável pela condução espiritual e administrativa da Paróquia Sagrado Coração de Jesus. Conhecido pelo acolhimento fraterno aos fiéis, zelo litúrgico solene e impulso à evangelização das 12 CEBs.',
+    imageUrl: '/images/pastores/pe-irineu-claudino-sales.webp',
     isCurrent: true,
+    inMemoriam: false,
+  },
+  {
+    id: 'p-valdecy',
+    name: 'Pe. José Valdecy Romão',
+    role: 'Pároco e Cura Emérito da Catedral',
+    period: '2017 – 2024',
+    description:
+      'Conduziu a Catedral do Sagrado Coração de Jesus com zelo pastoral exemplar, dedicação ao culto divino e dinamização das pastorais urbanas e das comunidades de base.',
+    isCurrent: false,
+    inMemoriam: false,
   },
   {
     id: 'p-valter',
     name: 'Pe. Valter Rohr',
     role: 'Pároco Emérito',
-    period: 'Período Histórico',
+    period: '1985 – 2005',
     description:
-      'Marcou época na vida eclesial de Colatina por seu coração acolhedor, formação de lideranças leigas e dedicação incansável às famílias e aos doentes.',
+      'Marcou época na vida eclesial de Colatina por seu coração acolhedor, formação de lideranças leigas e dedicação incansável às famílias e aos doentes da cidade.',
     isCurrent: false,
+    inMemoriam: true,
+    deceasedYear: '2017',
   },
   {
     id: 'p-rubens',
     name: 'Monsenhor Rubens Duque',
-    role: 'Pároco Construtor',
-    period: 'Período Histórico',
+    role: 'Pároco Construtor e Prelado de Honra',
+    period: '1965 – 1985',
     description:
-      'Figura de proa na história da fé colatinense. Liderou a mobilização de fé e comunidade para a concretização material e espiritual do templo da Catedral.',
+      'Figura de proa na história da fé colatinense. Liderou a mobilização de fé e comunidade para a consolidação material e espiritual do templo da Catedral.',
     isCurrent: false,
+    inMemoriam: true,
+    deceasedYear: '2018',
+  },
+  {
+    id: 'p-meyers',
+    name: 'Cônego Geraldo Meyers',
+    role: 'Pároco Idealizador da Catedral',
+    period: '1945 – 1965',
+    description:
+      'Sacerdote de origem alemã que dedicou sua vida a Colatina. Idealizou e iniciou a construção da monumental Matriz em 1952 após o desabamento da antiga capela. Em honra ao seu legado perpétuo, repousa solenemente na Cripta da própria Catedral.',
+    isCurrent: false,
+    inMemoriam: true,
+    deceasedYear: '1994',
+    cryptNote: 'Sepultado na Cripta Oficial da Catedral do Sagrado Coração',
   },
   {
     id: 'p-vidigal',
@@ -238,6 +282,19 @@ export const PARISH_PRIESTS_SUCCESSION: PastorSuccession[] = [
     description:
       'Sacerdote de profunda oração e caridade, dedicou anos fecundos à formação sacramental e pastoral dos paroquianos de Colatina.',
     isCurrent: false,
+    inMemoriam: true,
+    deceasedYear: 'In Memoriam',
+  },
+  {
+    id: 'p-capuchinhos',
+    name: 'Freis Capuchinhos & Primeiros Missionários',
+    role: 'Pioneiros da Evangelização no Rio Doce',
+    period: '1927 – 1945',
+    description:
+      'Missionários pioneiros que desbravaram o Vale do Rio Doce e ergueram a primeira matriz de madeira e alvenaria no florescente povoado de Colatina em 1928, acolhendo os primeiros fiéis sob o Sagrado Coração.',
+    isCurrent: false,
+    inMemoriam: true,
+    deceasedYear: '1928',
   },
 ];
 

@@ -89,7 +89,7 @@ export function ApostolicSuccessionTimeline({ initialMilestones }: ApostolicSucc
                       : 'bg-[var(--dash-surface)]/70 hover:bg-[var(--dash-surface)] border-[var(--dash-border)] text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)]'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 flex-1 min-w-0">
                     <div
                       className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                         isActive
@@ -99,20 +99,20 @@ export function ApostolicSuccessionTimeline({ initialMilestones }: ApostolicSucc
                     >
                       {getMilestoneIcon(milestone.iconName)}
                     </div>
-                    <div>
-                      <div className="flex items-center gap-2">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span
                           className={`font-cinzel text-sm sm:text-base font-bold ${
-                            isActive ? 'text-[#8B1E22]' : 'text-[var(--dash-text-primary)]'
+                            isActive ? 'text-[#8B1E22] dark:text-[#FFA82A]' : 'text-[var(--dash-text-primary)]'
                           }`}
                         >
                           {milestone.year}
                         </span>
-                        <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-[var(--dash-surface-hover)] text-[var(--dash-text-secondary)]">
+                        <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-[var(--dash-surface-hover)] text-[var(--dash-text-secondary)] truncate">
                           {milestone.era}
                         </span>
                       </div>
-                      <p className="text-xs font-semibold text-[var(--dash-text-primary)] truncate max-w-[210px] sm:max-w-xs mt-0.5">
+                      <p className="text-xs font-semibold text-[var(--dash-text-primary)] truncate mt-0.5">
                         {milestone.title}
                       </p>
                     </div>

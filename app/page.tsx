@@ -13,6 +13,7 @@ import { createClient } from '@/utils/supabase/server';
 import { Card, Badge } from '@/components/ui';
 import { Community, Parish, PastoralMessage } from '@/types';
 import { fallbackCommunitiesList, getCommunitySlug } from '@/lib/communities';
+import { OFFICIAL_NEWS_DATA } from '@/lib/news';
 import { LiturgicalBanner } from '@/components/liturgy/LiturgicalBanner';
 import { MissalBookletsSection } from '@/components/liturgy/MissalBookletsSection';
 import { PastoralMessageFeatured } from '@/components/pastoral/PastoralMessageFeatured';
@@ -63,29 +64,7 @@ export default async function ParishPublicPortalPage() {
 
   const communities: Community[] = communitiesData && communitiesData.length > 0 ? communitiesData : fallbackCommunitiesList;
 
-  const recentAnnouncements = [
-    {
-      id: '1',
-      title: 'Ação Solidária e Programação da Festa do Sagrado Coração de Jesus 2026',
-      category: 'Festa da Padroeira',
-      date: '24 de Outubro, 2026',
-      description: 'Confira a programação completa de missas, novenas solenes e o almoço comunitário da nossa festa paroquial.',
-    },
-    {
-      id: '2',
-      title: 'Inscrições Abertas para a Catequese de Primeira Eucaristia e Crisma',
-      category: 'Catequese Paroquial',
-      date: '18 de Outubro, 2026',
-      description: 'Pais e jovens já podem realizar suas inscrições através da nossa central online ou presencialmente na secretaria.',
-    },
-    {
-      id: '3',
-      title: 'Sou do Sagrado Missa: Folheto Litúrgico com as Leituras do Domingo',
-      category: 'Liturgia Dominical',
-      date: '12 de Outubro, 2026',
-      description: 'Baixe em PDF o livreto completo com cantos e leituras bíblicas para acompanhar a celebração na Matriz e capelas.',
-    },
-  ];
+  const recentAnnouncements = OFFICIAL_NEWS_DATA.slice(0, 3);
 
   return (
     <div className="min-h-screen bg-[#F5EFE7] text-[#2D1A16] flex flex-col justify-between selection:bg-[#FFA82A] selection:text-[#2D1A16]">
@@ -207,36 +186,48 @@ export default async function ParishPublicPortalPage() {
                 Mural de <span className="text-[#8B1E22]">Avisos & Notícias</span>
               </h2>
             </div>
-            <span className="text-xs font-semibold text-[#7E838B]">
-              Atualizado semanalmente pela PASCOM
-            </span>
+            <Link
+              href="/noticias"
+              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#8B1E22] hover:text-[#FFA82A] transition-colors group"
+            >
+              <span>Ver Todas as Notícias</span>
+              <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {recentAnnouncements.map((news) => (
-              <div
+              <Link
                 key={news.id}
-                className="bg-[var(--dash-surface)] rounded-2xl border border-[#EAE3D9] p-6 shadow-sm hover:shadow-md hover:border-[#FFA82A] transition-all flex flex-col justify-between"
+                href={`/noticias/${news.slug}`}
+                className="group bg-[var(--dash-surface)] rounded-2xl border border-[#EAE3D9] p-6 shadow-sm hover:shadow-md hover:border-[#FFA82A] transition-all flex flex-col justify-between"
               >
                 <div className="space-y-2.5">
-                  <span className="tag-gold text-[11px] font-bold">
-                    {news.category}
-                  </span>
-                  <h3 className="font-cinzel text-base font-bold text-[#2D1A16] leading-snug uppercase tracking-wide">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="tag-gold text-[11px] font-bold">
+                      {news.categoryLabel}
+                    </span>
+                    {news.isUrgent && (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#8B1E22]/10 text-[#8B1E22] uppercase tracking-wider">
+                        Urgente
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-cinzel text-base font-bold text-[#2D1A16] leading-snug uppercase tracking-wide group-hover:text-[#8B1E22] transition-colors">
                     {news.title}
                   </h3>
                   <p className="text-xs text-[#514D4B] leading-relaxed line-clamp-3">
-                    {news.description}
+                    {news.summary}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-[#F2ECE3] flex items-center justify-between text-xs text-[#8A8580]">
-                  <span>{news.date}</span>
-                  <span className="text-[#8B1E22] font-bold flex items-center gap-1">
-                    Ler mais <ChevronRight className="w-3.5 h-3.5" />
+                <div className="pt-3 border-t border-[#F2ECE3] flex items-center justify-between text-xs text-[#8A8580] mt-4">
+                  <span>{news.publishedAt}</span>
+                  <span className="text-[#8B1E22] font-bold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                    Ler notícia <ChevronRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>

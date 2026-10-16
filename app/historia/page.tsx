@@ -104,7 +104,10 @@ export default async function CathedralHistoryPage() {
           mottoTranslation: b.motto_translation || '',
           summary: b.summary,
           achievements: Array.isArray(b.achievements) ? b.achievements : [],
+          imageUrl: b.image_url || undefined,
           isCurrent: b.is_current,
+          inMemoriam: b.in_memoriam,
+          deceasedYear: b.deceased_year || undefined,
         }));
       }
 
@@ -116,7 +119,11 @@ export default async function CathedralHistoryPage() {
           role: p.order_label || p.title || 'Pároco',
           period: p.period,
           description: p.summary,
+          imageUrl: p.image_url || undefined,
           isCurrent: p.is_current,
+          inMemoriam: p.in_memoriam,
+          deceasedYear: p.deceased_year || undefined,
+          cryptNote: p.summary?.includes('Cripta') ? 'Sepultado na Cripta Oficial da Catedral do Sagrado Coração' : undefined,
         }));
       }
     }
@@ -151,7 +158,7 @@ export default async function CathedralHistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex flex-col justify-between selection:bg-[#FFA82A] selection:text-[#2D1A16]">
+    <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex flex-col justify-between selection:bg-[#FFA82A] selection:text-[#2D1A16] overflow-x-hidden">
       {/* 1. Marquee Litúrgico Fino no Topo */}
       <MarqueeAvisos />
 

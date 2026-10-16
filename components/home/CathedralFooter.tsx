@@ -58,9 +58,9 @@ export function CathedralFooter({
                 </a>
               </li>
               <li>
-                <a href="#comunicados" className="hover:text-white transition-colors">
-                  Mural de Avisos & Notícias
-                </a>
+                <Link href="/noticias" className="hover:text-white transition-colors">
+                  Mural de Notícias & Avisos
+                </Link>
               </li>
               <li>
                 <Link href="/dizimo" className="hover:text-white transition-colors">

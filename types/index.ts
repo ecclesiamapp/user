@@ -392,6 +392,8 @@ export interface ParishPastorSuccession {
   achievements?: string[] | null;
   image_url?: string | null;
   is_current: boolean;
+  in_memoriam?: boolean;
+  deceased_year?: string | null;
   is_active: boolean;
   created_at: string;
   updated_at?: string;

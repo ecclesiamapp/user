@@ -227,6 +227,11 @@ export function PastorsTab({ initialPastors, parishId }: PastorsTabProps) {
                             Em Exercício
                           </span>
                         )}
+                        {p.in_memoriam && (
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-stone-900/80 dark:bg-stone-800 text-stone-200 border border-stone-600/50 flex items-center gap-1 font-serif">
+                            ✝ In Memoriam {p.deceased_year ? `(${p.deceased_year})` : ''}
+                          </span>
+                        )}
                       </div>
                       <span className="text-xs text-[var(--dash-text-secondary)] font-medium">
                         {p.period}

@@ -26,6 +26,8 @@ export function PastorModal({ isOpen, onClose, onSave, pastor, defaultCategory =
   const [achievementsText, setAchievementsText] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [isCurrent, setIsCurrent] = useState(false);
+  const [inMemoriam, setInMemoriam] = useState(false);
+  const [deceasedYear, setDeceasedYear] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,6 +45,8 @@ export function PastorModal({ isOpen, onClose, onSave, pastor, defaultCategory =
       setAchievementsText(Array.isArray(pastor.achievements) ? pastor.achievements.join('\n') : '');
       setImageUrl(pastor.image_url || '');
       setIsCurrent(!!pastor.is_current);
+      setInMemoriam(!!pastor.in_memoriam);
+      setDeceasedYear(pastor.deceased_year || '');
     } else {
       setCategory(defaultCategory);
       setOrderNumber('1');
@@ -56,6 +60,8 @@ export function PastorModal({ isOpen, onClose, onSave, pastor, defaultCategory =
       setAchievementsText('');
       setImageUrl('');
       setIsCurrent(false);
+      setInMemoriam(false);
+      setDeceasedYear('');
     }
     setError(null);
   }, [pastor, isOpen, defaultCategory]);
@@ -90,6 +96,8 @@ export function PastorModal({ isOpen, onClose, onSave, pastor, defaultCategory =
         achievements: parsedAchievements,
         image_url: imageUrl.trim() || null,
         is_current: isCurrent,
+        in_memoriam: inMemoriam,
+        deceased_year: inMemoriam ? (deceasedYear.trim() || null) : null,
       });
       onClose();
     } catch (err: any) {
@@ -266,17 +274,52 @@ export function PastorModal({ isOpen, onClose, onSave, pastor, defaultCategory =
               placeholder="/images/pastores/bispo.webp"
             />
 
-            <label className="flex items-center gap-2 cursor-pointer pt-2">
-              <input
-                type="checkbox"
-                checked={isCurrent}
-                onChange={(e) => setIsCurrent(e.target.checked)}
-                className="w-4 h-4 rounded text-[#8B1E22] focus:ring-[#8B1E22]"
-              />
-              <span className="text-xs font-bold text-[var(--dash-text-primary)]">
-                É o Pastor / Bispo atual em exercício?
-              </span>
-            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={isCurrent}
+                  onChange={(e) => {
+                    setIsCurrent(e.target.checked);
+                    if (e.target.checked) setInMemoriam(false);
+                  }}
+                  className="w-4 h-4 rounded text-[#8B1E22] focus:ring-[#8B1E22]"
+                />
+                <span className="text-xs font-bold text-[var(--dash-text-primary)]">
+                  Em exercício ministerial ativo?
+                </span>
+              </label>
+
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={inMemoriam}
+                  onChange={(e) => {
+                    setInMemoriam(e.target.checked);
+                    if (e.target.checked) setIsCurrent(false);
+                  }}
+                  className="w-4 h-4 rounded text-[#8B1E22] focus:ring-[#8B1E22]"
+                />
+                <span className="text-xs font-bold text-[var(--dash-text-primary)]">
+                  ✝ In Memoriam (sacerdote falecido)?
+                </span>
+              </label>
+            </div>
+
+            {inMemoriam && (
+              <div className="pt-2 animate-in fade-in duration-150">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[var(--dash-text-secondary)] mb-1">
+                  Ano de Falecimento (para badge solene)
+                </label>
+                <input
+                  type="text"
+                  value={deceasedYear}
+                  onChange={(e) => setDeceasedYear(e.target.value)}
+                  placeholder="Ex: 2023, 2018 ou In Memoriam"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-sm focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/40"
+                />
+              </div>
+            )}
           </div>
 
           {/* Botões de Ação */}
