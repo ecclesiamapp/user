@@ -15,8 +15,10 @@ import { Community, Parish, PastoralMessage } from '@/types';
 import { fallbackCommunitiesList, getCommunitySlug } from '@/lib/communities';
 import { OFFICIAL_NEWS_DATA } from '@/lib/news';
 import { LiturgicalBanner } from '@/components/liturgy/LiturgicalBanner';
+import { YearEndLiturgySection } from '@/components/liturgy/YearEndLiturgySection';
 import { MissalBookletsSection } from '@/components/liturgy/MissalBookletsSection';
 import { PastoralMessageFeatured } from '@/components/pastoral/PastoralMessageFeatured';
+import { fallbackFeaturedMessages } from '@/lib/pastoral-messages';
 import { DizimoDoacoesSection } from '@/components/dizimo/DizimoDoacoesSection';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralHeroPortal } from '@/components/home/CathedralHeroPortal';
@@ -37,15 +39,18 @@ export default async function ParishPublicPortalPage() {
     .order('is_headquarters', { ascending: false })
     .order('name');
 
-  // Buscar mensagem pastoral em destaque (Palavra do Pároco / Bispo)
-  const { data: featuredMessageData } = await supabase
+  // Buscar mensagens pastorais em destaque (Cartas de Natal do Bispo e do Pároco)
+  const { data: featuredMessagesData } = await supabase
     .from('pastoral_messages')
     .select('*')
     .eq('is_featured_home', true)
     .eq('is_active', true)
-    .limit(1);
+    .order('published_at', { ascending: false });
 
-  const featuredMessage: PastoralMessage | null = featuredMessageData?.[0] || null;
+  const featuredMessages: PastoralMessage[] =
+    featuredMessagesData && featuredMessagesData.length > 0
+      ? featuredMessagesData
+      : fallbackFeaturedMessages;
 
   const parish: Parish = parishesData?.[0] || {
     id: 'c0000000-0000-0000-0000-000000000001',
@@ -83,16 +88,19 @@ export default async function ParishPublicPortalPage() {
         {/* 4. Faixa da Liturgia Diária Oficial (CNBB) */}
         <LiturgicalBanner />
 
+        {/* 4.1 Módulo Litúrgico Especial: Solenidade de Natal & Fim de Ano */}
+        <YearEndLiturgySection />
+
         {/* 5. Central de Sacramentos & Secretaria (4 Cards com Ícones) */}
         <SacramentsGrid whatsappNumber={parish.whatsapp_number} />
 
         {/* 6. Destaque do Pároco (Pe. Irineu Claudino Sales) */}
         <PastorSpotlight whatsappNumber={parish.whatsapp_number} />
 
-        {/* 7. Coluna Editorial: A Palavra do Pároco / Bispo */}
-        {featuredMessage && (
+        {/* 7. Coluna Editorial: Cartas Pastorais de Natal (Bispo Dom Lauro & Pároco Pe. Irineu) */}
+        {featuredMessages && featuredMessages.length > 0 && (
           <div id="pastoral">
-            <PastoralMessageFeatured message={featuredMessage} />
+            <PastoralMessageFeatured messages={featuredMessages} />
           </div>
         )}
 
@@ -107,9 +115,18 @@ export default async function ParishPublicPortalPage() {
                 Nossas <span className="text-[#8B1E22]">12 Comunidades</span> & Capelas
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#514D4B]">
-              Acesse a história, galeria de fotos e horários de cada comunidade
-            </p>
+            <div className="flex flex-col sm:items-end gap-1.5">
+              <p className="text-xs sm:text-sm text-[#514D4B]">
+                Acesse a história, galeria de fotos e horários de cada comunidade
+              </p>
+              <Link
+                href="/comunidades"
+                className="inline-flex items-center gap-1 text-xs font-bold text-[#8B1E22] hover:text-[#721C24] transition-colors group"
+              >
+                <span>Ver Mapa Diocesano & Diretório Completo</span>
+                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

@@ -166,4 +166,34 @@ Assim como as CEBs, cada movimento contará com um **mini-site próprio com info
   4. **Censo Histórico Profundo de Todos os Párocos da Catedral (1928 – 2026):**
      * Conduzir varredura detalhada na web, acervos diocesanos de Colatina e registros paroquiais para resgatar todos os párocos, vigários e curas que serviram a Matriz Sagrado Coração de Jesus desde a fundação em 1928.
 
+---
+
+## 📌 10. Curadoria Visual & Tratamento em Alta Resolução dos Retratos dos Bispos Diocesanos
+
+* **Prioridade:** Média / Refinamento Estético & Memória Sacra
+* **Origem:** Solicitação do Desenvolvedor (19/10/2026)
+* **Páginas e Componentes Afetados:**
+  * [`app/historia/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/historia/page.tsx)
+  * [`components/historia/BishopsAndPastorsGallery.tsx`](file:///c:/Users/Start/ecclesiam-app/components/historia/BishopsAndPastorsGallery.tsx)
+  * [`lib/history.ts`](file:///c:/Users/Start/ecclesiam-app/lib/history.ts)
+* **Diagnóstico Atual:**
+  Os retratos atuais dos 4 Bispos Diocesanos de Colatina (`dom-geraldo-lyrio-rocha.webp`, `dom-decio-zandonade.webp`, `dom-joaquim-wladimir.webp` e `dom-lauro-versiani.webp`) foram obtidos a partir de acervos públicos e coberturas jornalísticas. Embora funcionais, apresentam diferenças perceptíveis de nitidez, ruído de compressão original e iluminação de estúdio heterogênea.
+* **Escopo de Execução & Critérios de Aceitação:**
+  1. **Coleta de Retratos Oficiais em Alta Definição:**
+     * Obter junto à Chancelaria / PASCOM da Diocese de Colatina os arquivos originais em alta resolução dos retratos canônicos:
+       * **Dom Geraldo Lyrio Rocha** (1º Bispo Diocesano: 1990–2002 ✝)
+       * **Dom Décio Sossai Zandonade, SDB** (2º Bispo Diocesano: 2003–2014)
+       * **Dom Joaquim Wladimir Lopes Dias** (3º Bispo Diocesano: 2015–2021)
+       * **Dom Lauro Sérgio Versiani Barbosa** (4º Bispo Diocesano: 2022–atual)
+  2. **Tratamento & Restauro Digital:**
+     * Limpeza de ruído e artefatos, correção de temperatura de cor e nitidez facial.
+     * Enquadramento simétrico unificado (escala proporcional de cabeça, solideo/barrete e cruz peitoral alinhados na mesma altura em todos os 4 quadros).
+  3. **Otimização & Compressão WebP:**
+     * Exportação em `.webp` de alto rendimento (dimensões recomendadas: 800x1000px, aspect-ratio 4:5, peso <= 70KB por imagem).
+     * Substituição em `public/images/pastores/` e atualização no bucket de armazenamento Supabase Storage.
+  4. **Atualização da Base de Dados & Fallback:**
+     * Atualização dos registros na tabela `parish_pastors_succession` e sincronização no fallback de `lib/history.ts`.
+     * Validação visual e de carregamento rápido em dispositivos móveis (360px a 414px) e monitores de alta densidade (Retina).
+
+
 

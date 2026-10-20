@@ -14,6 +14,7 @@ import {
 import { createClient } from '@/utils/supabase/server';
 import { Card, Badge, Button } from '@/components/ui';
 import { PastoralMessage } from '@/types';
+import { OFFICIAL_CHRISTMAS_MESSAGES } from '@/lib/pastoral-messages';
 
 interface PageProps {
   params: Promise<{
@@ -21,56 +22,7 @@ interface PageProps {
   }>;
 }
 
-const fallbackMessages: PastoralMessage[] = [
-  {
-    id: 'a0000000-0000-0000-0000-000000000001',
-    parish_id: 'c0000000-0000-0000-0000-000000000001',
-    author_type: 'paroco',
-    author_name: 'Padre Irineu Claudino Sales',
-    author_title: 'Pároco e Cura da Catedral de Colatina',
-    author_photo_url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=300&auto=format&fit=crop',
-    title: 'Uma Igreja em Saída nos Meios Digitais: Bem-vindos ao Novo Portal da Catedral!',
-    slug: 'palavra-do-paroco-uma-igreja-em-saida-digital',
-    subtitle: '«A beleza de nossa fé precisa resplandecer onde o povo está — e hoje, nossos lares e corações também se conectam pela tela do celular.»',
-    content: `Queridos paroquianos da Catedral do Sagrado Coração de Jesus e irmãos de todas as nossas 12 comunidades e núcleos de oração!
-
-É com imensa alegria pastoral e coração repleto de esperança que apresentamos este novo portal digital da nossa paróquia. O Papa Francisco constantemente nos convida a sermos uma "Igreja de Portas Abertas", acolhedora e próxima de cada família, enfermo e jovem.
-
-Este espaço não é apenas um site informativo: ele é uma extensão viva do altar de nossa Catedral. Aqui vocês encontram nossos horários de celebração diária, as orientações para os sacramentos, a partilha fraterna através das nossas comunidades e o acesso diário à Palavra de Deus.
-
-Vivemos tempos de transformação e dinamismo. No entanto, o essencial permanece: Cristo é o centro da nossa história e a Eucaristia é a fonte e o ápice de nossa vida cristã. Que este canal digital encurte distâncias, acolha quem está distante e sirva como instrumento de evangelização e consolo espiritual.
-
-Acolham este portal com carinho e divulguem em suas famílias e grupos pastorais. Que o Sagrado Coração de Jesus derrame copiosas bênçãos sobre cada lar de Colatina!`,
-    liturgical_season: 'Solenidade de Todos os Santos',
-    is_featured_home: true,
-    is_active: true,
-    published_at: '2026-10-07T10:00:00Z',
-  },
-  {
-    id: 'a0000000-0000-0000-0000-000000000002',
-    parish_id: 'c0000000-0000-0000-0000-000000000001',
-    author_type: 'bispo',
-    author_name: 'Dom Lauro Sérgio Versiani Barbosa',
-    author_title: 'Bispo Diocesano de Colatina',
-    author_photo_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
-    title: 'Comunhão, Participação e Missão: A Catedral como Mãe e Referência Pastoral',
-    slug: 'palavra-do-bispo-catedral-mae-e-referencia-pastoral',
-    subtitle: '«A Catedral é a cátedra de onde emana a unidade da Diocese de Colatina; que a comunicação eclesial seja reflexo do amor misericordioso de Cristo.»',
-    content: `Irmãos e irmãs da amada Diocese de Colatina e da Paróquia Catedral do Sagrado Coração de Jesus, paz e bem!
-
-A Igreja Diocesana se alegra com cada passo que damos rumo à sinodalidade e à comunhão. A Catedral, sede da nossa cátedra episcopal, possui a sublime missão de ser luz orientadora e abraço acolhedor para todas as paróquias do Vale do Rio Doce.
-
-A evangelização através dos meios contemporâneos de comunicação é uma exigência missionária inadiável. Uma paróquia viva não se fecha em quatro paredes; ela sai ao encontro, dialoga, acolhe as dores do povo e aponta com esperança para o Evangelho da Salvação.
-
-Parabenizo o nosso estimado Pároco Pe. Irineu Claudino Sales, o clero paroquial, os leigos e as lideranças das 12 comunidades por este passo fecundo. Que esta presença digital renove em cada fiel o ardor missionário e o compromisso solene com os mais pobres e necessitados.
-
-Com minha bênção episcopal a todo o clero, pastorais e paroquianos da Catedral!`,
-    liturgical_season: 'Tempo Comum',
-    is_featured_home: false,
-    is_active: true,
-    published_at: '2026-10-05T09:00:00Z',
-  },
-];
+const fallbackMessages: PastoralMessage[] = OFFICIAL_CHRISTMAS_MESSAGES;
 
 export default async function MensagemDetalhePage({ params }: PageProps) {
   const { slug } = await params;

@@ -23,6 +23,8 @@ import { Card, Badge, Button } from '@/components/ui';
 import { Community, MassSchedule, Gallery } from '@/types';
 
 import { fallbackCommunities } from '@/lib/communities';
+import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
+import { CathedralFooter } from '@/components/home/CathedralFooter';
 
 
 type Props = {
@@ -67,93 +69,126 @@ export default async function CommunityDetailPage({ params }: Props) {
 
   const galleries: Gallery[] = galleriesData || [];
 
-  const mapsQuery = encodeURIComponent(`${community.name}, ${community.address || ''}, ${community.city} - ${community.state}`);
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
-  const wazeUrl = `https://waze.com/ul?q=${mapsQuery}`;
+  // 4. Buscar paróquia para o rodapé oficial
+  const { data: parishesData } = await supabase.from('parishes').select('*').limit(1);
+  const parish = parishesData?.[0] || {
+    name: 'Catedral do Sagrado Coração de Jesus',
+    diocese: 'Diocese de Colatina',
+    address: 'Praça Frei José, Nº 26 - Centro, Colatina/ES',
+    whatsapp_number: '552737221234',
+  };
+
+  const destinationQuery = encodeURIComponent(
+    `${community.name}, ${community.address || ''}, ${community.neighborhood || ''}, Colatina - ES`
+  );
+
+  const googleMapsUrl = community.latitude && community.longitude
+    ? `https://www.google.com/maps/dir/?api=1&destination=${community.latitude},${community.longitude}`
+    : `https://www.google.com/maps/search/?api=1&query=${destinationQuery}`;
+
+  const wazeUrl = community.latitude && community.longitude
+    ? `https://waze.com/ul?ll=${community.latitude},${community.longitude}&navigate=yes`
+    : `https://waze.com/ul?q=${destinationQuery}`;
 
   return (
-    <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex flex-col justify-between">
-      {/* Top Header com Glassmorphism */}
-      <header className="sticky top-0 z-30 bg-[var(--dash-surface)]/80 backdrop-blur-md border-b border-[var(--dash-border)]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex flex-col justify-between selection:bg-[#FFA82A] selection:text-[#2D1A16]">
+      {/* 1. Marquee Litúrgico Fino no Topo */}
+      <MarqueeAvisos />
+
+      {/* 2. Top Bar Translúcido de Navegação */}
+      <header className="sticky top-0 z-30 bg-[var(--dash-surface)]/90 backdrop-blur-md border-b border-[var(--dash-border)]">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link
-            href="/#comunidades"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] transition-colors"
+            href="/comunidades"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] transition-colors py-2 min-h-[44px]"
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Voltar ao Portal</span>
+            <ArrowLeft className="w-4 h-4 text-[#8B1E22] dark:text-[#FFA82A]" />
+            <span>Voltar para Comunidades</span>
           </Link>
 
-          <div className="flex items-center gap-2">
-            <Badge variant={community.is_headquarters ? 'matriz' : 'ceb'}>
-              {community.is_headquarters ? 'Igreja Matriz' : 'Comunidade Eclesial (CEB)'}
-            </Badge>
+          <div className="flex items-center gap-2 text-xs text-[#C8A463] font-serif font-bold uppercase tracking-wider">
+            <span>✝</span>
+            <span className="hidden sm:inline">
+              {community.is_headquarters ? 'Igreja Matriz • Catedral' : 'Comunidade Eclesial de Base • CEB'}
+            </span>
           </div>
         </div>
       </header>
 
-      {/* Conteúdo Principal do Mini-site da CEB */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-8 w-full">
-        {/* Banner Hero da Comunidade */}
-        <section className="relative overflow-hidden rounded-3xl p-8 sm:p-10 bg-gradient-to-br from-red-950 via-[var(--dash-surface)] to-[var(--dash-bg)] border border-[var(--dash-border)] shadow-xl">
-          {community.image_url && (
-            <div className="absolute inset-0 z-0 pointer-events-none">
-              <img
-                src={community.image_url}
-                alt={community.name}
-                className="w-full h-full object-cover opacity-25 filter brightness-75 scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-transparent" />
-            </div>
-          )}
-          <div className="relative z-10 max-w-3xl space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5" />
-                {community.neighborhood || community.city}
-              </span>
-              {community.foundation_year && (
-                <span className="text-xs text-[var(--dash-text-secondary)]">
-                  Fundada em {community.foundation_year}
-                </span>
-              )}
+      {/* 3. Hero Monumental da Capela (Padrão Oficial Catedral) */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#1C1614] via-[#2A1D1A] to-[#1C1614] text-white py-14 sm:py-20 border-b border-[#C8A463]/30">
+        <img
+          src={community.image_url || '/images/historia/catedral-vitrais.jpg'}
+          alt={community.name}
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-20 mix-blend-luminosity pointer-events-none"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1C1614]/90 via-[#2A1D1A]/90 to-[#1C1614] pointer-events-none" />
+
+        <div className="relative max-w-[1240px] mx-auto px-4 sm:px-6 text-center space-y-5">
+          {/* Ícone Central Dourado em Destaque */}
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[#8B1E22] via-[#5E1417] to-[#2D1A16] border-2 border-[#FFA82A] text-[#FFCC36] shadow-xl shadow-black/40">
+            <Church className="w-7 h-7" />
+          </div>
+
+          <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#8B1E22]/40 border border-[#C8A463]/40 text-[#FFCC36] text-xs font-bold uppercase tracking-widest">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>{community.is_headquarters ? 'Igreja Matriz • Catedral' : 'Comunidade Eclesial de Base • CEB'}</span>
             </div>
 
-            <h1 className="font-display text-2xl sm:text-4xl font-bold tracking-tight leading-tight">
+            <h1 className="font-cinzel text-3xl sm:text-5xl font-bold tracking-tight uppercase text-white leading-tight">
               {community.name}
             </h1>
 
             {community.patron_saint && (
-              <p className="text-base sm:text-lg text-[var(--dash-text-secondary)]">
-                Padroeiro(a): <strong className="text-[var(--dash-text-primary)]">{community.patron_saint}</strong>
-                {community.feast_day && ` • Festa: ${community.feast_day}`}
+              <p className="font-sans text-xs sm:text-base text-[#EAE3D9] max-w-2xl mx-auto leading-relaxed">
+                Padroeiro(a): <strong className="text-[#FFA82A] font-semibold">{community.patron_saint}</strong>
+                {community.feast_day && ` • Solenidade: ${community.feast_day}`}
               </p>
             )}
-
-            <div className="pt-2 flex flex-wrap gap-3">
-              <a
-                href={googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--brand-gold-soft)] hover:bg-[var(--brand-gold-500)] text-[var(--brand-coffee)] font-bold text-sm transition-all shadow-md cursor-pointer"
-              >
-                <Navigation className="w-4 h-4" />
-                <span>Como Chegar (Google Maps)</span>
-              </a>
-
-              <a
-                href={wazeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--dash-surface)] hover:bg-[var(--dash-border)] border border-[var(--dash-border)] text-xs sm:text-sm font-semibold transition-all cursor-pointer"
-              >
-                <ExternalLink className="w-4 h-4" />
-                <span>Abrir no Waze</span>
-              </a>
-            </div>
           </div>
-        </section>
 
+          {/* Chips Inferiores Padronizados */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
+            <span className="px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
+              📍 {community.neighborhood || community.city}
+            </span>
+            {community.foundation_year && (
+              <span className="px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
+                🏛️ Fundada em {community.foundation_year}
+              </span>
+            )}
+            <span className="px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
+              ⛪ Diocese de Colatina
+            </span>
+          </div>
+
+          {/* Botões GPS em Destaque */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
+            <a
+              href={googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FFA82A] hover:bg-[#FFB74D] text-[#2D1A16] font-bold text-xs uppercase tracking-wide transition-all shadow-md min-h-[44px]"
+            >
+              <Navigation className="w-4 h-4" />
+              <span>Traçar Rota no Google Maps</span>
+            </a>
+            <a
+              href={wazeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#16181B]/80 hover:bg-[#2A201C] border border-[#C8A463]/40 text-white font-semibold text-xs transition-all shadow-md min-h-[44px]"
+            >
+              <ExternalLink className="w-4 h-4 text-[#FFA82A]" />
+              <span>Navegar com Waze</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Conteúdo Principal do Mini-site da CEB */}
+      <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-10 sm:py-12 space-y-10 w-full flex-1">
         {/* Grade de 2 Colunas: Informações & Horários */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Coluna 1 & 2: História e Localização */}
@@ -342,10 +377,13 @@ export default async function CommunityDetailPage({ params }: Props) {
         )}
       </main>
 
-      {/* Footer Simples */}
-      <footer className="border-t border-[var(--dash-border)] bg-[var(--dash-surface)]/60 py-6 mt-12 text-center text-xs text-[var(--dash-text-secondary)]">
-        <p>Catedral do Sagrado Coração de Jesus • Diocese de Colatina / ES</p>
-      </footer>
+      {/* Rodapé Oficial da Catedral */}
+      <CathedralFooter
+        parishName={parish?.name || 'Catedral do Sagrado Coração de Jesus'}
+        dioceseName={parish?.diocese || 'Diocese de Colatina'}
+        address={parish?.address}
+        whatsappNumber={parish?.whatsapp_number}
+      />
     </div>
   );
 }

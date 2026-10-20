@@ -1,68 +1,141 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { Quote, BookOpen, ChevronRight, Sparkles, UserCheck } from 'lucide-react';
+import {
+  Quote,
+  BookOpen,
+  ChevronRight,
+  Sparkles,
+  UserCheck,
+  Crown,
+  Share2,
+  Check,
+  MessageCircle
+} from 'lucide-react';
 import { PastoralMessage } from '@/types';
 import { Card, Badge, Button } from '@/components/ui';
+import { fallbackFeaturedMessages } from '@/lib/pastoral-messages';
 
 interface PastoralMessageFeaturedProps {
   message?: PastoralMessage | null;
+  messages?: PastoralMessage[] | null;
 }
 
-export const fallbackFeaturedMessage: PastoralMessage = {
-  id: 'a0000000-0000-0000-0000-000000000001',
-  parish_id: 'c0000000-0000-0000-0000-000000000001',
-  author_type: 'paroco',
-  author_name: 'Padre Irineu Claudino Sales',
-  author_title: 'Pároco e Cura da Catedral de Colatina',
-  author_photo_url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=300&auto=format&fit=crop',
-  title: 'Uma Igreja em Saída nos Meios Digitais: Bem-vindos ao Novo Portal da Catedral!',
-  slug: 'palavra-do-paroco-uma-igreja-em-saida-digital',
-  subtitle: '«A beleza de nossa fé precisa resplandecer onde o povo está — e hoje, nossos lares e corações também se conectam pela tela do celular.»',
-  content: 'Queridos paroquianos da Catedral do Sagrado Coração de Jesus e irmãos de todas as nossas 12 comunidades e núcleos de oração! É com imensa alegria pastoral e coração repleto de esperança que apresentamos este novo portal digital da nossa paróquia. O Papa Francisco constantemente nos convida a sermos uma "Igreja de Portas Abertas", acolhedora e próxima de cada família, enfermo e jovem.',
-  liturgical_season: 'Solenidade de Todos os Santos',
-  is_featured_home: true,
-  is_active: true,
-  published_at: new Date().toISOString(),
-};
+export function PastoralMessageFeatured({ message, messages }: PastoralMessageFeaturedProps) {
+  const messageList: PastoralMessage[] =
+    messages && messages.length > 0
+      ? messages
+      : message
+      ? [message]
+      : fallbackFeaturedMessages;
 
-export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProps) {
-  const current = message || fallbackFeaturedMessage;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [copied, setCopied] = useState(false);
+
+  const current = messageList[activeIndex] || messageList[0];
   const isBispo = current.author_type === 'bispo';
 
+  const handleShareWhatsApp = () => {
+    const text = encodeURIComponent(
+      `🕊️ *${current.title}*\n` +
+      `✍️ *${current.author_name}* (${current.author_title})\n\n` +
+      `${current.subtitle ? `_«${current.subtitle}»_\n\n` : ''}` +
+      `Leia a mensagem completa no portal da Catedral:\nhttps://catedraldecolatina.org.br/mensagens/${current.slug}`
+    );
+    window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+  };
+
+  const handleCopyLink = () => {
+    const url = `${window.location.origin}/mensagens/${current.slug}`;
+    navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
-    <section className="space-y-4">
-      <div className="flex items-center justify-between">
+    <section id="pastoral" className="space-y-4 scroll-mt-24">
+      {/* Cabeçalho da Seção */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] flex items-center justify-center">
-            <BookOpen className="w-4 h-4" />
+          <div className="w-9 h-9 rounded-xl bg-[#8B1E22]/10 dark:bg-[#8B1E22]/30 text-[#8B1E22] dark:text-[#FFA82A] flex items-center justify-center shrink-0">
+            <BookOpen className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-cinzel text-xl sm:text-2xl font-bold uppercase tracking-[0.06em] text-[var(--dash-text-primary)]">
-              <span className="text-[var(--brand-gold-500)]">A Palavra</span> do Nosso {isBispo ? 'Bispo' : 'Pároco'}
+            <h3 className="font-cinzel text-xl sm:text-2xl font-bold uppercase tracking-[0.05em] text-[var(--dash-text-primary)]">
+              Cartas & <span className="text-[#8B1E22] dark:text-[#FFA82A]">Mensagens Pastorais</span>
             </h3>
             <p className="text-xs text-[var(--dash-text-secondary)] font-sans">
-              Reflexão espiritual e orientação pastoral para a nossa comunidade
+              Orientações espirituais e bênçãos do Bispo Diocesano e do Pároco para a nossa comunidade
             </p>
           </div>
         </div>
 
-        <Link href="/mensagens">
-          <Badge variant="default" className="cursor-pointer hover:bg-[var(--dash-border)] flex items-center gap-1">
-            <span>Ver Colunas</span>
-            <ChevronRight className="w-3 h-3" />
-          </Badge>
+        <Link
+          href="/mensagens"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#8B1E22] dark:text-[#FFA82A] hover:underline self-start sm:self-auto min-h-[36px]"
+        >
+          <span>Ver Todas as Colunas</span>
+          <ChevronRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 
-      <Card className="relative overflow-hidden p-6 sm:p-8 bg-[var(--dash-surface)] border border-[#E8DFD3] hover:border-[var(--brand-gold-500)]/60 transition-all shadow-md">
+      {/* Seletor de Autor / Carta quando houver múltiplas mensagens */}
+      {messageList.length > 1 && (
+        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[var(--dash-surface)] rounded-2xl border border-[var(--dash-border)] shadow-2xs">
+          {messageList.map((msg, idx) => {
+            const isSelected = idx === activeIndex;
+            const isMsgBispo = msg.author_type === 'bispo';
+
+            return (
+              <button
+                key={msg.id}
+                onClick={() => setActiveIndex(idx)}
+                className={`flex-1 min-w-[200px] flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all min-h-[44px] cursor-pointer text-left ${
+                  isSelected
+                    ? 'bg-[#8B1E22] text-white shadow-xs'
+                    : 'text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-bg)]'
+                }`}
+              >
+                <div className="w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/20 bg-stone-800">
+                  {msg.author_photo_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={msg.author_photo_url}
+                      alt={msg.author_name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-amber-300">
+                      {isMsgBispo ? <Crown className="w-3.5 h-3.5" /> : <UserCheck className="w-3.5 h-3.5" />}
+                    </div>
+                  )}
+                </div>
+
+                <div className="truncate">
+                  <span className="block truncate">
+                    {isMsgBispo ? 'Carta do Bispo' : 'Palavra do Pároco'}
+                  </span>
+                  <span className={`block text-[10px] font-normal truncate ${isSelected ? 'text-amber-200' : 'text-[var(--dash-text-muted)]'}`}>
+                    {msg.author_name}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Card da Mensagem Pastoral em Destaque */}
+      <Card className="relative overflow-hidden p-6 sm:p-8 bg-[var(--dash-surface)] border border-[var(--dash-border)] hover:border-[#FFA82A]/60 transition-all shadow-md">
         {/* Ícone de Aspas decorativo no fundo */}
-        <Quote className="absolute right-4 bottom-4 w-32 h-32 text-[var(--brand-gold-500)]/10 pointer-events-none -rotate-12" />
+        <Quote className="absolute right-4 bottom-4 w-32 h-32 text-[#FFA82A]/10 pointer-events-none -rotate-12" />
 
         <div className="relative z-10 flex flex-col md:flex-row gap-6 items-start">
           {/* Avatar com identificação do autor */}
           <div className="flex sm:flex-col items-center sm:items-start gap-4 shrink-0">
             <div className="relative">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden ring-3 ring-[var(--brand-gold-500)]/30 shadow-lg bg-[var(--dash-surface-secondary)] flex items-center justify-center">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden ring-3 ring-[#FFA82A]/40 shadow-lg bg-[var(--dash-bg)] flex items-center justify-center">
                 {current.author_photo_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -71,10 +144,10 @@ export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProp
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <UserCheck className="w-10 h-10 text-[var(--primary)]" />
+                  <UserCheck className="w-10 h-10 text-[#8B1E22]" />
                 )}
               </div>
-              <div className="absolute -bottom-2 -right-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[var(--brand-gold-500)] text-[#2D1A16] shadow-xs">
+              <div className="absolute -bottom-2 -right-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FFA82A] text-[#2D1A16] shadow-xs uppercase tracking-wider">
                 {isBispo ? 'Episcopal' : 'Pároco'}
               </div>
             </div>
@@ -90,25 +163,25 @@ export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProp
           </div>
 
           {/* Conteúdo da Mensagem */}
-          <div className="flex-1 space-y-3">
+          <div className="flex-1 space-y-3.5">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="tag-gold text-[11px] gap-1 font-bold">
-                <Sparkles className="w-3 h-3 text-[var(--brand-gold-500)]" />
-                Destaque Pastoral
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#8B1E22]/10 text-[#8B1E22] dark:text-[#FFA82A] border border-[#8B1E22]/20">
+                <Sparkles className="w-3.5 h-3.5" />
+                Mensagem Pastoral de Natal
               </span>
               {current.liturgical_season && (
-                <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-[var(--dash-surface-secondary)] text-[var(--dash-text-secondary)] border border-[var(--dash-border)]">
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-[var(--dash-bg)] text-[var(--dash-text-secondary)] border border-[var(--dash-border)]">
                   {current.liturgical_season}
                 </span>
               )}
             </div>
 
-            <h4 className="font-cinzel text-base sm:text-lg font-bold uppercase tracking-wide text-[var(--dash-text-primary)] leading-snug">
+            <h4 className="font-cinzel text-lg sm:text-xl font-bold uppercase tracking-wide text-[var(--dash-text-primary)] leading-snug">
               {current.title}
             </h4>
 
             {current.subtitle && (
-              <p className="font-serif italic text-sm sm:text-base text-[var(--dash-text-primary)] font-medium leading-relaxed bg-[var(--dash-surface-secondary)]/70 p-3.5 rounded-xl border-l-4 border-[var(--brand-gold-500)]">
+              <p className="font-serif italic text-sm sm:text-base text-[var(--dash-text-primary)] font-medium leading-relaxed bg-[var(--dash-bg)]/80 p-4 rounded-2xl border-l-4 border-[#FFA82A]">
                 {current.subtitle}
               </p>
             )}
@@ -117,18 +190,32 @@ export function PastoralMessageFeatured({ message }: PastoralMessageFeaturedProp
               {current.content}
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <Link href={`/mensagens/${current.slug}`}>
-                <Button variant="primary" size="sm" icon={<BookOpen className="w-3.5 h-3.5" />}>
-                  Ler Mensagem Completa
-                </Button>
+            <div className="pt-2 flex flex-wrap items-center gap-2.5">
+              <Link
+                href={`/mensagens/${current.slug}`}
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-[#8B1E22] hover:bg-[#721C24] text-white transition-colors shadow-2xs min-h-[44px]"
+              >
+                <BookOpen className="w-4 h-4" />
+                <span>Ler Mensagem Completa</span>
               </Link>
 
-              <Link href="/mensagens">
-                <Button variant="outline" size="sm" icon={<ChevronRight className="w-3.5 h-3.5" />}>
-                  Todas as Mensagens Pastorais
-                </Button>
-              </Link>
+              <button
+                onClick={handleShareWhatsApp}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition-colors shadow-2xs min-h-[44px] cursor-pointer"
+                title="Compartilhar no WhatsApp"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Compartilhar</span>
+              </button>
+
+              <button
+                onClick={handleCopyLink}
+                className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-medium bg-[var(--dash-bg)] hover:bg-[var(--dash-surface)] border border-[var(--dash-border)] text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] transition-colors min-h-[44px] cursor-pointer"
+                title="Copiar link da mensagem"
+              >
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Share2 className="w-3.5 h-3.5" />}
+                <span>{copied ? 'Copiado!' : 'Copiar Link'}</span>
+              </button>
             </div>
           </div>
         </div>

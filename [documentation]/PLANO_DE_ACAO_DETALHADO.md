@@ -69,9 +69,9 @@
   3. *Badge Canônico "In Memoriam":* Campo no Supabase e destaque visual solene com cruz e ano de falecimento para sacerdotes e bispos falecidos.
   4. *Censo Histórico Profundo de Párocos:* Pesquisa arquivística para listar integralmente todos os párocos, curas e vigários que a Catedral já teve desde 1928.
 - [x] **TASK-26D:** Subpágina `/noticias`: Portal completo de notícias e avisos da PASCOM com leitor individual `/noticias/[slug]` e filtros por categoria.
-- [ ] **TASK-26E:** Subpágina `/comunidades`: Diretório geral e mapa das 12 capelas com endereços, padroeiros e rotas GPS (Google Maps e Waze).
-- [ ] **TASK-27:** Módulo Litúrgico de Fim de Ano: destaque da Novena de Natal, Missa da Vigília (Missa do Galo) e celebrações de Ano Novo na Home.
-- [ ] **TASK-28:** Cartas Pastorais de Natal do Pároco Pe. Irineu e do Bispo Dom Lauro em destaque na Coluna Pastoral.
+- [x] **TASK-26E:** Subpágina `/comunidades`: Diretório geral e mapa das 12 capelas com endereços, padroeiros e rotas GPS (Google Maps e Waze).
+- [x] **TASK-27:** Módulo Litúrgico de Fim de Ano: destaque da Novena de Natal, Missa da Vigília (Missa do Galo) e celebrações de Ano Novo na Home.
+- [x] **TASK-28:** Cartas Pastorais de Natal do Pároco Pe. Irineu e do Bispo Dom Lauro em destaque na Coluna Pastoral.
 - [ ] **TASK-29:** Campanha de Instalação do PWA: QR Code impresso nos bancos da Catedral para os fiéis salvarem o ícone no celular.
 - [ ] **TASK-30:** Auditoria Final de Performance e Segurança (Lighthouse, logs do Supabase e Cloudflare).
 - [ ] **TASK-31:** Emissão do Termo de Homologação Piloto e início do ciclo de mensalidade SaaS (R$ 390 - 490/mês).
