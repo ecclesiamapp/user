@@ -195,6 +195,75 @@ const TASK_METADATA = {
       'components/comunidades/CommunitiesDirectory.tsx'
     ],
     objective: 'Desenvolver a subpágina pública /comunidades com diretório central das 12 CEBs, mapa diocesano e rotas GPS.'
+  },
+  'TASK-29': {
+    phase: 'Fase 4 (Natividade do Senhor)',
+    category: 'Front-end & Campanha Pastoral',
+    estimated_time: '40 minutos',
+    files: [
+      'app/instalar/page.tsx',
+      'components/pwa/PwaInstallGuide.tsx',
+      'components/pwa/PwaInstallPrompt.tsx'
+    ],
+    objective: 'Campanha de Instalação do PWA: subpágina /instalar e QR Code para bancos da Catedral.'
+  },
+  'TASK-30': {
+    phase: 'Fase 4 (Natividade do Senhor)',
+    category: 'DevOps & Qualidade',
+    estimated_time: '30 minutos',
+    files: [
+      'next.config.ts',
+      'public/'
+    ],
+    objective: 'Auditoria Final de Performance e Segurança (Lighthouse, logs do Supabase e Cloudflare).'
+  },
+  'TASK-31': {
+    phase: 'Fase 4 (Natividade do Senhor)',
+    category: 'Comercial & Homologação',
+    estimated_time: '30 minutos',
+    files: [
+      '[documentation]/TERMO_HOMOLOGACAO_PILOTO_CATEDRAL.md'
+    ],
+    objective: 'Emissão do Termo de Homologação Piloto e início do ciclo de mensalidade SaaS.'
+  },
+  'TASK-32': {
+    phase: 'Fase 5 (Inteligência Paroquial & Assistente IA)',
+    category: 'Banco de Dados (Supabase pgvector)',
+    estimated_time: '45 minutos',
+    files: [
+      'supabase/migrations/20270101_create_parish_knowledge_rag.sql'
+    ],
+    objective: 'Infraestrutura Supabase pgvector & Schema RAG (extensão vector, tabelas, índice HNSW, RLS por parish_id e RPC match_parish_knowledge).'
+  },
+  'TASK-33': {
+    phase: 'Fase 5 (Inteligência Paroquial & Assistente IA)',
+    category: 'Back-end & Embeddings',
+    estimated_time: '50 minutos',
+    files: [
+      'lib/ai/embeddings.ts',
+      'app/api/admin/ai/sync-database/route.ts'
+    ],
+    objective: 'Pipeline de Ingestão Híbrida: sincronização das tabelas relacionais e upload/parsing de PDFs com Google text-embedding-004.'
+  },
+  'TASK-34': {
+    phase: 'Fase 5 (Inteligência Paroquial & Assistente IA)',
+    category: 'Back-end & RAG API',
+    estimated_time: '45 minutos',
+    files: [
+      'app/api/admin/ai-assistant/route.ts',
+      'lib/ai/gemini.ts'
+    ],
+    objective: 'Rota de API Copilot & RAG com Google Gemini (Gemini 2.5 Flash, prompts canônicos de proteção pastoral e rascunhos).'
+  },
+  'TASK-35': {
+    phase: 'Fase 5 (Inteligência Paroquial & Assistente IA)',
+    category: 'Front-end Admin & UX/UI',
+    estimated_time: '60 minutos',
+    files: [
+      'app/admin/assistente-ia/page.tsx',
+      'components/admin/ai/AdminAiFloatingDrawer.tsx'
+    ],
+    objective: 'Interface no Painel Administrativo: subpágina /admin/assistente-ia com gestão de documentos + Drawer Flutuante global no /admin.'
   }
 };
 

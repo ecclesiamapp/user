@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Smartphone, Download, X, Share2, PlusSquare } from 'lucide-react';
+import Link from 'next/link';
+import { Smartphone, Download, X, Share2, PlusSquare, Info } from 'lucide-react';
 import { Button } from '@/components/ui';
 
 interface BeforeInstallPromptEvent extends Event {
@@ -90,6 +91,14 @@ export function PwaInstallPrompt() {
               <p className="text-xs text-[var(--dash-text-secondary)]">
                 Acesse horários, avisos e missas direto da sua tela inicial
               </p>
+              <Link
+                href="/instalar"
+                onClick={() => setIsVisible(false)}
+                className="text-[11px] text-amber-400 hover:underline inline-flex items-center gap-1 font-semibold pt-0.5"
+              >
+                <span>Ver passo a passo detalhado</span>
+                <span>→</span>
+              </Link>
             </div>
           </div>
 

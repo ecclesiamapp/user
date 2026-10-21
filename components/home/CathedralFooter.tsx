@@ -72,6 +72,11 @@ export function CathedralFooter({
                   Balcão Digital do Fiel
                 </Link>
               </li>
+              <li>
+                <Link href="/instalar" className="text-[#FFCC36] hover:underline font-bold transition-colors flex items-center gap-1.5">
+                  <span>📱 Instalar Aplicativo no Celular</span>
+                </Link>
+              </li>
             </ul>
           </div>
 

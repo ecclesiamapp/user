@@ -20,7 +20,8 @@ import {
   Sparkles,
   Inbox,
   Palette,
-  Scroll
+  Scroll,
+  QrCode
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAdminAppearance } from '@/components/admin/context/AdminAppearanceContext';
@@ -65,6 +66,7 @@ const NAV_GROUPS: NavGroup[] = [
       { href: '/admin/galerias', label: 'Galerias & Fotos', icon: ImageIcon },
       { href: '/admin/historia', label: 'História & Memória', icon: Scroll, badge: 'Novo' },
       { href: '/admin/dizimo', label: 'Dízimo & Doações PIX', icon: HeartHandshake },
+      { href: '/admin/materiais-impressao', label: 'Cartazes & Bancos', icon: QrCode, badge: 'PWA' },
     ],
   },
   {

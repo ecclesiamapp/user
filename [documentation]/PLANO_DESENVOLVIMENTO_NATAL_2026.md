@@ -177,6 +177,23 @@ Outubro 2026                     Novembro 2026                    Dezembro 2026
 
 ---
 
+### 🧠 SPRINT 5: Inteligência Paroquial & Assistente IA (RAG Interno)
+* **Período:** Janeiro de 2027 (Pós-Go Live de Natal & Consolidação Tecnológica 2027)
+* **Objetivo:** Implantar o Copilot da Secretaria e dos Padres restrito ao banco de dados da paróquia e normas diocesanas em PDF.
+* **Especificação Técnica:** [`[documentation]/planejamento/ESPECIFICACAO_TECNICA_ASSISTENTE_IA_RAG.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/ESPECIFICACAO_TECNICA_ASSISTENTE_IA_RAG.md)
+
+#### Tarefas Técnicas & Entregas:
+1. **Infraestrutura Supabase pgvector & Schema RAG (TASK-32):**
+   - Habilitação da extensão `vector`, criação de tabelas `parish_knowledge_documents` e `parish_knowledge_embeddings`, índice HNSW, RLS estrito por `parish_id` e função RPC de busca semântica `match_parish_knowledge`.
+2. **Pipeline de Ingestão Híbrida & Embeddings (TASK-33):**
+   - Sincronização automática das tabelas relacionais da paróquia (missas das 12 CEBs, clero, dízimo, avisos e agendamentos) e módulo de upload/parsing de PDFs de diretrizes diocesanas com Google `text-embedding-004`.
+3. **Orquestrador de IA & API Copilot (TASK-34):**
+   - Endpoint `/api/admin/ai-assistant` integrado com Google Gemini (Gemini 2.5 Flash), prompts canônicos de proteção pastoral, citação transparente de fontes e gerador de rascunhos de avisos e comunicados.
+4. **Interface no Painel Administrativo (TASK-35):**
+   - Subpágina `/admin/assistente-ia` (com gestor de documentos, reindexação e histórico) + Drawer Lateral Flutuante global acessível em todas as telas do `/admin`.
+
+---
+
 ## 📊 4. Matriz de Responsabilidades (RACI)
 
 | Atividade | Start Agência (Dev) | Secretária Paroquial | Pe. Irineu (Pároco) | Lideranças das 12 Comunidades |
