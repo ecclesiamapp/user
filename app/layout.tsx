@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Plus_Jakarta_Sans, Cormorant_Garamond, Cinzel, Suez_One } from "next/font/google";
 import "./globals.css";
 import { PwaInstallPrompt } from "@/components/pwa/PwaInstallPrompt";
+import { getParishBrandIdentity } from "@/lib/brand";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -50,17 +51,39 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const brandIdentity = await getParishBrandIdentity();
+  const colors = brandIdentity.colors;
+
   return (
     <html
       lang="pt-BR"
       suppressHydrationWarning
       className={`${plusJakartaSans.variable} ${cormorantGaramond.variable} ${cinzel.variable} ${suezOne.variable} font-sans h-full antialiased`}
     >
+      <head>
+        <style
+          id="dynamic-brand-theming"
+          dangerouslySetInnerHTML={{
+            __html: `
+              :root {
+                --primary: ${colors.primary} !important;
+                --primary-hover: ${colors.primary_hover} !important;
+                --dash-bg: ${colors.background} !important;
+                --dash-surface: ${colors.surface} !important;
+                --dash-text-primary: ${colors.text_primary} !important;
+                --dash-text-secondary: ${colors.text_secondary} !important;
+                --brand-gold-500: ${colors.secondary} !important;
+                --whatsapp: ${colors.action_pix} !important;
+              }
+            `.replace(/\s+/g, ' ').trim(),
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col font-sans">
         <Script
           id="suppress-extension-errors"

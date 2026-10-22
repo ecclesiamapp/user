@@ -18,3 +18,10 @@ A partir de 01/10/2026, por determinação expressa do usuário:
 3. **Comportamento do Agente:**
    * Sempre que um arquivo `.md`, `.html`, `.json`, `.png` ou código documental for criado ou editado no Google Drive, o agente deve sincronizá-lo imediatamente em `C:\Users\Start\ecclesiam-app\[documentation]\`.
    * Nunca deixar estudos ou documentações isolados em apenas um dos diretórios.
+
+## ⏱️ Diretriz Mandatória: Estimativa de Tempo de Execução em Toda Task Sugerida
+Por determinação expressa do desenvolvedor (22/10/2026):
+- **TODA E QUALQUER TAREFA, TASK OU ETAPA SUGERIDA PELA IA DEVE OBRIGATORIAMENTE VIR ACOMPANHADA DO SEU TEMPO ESTIMADO DE EXECUÇÃO** (ex: `⏱️ Tempo Estimado: ~30 a 45 minutos`).
+- O objetivo é dar previsibilidade ao desenvolvedor para que ele possa decidir se autoriza a execução imediata ou se posterga conforme o tempo que possui disponível na sessão de trabalho.
+- Nenhuma task deve ser recomendada sem a indicação clara de tempo e a pergunta de validação: *"Você aprova a execução desta tarefa com base nesta estimativa de tempo?"*
+

@@ -148,7 +148,7 @@ export function AdminAiChatView({ initialPrompt, compact = false }: AdminAiChatV
           </div>
           <div>
             <h2 className="font-semibold text-sm text-[var(--dash-text-primary)]">
-              Copilot da Secretaria
+              IA da Paróquia
             </h2>
             <span className="text-[11px] text-[var(--dash-text-secondary)]">
               RAG Conectado ao Supabase pgvector

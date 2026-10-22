@@ -29,7 +29,7 @@ export default function AdminAiAssistantPage() {
             </h1>
           </div>
           <p className="text-xs sm:text-sm text-[var(--dash-text-secondary)] mt-1">
-            Copilot interno para consultas canônicas, horários, diretrizes das 12 CEBs e elaboração de avisos para a secretaria.
+            Assistente inteligente interno para consultas canônicas, horários, diretrizes das 12 CEBs e elaboração de avisos para a secretaria.
           </p>
         </div>
 

@@ -194,6 +194,45 @@ Outubro 2026                     Novembro 2026                    Dezembro 2026
 
 ---
 
+### 🎨 SPRINT 6: Hub de Marca, Leitor de Manual com IA & Moodboard Inteligente
+* **Período:** Fevereiro de 2027 (Personalização Avançada, Onboarding Paroquial & Identidade Visual)
+* **Objetivo:** Unificar as telas de aparência e identidade visual em `/admin/marca`, processar upload de manuais de identidade visual (PDF) com extração multimodal via IA (Gemini), oferecer 5 presets canônicos do Ecclesiam App para paróquias sem manual, moodboard interativo com simulador ao vivo e live theming no portal do fiel.
+* **Especificação Técnica:** [`[documentation]/planejamento/ESPECIFICACAO_PAINEL_MARCA_MOODBOARD.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/ESPECIFICACAO_PAINEL_MARCA_MOODBOARD.md)
+
+#### Tarefas Técnicas & Entregas:
+1. **Modelagem Supabase & Storage de Marca (TASK-36):**
+   - Criação do bucket público `brand_assets` no Supabase Storage e adição das colunas `brand_identity` (JSONB) e `brand_manual_url` (TEXT) na tabela `public.parishes` com políticas RLS para `anon` (leitura) e `authenticated` (gestão paroquial).
+2. **Endpoint de Extração Multimodal do Manual via Gemini (TASK-37):**
+   - Rota de API `POST /api/admin/brand/extract` para recepção de PDF ou imagens de manual de marca, envio ao Google Gemini 2.5 Flash com schema estruturado e retorno de paleta de 6 cores (Primária, Secundária, Acento, Fundo, Superfície, Dourado Sacro), tipografia e regras de aplicação do brasão.
+3. **Componentes Modulares do Moodboard & Simulador Live Preview (TASK-38):**
+   - Construção dos sub-componentes UI-as-a-Service: `BrandColorPaletteEditor`, `BrandPresetsSelector` (5 presets: Catedral, Mariano, Franciscano, Solene/Cristo Rei, Basílica Histórica), `BrandLogoUploader` e `BrandLivePreviewMockup` em miniatura.
+4. **Interface Centralizada `/admin/marca` & Navegação (TASK-39):**
+   - Unificação de antigas telas de aparência em um hub moderno com abas (`Manual com IA`, `Moodboard & Cores`, `Logos & Brasões`, `Tipografia & Estilo`), atualização do menu lateral com destaque e feedback de salvamento instantâneo.
+5. **Live Theming no Portal Público & Guia de Aplicação PASCOM (TASK-40):**
+   - Injeção dinâmica de CSS variables no `app/layout.tsx` a partir do `brand_identity` persistido no Supabase, garantindo que a paróquia personalize o portal em tempo real mantendo a Regra de Ouro do White-Label, além da geração de ficha resumo A4 imprimível para a PASCOM (`/admin/marca/imprimir-guia`).
+
+---
+
+
+---
+
+### 🏛️ SPRINT 7: Expansão das Comunidades, Gestão de Acessos & Secretaria On-line
+* **Período:** Março de 2027 (Autonomia Paroquial, Governança & Eficiência Pastoral)
+* **Objetivo:** Definir e consolidar as Landing Pages completas das 12 CEBs, construir o dashboard administrativo de capelas com upload de mídias e CPC, estruturar a gestão de usuários com RBAC e auditar/expandir os processos digitais da secretaria paroquial.
+* **Especificação Técnica:** [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md)
+
+#### Tarefas Técnicas & Entregas:
+1. **Definição de Escopo Completo das LPs das Comunidades (TASK-41):**
+   - Especificação das Landing Pages individuais para as 12 CEBs: brasão/identidade da capela, liderança local (CPC), mural de avisos próprio, regras e canais de dízimo da comunidade, calendário de tríduos/padroeiros e marcação SEO Schema.org.
+2. **Dashboard de Gestão das LPs no `/admin/comunidades` (TASK-42):**
+   - Construção de sub-módulos no painel administrativo: upload e corte com `ImageCropCompressModal` de fotos de fachada/altar no Supabase Storage, gestão de membros do CPC, publicação de avisos restritos à CEB e delegação futura de acessos.
+3. **Auditoria de Ambiente & Gestão de Usuários e Permissões (TASK-43):**
+   - Modelagem da tabela `public.user_profiles` vinculada a `auth.users` e `parishes`, definição de controle de acesso baseado em papéis (RBAC: Pároco, Vigário, Secretaria, PASCOM, Coordenador de CEB), tela `/admin/usuarios` para convites e proteção de rotas sensíveis.
+4. **Auditoria & Expansão da Secretaria On-line (TASK-44):**
+   - Módulo de Intenções de Santa Missa (saúde, falecidos, ação de graças) com relatório consolidado para impressão A4 no altar, formulário para solicitação de certidões/2ª via, controle automático de limite de vagas por sacramento e auditoria de conformidade LGPD.
+
+---
+
 ## 📊 4. Matriz de Responsabilidades (RACI)
 
 | Atividade | Start Agência (Dev) | Secretária Paroquial | Pe. Irineu (Pároco) | Lideranças das 12 Comunidades |

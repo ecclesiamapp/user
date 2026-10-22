@@ -5,6 +5,7 @@ import { AdminSidebar } from '@/components/admin/layout/AdminSidebar';
 import { AdminTopBar } from '@/components/admin/layout/AdminTopBar';
 import { AdminAppearanceProvider } from '@/components/admin/context/AdminAppearanceContext';
 import { AdminAiFloatingDrawer } from '@/components/admin/ai/AdminAiFloatingDrawer';
+import { GlobalLiturgicalFallbackModal } from '@/components/admin/aparencia/GlobalLiturgicalFallbackModal';
 
 export default function AdminLayout({
   children,
@@ -32,6 +33,9 @@ export default function AdminLayout({
 
         {/* 3. Copilot da Secretaria: Drawer Flutuante Global */}
         <AdminAiFloatingDrawer />
+
+        {/* 4. Salvaguarda Canônica: Modal Global de Fallback Litúrgico */}
+        <GlobalLiturgicalFallbackModal />
       </div>
     </AdminAppearanceProvider>
   );

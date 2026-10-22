@@ -12,15 +12,87 @@ import {
   Sun, 
   Moon, 
   Eye,
-  Church,
-  ShieldCheck
+  Church, 
+  ShieldCheck,
+  RotateCcw
 } from 'lucide-react';
+import { LiturgicalColor } from '@/lib/liturgy';
+
+interface CanonicalColorMeta {
+  color: LiturgicalColor;
+  name: string;
+  textColor: string;
+  dotColor: string;
+  ringColor: string;
+  activeBg: string;
+  tempo: string;
+  celebracao: string;
+}
+
+const CANONICAL_COLORS: CanonicalColorMeta[] = [
+  {
+    color: 'verde',
+    name: 'Verde',
+    textColor: 'text-emerald-500',
+    dotColor: 'bg-emerald-500',
+    ringColor: 'ring-2 ring-emerald-500 border-emerald-500 shadow-md shadow-emerald-500/10',
+    activeBg: 'bg-emerald-500/10',
+    tempo: 'Tempo Comum (34 Semanas)',
+    celebracao: 'Liturgia das Semanas do Tempo Comum — Esperança e Caminhada Pastoral',
+  },
+  {
+    color: 'roxo',
+    name: 'Roxo',
+    textColor: 'text-purple-400',
+    dotColor: 'bg-purple-500',
+    ringColor: 'ring-2 ring-purple-500 border-purple-500 shadow-md shadow-purple-500/10',
+    activeBg: 'bg-purple-500/10',
+    tempo: 'Tempo do Advento e Quaresma',
+    celebracao: 'Expectativa, Conversão, Penitência e Oração Litúrgica Profunda',
+  },
+  {
+    color: 'branco',
+    name: 'Branco / Dourado',
+    textColor: 'text-amber-600',
+    dotColor: 'bg-amber-400',
+    ringColor: 'ring-2 ring-[#FFA82A] border-2 border-[#FFA82A] shadow-md shadow-amber-500/20',
+    activeBg: 'bg-[#FFFFFF] border-2 border-[#FFA82A] text-slate-800 shadow-md',
+    tempo: 'Tempo Pascal, Natal e Solenidades',
+    celebracao: 'Ressurreição do Senhor, Glória e Grandes Solenidades da Igreja',
+  },
+  {
+    color: 'vermelho',
+    name: 'Vermelho',
+    textColor: 'text-rose-400',
+    dotColor: 'bg-rose-500',
+    ringColor: 'ring-2 ring-rose-500 border-rose-500 shadow-md shadow-rose-500/10',
+    activeBg: 'bg-rose-500/10',
+    tempo: 'Pentecostes e Santos Mártires',
+    celebracao: 'Fogo do Espírito Santo, Paixão do Senhor e Testemunho dos Mártires',
+  },
+  {
+    color: 'rosa',
+    name: 'Rosa',
+    textColor: 'text-pink-400',
+    dotColor: 'bg-pink-500',
+    ringColor: 'ring-2 ring-pink-500 border-pink-500 shadow-md shadow-pink-500/10',
+    activeBg: 'bg-pink-500/10',
+    tempo: 'Domingos Gaudete e Laetare',
+    celebracao: 'Alegria e Alívio da Espera no Advento e na Quaresma',
+  },
+];
 
 export default function AdminAparenciaPage() {
   const { 
     liturgicalColoringEnabled, 
     setLiturgicalColoringEnabled, 
     liturgy,
+    canonicalLiturgy,
+    isSimulating,
+    previewColor,
+    resetToCanonical,
+    fallbackModalOpen,
+    setFallbackModalOpen,
     loadingLiturgy 
   } = useAdminAppearance();
 
@@ -61,10 +133,10 @@ export default function AdminAparenciaPage() {
       case 'branco':
       default:
         return {
-          bg: 'bg-amber-600',
-          border: 'border-amber-400',
-          text: 'text-amber-400',
-          gradient: 'from-amber-600 to-amber-850',
+          bg: 'bg-[#FFFFFF] text-slate-800 border-2 border-[#FFA82A] shadow-xs',
+          border: 'border-2 border-[#FFA82A]',
+          text: 'text-slate-800 font-bold',
+          gradient: 'bg-[#FFFFFF] text-slate-800 border-2 border-[#FFA82A] shadow-xs',
           desc: 'Glória, júbilo e ressurreição. Utilizada no Tempo do Natal, Tempo Pascal e Solenidades do Senhor e da Virgem Maria.',
         };
     }
@@ -74,6 +146,35 @@ export default function AdminAparenciaPage() {
 
   return (
     <div className="space-y-6 max-w-4xl">
+      {/* Banner de Modo Simulação Litúrgica Ativo */}
+      {isSimulating && (
+        <div className="p-4 rounded-2xl border border-amber-500/40 bg-amber-500/10 text-[var(--dash-text-primary)] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md animate-in slide-in-from-top-2 duration-200">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-amber-500 text-[var(--dash-text-primary)] flex items-center justify-center shrink-0 font-bold">
+              <Eye className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500 block">
+                Modo de Simulação Litúrgica Ativo
+              </span>
+              <p className="text-xs font-semibold text-[var(--dash-text-primary)]">
+                Visualizando tema de: <span className="capitalize font-bold text-amber-400">{liturgy.tempoLiturgico} ({liturgy.corLiturgica})</span>. As cores do painel foram adaptadas para demonstração.
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={resetToCanonical}
+            className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#8B1E22] to-[#6E161A] text-white text-xs font-bold shadow-xs hover:opacity-95 flex items-center gap-1.5 cursor-pointer shrink-0 transition-all self-start sm:self-auto"
+            title="Retornar para o tempo litúrgico oficial de hoje"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-[#FFA82A]" />
+            <span>Restaurar Liturgia de Hoje</span>
+          </button>
+        </div>
+      )}
+
       {/* Cabeçalho */}
       <div>
         <div className="flex items-center gap-2">
@@ -86,7 +187,7 @@ export default function AdminAparenciaPage() {
           Aparência & Cores Litúrgicas
         </h1>
         <p className="text-sm text-[var(--dash-text-secondary)] mt-0.5">
-          Personalize a resposta visual do painel ao ciclo litúrgico oficial da Igreja Católica.
+          Personalize a resposta visual do painel ao ciclo litúrgico oficial da Igreja Católica ou simule tempos do ano litúrgico.
         </p>
       </div>
 
@@ -94,12 +195,16 @@ export default function AdminAparenciaPage() {
       <Card className="p-5 sm:p-6 rounded-2xl border border-[var(--dash-border)] bg-[var(--dash-surface)] space-y-4 shadow-xs">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className={`w-10 h-10 rounded-xl ${currentMeta.bg} text-white flex items-center justify-center font-bold shadow-sm`}>
-              <Sparkles className="w-5 h-5" />
+            <div className={`w-10 h-10 rounded-xl ${
+              liturgy.corLiturgica === 'branco'
+                ? 'bg-[#FFFFFF] text-slate-800 border-2 border-[#FFA82A] shadow-xs'
+                : `${currentMeta.bg} text-white`
+            } flex items-center justify-center font-bold shadow-sm`}>
+              <Sparkles className={`w-5 h-5 ${liturgy.corLiturgica === 'branco' ? 'text-[#FFA82A]' : ''}`} />
             </div>
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--dash-text-muted)]">
-                Tempo Litúrgico em Vigor (CNBB)
+                {isSimulating ? 'Tempo Litúrgico Simulado (Demonstração)' : 'Tempo Litúrgico em Vigor (CNBB)'}
               </span>
               <h2 className="text-base sm:text-lg font-bold text-[var(--dash-text-primary)]">
                 {liturgy.tempoLiturgico}
@@ -107,9 +212,13 @@ export default function AdminAparenciaPage() {
             </div>
           </div>
 
-          <div className={`px-3 py-1.5 rounded-full ${currentMeta.bg} text-white text-xs font-bold shadow-xs flex items-center gap-1.5`}>
-            <span className="w-2 h-2 rounded-full bg-[var(--dash-surface)] animate-pulse" />
-            <span className="capitalize">{liturgy.corLiturgica}</span>
+          <div className={`px-3 py-1.5 rounded-full ${
+            liturgy.corLiturgica === 'branco'
+              ? 'bg-[#FFFFFF] text-slate-800 border-2 border-[#FFA82A] shadow-xs'
+              : `${currentMeta.bg} text-white`
+          } text-xs font-bold shadow-xs flex items-center gap-1.5`}>
+            <span className={`w-2 h-2 rounded-full ${liturgy.corLiturgica === 'branco' ? 'bg-[#FFA82A]' : 'bg-[var(--dash-surface)]'} animate-pulse`} />
+            <span className="capitalize">{liturgy.corLiturgica === 'branco' ? 'Branco / Dourado' : liturgy.corLiturgica}</span>
           </div>
         </div>
 
@@ -179,9 +288,21 @@ export default function AdminAparenciaPage() {
                   <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                 )}
               </div>
-              <div className={`p-2.5 rounded-xl bg-gradient-to-r ${currentMeta.gradient} text-white font-bold text-xs flex items-center justify-between border ${currentMeta.border}`}>
-                <span>Secretaria & Inscrições</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--dash-surface)]/20">Ativo</span>
+              <div className={`p-2.5 rounded-xl ${
+                liturgy.corLiturgica === 'branco'
+                  ? 'bg-[#FFFFFF] text-slate-800 border-2 border-[#FFA82A] shadow-md shadow-[#FFA82A]/15'
+                  : `bg-gradient-to-r ${currentMeta.gradient} text-white border ${currentMeta.border}`
+              } font-bold text-xs flex items-center justify-between`}>
+                <span className={liturgy.corLiturgica === 'branco' ? 'text-slate-800 font-extrabold' : 'text-white'}>
+                  Secretaria & Inscrições
+                </span>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded ${
+                  liturgy.corLiturgica === 'branco'
+                    ? 'bg-[#FFFFFF] text-slate-800 border border-[#FFA82A] font-bold shadow-xs'
+                    : 'bg-[var(--dash-surface)]/20 text-white'
+                }`}>
+                  Ativo
+                </span>
               </div>
             </div>
 
@@ -211,53 +332,70 @@ export default function AdminAparenciaPage() {
         </div>
       </Card>
 
-      {/* 3. Guia Rápido das Cores Canônicas da Igreja */}
-      <Card className="p-5 sm:p-6 rounded-2xl border border-[var(--dash-border)] bg-[var(--dash-surface)] space-y-3 shadow-xs">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--dash-text-muted)] flex items-center gap-1.5">
-          <Church className="w-3.5 h-3.5 text-[var(--primary)]" />
-          Ciclo Canônico de Cores Litúrgicas
-        </h4>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs">
-          <div className="p-3 rounded-xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)]/60 space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-emerald-600">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span>Verde</span>
-            </div>
-            <p className="text-[11px] text-[var(--dash-text-secondary)]">Tempo Comum (34 Semanas)</p>
+      {/* 3. Guia Rápido das Cores Canônicas da Igreja (Interativo com Preview) */}
+      <Card className="p-5 sm:p-6 rounded-2xl border border-[var(--dash-border)] bg-[var(--dash-surface)] space-y-4 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--dash-text-muted)] flex items-center gap-1.5">
+              <Church className="w-3.5 h-3.5 text-[var(--primary)]" />
+              <span>Ciclo Canônico de Cores Litúrgicas</span>
+            </h4>
+            <p className="text-xs text-[var(--dash-text-secondary)] mt-0.5">
+              Clique em qualquer cor litúrgica para simular e inspecionar como o painel responde visualmente em cada tempo litúrgico.
+            </p>
           </div>
 
-          <div className="p-3 rounded-xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)]/60 space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-purple-600">
-              <span className="w-2 h-2 rounded-full bg-purple-500" />
-              <span>Roxo</span>
-            </div>
-            <p className="text-[11px] text-[var(--dash-text-secondary)]">Advento e Quaresma</p>
-          </div>
+          <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#FFA82A]/10 text-[#FFA82A] border border-[#FFA82A]/20 self-start sm:self-auto">
+            5 Cores Canônicas
+          </span>
+        </div>
 
-          <div className="p-3 rounded-xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)]/60 space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-amber-600">
-              <span className="w-2 h-2 rounded-full bg-amber-500" />
-              <span>Branco / Dourado</span>
-            </div>
-            <p className="text-[11px] text-[var(--dash-text-secondary)]">Tempo Pascal, Natal e Solenidades</p>
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+          {CANONICAL_COLORS.map((item) => {
+            const isCurrentlyActive = liturgy.corLiturgica === item.color;
+            const isWhiteActive = isCurrentlyActive && item.color === 'branco';
 
-          <div className="p-3 rounded-xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)]/60 space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-rose-600">
-              <span className="w-2 h-2 rounded-full bg-rose-500" />
-              <span>Vermelho</span>
-            </div>
-            <p className="text-[11px] text-[var(--dash-text-secondary)]">Pentecostes e Mártires</p>
-          </div>
+            return (
+              <button
+                key={item.color}
+                type="button"
+                onClick={() => previewColor(item.color, item.tempo, item.celebracao)}
+                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer relative group flex flex-col justify-between space-y-1.5 ${
+                  isCurrentlyActive
+                    ? isWhiteActive
+                      ? 'bg-[#FFFFFF] border-2 border-[#FFA82A] ring-2 ring-[#FFA82A] shadow-md shadow-[#FFA82A]/20'
+                      : `${item.ringColor} ${item.activeBg}`
+                    : 'border-[var(--dash-border)]/70 bg-[var(--dash-surface-secondary)]/50 hover:border-[var(--dash-border-hover)] hover:bg-[var(--dash-surface-secondary)]'
+                }`}
+                title={`Clique para simular o tempo litúrgico ${item.name}`}
+              >
+                <div className="flex items-center justify-between gap-1.5">
+                  <div className={`flex items-center gap-1.5 font-bold ${isWhiteActive ? 'text-slate-800 font-extrabold' : item.textColor}`}>
+                    <span className={`w-2.5 h-2.5 rounded-full ${item.dotColor} ${isCurrentlyActive ? 'animate-ping' : ''}`} />
+                    <span>{item.name}</span>
+                  </div>
 
-          <div className="p-3 rounded-xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)]/60 space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-pink-600">
-              <span className="w-2 h-2 rounded-full bg-pink-500" />
-              <span>Rosa</span>
-            </div>
-            <p className="text-[11px] text-[var(--dash-text-secondary)]">Domingos Gaudete e Laetare</p>
-          </div>
+                  {isCurrentlyActive && (
+                    <span className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md ${
+                      isWhiteActive 
+                        ? 'bg-[#FFFFFF] border border-[#FFA82A] text-slate-800 font-extrabold shadow-xs' 
+                        : 'bg-black/60 text-white'
+                    }`}>
+                      Simulando
+                    </span>
+                  )}
+                </div>
+
+                <p className={`text-[11px] font-medium ${isWhiteActive ? 'text-slate-800 font-bold' : 'text-[var(--dash-text-secondary)]'}`}>
+                  {item.tempo}
+                </p>
+
+                <p className={`text-[10px] line-clamp-2 leading-relaxed pt-1 border-t ${isWhiteActive ? 'border-[#FFA82A]/30 text-slate-700 font-medium' : 'border-[var(--dash-border)]/40 text-[var(--dash-text-muted)]'}`}>
+                  {item.celebracao}
+                </p>
+              </button>
+            );
+          })}
         </div>
       </Card>
     </div>

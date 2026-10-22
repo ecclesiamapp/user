@@ -38,8 +38,8 @@ export function LiturgicalSticker() {
       case 'branco':
       default:
         return {
-          pill: 'bg-amber-600 hover:bg-amber-700 text-white border-amber-400/60 shadow-amber-950/20',
-          dot: 'bg-amber-200',
+          pill: 'bg-[#FFFFFF] hover:bg-amber-50/50 text-slate-800 font-extrabold border-2 border-[#FFA82A] shadow-md shadow-[#FFA82A]/20',
+          dot: 'bg-[#FFA82A]',
           label: 'Branco / Dourado (Solenidade do Senhor & Glória)',
         };
     }

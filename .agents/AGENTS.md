@@ -93,6 +93,16 @@ No catolicismo romano, **NUNCA** se utiliza a palavra "culto" para designar os e
 - **Termos Canônicos Oficiais:** **"Santa Missa"** (ou "Missas") e **"Celebração da Palavra"** (ou "Celebrações").
 - A IA está expressamente proibida de usar a palavra "culto" ou "cultos" em qualquer título, menu, card, formulário ou documentação do Ecclesiam App.
 
+## Diretriz Mandatória: Estimativa de Tempo de Execução em Toda Task Sugerida
+Por determinação expressa do desenvolvedor, **TODA E QUALQUER TAREFA, TASK OU ETAPA SUGERIDA PELA IA DEVE OBRIGATORIAMENTE VIR ACOMPANHADA DO SEU TEMPO ESTIMADO DE EXECUÇÃO** (ex: `⏱️ Tempo Estimado: ~30 a 45 minutos`).
+- **Objetivo Mandatório:** Dar ao desenvolvedor a previsibilidade necessária para decidir de imediato se autoriza a execução na sessão atual ou se posterga com base em sua disponibilidade de tempo.
+- **Formato Mandatório em Toda Sugestão de Próximo Passo ou Card:**
+  1. Identificação e objetivo cirúrgico da task.
+  2. **⏱️ Tempo Estimado de Execução:** Estimativa realista em minutos ou horas.
+  3. Arquivos e componentes diretamente afetados.
+  4. Pergunta expressa de alinhamento: *"Você aprova a execução desta tarefa com base nesta estimativa de tempo?"*
+
+
 
 
 

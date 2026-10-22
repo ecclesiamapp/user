@@ -89,3 +89,29 @@
 - [x] **TASK-34:** Rota de API Copilot & RAG com Google Gemini (endpoint `/api/admin/ai-assistant` com busca semântica, streaming com Gemini 2.5 Flash, prompts canônicos de proteção pastoral, citação de fontes e gerador de rascunhos de avisos).
 - [x] **TASK-35:** Interface no Painel Administrativo (subpágina dedicada `/admin/assistente-ia` com gestão de documentos, status de vetorização e histórico + Drawer/Widget Flutuante rápido em todas as telas do `/admin`).
 
+---
+
+## 🎨 FASE 6: Hub de Marca, Manual com IA & Moodboard Inteligente
+* **Data Limite:** Fevereiro de 2027 (Personalização Avançada & Onboarding Paroquial)
+* **Objetivo:** Unificar as telas de aparência e identidade no `/admin/marca`, processar upload de manuais com extração multimodal via IA, oferecer 5 presets canônicos do Ecclesiam App, moodboard interativo e Live Theming no portal do fiel.
+* **Documento de Especificação Técnica:** [`[documentation]/planejamento/ESPECIFICACAO_PAINEL_MARCA_MOODBOARD.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/ESPECIFICACAO_PAINEL_MARCA_MOODBOARD.md)
+
+### Tarefas Técnicas & Entregas:
+- [x] **TASK-36:** Modelagem Supabase & Storage de Marca: criação do bucket `brand_assets`, colunas `brand_identity` e `brand_manual_url` na tabela `public.parishes` com políticas RLS.
+- [x] **TASK-37:** Endpoint de Extração Multimodal do Manual via Gemini: rota `/api/admin/brand/extract` para análise de PDF/imagens de manuais e geração do JSON estruturado de cores e tipografias.
+- [x] **TASK-38:** Componentes Modulares do Moodboard & Simulador Live Preview: criação de `BrandColorPaletteEditor`, `BrandPresetsSelector`, `BrandLogoUploader` e `BrandLivePreviewMockup`.
+- [x] **TASK-39:** Interface Centralizada `/admin/marca` & Navegação: unificação das antigas telas de aparência em um hub moderno com abas, salvamento reativo e atualização do menu lateral.
+- [x] **TASK-40:** Live Theming no Portal Público & Ficha de Impressão da PASCOM: injeção dinâmica de CSS variables no `layout.tsx` e tela de impressão A4 em `/admin/marca/imprimir-guia`.
+---
+
+## 🏛️ FASE 7: Expansão das Comunidades, Gestão de Acessos & Secretaria On-line
+* **Data Limite:** Março de 2027 (Autonomia Paroquial, Governança & Eficiência Pastoral)
+* **Objetivo:** Definir e consolidar as Landing Pages completas das 12 CEBs, construir o dashboard administrativo de capelas com upload de mídias e CPC, estruturar a gestão de usuários com RBAC e auditar/expandir os processos digitais da secretaria paroquial.
+* **Documento de Especificação Técnica:** [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md)
+
+### Tarefas Técnicas & Entregas:
+- [ ] **TASK-41:** Definir Escopo Completo das LPs das Comunidades (identidade visual da CEB, lideranças do CPC, mural de avisos próprio, regras de dízimo local, calendário das festas e SEO estruturado Schema.org).
+- [ ] **TASK-42:** Construir Dashboard da LP das Comunidades no `/admin/comunidades` (upload e recorte de fotos de fachada/altar no Storage, gestão de membros do CPC, mural de avisos da CEB e vínculo de pastorais).
+- [ ] **TASK-43:** Auditar Ambiente & Implementar Gestão de Usuários e Permissões (tela `/admin/usuarios`, modelagem `user_profiles`, controle de acesso RBAC por perfil paroquial: Pároco, Vigário, Secretaria, PASCOM, Coordenador de CEB, e proteção de rotas).
+- [ ] **TASK-44:** Auditar & Expandir Funções da Secretaria On-line (módulo de intenções de Santa Missa com geração de lista impressa A4 para o altar, solicitação/emissão de certidões, limites automáticos de vagas e auditoria LGPD).
+

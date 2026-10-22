@@ -15,7 +15,7 @@ export function AdminAiFloatingDrawer() {
         <button
           onClick={() => setIsOpen(true)}
           className="fixed bottom-6 right-6 z-40 px-4 py-3 rounded-full bg-gradient-to-r from-[#8B1E22] via-[#A8252B] to-[#FFA82A] text-white shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2.5 min-h-[48px] min-w-[48px] cursor-pointer border border-[#FFA82A]/30 group"
-          title="Abrir Copilot da Secretaria"
+          title="Abrir IA da Paróquia"
           aria-label="Abrir Assistente IA"
         >
           <div className="relative">
@@ -26,7 +26,7 @@ export function AdminAiFloatingDrawer() {
             </span>
           </div>
           <span className="text-xs font-semibold tracking-wide hidden sm:inline-block pr-1">
-            Copilot IA
+            IA da Paróquia
           </span>
         </button>
       )}
@@ -54,7 +54,7 @@ export function AdminAiFloatingDrawer() {
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-semibold text-sm text-[var(--dash-text-primary)]">
-                  Copilot da Secretaria
+                  IA da Paróquia
                 </h3>
                 <span className="px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-500 text-[10px] font-bold border border-amber-500/20">
                   RAG

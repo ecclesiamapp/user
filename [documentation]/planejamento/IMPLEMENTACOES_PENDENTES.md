@@ -194,6 +194,119 @@ Assim como as CEBs, cada movimento contará com um **mini-site próprio com info
   4. **Atualização da Base de Dados & Fallback:**
      * Atualização dos registros na tabela `parish_pastors_succession` e sincronização no fallback de `lib/history.ts`.
      * Validação visual e de carregamento rápido em dispositivos móveis (360px a 414px) e monitores de alta densidade (Retina).
+---
 
+## 📌 11. [Pendência 01] — Definir Escopo das Landing Pages (LPs) das Comunidades
 
+* **Prioridade:** Alta / Expansão Pastoral & Presença Digital das Capelas
+* **Origem:** Solicitação do Desenvolvedor (22/10/2026)
+* **Rotas Envolvidas:**
+  * Diretório Geral: [`app/comunidades/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/comunidades/page.tsx)
+  * LP Dinâmica da Capela: [`app/comunidades/[slug]/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/comunidades/%5Bslug%5D/page.tsx)
+  * Biblioteca de Dados: [`lib/communities.ts`](file:///c:/Users/Start/ecclesiam-app/lib/communities.ts)
+* **🔍 Análise de Implementação Atual (Diagnóstico do Código):**
+  * **Status Atual:** **Parcialmente Implementado (~60%)**.
+  * **O que JÁ ESTÁ implementado:**
+    1. **Rotas e Renderização Prontas:** Já existem a listagem com busca (`/comunidades`) e as páginas individuais dinâmicas (`/comunidades/[slug]`) para as 12 CEBs da Catedral.
+    2. **Banco de Dados Estruturado:** Tabela `public.communities` com campos `name`, `slug`, `patron_saint`, `is_headquarters`, `address`, `neighborhood`, `city`, `state`, `latitude`, `longitude`, `foundation_year`, `feast_day`, `history`, `image_url` e `is_active`.
+    3. **Navegação GPS:** Botões operacionais com rota direta para Google Maps e Waze baseados nas coordenadas e endereços das 12 comunidades.
+    4. **Horários & Galeria:** Horários de celebrações (`mass_schedules`) e álbuns de fotos (`galleries`) já filtram por `community_id`.
+  * **O que FALTA / Escopo a ser Definido:**
+    1. **Identidade Visual Própria da Comunidade:** Brasão/logo da capela, imagem do padroeiro(a) e paleta/selo temático de destaque.
+    2. **Conselho Pastoral Comunitário (CPC):** Exibição da liderança da comunidade (Coordenador(a), Vice, Tesoureiro, Secretário, Coordenadores de Liturgia, Catequese e Dízimo).
+    3. **Mural de Avisos Específico da Capela:** Feed de comunicados próprios daquela comunidade (ex: ensaios de cantos, reuniões de pais da catequese, mutirões de limpeza).
+    4. **Dízimo & Partilha da Comunidade:** Informação clara de como devolver o dízimo na capela (mensageiros dos setores, dias de plantão do dízimo, envelope e QR Code PIX com identificador da capela).
+    5. **Calendário Litúrgico Local:** Festas de padroeiro, novenas, tríduos e procissões da comunidade com contagem regressiva.
+    6. **Pastorais & Movimentos Ativos na Capela:** Lista com dias e horários de reuniões dos grupos locais (Terço dos Homens, Mãe Peregrina, Apostolado, etc.).
+    7. **SEO Local:** Metadados estruturados (JSON-LD Schema.org `Church` / `PlaceOfWorship`) para indexação no Google de cada capela nos seus respectivos bairros.
+
+---
+
+## 📌 12. [Pendência 02] — Construir Dashboard da LP das Comunidades
+
+* **Prioridade:** Média-Alta / Autonomia Pastoral
+* **Origem:** Solicitação do Desenvolvedor (22/10/2026)
+* **Dependência:** Conclusão do Escopo da LP das Comunidades (Pendência 11)
+* **Rotas Envolvidas:**
+  * Painel Admin: [`app/admin/comunidades/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/admin/comunidades/page.tsx)
+  * Componentes: [`components/admin/comunidades/`](file:///c:/Users/Start/ecclesiam-app/components/admin/comunidades/)
+* **🔍 Análise de Implementação Atual (Diagnóstico do Código):**
+  * **Status Atual:** **Parcialmente Implementado (~40%)**.
+  * **O que JÁ ESTÁ implementado:**
+    1. **Painel Base Operacional:** Rota `/admin/comunidades` com listagem em cards, busca textual e toggle de ativação/desativação (`is_active`).
+    2. **Modal de Cadastro/Edição:** `CommunityFormModal.tsx` permite editar campos básicos (nome, padroeiro, data da festa, endereço, bairro, coordenadas GPS, ano de fundação e histórico).
+  * **O que FALTA / Escopo de Construção do Novo Dashboard:**
+    1. **Gestor de Imagens & Banners da Capela:** Componente de upload e recorte com o `ImageCropCompressModal` para foto de fachada, foto do padroeiro e banner do topo, enviando para bucket Supabase Storage `community_assets`.
+    2. **Módulo de Liderança (CPC):** Interface de cadastro e gestão de nomes, fotos, telefones e funções dos membros do conselho comunitário daquela CEB.
+    3. **Gestor de Avisos da Capela:** Painel para publicar, editar e expirar avisos que serão exibidos exclusivamente no mini-site daquela comunidade.
+    4. **Vínculo de Grupos & Pastorais:** Sistema para selecionar quais pastorais e movimentos estão ativos naquela capela e seus respectivos horários.
+    5. **Perfil de Acesso Delegado (Futuro):** Criação de permissão de login restrita para coordenadores de capela atualizarem apenas a sua respectiva comunidade, sem acesso aos dados gerais da Matriz.
+
+---
+
+## 📌 13. [Pendência 03] — Auditar Ambiente para Gestão de Usuários
+
+* **Prioridade:** Alta / Governança, Segurança & RLS
+* **Origem:** Solicitação do Desenvolvedor (22/10/2026)
+* **Rotas Previstas:**
+  * Gestão de Acessos: `/admin/usuarios`
+  * Middleware e Hooks de Auth: `middleware.ts`, `utils/supabase/`
+* **🔍 Análise de Implementação Atual (Diagnóstico do Código):**
+  * **Status Atual:** **Não Implementado / Embrionário (~10%)**.
+  * **O que JÁ ESTÁ implementado:**
+    1. **Supabase Auth Ativo:** Bibliotecas `@supabase/ssr` e `@supabase/supabase-js` integradas e funcionando.
+    2. **Políticas de RLS nas Migrações:** Tabelas do banco possuem RLS configurado com `parish_id`.
+    3. **Avatar Estático:** Barra lateral (`AdminSidebar.tsx`) exibe uma sigla estática ("SP - Painel da Secretaria").
+  * **O que FALTA / Escopo da Auditoria & Implementação:**
+    1. **Tabela de Perfis de Usuários (`user_profiles` ou `parish_users`):** Criar tabela vinculando `auth.users.id` a `parishes(id)` com papéis canônicos e administrativos:
+       * `superadmin` (Gestor do Ecclesiam SaaS)
+       * `paroco` (Pároco - Acesso irrestrito pastoral e administrativo)
+       * `vigario` (Vigários paroquiais)
+       * `secretaria` (Secretárias paroquiais - Agendamentos, batismos, dízimo)
+       * `pascom` (Equipe de comunicação - Notícias, mídias, redes)
+       * `coordenador_ceb` (Coordenador de capela - Mini-site e avisos locais)
+    2. **Controle de Acesso Baseado em Papéis (RBAC):** Proteção de rotas no Next.js (ex: equipe da PASCOM não acessa dados financeiros do dízimo; secretária não altera tenants do SaaS).
+    3. **Interface Administrativa de Usuários (`/admin/usuarios`):**
+       * Convidar novo usuário por e-mail.
+       * Atribuir ou alterar papel (Role).
+       * Redefinir senha ou enviar Magic Link.
+       * Desativar/revogar acesso imediato de ex-colaboradores.
+    4. **Auditoria de Sessão e Segurança:**
+       * Verificação de tempo de expiração de token JWT.
+       * Proteção contra vazamento de credenciais e auditoria de logs de login.
+
+---
+
+## 📌 14. [Pendência 04] — Auditar Funções da Secretaria On-line
+
+* **Prioridade:** Média-Alta / Eficiência dos Processos Paroquiais
+* **Origem:** Solicitação do Desenvolvedor (22/10/2026)
+* **Rotas Envolvidas:**
+  * Portal do Fiel: [`app/secretaria/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/secretaria/page.tsx), [`app/secretaria/agendamentos/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/secretaria/agendamentos/page.tsx), [`app/secretaria/sacramentos/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/secretaria/sacramentos/page.tsx)
+  * Painel Admin: [`app/admin/secretaria/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/admin/secretaria/page.tsx)
+  * Componentes: [`components/admin/secretaria/`](file:///c:/Users/Start/ecclesiam-app/components/admin/secretaria/)
+* **🔍 Análise de Implementação Atual (Diagnóstico do Código):**
+  * **Status Atual:** **Parcialmente Implementado (~70%)**.
+  * **O que JÁ ESTÁ implementado:**
+    1. **Página Institucional:** Apresentação da secretaria, expediente, contatos, clero atuante e mapa de localização.
+    2. **Agendamentos Pastorais com os Padres:**
+       * Formulário público de agendamento (`/secretaria/agendamentos`) com escolha de sacerdote (Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes), motivo e data.
+       * Painel administrativo (`AppointmentsManagerTab.tsx`) com filtros por status (`pendente`, `confirmado`, `cancelado`, `concluido`) e disparador de mensagem WhatsApp de confirmação.
+       * Tabela `public.pastoral_appointments` no Supabase com RLS.
+    3. **Inscrições Sacramentais:**
+       * Formulário público (`/secretaria/sacramentos`) para Batismo, Crisma, Primeira Eucaristia e Matrimônio.
+       * Painel administrativo (`SacramentsManagerTab.tsx`) para aprovar, consultar certidões e arquivar fichas.
+       * Tabela `public.sacramental_registrations` no Supabase com RLS.
+    4. **Equipe do Clero & Expedientes:**
+       * Gestão administrativa completa dos sacerdotes (`ClergyManagerTab.tsx`), dias e turnos de expediente.
+  * **O que FALTA / Escopo de Auditoria & Complementações:**
+    1. **Intenções de Santa Missa On-line:**
+       * Módulo para o fiel enviar intenções de Missa (Saúde, Falecimento/7º Dia, Ação de Graças) escolhendo data e horário da celebração.
+       * Painel para a secretaria gerar a lista consolidada e impressa (PDF/A4) para os leitores e o altar antes de cada Missa.
+    2. **Solicitação de Certidões & Documentos Paroquiais:**
+       * Formulário para pedir 2ª via de lembrança de batismo, comprovante de crisma ou transferência de noivos.
+    3. **Controle de Capacidade e Vagas por Sacramento:**
+       * Limite de batizandos por celebração de batismo e limite de casais por encontro de noivos com travamento automático ao lotar.
+    4. **Auditoria Ponta a Ponta de Validações & LGPD:**
+       * Testar sanitização de inputs, validação de formato de WhatsApp, proteção de documentos sensíveis anexados e termos de consentimento LGPD.
 

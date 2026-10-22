@@ -264,7 +264,100 @@ const TASK_METADATA = {
       'components/admin/ai/AdminAiFloatingDrawer.tsx'
     ],
     objective: 'Interface no Painel Administrativo: subpágina /admin/assistente-ia com gestão de documentos + Drawer Flutuante global no /admin.'
-  }
+  },
+  'TASK-36': {
+    phase: 'Fase 6 (Hub de Marca, Manual com IA & Moodboard)',
+    category: 'Banco de Dados & Storage (Supabase)',
+    estimated_time: '30 minutos',
+    files: [
+      'supabase/migrations/20270201_create_brand_assets_and_identity.sql'
+    ],
+    objective: 'Criar bucket brand_assets no Storage, adicionar colunas brand_identity e brand_manual_url na tabela parishes com RLS.'
+  },
+  'TASK-37': {
+    phase: 'Fase 6 (Hub de Marca, Manual com IA & Moodboard)',
+    category: 'Back-end & IA Multimodal',
+    estimated_time: '45 minutos',
+    files: [
+      'app/api/admin/brand/extract/route.ts',
+      'lib/ai/brand-extractor.ts'
+    ],
+    objective: 'Criar rota de extração multimodal via Gemini para ler manuais em PDF/imagem e extrair cores, tipografias e regras.'
+  },
+  'TASK-38': {
+    phase: 'Fase 6 (Hub de Marca, Manual com IA & Moodboard)',
+    category: 'Front-end & UX/UI Moodboard',
+    estimated_time: '60 minutos',
+    files: [
+      'components/admin/brand/BrandColorPaletteEditor.tsx',
+      'components/admin/brand/BrandPresetsSelector.tsx',
+      'components/admin/brand/BrandLivePreviewMockup.tsx'
+    ],
+    objective: 'Criar componentes modulares do Moodboard: paleta de 6 cores com color picker, seletor de presets e simulador live preview.'
+  },
+  'TASK-39': {
+    phase: 'Fase 6 (Hub de Marca, Manual com IA & Moodboard)',
+    category: 'Front-end Admin & Navegação',
+    estimated_time: '45 minutos',
+    files: [
+      'app/admin/marca/page.tsx',
+      'components/admin/layout/AdminSidebar.tsx'
+    ],
+    objective: 'Construir a interface centralizada /admin/marca unificando aparência e identidade visual em abas com salvamento reativo.'
+  },
+  'TASK-40': {
+    phase: 'Fase 6 (Hub de Marca, Manual com IA & Moodboard)',
+    category: 'Front-end Portal & Impressão PASCOM',
+    estimated_time: '45 minutos',
+    files: [
+      'app/layout.tsx',
+      'app/admin/marca/imprimir-guia/page.tsx'
+    ],
+    objective: 'Implementar Live Theming com injeção de CSS variables no portal público e tela de impressão A4 do Guia Rápido da Marca para a PASCOM.'
+  },
+  'TASK-41': {
+    phase: 'Fase 7 (Expansão das Comunidades, Gestão de Acessos & Secretaria)',
+    category: 'Produto & Design de LPs',
+    estimated_time: '45 minutos',
+    files: [
+      '[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md',
+      'lib/communities.ts',
+      'app/comunidades/[slug]/page.tsx'
+    ],
+    objective: 'Definir o escopo completo das LPs das 12 CEBs: identidade da capela, lideranças do CPC, mural de avisos próprio, dízimo local, calendário de festas e SEO Schema.org.'
+  },
+  'TASK-42': {
+    phase: 'Fase 7 (Expansão das Comunidades, Gestão de Acessos & Secretaria)',
+    category: 'Front-end Admin & Storage',
+    estimated_time: '60 minutos',
+    files: [
+      'app/admin/comunidades/page.tsx',
+      'components/admin/comunidades/CommunityFormModal.tsx'
+    ],
+    objective: 'Construir o dashboard da LP das comunidades com upload de mídias para o Storage, gestão de membros do CPC, mural de avisos da CEB e vínculo de pastorais.'
+  },
+  'TASK-43': {
+    phase: 'Fase 7 (Expansão das Comunidades, Gestão de Acessos & Secretaria)',
+    category: 'Segurança, Auth & RBAC',
+    estimated_time: '50 minutos',
+    files: [
+      'supabase/migrations/',
+      'app/admin/usuarios/page.tsx',
+      'middleware.ts'
+    ],
+    objective: 'Auditar ambiente de autenticação e implementar tela /admin/usuarios com modelagem user_profiles, papéis canônicos (Pároco, Secretaria, PASCOM) e RBAC.'
+  },
+  'TASK-44': {
+    phase: 'Fase 7 (Expansão das Comunidades, Gestão de Acessos & Secretaria)',
+    category: 'Processos Paroquiais & Secretaria',
+    estimated_time: '50 minutos',
+    files: [
+      'app/admin/secretaria/page.tsx',
+      'app/secretaria/page.tsx',
+      'components/admin/secretaria/'
+    ],
+    objective: 'Auditar funções da secretaria on-line e implementar módulo de Intenções de Santa Missa (com impressão A4 para o altar), solicitação de certidões e validações LGPD.'
+  },
 };
 
 function parsePlan(content) {

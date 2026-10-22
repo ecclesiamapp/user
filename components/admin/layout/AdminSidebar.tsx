@@ -76,10 +76,11 @@ const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    category: 'Administração',
+    category: 'Identidade & Administração',
     items: [
-      { href: '/admin/configuracoes', label: 'Identidade & Contato', icon: Settings },
-      { href: '/admin/aparencia', label: 'Aparência & Tema', icon: Palette },
+      { href: '/admin/marca', label: 'Hub de Marca & Moodboard', icon: Palette, badge: 'Novo' },
+      { href: '/admin/configuracoes', label: 'Dados da Paróquia', icon: Settings },
+      { href: '/admin/aparencia', label: 'Tema Litúrgico', icon: Sparkles },
     ],
   },
 ];
@@ -99,6 +100,7 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
       return {
         container: 'bg-gradient-to-r from-[#8B1E22] to-[#6E161A] text-white font-bold border border-[#FFA82A]/40 shadow-md shadow-black/40',
         icon: 'text-[#FFCC36]',
+        text: 'text-white font-bold',
       };
     }
 
@@ -107,27 +109,32 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
         return {
           container: 'bg-gradient-to-r from-emerald-700 to-emerald-900 text-white font-bold border border-emerald-400/50 shadow-md shadow-emerald-950/40',
           icon: 'text-emerald-200',
+          text: 'text-white font-bold',
         };
       case 'roxo':
         return {
           container: 'bg-gradient-to-r from-purple-800 to-purple-950 text-white font-bold border border-purple-400/50 shadow-md shadow-purple-950/40',
           icon: 'text-purple-200',
+          text: 'text-white font-bold',
         };
       case 'vermelho':
         return {
           container: 'bg-gradient-to-r from-rose-800 to-rose-950 text-white font-bold border border-rose-400/50 shadow-md shadow-rose-950/40',
           icon: 'text-rose-200',
+          text: 'text-white font-bold',
         };
       case 'rosa':
         return {
           container: 'bg-gradient-to-r from-pink-700 to-pink-900 text-white font-bold border border-pink-400/50 shadow-md shadow-pink-950/40',
           icon: 'text-pink-200',
+          text: 'text-white font-bold',
         };
       case 'branco':
       default:
         return {
-          container: 'bg-gradient-to-r from-amber-600 to-amber-850 text-white font-bold border border-amber-300/50 shadow-md shadow-amber-950/40',
-          icon: 'text-amber-100',
+          container: 'bg-[#FFFFFF] text-slate-800 font-extrabold border-2 border-[#FFA82A] shadow-md shadow-[#FFA82A]/20 ring-1 ring-[#FFA82A]/30',
+          icon: 'text-[#FFA82A]',
+          text: 'text-slate-800 font-extrabold',
         };
     }
   };
@@ -197,7 +204,7 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
                           'w-4 h-4 shrink-0 transition-colors',
                           isActive ? activeStyle.icon : 'text-[#9E988F] group-hover:text-[#FFCC36]'
                         )} />
-                        <span className="text-xs">{item.label}</span>
+                        <span className={cn('text-xs', isActive && activeStyle.text ? activeStyle.text : '')}>{item.label}</span>
                       </div>
 
                       {item.badge && !isActive && (
