@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { AdminSidebar } from '@/components/admin/layout/AdminSidebar';
 import { AdminTopBar } from '@/components/admin/layout/AdminTopBar';
 import { AdminAppearanceProvider } from '@/components/admin/context/AdminAppearanceContext';
+import { AdminAiFloatingDrawer } from '@/components/admin/ai/AdminAiFloatingDrawer';
 
 export default function AdminLayout({
   children,
@@ -14,7 +15,7 @@ export default function AdminLayout({
 
   return (
     <AdminAppearanceProvider>
-      <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex">
+      <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex relative">
         {/* 1. Sidebar Fixa Permanente (Desktop: sticky h-screen; Mobile: Drawer deslizante) */}
         <AdminSidebar
           mobileOpen={mobileOpen}
@@ -28,6 +29,9 @@ export default function AdminLayout({
             {children}
           </main>
         </div>
+
+        {/* 3. Copilot da Secretaria: Drawer Flutuante Global */}
+        <AdminAiFloatingDrawer />
       </div>
     </AdminAppearanceProvider>
   );

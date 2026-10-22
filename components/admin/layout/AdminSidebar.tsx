@@ -70,6 +70,12 @@ const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    category: 'Inteligência Paroquial',
+    items: [
+      { href: '/admin/assistente-ia', label: 'Assistente IA & RAG', icon: Sparkles, badge: 'IA' },
+    ],
+  },
+  {
     category: 'Administração',
     items: [
       { href: '/admin/configuracoes', label: 'Identidade & Contato', icon: Settings },

@@ -74,7 +74,7 @@
 - [x] **TASK-28:** Cartas Pastorais de Natal do Pároco Pe. Irineu e do Bispo Dom Lauro em destaque na Coluna Pastoral.
 - [x] **TASK-29:** Campanha de Instalação do PWA: QR Code impresso nos bancos da Catedral para os fiéis salvarem o ícone no celular.
 - [x] **TASK-30:** Auditoria Final de Performance e Segurança (Lighthouse, logs do Supabase e Cloudflare).
-- [ ] **TASK-31:** Emissão do Termo de Homologação Piloto e início do ciclo de mensalidade SaaS (R$ 390 - 490/mês).
+- [x] **TASK-31:** Emissão do Termo de Homologação Piloto e início do ciclo de mensalidade SaaS (R$ 390 - 490/mês).
 
 ---
 
@@ -84,8 +84,8 @@
 * **Documento de Especificação Técnica:** [`[documentation]/planejamento/ESPECIFICACAO_TECNICA_ASSISTENTE_IA_RAG.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/ESPECIFICACAO_TECNICA_ASSISTENTE_IA_RAG.md)
 
 ### Tarefas Técnicas & Entregas:
-- [ ] **TASK-32:** Infraestrutura Supabase pgvector & Schema RAG (extensão `vector`, tabelas `parish_knowledge_documents` e `parish_knowledge_embeddings`, índice HNSW, RLS multi-tenant estrito por `parish_id` e função RPC `match_parish_knowledge`).
-- [ ] **TASK-33:** Pipeline de Ingestão Híbrida & Embeddings (sincronização vetorial das tabelas relacionais de horários, 12 CEBs, clero, dízimo e agendamentos + upload/parsing de PDFs diocesanos com Google `text-embedding-004`).
-- [ ] **TASK-34:** Rota de API Copilot & RAG com Google Gemini (endpoint `/api/admin/ai-assistant` com busca semântica, streaming com Gemini 2.5 Flash, prompts canônicos de proteção pastoral, citação de fontes e gerador de rascunhos de avisos).
-- [ ] **TASK-35:** Interface no Painel Administrativo (subpágina dedicada `/admin/assistente-ia` com gestão de documentos, status de vetorização e histórico + Drawer/Widget Flutuante rápido em todas as telas do `/admin`).
+- [x] **TASK-32:** Infraestrutura Supabase pgvector & Schema RAG (extensão `vector`, tabelas `parish_knowledge_documents` e `parish_knowledge_embeddings`, índice HNSW, RLS multi-tenant estrito por `parish_id` e função RPC `match_parish_knowledge`).
+- [x] **TASK-33:** Pipeline de Ingestão Híbrida & Embeddings (sincronização vetorial das tabelas relacionais de horários, 12 CEBs, clero, dízimo e agendamentos + upload/parsing de PDFs diocesanos com Google `text-embedding-004`).
+- [x] **TASK-34:** Rota de API Copilot & RAG com Google Gemini (endpoint `/api/admin/ai-assistant` com busca semântica, streaming com Gemini 2.5 Flash, prompts canônicos de proteção pastoral, citação de fontes e gerador de rascunhos de avisos).
+- [x] **TASK-35:** Interface no Painel Administrativo (subpágina dedicada `/admin/assistente-ia` com gestão de documentos, status de vetorização e histórico + Drawer/Widget Flutuante rápido em todas as telas do `/admin`).
 
