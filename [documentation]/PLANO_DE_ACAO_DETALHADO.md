@@ -114,4 +114,16 @@
 - [ ] **TASK-42:** Construir Dashboard da LP das Comunidades no `/admin/comunidades` (upload e recorte de fotos de fachada/altar no Storage, gestão de membros do CPC, mural de avisos da CEB e vínculo de pastorais).
 - [ ] **TASK-43:** Auditar Ambiente & Implementar Gestão de Usuários e Permissões (tela `/admin/usuarios`, modelagem `user_profiles`, controle de acesso RBAC por perfil paroquial: Pároco, Vigário, Secretaria, PASCOM, Coordenador de CEB, e proteção de rotas).
 - [ ] **TASK-44:** Auditar & Expandir Funções da Secretaria On-line (módulo de intenções de Santa Missa com geração de lista impressa A4 para o altar, solicitação/emissão de certidões, limites automáticos de vagas e auditoria LGPD).
+---
+
+## 🕊️ FASE 8: Grandes Festas, Solenidades & Programações Litúrgicas Especiais
+* **Data Limite:** Abril de 2027 (Semana Santa, Festas de Padroeiros & Solenidades da Matriz e CEBs)
+* **Objetivo:** Criar o sistema completo de Landing Pages Dinâmicas de Festas (/programacao/[slug]) alimentadas por um Construtor Visual no Painel Administrativo (/admin/programacao), com banner de contagem regressiva na Home, alertas na página de horários, compartilhamento rápido no WhatsApp e integração direta com os mini-sites das 12 CEBs.
+* **Documento de Especificação Técnica:** [`[documentation]/planejamento/ESPECIFICACAO_PAGINA_FESTAS_PROGRAMACOES.md`](file:///c:/Users/Start/ecclesiam-app/[documentation]/planejamento/ESPECIFICACAO_PAGINA_FESTAS_PROGRAMACOES.md)
+
+### Tarefas Técnicas & Entregas:
+- [ ] **TASK-45:** Modelagem Supabase & Storage: criação das tabelas `parish_special_events`, `parish_event_days`, bucket `event_assets` e políticas RLS seguras.
+- [ ] **TASK-46:** Dashboard Administrativo (`/admin/programacao`): construtor visual de programação dia a dia com upload de cartaz e prévia ao vivo.
+- [ ] **TASK-47:** Landing Page Pública da Festa (`/programacao/[slug]`): hero monumental, linha do tempo interativa por abas com swipe, rota GPS e download do cartaz oficial.
+- [ ] **TASK-48:** Integração de Banners & Divulgação: banner de contagem regressiva na Home, destaque na LP da CEB correspondente e alerta em `/horarios`.
 

@@ -358,6 +358,46 @@ const TASK_METADATA = {
     ],
     objective: 'Auditar funções da secretaria on-line e implementar módulo de Intenções de Santa Missa (com impressão A4 para o altar), solicitação de certidões e validações LGPD.'
   },
+  'TASK-45': {
+    phase: 'Fase 8 (Grandes Festas & Programações Especiais)',
+    category: 'Banco de Dados & Storage (Supabase)',
+    estimated_time: '35 minutos',
+    files: [
+      'supabase/migrations/20270301_create_special_events_and_schedules.sql'
+    ],
+    objective: 'Criar tabelas parish_special_events, parish_event_days, bucket event_assets e políticas RLS para festas e solenidades.'
+  },
+  'TASK-46': {
+    phase: 'Fase 8 (Grandes Festas & Programações Especiais)',
+    category: 'Front-end Admin & Schedule Builder',
+    estimated_time: '60 minutos',
+    files: [
+      'app/admin/programacao/page.tsx',
+      'components/admin/programacao/'
+    ],
+    objective: 'Construir o painel /admin/programacao com construtor visual dia a dia, upload de cartaz no Storage e prévia ao vivo.'
+  },
+  'TASK-47': {
+    phase: 'Fase 8 (Grandes Festas & Programações Especiais)',
+    category: 'Front-end Portal & Landing Page',
+    estimated_time: '50 minutos',
+    files: [
+      'app/programacao/[slug]/page.tsx',
+      'components/programacao/'
+    ],
+    objective: 'Construir a Landing Page pública /programacao/[slug] com hero monumental, linha do tempo interativa por abas, rota GPS e download do cartaz.'
+  },
+  'TASK-48': {
+    phase: 'Fase 8 (Grandes Festas & Programações Especiais)',
+    category: 'Front-end & Divulgação',
+    estimated_time: '40 minutos',
+    files: [
+      'app/page.tsx',
+      'app/horarios/page.tsx',
+      'app/comunidades/[slug]/page.tsx'
+    ],
+    objective: 'Integrar banners de contagem regressiva na Home da Catedral, alertas no topo de /horarios e destaque da festa no mini-site da CEB.'
+  },
 };
 
 function parsePlan(content) {
