@@ -27,11 +27,11 @@ const DEFAULT_PILLARS = [
   },
   {
     id: 'tr-3',
-    title: 'Comunhão com as 12 Capelas (CEBs)',
+    title: 'Comunhão com as 12 Comunidades (CEBs)',
     tag: 'Igreja em Saída',
     icon_name: 'Church',
     description:
-      'Ajuda fraterna da Catedral Matriz para que as comunidades menores do interior e periferia mantenham suas capelas dignas para as Santas Missas.',
+      'Ajuda fraterna da Catedral Matriz para que as comunidades menores do interior e periferia mantenham seus templos e comunidades dignas para as Santas Missas.',
     highlight: '12 CEBs fortalecidas',
   },
   {

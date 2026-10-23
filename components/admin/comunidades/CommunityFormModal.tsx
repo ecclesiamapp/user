@@ -192,7 +192,7 @@ export function CommunityFormModal({
               <p className="text-xs text-[var(--dash-text-secondary)]">
                 {communityToEdit
                   ? `Gerenciando dados e vocação pastoral de ${communityToEdit.name}`
-                  : 'Integre uma nova capela ou setor à rede paroquial.'}
+                  : 'Integre uma nova comunidade ou setor à rede paroquial.'}
               </p>
             </div>
           </div>
@@ -259,7 +259,7 @@ export function CommunityFormModal({
           {activeTab === 'geral' && (
             <div className="space-y-4">
               <Input
-                label="Nome da Comunidade / Capela *"
+                label="Nome da Comunidade *"
                 required
                 value={name}
                 onChange={(e) => handleNameChange(e.target.value)}
@@ -353,7 +353,7 @@ export function CommunityFormModal({
                   rows={6}
                   value={history}
                   onChange={(e) => setHistory(e.target.value)}
-                  placeholder="Conte a história da comunidade, como foi construída a capela, os fundadores, os grupos de oração e as tradições locais..."
+                  placeholder="Conte a história da comunidade, como foram erguidos os templos, os fundadores, os grupos de oração e as tradições locais..."
                   className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-[var(--dash-surface)] border border-[var(--dash-border)] text-[var(--dash-text-primary)] placeholder-[var(--dash-text-secondary)] focus:outline-hidden focus:ring-2 focus:ring-[var(--primary)] transition-all resize-y"
                 />
                 <p className="text-[11px] text-[var(--dash-text-secondary)]">

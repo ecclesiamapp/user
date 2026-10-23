@@ -133,7 +133,7 @@ export function ScheduleFormModal({
               <p className="text-xs text-[var(--dash-text-secondary)]">
                 {scheduleToEdit
                   ? 'Atualize o dia, hora ou modalidade litúrgica.'
-                  : 'Vincule uma celebração da palavra ou Santa Missa a uma capela.'}
+                  : 'Vincule uma celebração da palavra ou Santa Missa a uma comunidade.'}
               </p>
             </div>
           </div>
@@ -155,7 +155,7 @@ export function ScheduleFormModal({
           )}
 
           <Select
-            label="Comunidade / Capela *"
+            label="Comunidade *"
             required
             value={communityId}
             onChange={(e) => setCommunityId(e.target.value)}

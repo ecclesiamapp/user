@@ -80,10 +80,10 @@ export function CathedralFooter({
             </ul>
           </div>
 
-          {/* Coluna 3: Comunidades e Capelas */}
+          {/* Coluna 3: Comunidades (CEBs) */}
           <div className="space-y-3">
             <h5 className="font-cinzel text-xs font-bold text-[#FFCC36] uppercase tracking-[0.14em]">
-              12 CEBs & Capelas
+              12 Comunidades (CEBs)
             </h5>
             <ul className="space-y-2 text-xs font-sans">
               <li>

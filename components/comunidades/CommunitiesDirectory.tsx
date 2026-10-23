@@ -78,7 +78,7 @@ export function CommunitiesDirectory({ communities, schedules = [] }: Communitie
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--dash-text-muted)]" />
             <input
               type="text"
-              placeholder="Buscar por capela, padroeiro, bairro..."
+              placeholder="Buscar por comunidade, padroeiro, bairro..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-9 py-2.5 rounded-xl bg-[var(--dash-bg)] border border-[var(--dash-border)] text-sm text-[var(--dash-text-primary)] placeholder-[var(--dash-text-muted)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/40 transition-all min-h-[44px]"
@@ -147,7 +147,7 @@ export function CommunitiesDirectory({ communities, schedules = [] }: Communitie
                 : 'bg-[var(--dash-bg)] text-[var(--dash-text-secondary)] hover:bg-[var(--dash-surface)] border border-[var(--dash-border)]'
             }`}
           >
-            Todas as Capelas ({communities.length})
+            Todas as Comunidades ({communities.length})
           </button>
 
           <button
@@ -190,7 +190,7 @@ export function CommunitiesDirectory({ communities, schedules = [] }: Communitie
         <section id="mapa-diocesano" className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="font-cinzel text-lg sm:text-xl font-bold text-[var(--dash-text-primary)]">
-              Localização Geográfica das Capelas
+              Localização Geográfica das Comunidades
             </h3>
             <span className="text-xs text-[var(--dash-text-muted)]">
               Pins com GPS e integração Google Maps/Waze
@@ -231,7 +231,7 @@ export function CommunitiesDirectory({ communities, schedules = [] }: Communitie
                 Nenhuma comunidade encontrada
               </h4>
               <p className="text-xs text-[var(--dash-text-muted)] max-w-sm mx-auto">
-                Tente buscar por outro termo ou limpe os filtros para visualizar as 12 capelas da Catedral.
+                Tente buscar por outro termo ou limpe os filtros para visualizar as 12 comunidades da Catedral.
               </p>
               <button
                 onClick={() => {

@@ -20,9 +20,9 @@ import { fallbackSchedules } from '@/lib/schedules';
 import { Parish, Community, MassSchedule } from '@/types';
 
 export const metadata: Metadata = {
-  title: 'Nossas Comunidades & Capelas • Catedral do Sagrado Coração de Jesus • Colatina/ES',
+  title: 'Nossas 12 Comunidades • Catedral do Sagrado Coração de Jesus • Colatina/ES',
   description:
-    'Conheça as 12 Comunidades Eclesiais de Base (CEBs) e Capelas da Catedral de Colatina. Consulte horários de Santa Missa, padroeiros, endereços e rotas GPS no Google Maps e Waze.',
+    'Conheça as 12 Comunidades Eclesiais de Base (CEBs) da Catedral de Colatina. Consulte horários de Santa Missa, padroeiros, endereços e rotas GPS no Google Maps e Waze.',
 };
 
 export default async function ComunidadesPage() {
@@ -117,7 +117,7 @@ export default async function ComunidadesPage() {
         </div>
       </header>
 
-      {/* 3. Hero Monumental de Comunidades & Capelas (Padrão Catedral Nobre) */}
+      {/* 3. Hero Monumental de Comunidades (Padrão Catedral Nobre) */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#1C1614] via-[#2A1D1A] to-[#1C1614] text-white py-14 sm:py-20 border-b border-[#C8A463]/30">
         <img
           src="/images/historia/catedral-vitrais.jpg"
@@ -139,7 +139,7 @@ export default async function ComunidadesPage() {
             </div>
 
             <h1 className="font-cinzel text-3xl sm:text-5xl font-bold tracking-tight uppercase text-white leading-tight">
-              Nossas Comunidades & <span className="text-[#FFA82A]">Capelas</span>
+              Nossas <span className="text-[#FFA82A]">12 Comunidades</span>
             </h1>
 
             <p className="font-sans text-xs sm:text-base text-[#EAE3D9] max-w-2xl mx-auto leading-relaxed">
@@ -150,7 +150,7 @@ export default async function ComunidadesPage() {
           {/* Chips Inferiores Padronizados */}
           <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
             <span className="px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
-              ⛪ 12 Capelas & CEBs
+              ⛪ 12 Comunidades (CEBs)
             </span>
             <span className="px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
               🗺️ Rotas Maps & Waze

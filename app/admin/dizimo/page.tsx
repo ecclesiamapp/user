@@ -37,10 +37,10 @@ const defaultTransparency: TitheTransparencyItem[] = [
   {
     id: 'tr-3',
     parish_id: 'c0000000-0000-0000-0000-000000000001',
-    title: 'Comunhão com as 12 Capelas (CEBs)',
+    title: 'Comunhão com as 12 Comunidades (CEBs)',
     tag: 'Igreja em Saída',
     highlight: '12 CEBs fortalecidas',
-    description: 'Ajuda fraterna da Catedral Matriz para que as comunidades menores do interior e periferia mantenham suas capelas dignas para as Santas Missas.',
+    description: 'Ajuda fraterna da Catedral Matriz para que as comunidades menores do interior e periferia mantenham seus templos e comunidades dignas para as Santas Missas.',
     icon_name: 'Church',
     order_index: 3,
     is_active: true,

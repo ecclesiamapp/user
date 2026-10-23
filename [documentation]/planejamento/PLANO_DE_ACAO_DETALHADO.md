@@ -110,7 +110,12 @@
 * **Documento de Especificação Técnica:** [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md)
 
 ### Tarefas Técnicas & Entregas:
-- [ ] **TASK-41:** Definir Escopo Completo das LPs das Comunidades (identidade visual da CEB, lideranças do CPC, mural de avisos próprio, regras de dízimo local, calendário das festas e SEO estruturado Schema.org).
+- [x] **TASK-41:** Definir Escopo Completo das LPs das Comunidades (identidade visual da CEB, lideranças do CPC, mural de avisos próprio, regras de dízimo local, calendário das festas e SEO estruturado Schema.org).
+- [ ] **TASK-41B:** Refinamento Interativo, Acessibilidade & Liturgia das LPs das Comunidades:
+  1. *Cards Bento Clicáveis:* Tornar todos os cards da grade Bento clicáveis com abertura de modais solenes de detalhamento pastoral.
+  2. *Acessibilidade para Idosos:* Controle de redimensionamento de fonte (A- / A / A+) persistido no dispositivo, com layout e touch targets responsivos e sem quebra de UX.
+  3. *Liturgia Limpa no Card 1:* Remoção cirúrgica do botão de WhatsApp do Card 1 (`CommunityLiturgyCard.tsx`).
+  4. *Faixa Litúrgica Sutil:* Adição de faixa horizontal discreta abaixo do menu principal exibindo a cor do tempo litúrgico e a descrição oficial do dia.
 - [ ] **TASK-42:** Construir Dashboard da LP das Comunidades no `/admin/comunidades` (upload e recorte de fotos de fachada/altar no Storage, gestão de membros do CPC, mural de avisos da CEB e vínculo de pastorais).
 - [ ] **TASK-43:** Auditar Ambiente & Implementar Gestão de Usuários e Permissões (tela `/admin/usuarios`, modelagem `user_profiles`, controle de acesso RBAC por perfil paroquial: Pároco, Vigário, Secretaria, PASCOM, Coordenador de CEB, e proteção de rotas).
 - [ ] **TASK-44:** Auditar & Expandir Funções da Secretaria On-line (módulo de intenções de Santa Missa com geração de lista impressa A4 para o altar, solicitação/emissão de certidões, limites automáticos de vagas e auditoria LGPD).

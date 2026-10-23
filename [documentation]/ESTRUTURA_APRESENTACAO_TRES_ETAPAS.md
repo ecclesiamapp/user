@@ -69,8 +69,8 @@ Despertar o encanto pastoral do pároco, mostrando que a solução foi feita sob
 ### Princípios da Abordagem Financeira para o Pároco:
 1. **Apresentar como Investimento Pastoral Sustentável:**
    - Não é uma "despesa" de marketing; é um instrumento de acolhimento e arrecadação contínua da comunidade.
-2. **O Dízimo Digital que se Auto-sustenta:**
-   - Ao facilitar a doação espontânea e o dízimo via PIX na palma da mão (sem exigir dinheiro em espécie na missa), o aumento na arrecadação cobre com folga a manutenção do sistema.
+2. **Sustentabilidade e Modernização Pastoral:**
+   - Facilita a doação espontânea e a partilha do dízimo de forma prática, transparente e direta na conta da paróquia.
 3. **Economia Operacional da Secretaria:**
    - Reduz horas de telefone e atendimento repetitivo, permitindo que a secretaria se concentre na acolhida e nos registros sacramentais.
 
@@ -82,7 +82,7 @@ Despertar o encanto pastoral do pároco, mostrando que a solução foi feita sob
 ├───────────────────────────────────┬────────────────────────────────────┤
 │  1. SETUP & IMPLEMENTAÇÃO INICIAL │  2. MANUTENÇÃO & INFRAESTRUTURA    │
 │  (Taxa Única: R$ 1.200)           │  (Recorrência: R$ 490/mês ou R$390)│
-│  • Povoamento das 11 Comunidades  │  • Hospedagem em nuvem de alta vel.│
+│  • Cadastro das 11 Comunidades   │  • Hospedagem em nuvem de alta vel.│
 │  • Configuração do Dízimo PIX     │  • Backup diário de segurança      │
 │  • Mapas GPS e Escala dos Padres  │  • Atualizações litúrgicas e do app│
 │  • Treinamento presencial VIP     │  • Suporte prioritário via WhatsApp │
@@ -101,21 +101,30 @@ Despertar o encanto pastoral do pároco, mostrando que a solução foi feita sob
   - Notificações aos fiéis e atualizações litúrgicas contínuas.
   - Múltiplos sacerdotes e QR Codes para os bancos da igreja.
 
-#### Tabela Geral de Planos de Assinatura (Slide 16):
+#### Tabela Geral de Planos de Assinatura (Slide 18):
 1. **01 • Plano Semente:** R$ 149/mês | Setup: R$ 350 (Matriz + até 3 comunidades).
 2. **02 • Plano Semeador:** R$ 289/mês | Setup: R$ 600 (Matriz + até 8 comunidades, pastorais e escalas).
 3. **03 • Plano Pescador:** R$ 490/mês | Setup: R$ 1.200 (**Até 20 CEBs**, múltiplos padres, QR codes, suporte VIP presencial — *Plano da Catedral*).
 4. **04 • Plano Videira:** R$ 649/mês | Setup: R$ 1.500 (**Todos os recursos anteriores**, **CEBs ilimitadas**, **acessos ilimitados**, **alta volumetria de fiéis**, romarias e suporte 24/7).
 
+#### Slide 19 — Proposta de Aliança: 1 Ano de Assinatura Grátis (Condição Exclusiva Catedral Piloto):
+* **12 Meses de Assinatura Grátis (100% OFF):** R$ 0/mês por 1 ano completo (economia real de R$ 5.880 para a paróquia).
+* **Único Custo da Catedral:** R$ 1.200 (Taxa única de Instalação, Cadastro Inicial Completo das 11 CEBs, Mapas GPS, QR Codes PIX e Treinamento VIP presencial da secretaria).
+* **Aliança Pastoral Sem Riscos e Sem Fidelidade:** Zero carência e zero multas rescisórias. A Catedral tem 1 ano completo para colher os frutos do aumento de dízimo e da agilidade da secretaria on-line. Ao final dos 12 meses, decide com total liberdade se renova ou encerra sem ônus.
+
 #### Argumento de Fechamento Financeiro:
-> *"Padre Irineu, se a facilidade do PIX no celular trouxer apenas 4 a 5 novos dizimistas por mês ou recolher as ofertas daqueles que nunca têm dinheiro em espécie na hora da coleta, a plataforma já se paga integralmente e passa a gerar superávit para as obras de caridade e manutenção da nossa Catedral."*
+> *"Padre Irineu, como a Catedral é o nosso Farol e Paróquia Piloto na Diocese, a Start Agência Digital patrocina 100% das mensalidades do primeiro ano (uma economia direta de R$ 5.880). O único investimento da Catedral será a taxa de implantação e capacitação VIP da equipe (R$ 1.200 com parcelamento facilitado), sem amarras nem fidelidade. E com o dízimo PIX facilitado no celular, a paróquia já colherá frutos financeiros e pastorais desde o primeiro mês."*
 
 ---
 
-## 📋 Resumo Executivo para a Reunião (19 Slides em 3 Sessões)
+## 📋 Resumo Executivo para a Reunião (20 Slides em 3 Sessões)
 
 * **Duração Total:** 25 a 30 minutos
   * **00m – 16m (Sessão 01 — Slides 1 a 13):** Estrutura do Portal Digital (Acolhimento, Missas, CEBs, Liturgia, Dízimo, Secretaria, Secretaria On-line com Agendamentos/Inscrições e Atalho PWA no celular).
   * **16m – 20m (Sessão 02 — Slides 14 a 15):** Apresentação do Ecclesiam App (Logo oficial, robustez tecnológica e estrutura já implementada para a Catedral).
-  * **20m – 26m (Sessão 03 — Slides 16 a 18):** Custos, Sustentabilidade Pastoral (Slide 17: O Sistema que se Paga) e Tabela dos 4 Planos com Nomes Bíblicos (Slide 18: Semente, Semeador, Pescador e Videira).
-  * **26m – 30m (Encerramento — Slide 19):** Start Agência Digital, dúvidas, negociação de prazos e bênção do Pe. Irineu.
+  * **20m – 27m (Sessão 03 — Slides 16 a 19):** Custos e Modelo de Negócio:
+    - **Slide 16:** Capa da Sessão 03 (Custos e Manutenção)
+    - **Slide 17:** Investimento Transparente (Estrutura do Projeto: Implantação & Manutenção)
+    - **Slide 18:** Tabela Geral dos 4 Planos do Mercado (Semente, Semeador, Pescador e Videira)
+    - **Slide 19:** Proposta de Aliança (1 Ano Grátis de Assinatura + Taxa Única de Setup R$ 1.200 + Sem Fidelidade)
+  * **27m – 30m (Encerramento — Slide 20):** Start Agência Digital (Fauzer Cruz & Marcella Boeloni Cruz), alinhamento de próximos passos e bênção sacerdotal do Pe. Irineu.

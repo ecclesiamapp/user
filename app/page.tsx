@@ -104,7 +104,7 @@ export default async function ParishPublicPortalPage() {
           </div>
         )}
 
-        {/* 8. Nossas Comunidades & Capelas (12 CEBs da Catedral) */}
+        {/* 8. Nossas Comunidades (12 CEBs da Catedral) */}
         <section id="comunidades" className="space-y-6 pt-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
@@ -112,7 +112,7 @@ export default async function ParishPublicPortalPage() {
                 Vida em Comunidade
               </span>
               <h2 className="font-cinzel text-2xl sm:text-3xl font-bold uppercase tracking-wide text-[#2D1A16] mt-1.5">
-                Nossas <span className="text-[#8B1E22]">12 Comunidades</span> & Capelas
+                Nossas <span className="text-[#8B1E22]">12 Comunidades</span>
               </h2>
             </div>
             <div className="flex flex-col sm:items-end gap-1.5">
@@ -164,7 +164,7 @@ export default async function ParishPublicPortalPage() {
                     href={`/comunidades/${getCommunitySlug(c)}`}
                     className="inline-flex items-center gap-1 text-[#8B1E22] font-bold hover:text-[#721C24] transition-colors"
                   >
-                    <span>Conhecer Capela</span>
+                    <span>Conhecer Comunidade</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Link>
 

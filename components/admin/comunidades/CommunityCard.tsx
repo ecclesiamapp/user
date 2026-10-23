@@ -59,7 +59,7 @@ export function CommunityCard({
             {community.is_headquarters ? (
               <Badge variant="matriz">Igreja Matriz (Sede)</Badge>
             ) : (
-              <Badge variant="ceb">CEB / Capela</Badge>
+              <Badge variant="ceb">Comunidade (CEB)</Badge>
             )}
             <Badge variant={community.is_active ? 'active' : 'inactive'}>
               {community.is_active ? 'Ativa' : 'Inativa'}

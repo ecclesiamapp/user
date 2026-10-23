@@ -173,13 +173,13 @@ export function CommunityCard({ community, schedules = [], onSelectOnMap }: Comm
         )}
       </div>
 
-      {/* Ações do Rodapé do Card: Rotas GPS & Conhecer Capela */}
+      {/* Ações do Rodapé do Card: Rotas GPS & Conhecer Comunidade */}
       <div className="p-4 bg-[var(--dash-bg)]/40 border-t border-[var(--dash-border)] flex items-center justify-between gap-2">
         <Link
           href={`/comunidades/${slug}`}
           className="inline-flex items-center gap-1.5 text-xs font-bold text-[#8B1E22] dark:text-[#FFA82A] hover:opacity-80 transition-opacity min-h-[44px] px-2 rounded-xl"
         >
-          <span>Conhecer Capela</span>
+          <span>Conhecer Comunidade</span>
           <ChevronRight className="w-4 h-4" />
         </Link>
 

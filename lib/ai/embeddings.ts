@@ -315,7 +315,7 @@ export const knowledgeFormatters = {
     feast_day?: string;
     history?: string;
   }): TextChunk {
-    const tipo = community.is_headquarters ? 'Igreja Matriz / Catedral' : 'Comunidade / Capela (CEB)';
+    const tipo = community.is_headquarters ? 'Igreja Matriz / Catedral' : 'Comunidade (CEB)';
 
     const content = [
       `Comunidade: ${community.name} (${tipo})`,
@@ -331,7 +331,7 @@ export const knowledgeFormatters = {
       .join('\n');
 
     return {
-      title: `Comunidade / Capela: ${community.name}`,
+      title: `Comunidade: ${community.name}`,
       content,
       referenceTable: 'communities',
       referenceId: community.id,

@@ -166,7 +166,7 @@ export const fallbackSchedules: MassSchedule[] = [
     time: '08:00',
     type: 'missa',
     location_name: 'Comunidade São Pedro',
-    description: 'Santa Missa Dominical na Capela São Pedro',
+    description: 'Santa Missa Dominical na Comunidade São Pedro',
     is_active: true,
   },
   {

@@ -42,6 +42,13 @@ export interface LiturgicalColorTheme {
   pulseClass: string;
   accentClass: string;
   buttonClass: string;
+  // Acentos Cirúrgicos para as LPs de Comunidades:
+  numberBadgeClass: string;
+  cardBorderClass: string;
+  cardGlowClass: string;
+  heroPillClass: string;
+  dotClass: string;
+  tagClass: string;
 }
 
 export function getLiturgicalColorTheme(colorName: string = 'Verde'): LiturgicalColorTheme {
@@ -57,6 +64,12 @@ export function getLiturgicalColorTheme(colorName: string = 'Verde'): Liturgical
       pulseClass: 'bg-red-400',
       accentClass: 'text-red-400',
       buttonClass: 'border-red-500/30 hover:border-red-500 hover:bg-red-950/20 text-red-300',
+      numberBadgeClass: 'bg-gradient-to-br from-red-800/80 to-red-950/90 border-b border-l border-red-500/60 text-red-200',
+      cardBorderClass: 'border-red-600/30 hover:border-red-500/50',
+      cardGlowClass: 'from-red-500/10 via-transparent to-transparent',
+      heroPillClass: 'bg-red-950/80 border-red-500/40 text-red-200',
+      dotClass: 'bg-red-400 shadow-[0_0_8px_rgba(248,113,113,0.8)]',
+      tagClass: 'text-red-400',
     };
   }
 
@@ -70,6 +83,12 @@ export function getLiturgicalColorTheme(colorName: string = 'Verde'): Liturgical
       pulseClass: 'bg-purple-400',
       accentClass: 'text-purple-400',
       buttonClass: 'border-purple-500/30 hover:border-purple-500 hover:bg-purple-950/20 text-purple-300',
+      numberBadgeClass: 'bg-gradient-to-br from-purple-800/80 to-purple-950/90 border-b border-l border-purple-500/60 text-purple-200',
+      cardBorderClass: 'border-purple-600/30 hover:border-purple-500/50',
+      cardGlowClass: 'from-purple-500/10 via-transparent to-transparent',
+      heroPillClass: 'bg-purple-950/80 border-purple-500/40 text-purple-200',
+      dotClass: 'bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]',
+      tagClass: 'text-purple-400',
     };
   }
 
@@ -83,6 +102,12 @@ export function getLiturgicalColorTheme(colorName: string = 'Verde'): Liturgical
       pulseClass: 'bg-amber-400',
       accentClass: 'text-amber-400',
       buttonClass: 'border-amber-500/30 hover:border-amber-500 hover:bg-amber-950/20 text-amber-200',
+      numberBadgeClass: 'bg-gradient-to-br from-[#9E6E38]/80 to-[#6E4822]/90 border-b border-l border-[#FFA82A]/60 text-[#FFCC36]',
+      cardBorderClass: 'border-[#C8A463]/40 hover:border-[#FFA82A]/60',
+      cardGlowClass: 'from-amber-500/10 via-transparent to-transparent',
+      heroPillClass: 'bg-[#8B1E22] border-[#FFA82A]/40 text-[#FFCC36]',
+      dotClass: 'bg-[#FFA82A] shadow-[0_0_8px_rgba(255,168,42,0.8)]',
+      tagClass: 'text-[#FFA82A]',
     };
   }
 
@@ -96,6 +121,12 @@ export function getLiturgicalColorTheme(colorName: string = 'Verde'): Liturgical
       pulseClass: 'bg-pink-400',
       accentClass: 'text-pink-400',
       buttonClass: 'border-pink-500/30 hover:border-pink-500 hover:bg-pink-950/20 text-pink-300',
+      numberBadgeClass: 'bg-gradient-to-br from-rose-800/80 to-pink-950/90 border-b border-l border-pink-500/60 text-pink-200',
+      cardBorderClass: 'border-pink-600/30 hover:border-pink-500/50',
+      cardGlowClass: 'from-pink-500/10 via-transparent to-transparent',
+      heroPillClass: 'bg-pink-950/80 border-pink-500/40 text-pink-200',
+      dotClass: 'bg-pink-400 shadow-[0_0_8px_rgba(244,114,182,0.8)]',
+      tagClass: 'text-pink-400',
     };
   }
 
@@ -109,6 +140,12 @@ export function getLiturgicalColorTheme(colorName: string = 'Verde'): Liturgical
     pulseClass: 'bg-emerald-400',
     accentClass: 'text-emerald-400',
     buttonClass: 'border-emerald-500/30 hover:border-emerald-500 hover:bg-emerald-950/20 text-emerald-300',
+    numberBadgeClass: 'bg-gradient-to-br from-emerald-800/80 to-emerald-950/90 border-b border-l border-emerald-500/60 text-emerald-200',
+    cardBorderClass: 'border-emerald-600/30 hover:border-emerald-500/50',
+    cardGlowClass: 'from-emerald-500/10 via-transparent to-transparent',
+    heroPillClass: 'bg-emerald-950/80 border-emerald-500/40 text-emerald-300',
+    dotClass: 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]',
+    tagClass: 'text-emerald-400',
   };
 }
 

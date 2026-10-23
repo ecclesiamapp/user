@@ -107,7 +107,7 @@ As inscrições podem ser feitas diretamente pelo módulo de sacramentos do port
     title: 'Sou do Sagrado Missa: Folheto Litúrgico com as Leituras do Domingo',
     subtitle: 'Baixe antecipadamente as leituras bíblicas, orações e cantos dominicais',
     summary:
-      'Disponibilizado o libreto oficial das celebrações dominicais na Catedral e nas 12 capelas. Acompanhe a Liturgia da Palavra pelo celular.',
+      'Disponibilizado o libreto oficial das celebrações dominicais na Catedral e nas 12 comunidades. Acompanhe a Liturgia da Palavra pelo celular.',
     content: `
 Para promover a participação ativa, consciente e frutuosa dos fiéis nas celebrações da Santa Missa, a equipe litúrgica da Catedral do Sagrado Coração de Jesus disponibiliza semanalmente a versão digital do folheto litúrgico **«Sou do Sagrado Missa»**.
 
@@ -166,7 +166,7 @@ Agradecemos a todos os dizimistas e benfeitores que, através do portal **«Sou 
     title: 'Assembleia Paroquial com as 12 Comunidades Rumo à Novena de Natal',
     subtitle: 'Coordenadores de CEBs e lideranças pastorais alinham a grande vigília de fim de ano',
     summary:
-      'Encontro sinodal reuniu representantes de todas as capelas para organizar os círculos bíblicos nos bairros e a Missa da Noite de Natal na Matriz.',
+      'Encontro sinodal reuniu representantes de todas as comunidades para organizar os círculos bíblicos nos bairros e a Missa da Noite de Natal na Matriz.',
     content: `
 Em comunhão com as diretrizes diocesanas emanadas por Dom Lauro Sérgio Versiani Barbosa, a Paróquia da Catedral reuniu os coordenadores e ministros das 12 Comunidades Eclesiais de Base para a Assembleia Pastoral de Planejamento do Tempo do Advento e Natal de 2026.
 

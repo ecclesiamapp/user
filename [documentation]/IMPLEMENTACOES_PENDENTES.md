@@ -198,27 +198,23 @@ Assim como as CEBs, cada movimento contará com um **mini-site próprio com info
 
 ## 📌 11. [Pendência 01] — Definir Escopo das Landing Pages (LPs) das Comunidades
 
-* **Prioridade:** Alta / Expansão Pastoral & Presença Digital das Capelas
-* **Origem:** Solicitação do Desenvolvedor (22/10/2026)
+* **Status:** ✅ **Concluído (100%)** — TASK-41 Finalizada
+* **Documento Oficial de Especificação:** [`[documentation]/planejamento/ESPECIFICACAO_TECNICA_LP_COMUNIDADES.md`](file:///c:/Users/Start/ecclesiam-app/[documentation]/planejamento/ESPECIFICACAO_TECNICA_LP_COMUNIDADES.md)
 * **Rotas Envolvidas:**
   * Diretório Geral: [`app/comunidades/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/comunidades/page.tsx)
   * LP Dinâmica da Capela: [`app/comunidades/[slug]/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/comunidades/%5Bslug%5D/page.tsx)
   * Biblioteca de Dados: [`lib/communities.ts`](file:///c:/Users/Start/ecclesiam-app/lib/communities.ts)
-* **🔍 Análise de Implementação Atual (Diagnóstico do Código):**
-  * **Status Atual:** **Parcialmente Implementado (~60%)**.
-  * **O que JÁ ESTÁ implementado:**
-    1. **Rotas e Renderização Prontas:** Já existem a listagem com busca (`/comunidades`) e as páginas individuais dinâmicas (`/comunidades/[slug]`) para as 12 CEBs da Catedral.
-    2. **Banco de Dados Estruturado:** Tabela `public.communities` com campos `name`, `slug`, `patron_saint`, `is_headquarters`, `address`, `neighborhood`, `city`, `state`, `latitude`, `longitude`, `foundation_year`, `feast_day`, `history`, `image_url` e `is_active`.
-    3. **Navegação GPS:** Botões operacionais com rota direta para Google Maps e Waze baseados nas coordenadas e endereços das 12 comunidades.
-    4. **Horários & Galeria:** Horários de celebrações (`mass_schedules`) e álbuns de fotos (`galleries`) já filtram por `community_id`.
-  * **O que FALTA / Escopo a ser Definido:**
-    1. **Identidade Visual Própria da Comunidade:** Brasão/logo da capela, imagem do padroeiro(a) e paleta/selo temático de destaque.
-    2. **Conselho Pastoral Comunitário (CPC):** Exibição da liderança da comunidade (Coordenador(a), Vice, Tesoureiro, Secretário, Coordenadores de Liturgia, Catequese e Dízimo).
-    3. **Mural de Avisos Específico da Capela:** Feed de comunicados próprios daquela comunidade (ex: ensaios de cantos, reuniões de pais da catequese, mutirões de limpeza).
-    4. **Dízimo & Partilha da Comunidade:** Informação clara de como devolver o dízimo na capela (mensageiros dos setores, dias de plantão do dízimo, envelope e QR Code PIX com identificador da capela).
-    5. **Calendário Litúrgico Local:** Festas de padroeiro, novenas, tríduos e procissões da comunidade com contagem regressiva.
-    6. **Pastorais & Movimentos Ativos na Capela:** Lista com dias e horários de reuniões dos grupos locais (Terço dos Homens, Mãe Peregrina, Apostolado, etc.).
-    7. **SEO Local:** Metadados estruturados (JSON-LD Schema.org `Church` / `PlaceOfWorship`) para indexação no Google de cada capela nos seus respectivos bairros.
+  * Componentes Modulares:
+    * [`components/comunidades/CommunityJsonLd.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityJsonLd.tsx) (Schema.org CatholicChurch)
+    * [`components/comunidades/CommunityCPCSection.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityCPCSection.tsx) (Conselho Pastoral Comunitário)
+    * [`components/comunidades/CommunityNoticesSection.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityNoticesSection.tsx) (Mural de Avisos da Capela)
+    * [`components/comunidades/CommunityDizimoSection.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityDizimoSection.tsx) (Dízimo e Partilha Local)
+    * [`components/comunidades/CommunityPastoralGroupsSection.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityPastoralGroupsSection.tsx) (Pastorais e Círculos)
+* **🔍 Entrega Consolidada:**
+  1. **Especificação Técnica Canônica Aprovada:** 6 seções canônicas mapeadas com diretrizes da Diocese de Colatina e CNBB.
+  2. **Estrutura de Tipos e Mock Enriquecido:** Modelagem `CommunityLeader`, `CommunityNotice` e `CommunityPastoralGroup` integrada em `types/index.ts` e alimentada nas comunidades piloto em `lib/communities.ts`.
+  3. **SEO Estruturado Ativo:** Injeção de dados Schema.org JSON-LD (`CatholicChurch`) para indexação e busca nos bairros.
+  4. **Conformidade Anti-Monólito e Mobile-First:** Subcomponentes desacoplados com touch targets >= 44px e layout responsivo.
 
 ---
 
@@ -309,4 +305,49 @@ Assim como as CEBs, cada movimento contará com um **mini-site próprio com info
        * Limite de batizandos por celebração de batismo e limite de casais por encontro de noivos com travamento automático ao lotar.
     4. **Auditoria Ponta a Ponta de Validações & LGPD:**
        * Testar sanitização de inputs, validação de formato de WhatsApp, proteção de documentos sensíveis anexados e termos de consentimento LGPD.
+
+---
+
+## 📌 15. [Pendências de UX, Acessibilidade & LPs das Comunidades]
+
+* **Prioridade:** Alta / Usabilidade, Inclusão de Fiéis Idosos & Refinamento Litúrgico
+* **Origem:** Solicitação do Desenvolvedor (23/10/2026)
+* **Rotas e Componentes Envolvidos:**
+  * LPs das Comunidades: [`app/comunidades/[slug]/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/comunidades/%5Bslug%5D/page.tsx)
+  * Cards da Grade Bento: [`components/comunidades/`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/)
+    * `CommunityLiturgyCard.tsx` (Card 1)
+    * `CommunityNoticesCard.tsx` (Card 2)
+    * `CommunityCalendarCard.tsx` (Card 3)
+    * `CommunityCPCCard.tsx` (Card 4)
+    * `CommunityLocationCard.tsx` (Card 5)
+  * Acessibilidade & Layout: `app/layout.tsx`, `components/common/FontSizeAdjuster.tsx`, `styles/globals.css`
+  * Header & Faixa Litúrgica: `components/comunidades/CommunityHeader.tsx`, `components/comunidades/CommunityLiturgicalBanner.tsx`
+
+### 📋 Detalhamento dos 4 Itens Registrados:
+
+### 15.1. Todos os Cards da Grade Bento Clicáveis com Modais de Detalhamento
+* **Objetivo:** Transformar todos os 5 cards da Landing Page da comunidade em elementos tátil-interativos. Ao clicar em qualquer card (ou no seu rodapé/ação), abrir um modal solene e acolhedor com a expansão completa das informações:
+  * **Card 1 (Celebrações & Liturgia):** Modal com a grade completa e detalhada de celebrações (Santas Missas dominicais e semanais, Celebrações da Palavra, adoração ao Santíssimo, terço comunitário e leituras litúrgicas do dia).
+  * **Card 2 (Mural de Avisos da Comunidade):** Modal com o comunicado pastoral na íntegra, comunicados dos coordenadores, fotos anexadas e orientações sobre mutirões, festas e retiros.
+  * **Card 3 (Atividades & Calendário):** Modal com cronograma completo de encontros, salas, grupos responsáveis e orientações para novos participantes.
+  * **Card 4 (Conselho Comunitário - CPC):** Expansão do modal já existente para permitir ver todos os conselheiros, funções canônicas, histórico de liderança e canais de contato.
+  * **Card 5 (Como Chegar):** Modal expandido com referências históricas do bairro, linhas de ônibus locais e instruções de acessibilidade/estacionamento.
+* **⏱️ Tempo Estimado de Execução:** ~45 a 60 minutos.
+
+### 15.2. Modo Leitura Confortável / Acessibilidade de Tamanho de Fonte para Idosos
+* **Objetivo:** Adicionar no aplicativo e nas LPs um controle sutil e acessível de redimensionamento da fonte (A- / A / A+) para atender ao público de idosos e fiéis da melhor idade (> 65 anos), sem quebrar a harmonia visual, sem transbordar caixas (*word-wrapping safe*) e sem distorcer o layout Bento:
+  * Escalas balanceadas: Normal (`100%`), Confortável (`110%`) e Ampliado (`120%`), aplicadas via CSS variable ou classes root.
+  * Persistência de preferência no `localStorage` do navegador do fiel.
+  * Compatibilidade total com aparelhos móveis simples (Android/iOS de entrada).
+* **⏱️ Tempo Estimado de Execução:** ~30 a 40 minutos.
+
+### 15.3. Remoção Cirúrgica do Botão de WhatsApp do Card 1
+* **Objetivo:** Remover o botão verde de WhatsApp (`Confirmar Horários`) no rodapé do **Card 1** ([`CommunityLiturgyCard.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityLiturgyCard.tsx)), mantendo a sobriedade canônica do card e a paridade de alinhamento com o Card 2.
+* **⏱️ Tempo Estimado de Execução:** ~10 a 15 minutos.
+
+### 15.4. Faixa Litúrgica Sutil Sub-Menu nas LPs das Comunidades
+* **Objetivo:** Inserir uma faixa horizontal elegante, discreta e solene logo abaixo do menu principal (`CommunityHeader`), exibindo a cor litúrgica do dia e a descrição canônica oficial:
+  * Exemplo: `🟢 Tempo Comum — 29ª Semana do Tempo Comum • Ano B / São Marcos`.
+  * Gradiente fino e harmonioso com a cor canônica ativa (Verde, Roxo, Branco/Dourado, Vermelho), garantindo reverência e contextualização imediata para o fiel.
+* **⏱️ Tempo Estimado de Execução:** ~25 a 35 minutos.
 

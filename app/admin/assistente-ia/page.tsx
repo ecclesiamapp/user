@@ -77,10 +77,10 @@ export default function AdminAiAssistantPage() {
 
               <div className="p-2.5 rounded-xl bg-[var(--dash-bg)] border border-[var(--dash-border)] space-y-1">
                 <span className="font-semibold text-[var(--dash-text-primary)] block">
-                  2. 12 Comunidades e Capelas
+                  2. 12 Comunidades (CEBs)
                 </span>
                 <p>
-                  Informações sobre padroeiros, localização, coordenadores locais e celebrações de cada capela.
+                  Informações sobre padroeiros, localização, coordenadores locais e celebrações de cada comunidade.
                 </p>
               </div>
 

@@ -23,6 +23,45 @@ export interface Parish {
   updated_at?: string;
 }
 
+export interface CommunityLeader {
+  id?: string;
+  name: string;
+  role: string; // ex: "Coordenador(a) do CPC", "Vice-Coordenador(a)", "Tesoureiro(a)", "Secretário(a)", "Coordenador(a) de Liturgia", "Coordenador(a) da Catequese", "Coordenador(a) do Dízimo"
+  phone?: string;
+  email?: string;
+  photo_url?: string;
+  image?: string;
+  bio?: string;
+}
+
+export interface CommunityNotice {
+  id: string;
+  title: string;
+  content: string;
+  date: string;
+  category?: 'aviso' | 'liturgia' | 'formacao' | 'mutirao';
+  priority?: 'normal' | 'alta';
+}
+
+export interface CommunityPastoralGroup {
+  name: string;
+  meeting_day_and_time: string;
+  coordinator_name?: string;
+  description?: string;
+}
+
+export interface CommunityActivity {
+  id: string;
+  title: string;
+  date_label: string; // ex: "25 OUT"
+  day_of_week?: string; // ex: "Quinta-feira"
+  time: string; // ex: "19:30"
+  category?: 'oracao' | 'liturgia' | 'pastoral' | 'formacao' | 'festa';
+  location?: string;
+  responsible_group?: string; // ex: "Terço dos Homens"
+  description?: string;
+}
+
 export interface Community {
   id: string;
   parish_id: string;
@@ -36,6 +75,8 @@ export interface Community {
   latitude?: number;
   longitude?: number;
   image_url?: string;
+  banner_url?: string;
+  patron_image_url?: string;
   contact_name?: string; // Coordenador da comunidade
   contact_phone?: string;
   is_active: boolean;
@@ -43,6 +84,13 @@ export interface Community {
   history?: string;
   foundation_year?: string;
   feast_day?: string;
+  cpc_leaders?: CommunityLeader[];
+  notices?: CommunityNotice[];
+  pastoral_groups?: CommunityPastoralGroup[];
+  activities?: CommunityActivity[];
+  pix_key?: string;
+  pix_key_type?: 'cnpj' | 'email' | 'phone' | 'random';
+  dizimo_info?: string;
   created_at: string;
   updated_at?: string;
 }

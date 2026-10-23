@@ -114,7 +114,7 @@ export default function ComunidadesAdminPage() {
             <Badge variant="active">{communities.length} Comunidades</Badge>
           </div>
           <p className="text-sm text-[var(--dash-text-secondary)] mt-1">
-            Gestão da rede paroquial: histórico, pioneiros, vocação pastoral e contatos das capelas.
+            Gestão da rede paroquial: histórico, pioneiros, vocação pastoral e contatos das comunidades.
           </p>
         </div>
 

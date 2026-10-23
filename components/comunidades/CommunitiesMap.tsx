@@ -80,7 +80,7 @@ export function CommunitiesMap({
           </div>
           <div>
             <h3 className="font-cinzel text-sm sm:text-base font-bold text-[var(--dash-text-primary)]">
-              Mapa Diocesano das 12 Capelas
+              Mapa Diocesano das 12 Comunidades
             </h3>
             <p className="text-[11px] text-[var(--dash-text-muted)]">
               Região Pastoral de Colatina/ES • Vale do Rio Doce
@@ -238,7 +238,7 @@ export function CommunitiesMap({
         </div>
       </div>
 
-      {/* Painel Inferior: Detalhes da Capela Ativa com Botões GPS */}
+      {/* Painel Inferior: Detalhes da Comunidade Ativa com Botões GPS */}
       {activeCommunity && (
         <div className="p-4 sm:p-6 bg-[var(--dash-surface)] border-t border-[var(--dash-border)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
@@ -285,7 +285,7 @@ export function CommunitiesMap({
               href={`/comunidades/${slug}`}
               className="inline-flex items-center gap-1 text-xs font-bold text-[var(--dash-text-primary)] hover:text-[#8B1E22] bg-[var(--dash-bg)] border border-[var(--dash-border)] px-3 py-2.5 rounded-xl transition-all min-h-[44px]"
             >
-              <span>Ver Capela</span>
+              <span>Ver Comunidade</span>
               <ChevronRight className="w-4 h-4" />
             </Link>
           </div>

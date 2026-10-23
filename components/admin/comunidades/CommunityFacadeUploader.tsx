@@ -120,7 +120,7 @@ export function CommunityFacadeUploader({
       <div className="flex items-center justify-between">
         <label className="text-xs font-semibold text-[var(--dash-text-primary)] flex items-center gap-1.5">
           <ImageIcon className="w-3.5 h-3.5 text-amber-500" />
-          <span>Foto Oficial da Fachada da Capela</span>
+          <span>Foto Oficial da Fachada da Comunidade</span>
         </label>
         <button
           type="button"
@@ -220,7 +220,7 @@ export function CommunityFacadeUploader({
             <div className="flex flex-col items-center justify-center py-2 space-y-2">
               <Loader2 className="w-7 h-7 animate-spin text-[var(--primary)]" />
               <p className="text-xs font-semibold text-[var(--dash-text-primary)]">
-                Enviando foto da capela para o Supabase Storage...
+                Enviando foto da comunidade para o Supabase Storage...
               </p>
               <p className="text-[11px] text-[var(--dash-text-secondary)]">
                 Processando imagem em alta resolução
@@ -233,7 +233,7 @@ export function CommunityFacadeUploader({
               </div>
               <div className="space-y-0.5">
                 <p className="text-xs font-bold text-[var(--dash-text-primary)]">
-                  Clique para selecionar ou arraste a foto da capela aqui
+                  Clique para selecionar ou arraste a foto da comunidade aqui
                 </p>
                 <p className="text-[11px] text-[var(--dash-text-secondary)]">
                   Suporta JPG, PNG ou WebP (máximo 10MB). Envio direto para a nuvem.
