@@ -22,10 +22,12 @@ import {
 import { Button } from '@/components/ui';
 
 import { LiturgicalSticker } from './LiturgicalSticker';
+import { AdminCommunitySwitcher } from './AdminCommunitySwitcher';
 
 interface AdminTopBarProps {
   onOpenMobileMenu: () => void;
 }
+
 
 const ROUTE_TITLES: Record<string, { title: string; category: string; icon: React.ElementType }> = {
   '/admin': { title: 'Visão Geral', category: 'Painel Geral', icon: Church },
@@ -78,10 +80,14 @@ export function AdminTopBar({ onOpenMobileMenu }: AdminTopBarProps) {
         </div>
       </div>
 
-      {/* Lado Direito: Ações Rápidas */}
+      {/* Lado Direito: Ações Rápidas & Multi-Comunidades Tenant Switcher */}
       <div className="flex items-center gap-2 sm:gap-3">
+        {/* Seletor de Contexto Multi-Comunidades */}
+        <AdminCommunitySwitcher />
+
         {/* Sticker Litúrgico Solene */}
         <LiturgicalSticker />
+
 
         {/* Atalho para Simular Agendamento do Fiel */}
         <Link

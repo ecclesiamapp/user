@@ -51,7 +51,7 @@ export function CommunityCard({
         </div>
       ) : null}
 
-      <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
         {/* Badges de Identificação e Ações Rápidas */}
 
         <div className="flex items-center justify-between gap-2">
@@ -139,34 +139,58 @@ export function CommunityCard({
               <span>{community.contact_phone}</span>
             </p>
           )}
+
+          {/* Módulos Configurados da LP */}
+          <div className="flex flex-wrap items-center gap-1.5 pt-1.5">
+            {community.banner_url && (
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                Altar Cadastrado
+              </span>
+            )}
+            {Array.isArray(community.cpc_leaders) && community.cpc_leaders.length > 0 && (
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-500 border border-amber-500/20">
+                {community.cpc_leaders.length} CPC
+              </span>
+            )}
+            {Array.isArray(community.notices) && community.notices.length > 0 && (
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-500 border border-blue-500/20">
+                {community.notices.length} Avisos
+              </span>
+            )}
+            {Array.isArray(community.pastoral_groups) && community.pastoral_groups.length > 0 && (
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-500 border border-purple-500/20">
+                {community.pastoral_groups.length} Pastorais
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Rodapé com Navegação para Horários e Minisite */}
-      <div className="pt-3 mt-4 border-t border-[var(--dash-border)] flex items-center justify-between text-xs">
+      <div className="px-5 sm:px-6 py-3 border-t border-[var(--dash-border)] bg-[var(--dash-surface-secondary)]/30 flex items-center justify-between text-xs mt-auto">
         {community.slug ? (
           <Link
             href={`/comunidades/${community.slug}`}
             target="_blank"
-            className="inline-flex items-center gap-1 text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] transition-colors"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-surface-secondary)] transition-all min-h-[36px]"
           >
-            <ExternalLink className="w-3.5 h-3.5" />
+            <ExternalLink className="w-3.5 h-3.5 text-amber-500" />
             <span>Ver Minisite</span>
           </Link>
         ) : (
-          <span className="text-[var(--dash-text-secondary)]/50 text-[11px]">Sem minisite</span>
+          <span className="text-[var(--dash-text-secondary)]/50 text-[11px] px-2.5 py-1.5">Sem minisite</span>
         )}
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1 sm:gap-2">
           <button
             onClick={() => onEdit(community)}
-            className="text-[var(--primary)] hover:underline font-semibold cursor-pointer"
+            className="px-2.5 py-1.5 rounded-lg text-[var(--primary)] hover:bg-[var(--primary)]/10 font-semibold cursor-pointer transition-all min-h-[36px]"
           >
             Editar Conteúdo
           </button>
           <Link
             href={`/admin/horarios?community_id=${community.id}`}
-            className="inline-flex items-center gap-1 text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] font-semibold transition-colors"
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-surface-secondary)] font-semibold transition-all min-h-[36px]"
           >
             <span>Horários</span>
             <ChevronRight className="w-3.5 h-3.5" />

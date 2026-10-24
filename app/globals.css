@@ -144,3 +144,13 @@ body {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
+
+/* Escala de Acessibilidade das Comunidades (TASK-41B) */
+.scale-accessibility-large {
+  font-size: 106%;
+}
+
+.scale-accessibility-xlarge {
+  font-size: 114%;
+}
+

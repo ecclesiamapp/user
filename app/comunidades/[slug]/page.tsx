@@ -10,12 +10,15 @@ import { fallbackCommunities } from '@/lib/communities';
 import { getLiturgicalColorTheme } from '@/lib/liturgy';
 import { CommunityJsonLd } from '@/components/comunidades/CommunityJsonLd';
 import { CommunityHeader } from '@/components/comunidades/CommunityHeader';
+import { CommunityLiturgicalBanner } from '@/components/comunidades/CommunityLiturgicalBanner';
+import { CommunityAccessibilityProvider } from '@/components/comunidades/CommunityAccessibilityContext';
 import { CommunityHero } from '@/components/comunidades/CommunityHero';
 import { CommunityLiturgyCard } from '@/components/comunidades/CommunityLiturgyCard';
 import { CommunityNoticesCard } from '@/components/comunidades/CommunityNoticesCard';
 import { CommunityCalendarCard } from '@/components/comunidades/CommunityCalendarCard';
 import { CommunityCPCCard } from '@/components/comunidades/CommunityCPCCard';
 import { CommunityLocationCard } from '@/components/comunidades/CommunityLocationCard';
+import { CommunityPastoralGroupsSection } from '@/components/comunidades/CommunityPastoralGroupsSection';
 import { CommunityFooter } from '@/components/comunidades/CommunityFooter';
 
 type Props = {
@@ -85,6 +88,8 @@ export default async function CommunityDetailPage({ params }: Props) {
 
   // 5. Obter Cor e Tempo Litúrgico Canônico do Dia
   let liturgicalColorName = 'Verde';
+  let liturgicalTitle = '';
+  let liturgicalDay = '';
   try {
     const liturgyRes = await fetch('https://liturgia.up.railway.app/', {
       next: { revalidate: 3600 },
@@ -95,6 +100,12 @@ export default async function CommunityDetailPage({ params }: Props) {
       if (liturgyData?.cor) {
         liturgicalColorName = liturgyData.cor;
       }
+      if (liturgyData?.liturgia) {
+        liturgicalTitle = liturgyData.liturgia;
+      }
+      if (liturgyData?.dia) {
+        liturgicalDay = liturgyData.dia;
+      }
     }
   } catch (err) {
     // Silently fallback para Verde (Tempo Comum)
@@ -102,12 +113,20 @@ export default async function CommunityDetailPage({ params }: Props) {
   const liturgicalTheme = getLiturgicalColorTheme(liturgicalColorName);
 
   return (
-    <div className="min-h-screen bg-[#F6F2EB] text-[#2D1A16] flex flex-col justify-between selection:bg-[#FFA82A] selection:text-[#2D1A16]">
-      {/* 0. SEO Estruturado Schema.org */}
-      <CommunityJsonLd community={community} parishName={parish?.name} />
+    <CommunityAccessibilityProvider>
+      <div className="min-h-screen bg-[#F6F2EB] text-[#2D1A16] flex flex-col justify-between selection:bg-[#FFA82A] selection:text-[#2D1A16]">
+        {/* 0. SEO Estruturado Schema.org */}
+        <CommunityJsonLd community={community} parishName={parish?.name} />
 
-      {/* 1. Header Minimalista & Exclusivo da Comunidade */}
-      <CommunityHeader community={community} googleMapsUrl={googleMapsUrl} />
+        {/* 1. Header Minimalista & Exclusivo da Comunidade */}
+        <CommunityHeader community={community} googleMapsUrl={googleMapsUrl} />
+
+        {/* 1.1. Faixa Litúrgica Sutil (Cor e Comemoração do Dia - TASK-41B) */}
+        <CommunityLiturgicalBanner
+          liturgicalTheme={liturgicalTheme}
+          celebrationTitle={liturgicalTitle}
+          celebrationDay={liturgicalDay}
+        />
 
       {/* 2. Hero Monumental com Card Flutuante da Próxima Celebração */}
       <CommunityHero
@@ -151,6 +170,16 @@ export default async function CommunityDetailPage({ params }: Props) {
             />
           </div>
         </div>
+
+        {/* Pastorais e Movimentos Vinculados à Comunidade (TASK-42) */}
+        {Array.isArray(community.pastoral_groups) && community.pastoral_groups.length > 0 && (
+          <section id="pastorais" className="mt-12 scroll-mt-24">
+            <CommunityPastoralGroupsSection
+              communityName={community.name}
+              groups={community.pastoral_groups}
+            />
+          </section>
+        )}
 
         {/* Galeria de Fotos da Comunidade (Se houver álbuns) */}
         {galleries.length > 0 && (
@@ -238,6 +267,7 @@ export default async function CommunityDetailPage({ params }: Props) {
         parishName={parish?.name}
         dioceseName={parish?.diocese}
       />
-    </div>
+      </div>
+    </CommunityAccessibilityProvider>
   );
 }

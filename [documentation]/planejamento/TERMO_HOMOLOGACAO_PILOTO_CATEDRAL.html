@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Termo de Homologação e Parceria Piloto — Catedral de Colatina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --crimson: #7C1D26;
+      --gold: #B8860B;
+      --gold-light: #F9F4E8;
+      --ink: #1E1E1E;
+      --muted: #555555;
+      --border: #D6CFC2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #EAE6DF;
+      color: var(--ink);
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 10.5pt;
+      line-height: 1.65;
+      padding: 32px 16px;
+    }
+
+    .toolbar {
+      max-width: 210mm;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1E1E1E;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .toolbar span {
+      font-size: 13px;
+      color: #D6CFC2;
+    }
+
+    .btn-print {
+      background: var(--crimson);
+      color: #fff;
+      border: 1px solid #9E2A35;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-print:hover {
+      background: #96232E;
+    }
+
+    .page-container {
+      max-width: 210mm;
+      margin: 0 auto;
+      background: #FFFFFF;
+      padding: 20mm 20mm 22mm 20mm;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.1);
+      border-top: 6px solid var(--crimson);
+    }
+
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 16px;
+      margin-bottom: 22px;
+    }
+
+    .doc-header-left h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 14pt;
+      color: var(--crimson);
+      letter-spacing: 0.5px;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .doc-header-left p {
+      font-family: 'Inter', sans-serif;
+      font-size: 8.5pt;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+    }
+
+    .doc-header-logo img {
+      max-height: 46px;
+      width: auto;
+    }
+
+    .doc-badge {
+      background: var(--gold-light);
+      border-left: 4px solid var(--gold);
+      padding: 10px 14px;
+      margin-bottom: 22px;
+      font-family: 'Inter', sans-serif;
+      font-size: 9pt;
+      color: #3B311E;
+    }
+
+    .doc-badge strong {
+      color: var(--crimson);
+    }
+
+    h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 10.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--crimson);
+      border-bottom: 1px solid #E5E0D5;
+      padding-bottom: 5px;
+      margin-top: 22px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      text-align: justify;
+    }
+
+    .party-box {
+      background: #FAF8F5;
+      border: 1px solid #E6E1D6;
+      border-radius: 6px;
+      padding: 12px 15px;
+      margin-bottom: 12px;
+      font-size: 9.8pt;
+    }
+
+    .party-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: var(--crimson);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    ul, ol {
+      margin: 8px 0 12px 22px;
+    }
+
+    li {
+      margin-bottom: 6px;
+      text-align: justify;
+    }
+
+    .highlight-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 9pt;
+    }
+
+    .highlight-table th {
+      background: var(--crimson);
+      color: #FFFFFF;
+      text-align: left;
+      padding: 8px 12px;
+      font-weight: 600;
+    }
+
+    .highlight-table td {
+      padding: 8px 12px;
+      border: 1px solid #E0DAD0;
+    }
+
+    .highlight-table tr:nth-child(even) td {
+      background: #FAF8F5;
+    }
+
+    .bonus-callout {
+      background: #F4F9F5;
+      border: 1px solid #B7DEC0;
+      border-left: 5px solid #2E7D32;
+      padding: 12px 15px;
+      border-radius: 4px;
+      margin: 14px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 9.2pt;
+    }
+
+    .bonus-callout strong {
+      color: #1B5E20;
+    }
+
+    .signatures {
+      margin-top: 38px;
+      page-break-inside: avoid;
+    }
+
+    .sig-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px 28px;
+      margin-top: 28px;
+    }
+
+    .sig-block {
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 9pt;
+    }
+
+    .sig-line {
+      border-top: 1px solid #333;
+      margin-bottom: 6px;
+      padding-top: 6px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .sig-role {
+      font-size: 8.2pt;
+      color: var(--muted);
+    }
+
+    .sig-full {
+      grid-column: 1 / -1;
+      max-width: 75%;
+      margin: 10px auto 0 auto;
+      width: 100%;
+    }
+
+    .doc-footer {
+      margin-top: 32px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Inter', sans-serif;
+      font-size: 7.8pt;
+      color: var(--muted);
+    }
+
+    @media print {
+      body {
+        background: #FFFFFF;
+        padding: 0;
+      }
+      .toolbar {
+        display: none !important;
+      }
+      .page-container {
+        box-shadow: none;
+        border-top: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      @page {
+        size: A4;
+        margin: 18mm 18mm 18mm 18mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <span>📄 <strong>Termo de Homologação e Parceria Piloto (1º Ano Gratuito)</strong> — Catedral de Colatina</span>
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Salvar como PDF</button>
+  </div>
+
+  <div class="page-container">
+    <header class="doc-header">
+      <div class="doc-header-left">
+        <h1>TERMO DE HOMOLOGAÇÃO DE PROJETO PILOTO E PARCERIA DIGITAL PAROQUIAL</h1>
+        <p>Instrumento de Bonificação de 1º Ano (12 Meses) &bull; Apoio Administrativo e Edição de Cadastros</p>
+      </div>
+      <div class="doc-header-logo">
+        <img src="logo_start_agencia.png" alt="Start Agência Digital" onerror="this.style.display='none'" />
+      </div>
+    </header>
+
+    <div class="doc-badge">
+      <strong>RESUMO EXECUTIVO DESTE INSTRUMENTO:</strong> Formaliza a entrega e homologação do portal digital da <strong>Catedral de Colatina</strong> na condição de <strong>Paróquia Piloto Oficial</strong>, garantindo <strong>100% de isenção financeira durante todo o 1º Ano (12 meses)</strong> para testes, calibragem e validação operacional.
+    </div>
+
+    <h2>1. Qualificação das Partes</h2>
+
+    <div class="party-box">
+      <div class="party-title">Contratante (Paróquia Piloto):</div>
+      <p style="margin-bottom:0;">
+        <strong>PARÓQUIA SAGRADO CORAÇÃO DE JESUS — CATEDRAL DE COLATINA</strong>, pessoa jurídica de direito privado eclesiástico vinculada à <strong>Mitra Diocesana de Colatina</strong>, com sede na Rua Santa Maria, nº 47, Centro, Colatina – ES, CEP 29700-200, neste ato representada por seu Pároco, <strong>REVMO. PE. IRINEU CLAUDINO SALES</strong>, assistido pelos Vigários Paroquiais e com a anuência do <strong>Conselho Paroquial de Assuntos Econômicos (CAEP)</strong>.
+      </p>
+    </div>
+
+    <div class="party-box">
+      <div class="party-title">Contratada (Prestadora e Mantenedora):</div>
+      <p style="margin-bottom:0;">
+        <strong>MARCELLA A. BOELONI R. CRUZ</strong>, empresária individual (nome fantasia <strong>START AGÊNCIA DIGITAL</strong>), pessoa jurídica de direito privado inscrita no <strong>CNPJ/MF sob o nº 11.270.587/0001-75</strong> (ativa desde 29/10/2009), com sede no Bairro Residencial Nobre, Colatina – ES, CEP 29708-260, habilitada nas atividades de <em>Edição de cadastros, listas e outros produtos gráficos (CNAE 5819-1/00)</em> e <em>Preparação de documentos e serviços especializados de apoio administrativo (CNAE 8219-9/99)</em>, neste ato representada por sua titular <strong>MARCELLA A. BOELONI R. CRUZ</strong> e por seu diretor técnico <strong>FAUZER CRUZ</strong>.
+      </p>
+    </div>
+
+    <h2>2. Cláusula Primeira — Do Objeto e Enquadramento</h2>
+    <p>
+      <strong>1.1.</strong> O presente instrumento tem por objeto a <strong>prestação de serviços especializados de apoio administrativo digital, organização e edição de cadastros comunitários, listas de horários de celebrações, folhetos informativos e suporte operacional à secretaria paroquial</strong> (enquadrados nos CNAEs <code>5819-1/00</code>, <code>8219-9/99</code>, <code>5812-3/02</code> e <code>7420-0/01</code>), mediante a cessão de uso sem custos extras do ecossistema web paroquial desenvolvido sob medida para a Catedral de Colatina.
+    </p>
+    <p>
+      <strong>1.2.</strong> Constitui igualmente objeto deste Termo a realização do <strong>Ciclo Piloto de 12 (doze) meses</strong>, período em que a CONTRATADA fará o acompanhamento técnico assistido, calibragem de ferramentas junto à secretaria e aprimoramento contínuo da plataforma a partir do uso real na Catedral.
+    </p>
+
+    <h2>3. Cláusula Segunda — Das Estruturas e Serviços Entregues</h2>
+    <ol>
+      <li><strong>Portal Institucional da Catedral (Padrão White-Label):</strong> Interface solene com identidade visual exclusiva do Sagrado Coração de Jesus e alta legibilidade para idosos.</li>
+      <li><strong>Grade Litúrgica, Horários de Missas e Escala do Clero:</strong> Divulgação atualizada das celebrações da semana, horários de confissões, expediente da secretaria e perfil dos sacerdotes.</li>
+      <li><strong>Páginas Dedicadas das Comunidades e Capelas (CEBs):</strong> Subpáginas individuais (<code>/comunidades/[slug]</code>) com fotos das fachadas, histórico dos padroeiros, horários locais e rota por GPS (Google Maps e Waze).</li>
+      <li><strong>Apoio à Arrecadação do Dízimo («Sou do Sagrado») via PIX:</strong> Canal de conscientização do dizimista com botão <em>"PIX Copia e Cola"</em> direcionado <strong>100% para a conta bancária oficial da Paróquia/Mitra</strong>, sem qualquer intermediação ou retenção de taxas pela CONTRATADA.</li>
+      <li><strong>Edição Digital dos Folhetos Litúrgicos («Sou do Sagrado Missa»):</strong> Disponibilização semanal dos folhetos em PDF no celular dos fiéis, além de Mural de Notícias da PASCOM, Palavra do Pároco/Bispo e Memória Histórica Paroquial.</li>
+      <li><strong>Secretaria On-line e Triagem de Atendimento:</strong> Canal ágil de solicitações de Intenções de Missa, agendamentos e orientações para Batismo, Crisma e Matrimônio via WhatsApp.</li>
+    </ol>
+
+    <h2>4. Cláusula Terceira — Da Bonificação Integral do 1º Ano (Paróquia Piloto)</h2>
+    <p>
+      <strong>3.1.</strong> Em reconhecimento à parceria institucional em que a Catedral de Colatina atua como <strong>Paróquia Piloto Oficial e Vitrine Pastoral</strong> para testes e calibragem da plataforma, a CONTRATADA concede à CONTRATANTE a <strong>ISENÇÃO DE 100% (GRATUIDADE INTEGRAL) durante todo o 1º Ano (12 meses)</strong>:
+    </p>
+
+    <table class="highlight-table">
+      <thead>
+        <tr>
+          <th>Item / Rubrica do Plano Pescador (Tier Catedral)</th>
+          <th>Valor de Tabela</th>
+          <th>Condição Paróquia Piloto (1º Ano)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Taxa de Implantação, Cadastro das CEBs, Levantamento Fotográfico e Treinamento</td>
+          <td>R$ 1.200,00</td>
+          <td><strong>R$ 0,00 (100% Bonificado)</strong></td>
+        </tr>
+        <tr>
+          <td>12 Mensalidades de Apoio Digital, Manutenção e Hospedagem (12 x R$ 390,00)</td>
+          <td>R$ 4.680,00</td>
+          <td><strong>R$ 0,00 (100% Bonificado)</strong></td>
+        </tr>
+        <tr>
+          <td><strong>TOTAL INVESTIDO PELA CATEDRAL NOS PRIMEIROS 12 MESES</strong></td>
+          <td><s>R$ 5.880,00</s></td>
+          <td><strong>R$ 0,00 (ISENTO NO 1º ANO)</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bonus-callout">
+      <strong>✔ Contrapartida Institucional Amigável da Paróquia Piloto:</strong> Como contrapartida não-financeira pela bolsa integral de R$ 5.880,00 no primeiro ano, a Catedral concorda em utilizar ativamente o portal na rotina da secretaria, fornecer feedbacks operacionais para aprimoramento da ferramenta e autorizar a citação da <strong>Catedral de Colatina como Caso de Sucesso e Paróquia Pioneira</strong> perante outras paróquias e dioceses.
+    </div>
+
+    <p>
+      <strong>3.2. Condições após o 12º Mês (2º Ano em diante):</strong> Encerrado o ciclo gratuito de 12 (doze) meses do Ano Piloto, caso a Catedral deseje prosseguir com os serviços, passará a vigorar a mensalidade especial subsidiada de Paróquia Pioneira no valor de <strong>R$ 390,00/mês</strong>, faturada mediante Boleto/PIX acompanhado de Nota Fiscal (NFS-e emitida pelo CNPJ <code>11.270.587/0001-75</code> — CNAEs <code>8219-9/99</code> e <code>5819-1/00</code>). Caso opte por não renovar após o 1º ano, o termo se encerra sem qualquer custo, multa ou obrigação financeira.
+    </p>
+
+    <h2>5. Cláusula Quarta — Suporte, Propriedade dos Dados, LGPD e Vigência</h2>
+    <p>
+      <strong>4.1. Suporte e Treinamento:</strong> A CONTRATADA assegura treinamento à equipe da secretaria e suporte via WhatsApp de segunda a sexta-feira (08h às 18h), além de plantão especial em grandes solenidades litúrgicas.
+    </p>
+    <p>
+      <strong>4.2. Propriedade Exclusiva e LGPD:</strong> Todo o acervo histórico, fotos e cadastros pertencem exclusivamente à <strong>Catedral de Colatina</strong>, cumprindo a CONTRATADA rigorosamente a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
+    </p>
+    <p>
+      <strong>4.3. Vigência e Liberdade de Rescisão:</strong> O presente Termo vigora pelo período inicial de <strong>12 (doze) meses</strong> a contar do lançamento oficial do portal, podendo ser encerrado por qualquer das partes a qualquer momento, sem multa, mediante simples aviso prévio de 30 (trinta) dias. Fica eleito o foro da Comarca de Colatina – ES.
+    </p>
+
+    <div class="signatures">
+      <p style="text-align:center; margin-bottom: 10px;">
+        Colatina – ES, _____ de _________________________ de 2026.
+      </p>
+
+      <div class="sig-grid">
+        <div class="sig-block">
+          <div class="sig-line">REVMO. PE. IRINEU CLAUDINO SALES</div>
+          <div class="sig-role">Pároco — Catedral do Sagrado Coração de Jesus<br/>Contratante (Paróquia Piloto)</div>
+        </div>
+
+        <div class="sig-block">
+          <div class="sig-line">REPRESENTANTE DO CAEP</div>
+          <div class="sig-role">Conselho Paroquial de Assuntos Econômicos<br/>Catedral de Colatina</div>
+        </div>
+
+        <div class="sig-block sig-full">
+          <div class="sig-line">MARCELLA A. BOELONI R. CRUZ &amp; FAUZER CRUZ</div>
+          <div class="sig-role">Start Agência Digital — CNPJ 11.270.587/0001-75<br/>Contratada (Prestadora e Mantenedora)</div>
+        </div>
+
+        <div class="sig-block">
+          <div class="sig-line">TESTEMUNHA 01</div>
+          <div class="sig-role">Nome / CPF: _______________________________</div>
+        </div>
+
+        <div class="sig-block">
+          <div class="sig-line">TESTEMUNHA 02</div>
+          <div class="sig-role">Nome / CPF: _______________________________</div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="doc-footer">
+      <span>Start Agência Digital &bull; CNPJ 11.270.587/0001-75 (Ativo desde 2009)</span>
+      <span>CNAEs: 5819-1/00 &bull; 8219-9/99 &bull; Colatina/ES</span>
+    </footer>
+  </div>
+
+</body>
+</html>

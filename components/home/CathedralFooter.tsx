@@ -137,6 +137,11 @@ export function CathedralFooter({
                 </a>
               </li>
               <li>
+                <Link href="/privacidade" className="text-[#C8A463] hover:text-white transition-colors">
+                  Privacidade & Proteção de Dados (LGPD)
+                </Link>
+              </li>
+              <li>
                 <Link href="/admin" className="text-[#7A7570] hover:text-[#A39E98] transition-colors">
                   Área Administrativa da Paróquia
                 </Link>
@@ -148,7 +153,13 @@ export function CathedralFooter({
         {/* Rodapé Inferior 100% White-Label */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#7A7570]">
           <p>© {new Date().getFullYear()} {parishName} • {dioceseName}. Todos os direitos reservados.</p>
-          <p className="text-[11px]">Plataforma Paroquial Oficial</p>
+          <div className="flex items-center gap-4 text-[11px]">
+            <Link href="/privacidade" className="hover:text-[#C8A463] transition-colors underline">
+              Política de Privacidade & LGPD
+            </Link>
+            <span>•</span>
+            <p>Plataforma Paroquial Oficial</p>
+          </div>
         </div>
       </div>
     </footer>

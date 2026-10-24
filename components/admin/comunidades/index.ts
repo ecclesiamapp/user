@@ -1,4 +1,10 @@
 export * from './CommunityCard';
 export * from './CommunityFormModal';
 export * from './CommunityFacadeUploader';
-
+export * from './CommunityGeneralTab';
+export * from './CommunityCpcTab';
+export * from './CommunityNoticesTab';
+export * from './CommunityPastoralsTab';
+export * from './CommunityHistoryTab';
+export * from './CommunityLocationTab';
+export * from './CommunityPastoralNoticeBanner';

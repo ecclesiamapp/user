@@ -463,4 +463,47 @@ export interface ParishSacredHeritage {
   updated_at?: string;
 }
 
+export type UserRole = 'paroco' | 'vigario' | 'secretaria' | 'pascom' | 'coordenador_ceb';
+export type UserStatus = 'pendente' | 'ativo' | 'bloqueado';
+
+export type AllowedCommunityModule = 
+  | 'all'
+  | 'lp_geral'
+  | 'cpc'
+  | 'avisos'
+  | 'pastorais'
+  | 'horarios'
+  | 'dizimo'
+  | 'galerias';
+
+export interface UserProfile {
+  id: string;
+  user_id?: string | null;
+  name: string;
+  email: string;
+  phone?: string | null;
+  role: UserRole;
+  community_id?: string | null;
+  status: UserStatus;
+  allowed_modules: AllowedCommunityModule[] | string[];
+  created_at?: string;
+  updated_at?: string;
+  community_name?: string | null;
+}
+
+export interface CommunityActivityLog {
+  id: string;
+  community_id: string;
+  user_id?: string | null;
+  author_name: string;
+  author_role: 'paroquia' | 'coordenador';
+  action_type: string;
+  pastoral_note?: string | null;
+  changes_summary?: string | null;
+  is_read_by_community: boolean;
+  created_at: string;
+  community_name?: string | null;
+}
+
+
 

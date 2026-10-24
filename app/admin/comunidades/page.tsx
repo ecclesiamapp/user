@@ -5,7 +5,8 @@ import { Plus, RefreshCw, Search, CheckCircle2 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import { Community } from '@/types';
 import { Button, Card, Badge, Input } from '@/components/ui';
-import { CommunityCard, CommunityFormModal } from '@/components/admin/comunidades';
+import { CommunityCard, CommunityFormModal, CommunityPastoralNoticeBanner } from '@/components/admin/comunidades';
+
 
 export default function ComunidadesAdminPage() {
   const [communities, setCommunities] = useState<Community[]>([]);
@@ -132,6 +133,9 @@ export default function ComunidadesAdminPage() {
         </div>
       </div>
 
+      {/* Banner de Notas Pastorais da Matriz para a Comunidade Selecionada */}
+      <CommunityPastoralNoticeBanner />
+
       {/* Alerta de Feedback Temporário */}
       {feedbackMsg && (
         <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 flex items-center gap-2 animate-in fade-in duration-300">
@@ -139,6 +143,7 @@ export default function ComunidadesAdminPage() {
           <span>{feedbackMsg}</span>
         </div>
       )}
+
 
       {/* Barra de Filtro e Busca */}
       <div className="flex items-center gap-3">

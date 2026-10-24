@@ -4,21 +4,25 @@ import React, { useState, useEffect } from 'react';
 import {
   X,
   Church,
+  Users,
+  Bell,
+  HeartHandshake,
   BookOpen,
   MapPin,
-  User,
   Sparkles,
   Loader2,
-  Calendar,
-  Image as ImageIcon,
-  CheckCircle2,
   AlertCircle
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
-import { Community } from '@/types';
-import { Button, Input } from '@/components/ui';
-import { CommunityFacadeUploader } from './CommunityFacadeUploader';
+import { Community, CommunityLeader, CommunityNotice, CommunityPastoralGroup } from '@/types';
+import { Button } from '@/components/ui';
 
+import { CommunityGeneralTab } from './CommunityGeneralTab';
+import { CommunityCpcTab } from './CommunityCpcTab';
+import { CommunityNoticesTab } from './CommunityNoticesTab';
+import { CommunityPastoralsTab } from './CommunityPastoralsTab';
+import { CommunityHistoryTab } from './CommunityHistoryTab';
+import { CommunityLocationTab } from './CommunityLocationTab';
 
 interface CommunityFormModalProps {
   isOpen: boolean;
@@ -28,6 +32,8 @@ interface CommunityFormModalProps {
   parishId: string;
 }
 
+type TabType = 'geral' | 'cpc' | 'avisos' | 'pastorais' | 'historia' | 'localizacao';
+
 export function CommunityFormModal({
   isOpen,
   onClose,
@@ -35,16 +41,22 @@ export function CommunityFormModal({
   communityToEdit,
   parishId,
 }: CommunityFormModalProps) {
-  // Aba ativa: 'geral' | 'historia' | 'localizacao'
-  const [activeTab, setActiveTab] = useState<'geral' | 'historia' | 'localizacao'>('geral');
+  const [activeTab, setActiveTab] = useState<TabType>('geral');
 
-  // Campos do formulário
+  // Estados dos campos
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
   const [patronSaint, setPatronSaint] = useState('');
   const [isHeadquarters, setIsHeadquarters] = useState(false);
   const [isActive, setIsActive] = useState(true);
   const [imageUrl, setImageUrl] = useState('');
+  const [bannerUrl, setBannerUrl] = useState('');
+  const [patronImageUrl, setPatronImageUrl] = useState('');
+
+  // Coleções estruturadas
+  const [cpcLeaders, setCpcLeaders] = useState<CommunityLeader[]>([]);
+  const [notices, setNotices] = useState<CommunityNotice[]>([]);
+  const [pastoralGroups, setPastoralGroups] = useState<CommunityPastoralGroup[]>([]);
 
   // História & Vocação
   const [history, setHistory] = useState('');
@@ -59,13 +71,17 @@ export function CommunityFormModal({
   const [contactName, setContactName] = useState('');
   const [contactPhone, setContactPhone] = useState('');
 
+  // Dízimo & PIX
+  const [pixKey, setPixKey] = useState('');
+  const [pixKeyType, setPixKeyType] = useState('cnpj');
+  const [dizimoInfo, setDizimoInfo] = useState('');
+
   // Estados de controle
   const [saving, setSaving] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const supabase = createClient();
 
-  // Helper para gerar slug automático
   const generateSlug = (val: string) => {
     return val
       .toLowerCase()
@@ -83,15 +99,27 @@ export function CommunityFormModal({
       setIsHeadquarters(Boolean(communityToEdit.is_headquarters));
       setIsActive(communityToEdit.is_active ?? true);
       setImageUrl(communityToEdit.image_url || '');
+      setBannerUrl(communityToEdit.banner_url || '');
+      setPatronImageUrl(communityToEdit.patron_image_url || '');
+
+      setCpcLeaders(Array.isArray(communityToEdit.cpc_leaders) ? communityToEdit.cpc_leaders : []);
+      setNotices(Array.isArray(communityToEdit.notices) ? communityToEdit.notices : []);
+      setPastoralGroups(Array.isArray(communityToEdit.pastoral_groups) ? communityToEdit.pastoral_groups : []);
+
       setHistory(communityToEdit.history || '');
       setFoundationYear(communityToEdit.foundation_year || '');
       setFeastDay(communityToEdit.feast_day || '');
+
       setAddress(communityToEdit.address || '');
       setNeighborhood(communityToEdit.neighborhood || '');
       setCity(communityToEdit.city || 'Colatina');
       setState(communityToEdit.state || 'ES');
       setContactName(communityToEdit.contact_name || '');
       setContactPhone(communityToEdit.contact_phone || '');
+
+      setPixKey(communityToEdit.pix_key || '');
+      setPixKeyType(communityToEdit.pix_key_type || 'cnpj');
+      setDizimoInfo(communityToEdit.dizimo_info || '');
     } else {
       setName('');
       setSlug('');
@@ -99,15 +127,27 @@ export function CommunityFormModal({
       setIsHeadquarters(false);
       setIsActive(true);
       setImageUrl('');
+      setBannerUrl('');
+      setPatronImageUrl('');
+
+      setCpcLeaders([]);
+      setNotices([]);
+      setPastoralGroups([]);
+
       setHistory('');
       setFoundationYear('');
       setFeastDay('');
+
       setAddress('');
       setNeighborhood('');
       setCity('Colatina');
       setState('ES');
       setContactName('');
       setContactPhone('');
+
+      setPixKey('');
+      setPixKeyType('cnpj');
+      setDizimoInfo('');
     }
     setErrorMsg(null);
     setActiveTab('geral');
@@ -140,6 +180,11 @@ export function CommunityFormModal({
         is_headquarters: isHeadquarters,
         is_active: isActive,
         image_url: imageUrl.trim() || null,
+        banner_url: bannerUrl.trim() || null,
+        patron_image_url: patronImageUrl.trim() || null,
+        cpc_leaders: cpcLeaders,
+        notices: notices,
+        pastoral_groups: pastoralGroups,
         history: history.trim() || null,
         foundation_year: foundationYear.trim() || null,
         feast_day: feastDay.trim() || null,
@@ -149,6 +194,9 @@ export function CommunityFormModal({
         state: state.trim() || 'ES',
         contact_name: contactName.trim() || null,
         contact_phone: contactPhone.trim() || null,
+        pix_key: pixKey.trim() || null,
+        pix_key_type: pixKeyType,
+        dizimo_info: dizimoInfo.trim() || null,
       };
 
       if (communityToEdit) {
@@ -158,7 +206,7 @@ export function CommunityFormModal({
           .eq('id', communityToEdit.id);
 
         if (error) throw error;
-        onSuccess('Comunidade atualizada com sucesso!');
+        onSuccess('Comunidade e landing page atualizadas com sucesso!');
       } else {
         const { error } = await supabase.from('communities').insert([payload]);
         if (error) throw error;
@@ -176,78 +224,71 @@ export function CommunityFormModal({
 
   if (!isOpen) return null;
 
+  const tabs: { id: TabType; label: string; icon: React.ReactNode; badge?: number }[] = [
+    { id: 'geral', label: 'Geral & Fotos', icon: <Church className="w-3.5 h-3.5" /> },
+    { id: 'cpc', label: 'Líderes CPC', icon: <Users className="w-3.5 h-3.5" />, badge: cpcLeaders.length },
+    { id: 'avisos', label: 'Mural de Avisos', icon: <Bell className="w-3.5 h-3.5" />, badge: notices.length },
+    { id: 'pastorais', label: 'Pastorais & Grupos', icon: <HeartHandshake className="w-3.5 h-3.5" />, badge: pastoralGroups.length },
+    { id: 'historia', label: 'História & Padroeiro', icon: <BookOpen className="w-3.5 h-3.5" /> },
+    { id: 'localizacao', label: 'Localização & Dízimo', icon: <MapPin className="w-3.5 h-3.5" /> },
+  ];
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-      <div className="relative w-full max-w-2xl bg-[var(--dash-surface)] border border-[var(--dash-border)] rounded-2xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200">
+      <div className="relative w-full max-w-3xl bg-[var(--dash-surface)] border border-[var(--dash-border)] rounded-3xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-[var(--dash-text-primary)]">
         {/* Topo do Modal */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--dash-border)] bg-[var(--dash-surface-secondary)]/50">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-amber-500/10 text-amber-500">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--dash-border)] bg-[var(--dash-surface-secondary)]/50 shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-500">
               <Church className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-base font-bold text-[var(--dash-text-primary)]">
-                {communityToEdit ? 'Editar Comunidade (CEB)' : 'Nova Comunidade (CEB)'}
+                {communityToEdit ? `Editar LP: ${communityToEdit.name}` : 'Nova Comunidade (CEB)'}
               </h2>
               <p className="text-xs text-[var(--dash-text-secondary)]">
-                {communityToEdit
-                  ? `Gerenciando dados e vocação pastoral de ${communityToEdit.name}`
-                  : 'Integre uma nova comunidade ou setor à rede paroquial.'}
+                Dashboard de gestão da landing page pública e vida comunitária.
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-border)] transition-colors cursor-pointer"
+            className="p-2 rounded-xl text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-border)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+            aria-label="Fechar modal"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Abas de Navegação */}
-        <div className="flex border-b border-[var(--dash-border)] px-6 pt-2 bg-[var(--dash-surface)] text-xs font-semibold gap-2">
-          <button
-            type="button"
-            onClick={() => setActiveTab('geral')}
-            className={`pb-2.5 px-3 border-b-2 flex items-center gap-1.5 cursor-pointer transition-colors ${
-              activeTab === 'geral'
-                ? 'border-[var(--primary)] text-[var(--primary)]'
-                : 'border-transparent text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)]'
-            }`}
-          >
-            <Church className="w-3.5 h-3.5" />
-            <span>Dados Gerais</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('historia')}
-            className={`pb-2.5 px-3 border-b-2 flex items-center gap-1.5 cursor-pointer transition-colors ${
-              activeTab === 'historia'
-                ? 'border-[var(--primary)] text-[var(--primary)]'
-                : 'border-transparent text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)]'
-            }`}
-          >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>História & Vocação</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('localizacao')}
-            className={`pb-2.5 px-3 border-b-2 flex items-center gap-1.5 cursor-pointer transition-colors ${
-              activeTab === 'localizacao'
-                ? 'border-[var(--primary)] text-[var(--primary)]'
-                : 'border-transparent text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)]'
-            }`}
-          >
-            <MapPin className="w-3.5 h-3.5" />
-            <span>Localização & Contato</span>
-          </button>
+        {/* Abas de Navegação (Scroll horizontal no mobile) */}
+        <div className="flex overflow-x-auto border-b border-[var(--dash-border)] px-4 sm:px-6 pt-2 bg-[var(--dash-surface)] text-xs font-semibold gap-1 shrink-0 no-scrollbar">
+          {tabs.map((t) => {
+            const isActive = activeTab === t.id;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => setActiveTab(t.id)}
+                className={`pb-2.5 px-3 border-b-2 flex items-center gap-1.5 cursor-pointer transition-colors whitespace-nowrap min-h-[42px] ${
+                  isActive
+                    ? 'border-[var(--primary)] text-[var(--primary)] font-bold'
+                    : 'border-transparent text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)]'
+                }`}
+              >
+                {t.icon}
+                <span>{t.label}</span>
+                {typeof t.badge === 'number' && t.badge > 0 && (
+                  <span className="px-1.5 py-0.2 rounded-full bg-amber-500/15 text-amber-500 text-[10px] font-bold">
+                    {t.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
 
         {/* Corpo do Formulário com Scroll */}
-        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-4">
           {errorMsg && (
             <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-xs text-red-400 flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
@@ -255,171 +296,79 @@ export function CommunityFormModal({
             </div>
           )}
 
-          {/* ABA 1: DADOS GERAIS */}
           {activeTab === 'geral' && (
-            <div className="space-y-4">
-              <Input
-                label="Nome da Comunidade *"
-                required
-                value={name}
-                onChange={(e) => handleNameChange(e.target.value)}
-                placeholder="Ex: Comunidade São José Operário"
-              />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input
-                  label="Santo(a) Padroeiro(a)"
-                  value={patronSaint}
-                  onChange={(e) => setPatronSaint(e.target.value)}
-                  placeholder="Ex: São José"
-                />
-
-                <Input
-                  label="Identificador do Minisite (Slug URL)"
-                  value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
-                  placeholder="ex: sao-jose-operario"
-                />
-              </div>
-
-              <CommunityFacadeUploader
-                value={imageUrl}
-                onChange={setImageUrl}
-                communitySlug={slug}
-                communityName={name}
-              />
-
-
-              <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)]">
-                <div className="flex items-center gap-2.5">
-                  <input
-                    type="checkbox"
-                    id="is_headquarters"
-                    checked={isHeadquarters}
-                    onChange={(e) => setIsHeadquarters(e.target.checked)}
-                    className="w-4 h-4 rounded-md text-[var(--primary)] border-[var(--dash-border)] focus:ring-[var(--primary)] cursor-pointer"
-                  />
-                  <label
-                    htmlFor="is_headquarters"
-                    className="text-xs font-semibold text-[var(--dash-text-primary)] cursor-pointer select-none"
-                  >
-                    Esta comunidade é a Igreja Matriz (Sede Paroquial)?
-                  </label>
-                </div>
-
-                <div className="flex items-center gap-2.5">
-                  <input
-                    type="checkbox"
-                    id="is_active"
-                    checked={isActive}
-                    onChange={(e) => setIsActive(e.target.checked)}
-                    className="w-4 h-4 rounded-md text-[var(--primary)] border-[var(--dash-border)] focus:ring-[var(--primary)] cursor-pointer"
-                  />
-                  <label
-                    htmlFor="is_active"
-                    className="text-xs font-semibold text-[var(--dash-text-primary)] cursor-pointer select-none"
-                  >
-                    Comunidade Ativa
-                  </label>
-                </div>
-              </div>
-            </div>
+            <CommunityGeneralTab
+              name={name}
+              setName={setName}
+              slug={slug}
+              setSlug={setSlug}
+              patronSaint={patronSaint}
+              setPatronSaint={setPatronSaint}
+              isHeadquarters={isHeadquarters}
+              setIsHeadquarters={setIsHeadquarters}
+              isActive={isActive}
+              setIsActive={setIsActive}
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
+              bannerUrl={bannerUrl}
+              setBannerUrl={setBannerUrl}
+              patronImageUrl={patronImageUrl}
+              setPatronImageUrl={setPatronImageUrl}
+              onNameChange={handleNameChange}
+            />
           )}
 
-          {/* ABA 2: HISTÓRIA & VOCAÇÃO */}
+          {activeTab === 'cpc' && (
+            <CommunityCpcTab leaders={cpcLeaders} onChange={setCpcLeaders} />
+          )}
+
+          {activeTab === 'avisos' && (
+            <CommunityNoticesTab notices={notices} onChange={setNotices} />
+          )}
+
+          {activeTab === 'pastorais' && (
+            <CommunityPastoralsTab pastoralGroups={pastoralGroups} onChange={setPastoralGroups} />
+          )}
+
           {activeTab === 'historia' && (
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input
-                  label="Ano de Fundação"
-                  value={foundationYear}
-                  onChange={(e) => setFoundationYear(e.target.value)}
-                  placeholder="Ex: 1982 ou Década de 80"
-                />
-
-                <Input
-                  label="Data da Festa do Padroeiro"
-                  value={feastDay}
-                  onChange={(e) => setFeastDay(e.target.value)}
-                  placeholder="Ex: 19 de Março ou Último Domingo de Outubro"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-[var(--dash-text-primary)]">
-                  História, Pioneiros & Vocação Pastoral da CEB
-                </label>
-                <textarea
-                  rows={6}
-                  value={history}
-                  onChange={(e) => setHistory(e.target.value)}
-                  placeholder="Conte a história da comunidade, como foram erguidos os templos, os fundadores, os grupos de oração e as tradições locais..."
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-[var(--dash-surface)] border border-[var(--dash-border)] text-[var(--dash-text-primary)] placeholder-[var(--dash-text-secondary)] focus:outline-hidden focus:ring-2 focus:ring-[var(--primary)] transition-all resize-y"
-                />
-                <p className="text-[11px] text-[var(--dash-text-secondary)]">
-                  Este texto será exibido na página dedicada da comunidade (`/comunidades/{slug || '...'}`) e no portal do fiel.
-                </p>
-              </div>
-            </div>
+            <CommunityHistoryTab
+              foundationYear={foundationYear}
+              setFoundationYear={setFoundationYear}
+              feastDay={feastDay}
+              setFeastDay={setFeastDay}
+              history={history}
+              setHistory={setHistory}
+              slug={slug}
+            />
           )}
 
-          {/* ABA 3: LOCALIZAÇÃO & CONTATO */}
           {activeTab === 'localizacao' && (
-            <div className="space-y-4">
-              <Input
-                label="Endereço Completo (Rua, Número)"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Ex: Rua São Pedro, 120"
-              />
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <Input
-                  label="Bairro ou Setor Rural"
-                  value={neighborhood}
-                  onChange={(e) => setNeighborhood(e.target.value)}
-                  placeholder="Ex: Bairro Carlos Germano Naumann"
-                />
-
-                <Input
-                  label="Cidade"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  placeholder="Colatina"
-                />
-
-                <Input
-                  label="Estado (UF)"
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
-                  placeholder="ES"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[var(--dash-border)]">
-                <Input
-                  label="Nome do Coordenador(a) da CEB"
-                  value={contactName}
-                  onChange={(e) => setContactName(e.target.value)}
-                  placeholder="Ex: Maria Auxiliadora"
-                />
-
-                <Input
-                  label="WhatsApp / Telefone de Contato"
-                  value={contactPhone}
-                  onChange={(e) => setContactPhone(e.target.value)}
-                  placeholder="(27) 99999-0000"
-                />
-              </div>
-            </div>
+            <CommunityLocationTab
+              address={address}
+              setAddress={setAddress}
+              neighborhood={neighborhood}
+              setNeighborhood={setNeighborhood}
+              city={city}
+              setCity={setCity}
+              state={state}
+              setState={setState}
+              contactName={contactName}
+              setContactName={setContactName}
+              contactPhone={contactPhone}
+              setContactPhone={setContactPhone}
+              pixKey={pixKey}
+              setPixKey={setPixKey}
+              pixKeyType={pixKeyType}
+              setPixKeyType={setPixKeyType}
+              dizimoInfo={dizimoInfo}
+              setDizimoInfo={setDizimoInfo}
+            />
           )}
 
           {/* Barra de Ações do Rodapé */}
-          <div className="flex items-center justify-between pt-4 border-t border-[var(--dash-border)]">
+          <div className="flex items-center justify-between pt-5 border-t border-[var(--dash-border)]">
             <span className="text-[11px] text-[var(--dash-text-secondary)]">
-              {activeTab === 'geral' && 'Passo 1 de 3: Identificação'}
-              {activeTab === 'historia' && 'Passo 2 de 3: Conteúdo pastoral'}
-              {activeTab === 'localizacao' && 'Passo 3 de 3: Localização e contatos'}
+              Alterações são refletidas automaticamente no minisite público da comunidade.
             </span>
 
             <div className="flex items-center gap-2">
@@ -427,7 +376,7 @@ export function CommunityFormModal({
                 Cancelar
               </Button>
               <Button type="submit" variant="primary" size="sm" loading={saving}>
-                {communityToEdit ? 'Salvar Alterações' : 'Cadastrar Comunidade'}
+                {communityToEdit ? 'Salvar Comunidade' : 'Cadastrar Comunidade'}
               </Button>
             </div>
           </div>

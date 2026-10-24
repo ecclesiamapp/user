@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Plus_Jakarta_Sans, Cormorant_Garamond, Cinzel, Suez_One } from "next/font/google";
 import "./globals.css";
 import { PwaInstallPrompt } from "@/components/pwa/PwaInstallPrompt";
+import { ExtensionErrorSuppressor } from "@/components/layout/ExtensionErrorSuppressor";
 import { getParishBrandIdentity } from "@/lib/brand";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -85,30 +85,7 @@ export default async function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans">
-        <Script
-          id="suppress-extension-errors"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              if (typeof window !== 'undefined') {
-                window.addEventListener('unhandledrejection', function(event) {
-                  var text = (event && event.reason) ? (event.reason.stack || event.reason.message || String(event.reason)) : '';
-                  if (text.indexOf('chrome-extension://') !== -1 || text.indexOf('chrome:') !== -1 || text.indexOf('moz-extension://') !== -1) {
-                    event.stopImmediatePropagation();
-                    event.preventDefault();
-                  }
-                });
-                window.addEventListener('error', function(event) {
-                  var file = (event && event.filename) || '';
-                  if (file.indexOf('chrome-extension://') !== -1 || file.indexOf('moz-extension://') !== -1) {
-                    event.stopImmediatePropagation();
-                    event.preventDefault();
-                  }
-                });
-              }
-            `,
-          }}
-        />
+        <ExtensionErrorSuppressor />
         {children}
         <PwaInstallPrompt />
       </body>

@@ -27,7 +27,7 @@ export function CommunityHero({
     <section className="relative overflow-hidden bg-gradient-to-b from-[#EDE6D9] via-[#F6F2EB] to-[#F6F2EB] text-[#2D1A16] py-14 sm:py-20 border-b border-[#DDD3C4]">
       {/* Imagem de Fundo com Tratamento Nobre e Iluminação Suave */}
       <img
-        src={community.image_url || '/images/historia/catedral-vitrais.jpg'}
+        src={community.banner_url || community.image_url || '/images/historia/catedral-vitrais.jpg'}
         alt={community.name}
         className="absolute inset-0 w-full h-full object-cover object-center opacity-15 mix-blend-multiply pointer-events-none"
       />

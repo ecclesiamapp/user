@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Church, MapPin, Menu, X, ArrowLeft, Navigation, Sparkles, Phone } from 'lucide-react';
 import { Community } from '@/types';
+import { AccessibilityFontScaleControl } from './AccessibilityFontScaleControl';
 
 interface CommunityHeaderProps {
   community: Community;
@@ -24,21 +25,26 @@ export function CommunityHeader({ community, googleMapsUrl }: CommunityHeaderPro
 
   return (
     <header className="sticky top-0 z-40 w-full transition-all">
-      {/* 1. Top Utility Bar Discreta de Afiliação à Catedral */}
-      <div className="w-full bg-[#161210] border-b border-[#C8A463]/20 py-1.5 px-4 sm:px-6">
-        <div className="max-w-[1240px] mx-auto flex items-center justify-between text-[11px] text-[#C8A463]">
-          <div className="flex items-center gap-1.5 font-medium">
+      {/* 1. Top Utility Bar Discreta de Afiliação à Catedral com Controle de Acessibilidade */}
+      <div className="w-full bg-[#161210] border-b border-[#C8A463]/20 py-1.5 px-3 sm:px-6">
+        <div className="max-w-[1240px] mx-auto flex items-center justify-between gap-2 text-[11px] text-[#C8A463]">
+          <div className="flex items-center gap-1.5 font-medium truncate">
             <span className="text-[#FFA82A]">✝</span>
-            <span>Paróquia Catedral do Sagrado Coração de Jesus • Diocese de Colatina</span>
+            <span className="truncate">Paróquia Catedral do Sagrado Coração de Jesus • Diocese de Colatina</span>
           </div>
 
-          <Link
-            href="/comunidades"
-            className="hidden sm:inline-flex items-center gap-1 text-[#EAE3D9]/70 hover:text-white transition-colors py-0.5"
-          >
-            <ArrowLeft className="w-3 h-3 text-[#FFA82A]" />
-            <span>Todas as Comunidades</span>
-          </Link>
+          <div className="flex items-center gap-3 shrink-0">
+            {/* Controle de Redimensionamento de Fonte (TASK-41B) */}
+            <AccessibilityFontScaleControl />
+
+            <Link
+              href="/comunidades"
+              className="hidden sm:inline-flex items-center gap-1 text-[#EAE3D9]/70 hover:text-white transition-colors py-0.5"
+            >
+              <ArrowLeft className="w-3 h-3 text-[#FFA82A]" />
+              <span>Todas as Comunidades</span>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -116,6 +122,11 @@ export function CommunityHeader({ community, googleMapsUrl }: CommunityHeaderPro
             ))}
 
             <div className="pt-2 border-t border-[var(--dash-border)] flex flex-col gap-2">
+              <div className="flex items-center justify-between px-3 py-2 bg-[var(--dash-surface-secondary)]/60 rounded-xl">
+                <span className="text-xs font-semibold text-[#2D1A16]">Acessibilidade:</span>
+                <AccessibilityFontScaleControl />
+              </div>
+
               {googleMapsUrl && (
                 <a
                   href={googleMapsUrl}

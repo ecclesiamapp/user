@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAdminAppearance } from '@/components/admin/context/AdminAppearanceContext';
+import { useAdminCommunity } from '@/components/admin/context/AdminCommunityContext';
 
 interface NavGroup {
   category: string;
@@ -36,6 +37,7 @@ interface NavGroup {
     badge?: string;
   }[];
 }
+
 
 const NAV_GROUPS: NavGroup[] = [
   {
@@ -78,12 +80,14 @@ const NAV_GROUPS: NavGroup[] = [
   {
     category: 'Identidade & Administração',
     items: [
+      { href: '/admin/usuarios', label: 'Gestão de Usuários', icon: ShieldCheck, badge: 'RBAC' },
       { href: '/admin/marca', label: 'Hub de Marca & Moodboard', icon: Palette, badge: 'Novo' },
       { href: '/admin/configuracoes', label: 'Dados da Paróquia', icon: Settings },
       { href: '/admin/aparencia', label: 'Tema Litúrgico', icon: Sparkles },
     ],
   },
 ];
+
 
 interface AdminSidebarProps {
   mobileOpen: boolean;
@@ -93,6 +97,60 @@ interface AdminSidebarProps {
 export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
   const pathname = usePathname();
   const { liturgicalColoringEnabled, liturgy } = useAdminAppearance();
+  const { currentUser, isParishMaster, hasModulePermission, selectedCommunity } = useAdminCommunity();
+
+  // Grupos de navegação adaptativos (Paróquia Geral vs Coordenador de CEB)
+  const activeNavGroups = React.useMemo<NavGroup[]>(() => {
+    if (isParishMaster) {
+      return NAV_GROUPS;
+    }
+
+    const cebItems: NavGroup['items'] = [
+      { href: '/admin/comunidades', label: 'Minha Comunidade & LP', icon: MapPin, exact: true, badge: 'CEB' },
+    ];
+
+    if (hasModulePermission('horarios')) {
+      cebItems.push({ href: '/admin/horarios', label: 'Horários de Missa', icon: Calendar });
+    }
+    if (hasModulePermission('avisos')) {
+      cebItems.push({ href: '/admin/conteudo', label: 'Avisos da Capela', icon: Newspaper });
+    }
+    if (hasModulePermission('galerias')) {
+      cebItems.push({ href: '/admin/galerias', label: 'Fotos & Galerias', icon: ImageIcon });
+    }
+    if (hasModulePermission('dizimo')) {
+      cebItems.push({ href: '/admin/dizimo', label: 'Dízimo & Ofertas', icon: HeartHandshake });
+    }
+
+    return [
+      {
+        category: selectedCommunity?.name || 'Painel da Comunidade',
+        items: cebItems,
+      },
+    ];
+  }, [isParishMaster, hasModulePermission, selectedCommunity]);
+
+  // Iniciais do usuário ativo
+  const userInitials = React.useMemo(() => {
+    if (!currentUser?.name) return 'SP';
+    const parts = currentUser.name.trim().split(' ').filter(Boolean);
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }, [currentUser]);
+
+  // Rótulo amigável do cargo
+  const roleLabel = React.useMemo(() => {
+    if (!currentUser) return 'Secretária Paroquial';
+    switch (currentUser.role) {
+      case 'paroco': return 'Pároco';
+      case 'vigario': return 'Vigário Paroquial';
+      case 'secretaria': return 'Secretaria Paroquial';
+      case 'pascom': return 'PASCOM Catedral';
+      case 'coordenador_ceb': return 'Coordenador de CEB';
+      default: return 'Colaborador';
+    }
+  }, [currentUser]);
+
 
   // Define a estilização do item ativo: litúrgico dinâmico ou bordeaux clássico
   const getActiveStyle = () => {
@@ -174,7 +232,7 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
 
         {/* Navegação por Categorias com Alto Contraste */}
         <nav className="p-3 space-y-4 text-xs font-medium">
-          {NAV_GROUPS.map((group) => (
+          {activeNavGroups.map((group) => (
             <div key={group.category} className="space-y-1">
               <span className="px-3 text-[10px] font-bold uppercase tracking-wider text-[#C8A463]/90 block">
                 {group.category}
@@ -221,7 +279,7 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
         </nav>
       </div>
 
-      {/* Rodapé: Atalho Portal do Fiel + Perfil da Secretária */}
+      {/* Rodapé: Atalho Portal do Fiel + Perfil Ativo (RBAC) */}
       <div className="p-3 border-t border-[#262A30] space-y-2 bg-[#131417]">
         <Link
           href="/"
@@ -235,20 +293,28 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
           <ExternalLink className="w-3.5 h-3.5 text-[#7E838B] group-hover:text-white transition-colors" />
         </Link>
 
-        <div className="px-3.5 py-2.5 rounded-xl bg-[#1A1C20] border border-white/5 flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-[#8B1E22] text-[#FFCC36] flex items-center justify-center font-bold text-xs shrink-0 border border-[#C8A463]/30 shadow-xs">
-            SP
+        <Link
+          href="/admin/usuarios"
+          title="Ver gestão de usuários e simular perfis"
+          className="px-3.5 py-2.5 rounded-xl bg-[#1A1C20] border border-white/5 hover:border-[#FFA82A]/30 transition-all flex items-center justify-between gap-2.5 group cursor-pointer"
+        >
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-7 h-7 rounded-lg bg-[#8B1E22] text-[#FFCC36] flex items-center justify-center font-bold text-xs shrink-0 border border-[#C8A463]/30 shadow-xs">
+              {userInitials}
+            </div>
+            <div className="overflow-hidden">
+              <p className="text-xs font-bold text-white truncate group-hover:text-[#FFA82A] transition-colors">
+                {currentUser?.name || 'Administrador'}
+              </p>
+              <p className="text-[10px] text-[#A39E98] truncate">
+                {roleLabel} • {selectedCommunity?.name ? selectedCommunity.name.replace('Comunidade ', '') : 'Matriz'}
+              </p>
+            </div>
           </div>
-          <div className="overflow-hidden">
-            <p className="text-xs font-bold text-white truncate">
-              Secretária Paroquial
-            </p>
-            <p className="text-[10px] text-[#A39E98] truncate">
-              Matriz da Catedral
-            </p>
-          </div>
-        </div>
+          <ShieldCheck className="w-3.5 h-3.5 text-[#C8A463] shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" />
+        </Link>
       </div>
+
     </div>
   );
 

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contrato de Prestação de Serviços de Apoio Digital Paroquial — Start Agência Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A2B4C;
+      --gold: #B8860B;
+      --gold-light: #F9F4E8;
+      --ink: #1E1E1E;
+      --muted: #555555;
+      --border: #D6CFC2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #EAE6DF;
+      color: var(--ink);
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 10.2pt;
+      line-height: 1.6;
+      padding: 32px 16px;
+    }
+
+    .toolbar {
+      max-width: 210mm;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1E1E1E;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .toolbar span {
+      font-size: 13px;
+      color: #D6CFC2;
+    }
+
+    .btn-print {
+      background: var(--navy);
+      color: #fff;
+      border: 1px solid #2C467A;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-print:hover {
+      background: #253D6B;
+    }
+
+    .page-container {
+      max-width: 210mm;
+      margin: 0 auto;
+      background: #FFFFFF;
+      padding: 18mm 20mm 20mm 20mm;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.1);
+      border-top: 6px solid var(--navy);
+    }
+
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+
+    .doc-header-left h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 13.5pt;
+      color: var(--navy);
+      letter-spacing: 0.4px;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .doc-header-left p {
+      font-family: 'Inter', sans-serif;
+      font-size: 8.2pt;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      font-weight: 600;
+    }
+
+    .doc-header-logo img {
+      max-height: 44px;
+      width: auto;
+    }
+
+    h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 10pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--navy);
+      border-bottom: 1px solid #E5E0D5;
+      padding-bottom: 4px;
+      margin-top: 18px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 9px;
+      text-align: justify;
+    }
+
+    .party-box {
+      background: #FAF8F5;
+      border: 1px solid #E6E1D6;
+      border-radius: 6px;
+      padding: 11px 14px;
+      margin-bottom: 10px;
+      font-size: 9.5pt;
+    }
+
+    .party-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 8.2pt;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .editable-field {
+      border-bottom: 1px dashed #888;
+      padding: 0 4px;
+      min-width: 120px;
+      display: inline-block;
+      color: #000;
+      font-weight: 600;
+    }
+
+    .editable-field:focus {
+      outline: none;
+      background: #FFF9C4;
+    }
+
+    ul, ol {
+      margin: 6px 0 10px 20px;
+    }
+
+    li {
+      margin-bottom: 5px;
+      text-align: justify;
+    }
+
+    .plans-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 8.6pt;
+    }
+
+    .plans-table th {
+      background: var(--navy);
+      color: #FFFFFF;
+      text-align: left;
+      padding: 7px 10px;
+      font-weight: 600;
+    }
+
+    .plans-table td {
+      padding: 7px 10px;
+      border: 1px solid #E0DAD0;
+    }
+
+    .plans-table tr:nth-child(even) td {
+      background: #FAF8F5;
+    }
+
+    .nfse-box {
+      background: var(--gold-light);
+      border: 1px solid #E2D5B5;
+      border-left: 4px solid var(--gold);
+      padding: 10px 14px;
+      border-radius: 4px;
+      margin: 12px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 8.6pt;
+      color: #332B1A;
+    }
+
+    .signatures {
+      margin-top: 30px;
+      page-break-inside: avoid;
+    }
+
+    .sig-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px 26px;
+      margin-top: 24px;
+    }
+
+    .sig-block {
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 8.8pt;
+    }
+
+    .sig-line {
+      border-top: 1px solid #333;
+      margin-bottom: 5px;
+      padding-top: 5px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .sig-role {
+      font-size: 8pt;
+      color: var(--muted);
+    }
+
+    .doc-footer {
+      margin-top: 26px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Inter', sans-serif;
+      font-size: 7.5pt;
+      color: var(--muted);
+    }
+
+    @media print {
+      body {
+        background: #FFFFFF;
+        padding: 0;
+      }
+      .toolbar {
+        display: none !important;
+      }
+      .page-container {
+        box-shadow: none;
+        border-top: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .editable-field {
+        border-bottom: 1px solid #444;
+      }
+      @page {
+        size: A4;
+        margin: 16mm 18mm 16mm 18mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <span>📄 <strong>Contrato Comercial Padrão para Paróquias (MEI 11.270.587/0001-75)</strong> — Clique nos campos tracejados para editar antes de imprimir</span>
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Salvar como PDF</button>
+  </div>
+
+  <div class="page-container">
+    <header class="doc-header">
+      <div class="doc-header-left">
+        <h1>CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE APOIO ADMINISTRATIVO DIGITAL, EDIÇÃO DE CADASTROS E SUPORTE PAROQUIAL</h1>
+        <p>Start Agência Digital &bull; CNPJ 11.270.587/0001-75 &bull; CNAEs 8219-9/99 e 5819-1/00</p>
+      </div>
+      <div class="doc-header-logo">
+        <img src="logo_start_agencia.png" alt="Start Agência Digital" onerror="this.style.display='none'" />
+      </div>
+    </header>
+
+    <h2>1. Qualificação das Partes Contratantes</h2>
+
+    <div class="party-box">
+      <div class="party-title">Contratante (Paróquia / Comunidade):</div>
+      <p style="margin-bottom:4px;">
+        <strong>Paróquia:</strong> <span class="editable-field" contenteditable="true">PARÓQUIA ________________________________________________</span> &bull;
+        <strong>CNPJ:</strong> <span class="editable-field" contenteditable="true">__.___.___/____-__</span>
+      </p>
+      <p style="margin-bottom:4px;">
+        <strong>Diocese / Mitra:</strong> <span class="editable-field" contenteditable="true">Mitra Diocesana de Colatina/ES</span> &bull;
+        <strong>Endereço:</strong> <span class="editable-field" contenteditable="true">________________________________________________________</span>
+      </p>
+      <p style="margin-bottom:0;">
+        <strong>Representante Legal (Pároco):</strong> <span class="editable-field" contenteditable="true">Revmo. Pe. ________________________________________</span>, CPF <span class="editable-field" contenteditable="true">___.___.___-__</span>, com anuência do <strong>Conselho Paroquial de Assuntos Econômicos (CAEP)</strong>.
+      </p>
+    </div>
+
+    <div class="party-box">
+      <div class="party-title">Contratada (Prestadora de Serviços):</div>
+      <p style="margin-bottom:0;">
+        <strong>MARCELLA A. BOELONI R. CRUZ</strong>, empresária individual (nome fantasia <strong>START AGÊNCIA DIGITAL</strong>), pessoa jurídica de direito privado inscrita no <strong>CNPJ/MF sob o nº 11.270.587/0001-75</strong> (ativa desde 29/10/2009), sediada no Bairro Residencial Nobre, Colatina – ES, CEP 29708-260, habilitada nos CNAEs <strong>8219-9/99</strong> (<em>Preparação de documentos e serviços especializados de apoio administrativo</em>), <strong>5819-1/00</strong> (<em>Edição de cadastros, listas e outros produtos gráficos</em>), <strong>5812-3/02</strong> (<em>Edição de informativos não diários</em>) e <strong>7420-0/01</strong> (<em>Produção de fotografias</em>), representada por <strong>Marcella A. Boeloni R. Cruz</strong> e pelo diretor técnico <strong>Fauzer Cruz</strong>.
+      </p>
+    </div>
+
+    <h2>2. Cláusula Primeira — Do Objeto e Escopo dos Serviços</h2>
+    <p>
+      <strong>1.1. Objeto:</strong> O presente contrato tem por objeto a prestação continuada, pela CONTRATADA à CONTRATANTE, dos <strong>serviços especializados de apoio administrativo digital à secretaria paroquial, estruturação e edição de cadastros comunitários, organização de listas de horários de celebrações, diagramação digital de folhetos/informativos e orientação operacional da secretaria</strong> (enquadrados nos CNAEs <code>8219-9/99</code>, <code>5819-1/00</code>, <code>5812-3/02</code> e <code>7420-0/01</code>).
+    </p>
+    <p>
+      <strong>1.2. Cessão Gratuita da Ferramenta Web:</strong> Para a execução dos serviços acima e consulta pública pelos fiéis, a CONTRATADA cede à CONTRATANTE, <strong>sem custo extra de licenciamento</strong>, o uso do portal e painel paroquial <em>White-Label</em> personalizado exclusivamente com o brasão, nome e cores da Paróquia.
+    </p>
+    <ol>
+      <li><strong>Implantação e Estruturação Inicial (Setup):</strong> Cadastro da Igreja Matriz, sacerdotes, pastorais e Comunidades/Capelas (CEBs) com fotos, horários de missas, rotas GPS e treinamento de 1 hora com a secretária paroquial.</li>
+      <li><strong>Manutenção e Apoio Mensal:</strong> Atualização contínua da grade de celebrações, publicação de avisos e folhetos em PDF, canal informativo do Dízimo com botão <em>"PIX Copia e Cola"</em> direto na conta da Paróquia (<strong>zero comissão ou retenção</strong>), triagem de solicitações da secretaria via WhatsApp, suporte em horário comercial e hospedagem segura com backups diários.</li>
+    </ol>
+
+    <h2>3. Cláusula Segunda — Do Plano Escolhido, Valores e Faturamento Fiscal</h2>
+    <p><strong>2.1.</strong> A CONTRATANTE opta pelo plano assinalado abaixo:</p>
+
+    <table class="plans-table">
+      <thead>
+        <tr>
+          <th style="width:65px; text-align:center;">Opção</th>
+          <th>Plano Paroquial</th>
+          <th>Abrangência de Capelas / CEBs</th>
+          <th>Implantação (Setup Único)</th>
+          <th>Valor no Ciclo Mensal</th>
+          <th>Valor no Ciclo Anual (Com Desconto)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:center; font-weight:700;" contenteditable="true">( &nbsp; )</td>
+          <td><strong>1. PLANO SEMENTE</strong></td>
+          <td>Matriz + até 03 capelas</td>
+          <td>R$ 350,00 <em>(Grátis no Anual)</em></td>
+          <td>R$ 149,00 / mês</td>
+          <td><strong>R$ 119,00 / mês</strong></td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:700;" contenteditable="true">( &nbsp; )</td>
+          <td><strong>2. PLANO SEMEADOR</strong> ⭐</td>
+          <td>Matriz + até 08 capelas</td>
+          <td>R$ 600,00 <em>(R$ 300 no Anual)</em></td>
+          <td>R$ 289,00 / mês</td>
+          <td><strong>R$ 229,00 / mês</strong></td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:700;" contenteditable="true">( &nbsp; )</td>
+          <td><strong>3. PLANO PESCADOR</strong></td>
+          <td>Matriz + até 20 capelas</td>
+          <td>R$ 1.200,00 <em>(R$ 600 no Anual)</em></td>
+          <td>R$ 490,00 / mês</td>
+          <td><strong>R$ 390,00 / mês</strong></td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:700;" contenteditable="true">( &nbsp; )</td>
+          <td><strong>4. PLANO VIDEIRA</strong></td>
+          <td>Comunidades Ilimitadas</td>
+          <td>R$ 1.500,00</td>
+          <td>R$ 649,00 / mês</td>
+          <td><strong>R$ 549,00 / mês</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-family:'Inter',sans-serif; font-size:9pt; margin-top:8px;">
+      &bull; <strong>Ciclo Escolhido:</strong> <span class="editable-field" contenteditable="true">( X ) Anual com Desconto &nbsp;|&nbsp; ( &nbsp; ) Mensal</span> &nbsp;&nbsp;
+      &bull; <strong>Dia de Vencimento:</strong> Todo dia <span class="editable-field" contenteditable="true">10</span> &nbsp;&nbsp;
+      &bull; <strong>1º Vencimento:</strong> <span class="editable-field" contenteditable="true">___/___/202__</span> &nbsp;&nbsp;
+      &bull; <strong>Setup:</strong> <span class="editable-field" contenteditable="true">R$ _________</span>
+    </p>
+
+    <div class="nfse-box">
+      <strong>🧾 Padrão de Emissão de Nota Fiscal (NFS-e) para o CAEP e Contabilidade Diocesana:</strong><br/>
+      Todos os boletos/PIX serão acompanhados de Nota Fiscal de Serviços Eletrônica emitida pelo CNPJ <strong>11.270.587/0001-75</strong> sob a rubrica: <em>"Prestação de serviços mensais de apoio administrativo paroquial, edição e atualização contínua de cadastros, listas de horários de celebrações, informativos das comunidades e suporte à secretaria (CNAEs 8219-9/99 e 5819-1/00)."</em>
+    </div>
+
+    <h2>4. Cláusula Terceira — Prazos, Propriedade dos Dados, LGPD e Vigência</h2>
+    <p>
+      <strong>3.1. Prazo de Entrega:</strong> O portal principal da Paróquia entrará no ar entre <strong>07 (sete) e 15 (quinze) dias úteis</strong> após o envio das informações iniciais pela secretaria.
+    </p>
+    <p>
+      <strong>3.2. Propriedade dos Dados e LGPD:</strong> Todos os cadastros, fotos e históricos pertencem exclusivamente à <strong>CONTRATANTE (Paróquia/Mitra)</strong>, atuando a CONTRATADA em estrito respeito à Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
+    </p>
+    <p>
+      <strong>3.3. Vigência e Rescisão:</strong> Vigência inicial de <strong>12 (doze) meses</strong>, renovável automaticamente e reajustável anualmente pelo IPCA/IBGE. Qualquer das partes poderá rescindir este contrato mediante aviso prévio de 30 (trinta) dias, sem multas abusivas (em caso de rescisão antes do 6º mês no ciclo anual com desconto de setup, será devido apenas o valor proporcional do setup subsidiado). Foro eleito: Comarca de Colatina – ES.
+    </p>
+
+    <div class="signatures">
+      <p style="text-align:center; margin-bottom: 8px;">
+        <span class="editable-field" contenteditable="true">Colatina – ES</span>, _____ de _________________________ de 202___.
+      </p>
+
+      <div class="sig-grid">
+        <div class="sig-block">
+          <div class="sig-line">PELA CONTRATANTE (PARÓQUIA / CAEP)</div>
+          <div class="sig-role">Revmo. Pároco / Administrador Paroquial<br/>Representante Legal</div>
+        </div>
+
+        <div class="sig-block">
+          <div class="sig-line">MARCELLA A. BOELONI R. CRUZ</div>
+          <div class="sig-role">Start Agência Digital — CNPJ 11.270.587/0001-75<br/>Contratada (Prestadora de Serviços)</div>
+        </div>
+
+        <div class="sig-block">
+          <div class="sig-line">TESTEMUNHA 01</div>
+          <div class="sig-role">Nome / CPF: _______________________________</div>
+        </div>
+
+        <div class="sig-block">
+          <div class="sig-line">TESTEMUNHA 02</div>
+          <div class="sig-role">Nome / CPF: _______________________________</div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="doc-footer">
+      <span>Start Agência Digital &bull; MARCELLA A. BOELONI R. CRUZ &bull; CNPJ 11.270.587/0001-75</span>
+      <span>CNAEs: 8219-9/99 &bull; 5819-1/00 &bull; 5812-3/02 &bull; 7420-0/01</span>
+    </footer>
+  </div>
+
+</body>
+</html>

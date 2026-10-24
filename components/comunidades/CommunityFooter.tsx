@@ -211,8 +211,8 @@ export function CommunityFooter({
               Secretaria Paroquial
             </Link>
             <span>•</span>
-            <Link href="/agenda-liturgica" className="hover:text-[#FFA82A] transition-colors">
-              Agenda Diocesana
+            <Link href="/privacidade" className="hover:text-[#FFA82A] transition-colors underline">
+              Privacidade & LGPD
             </Link>
           </div>
         </div>
