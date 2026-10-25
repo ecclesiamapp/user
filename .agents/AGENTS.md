@@ -93,6 +93,16 @@ No catolicismo romano, **NUNCA** se utiliza a palavra "culto" para designar os e
 - **Termos Canônicos Oficiais:** **"Santa Missa"** (ou "Missas") e **"Celebração da Palavra"** (ou "Celebrações").
 - A IA está expressamente proibida de usar a palavra "culto" ou "cultos" em qualquer título, menu, card, formulário ou documentação do Ecclesiam App.
 
+## Regra de Precisão Litúrgica Católica: Altar, Presbitério e Púlpito (Proibição de "Intenções no Altar")
+Por determinação expressa do desenvolvedor e em obediência às normas litúrgicas da Igreja Católica:
+- **Altar:** É a mesa sagrada do sacrifício de Cristo situada no Presbitério. Sobre o Altar consagram-se unicamente o Pão e o Vinho (Eucaristia) sobre o Corporal com o Cálice, Patena e o Missal Romano. **NUNCA** se colocam folhas de avisos, papéis de recados ou listas de intenções sobre o Altar, e nele não se fazem leituras ordinárias.
+- **Presbitério:** Espaço sagrado elevado ("palco") onde ficam o Altar, a Sede dos ministros celebrantes e o Ambão/Púlpito.
+- **Púlpito (ou Ambão):** Lugar próprio de onde se proclama a Palavra de Deus, onde são lidas as **intenções da Santa Missa (antes da celebração)** e os **avisos paroquiais (após a Santa Missa / pós-comunhão)**.
+- **Nomenclatura Obrigatória:** A IA está expressamente proibida de usar expressões como "Intenções no Altar", "Folha de Altar A4", "Lido no Altar" ou "Sigiloso no Altar". Use sempre:
+  - **"Intenções de Missa (Púlpito A4)"** ou **"Folha Litúrgica para o Púlpito (A4)"**
+  - **"Proclamada no Púlpito"** ou **"Apresentada nas Intenções da Santa Missa"**
+  - **"Sigilo no Púlpito"** (para intenções anônimas cuja identificação pessoal não deve ser proclamada)
+
 ## Diretriz Mandatória: Estimativa de Tempo de Execução em Toda Task Sugerida
 Por determinação expressa do desenvolvedor, **TODA E QUALQUER TAREFA, TASK OU ETAPA SUGERIDA PELA IA DEVE OBRIGATORIAMENTE VIR ACOMPANHADA DO SEU TEMPO ESTIMADO DE EXECUÇÃO** (ex: `⏱️ Tempo Estimado: ~30 a 45 minutos`).
 - **Objetivo Mandatório:** Dar ao desenvolvedor a previsibilidade necessária para decidir de imediato se autoriza a execução na sessão atual ou se posterga com base em sua disponibilidade de tempo.

@@ -21,6 +21,7 @@ interface ImageCropCompressModalProps {
   onClose: () => void;
   onUploadSuccess: (url: string) => void;
   folder?: string;
+  bucket?: string;
   title?: string;
   initialAspectRatio?: number | undefined;
 }
@@ -30,6 +31,7 @@ export function ImageCropCompressModal({
   onClose,
   onUploadSuccess,
   folder = 'historia',
+  bucket = 'parish-media',
   title = 'Upload & Otimização de Imagem',
   initialAspectRatio = undefined,
 }: ImageCropCompressModalProps) {
@@ -87,7 +89,7 @@ export function ImageCropCompressModal({
       const formData = new FormData();
       formData.append('file', result.file);
       formData.append('folder', folder);
-      formData.append('bucket', 'parish-media');
+      formData.append('bucket', bucket);
 
       const response = await fetch('/api/upload', {
         method: 'POST',

@@ -118,7 +118,11 @@
   4. *Faixa Litúrgica Sutil:* Adição de faixa horizontal discreta abaixo do menu principal exibindo a cor do tempo litúrgico e a descrição oficial do dia.
 - [x] **TASK-42:** Construir Dashboard da LP das Comunidades no `/admin/comunidades` (upload e recorte de fotos de fachada/altar no Storage, gestão de membros do CPC, mural de avisos da CEB e vínculo de pastorais).
 - [x] **TASK-43:** Auditar Ambiente & Implementar Gestão de Usuários e Permissões (tela `/admin/usuarios`, modelagem `user_profiles`, controle de acesso RBAC por perfil paroquial: Pároco, Vigário, Secretaria, PASCOM, Coordenador de CEB, e proteção de rotas).
-- [ ] **TASK-44:** Auditar & Expandir Funções da Secretaria On-line (módulo de intenções de Santa Missa com geração de lista impressa A4 para o altar, solicitação/emissão de certidões, limites automáticos de vagas e auditoria LGPD).
+- [x] **TASK-44:** Auditar & Expandir Funções da Secretaria On-line (módulo de intenções de Santa Missa com geração de lista impressa A4 para o altar, solicitação/emissão de certidões, limites automáticos de vagas e auditoria LGPD):
+  1. *Substituição Litúrgica Canônica:* Mudança do termo `Sufrágio da Alma` para **`Pela(s) Alma(s) de:`** na interface pública e na folha impressa A4 do altar.
+  2. *Lógica Multi-Categorias com Limite:* Solicitante pode adicionar intenções em múltiplas categorias simultaneamente no mesmo pedido da Santa Missa, com limite de até 5 nomes por categoria e linhas individuais (`+ Adicionar outro nome`).
+  3. *Privacidade & Sigilo Litúrgico:* Dados do solicitante 100% opcionais e checkbox explícito para manter anonimato no altar (não ler nem divulgar nome pessoal).
+  4. *Protocolo Unificado:* Agrupamento de todas as categorias e nomes sob um único código `protocol_code` para conferência na secretaria e compartilhamento consolidado via WhatsApp.
 ---
 
 ## 🕊️ FASE 8: Grandes Festas, Solenidades & Programações Litúrgicas Especiais
@@ -127,8 +131,8 @@
 * **Documento de Especificação Técnica:** [`[documentation]/planejamento/ESPECIFICACAO_PAGINA_FESTAS_PROGRAMACOES.md`](file:///c:/Users/Start/ecclesiam-app/[documentation]/planejamento/ESPECIFICACAO_PAGINA_FESTAS_PROGRAMACOES.md)
 
 ### Tarefas Técnicas & Entregas:
-- [ ] **TASK-45:** Modelagem Supabase & Storage: criação das tabelas `parish_special_events`, `parish_event_days`, bucket `event_assets` e políticas RLS seguras.
-- [ ] **TASK-46:** Dashboard Administrativo (`/admin/programacao`): construtor visual de programação dia a dia com upload de cartaz e prévia ao vivo.
-- [ ] **TASK-47:** Landing Page Pública da Festa (`/programacao/[slug]`): hero monumental, linha do tempo interativa por abas com swipe, rota GPS e download do cartaz oficial.
-- [ ] **TASK-48:** Integração de Banners & Divulgação: banner de contagem regressiva na Home, destaque na LP da CEB correspondente e alerta em `/horarios`.
+- [x] **TASK-45:** Modelagem Supabase & Storage: criação das tabelas `parish_special_events`, `parish_event_days`, bucket `event_assets` e políticas RLS seguras.
+- [x] **TASK-46:** Dashboard Administrativo (`/admin/programacao`): construtor visual de programação dia a dia com upload de cartaz e prévia ao vivo.
+- [x] **TASK-47:** Landing Page Pública da Festa (`/programacao/[slug]`): hero monumental, linha do tempo interativa por abas com swipe, rota GPS e download do cartaz oficial.
+- [x] **TASK-48:** Integração de Banners & Divulgação: banner de contagem regressiva na Home, destaque na LP da CEB correspondente e alerta em `/horarios`.
 

@@ -11,9 +11,10 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { Card, Badge } from '@/components/ui';
-import { Community, Parish, PastoralMessage } from '@/types';
+import { Community, Parish, PastoralMessage, ParishSpecialEvent } from '@/types';
 import { fallbackCommunitiesList, getCommunitySlug } from '@/lib/communities';
 import { OFFICIAL_NEWS_DATA } from '@/lib/news';
+import { FALLBACK_SPECIAL_EVENTS } from '@/lib/events';
 import { LiturgicalBanner } from '@/components/liturgy/LiturgicalBanner';
 import { YearEndLiturgySection } from '@/components/liturgy/YearEndLiturgySection';
 import { MissalBookletsSection } from '@/components/liturgy/MissalBookletsSection';
@@ -22,6 +23,7 @@ import { fallbackFeaturedMessages } from '@/lib/pastoral-messages';
 import { DizimoDoacoesSection } from '@/components/dizimo/DizimoDoacoesSection';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralHeroPortal } from '@/components/home/CathedralHeroPortal';
+import { CathedralSpecialEventBanner } from '@/components/home/CathedralSpecialEventBanner';
 import { SacramentsGrid } from '@/components/home/SacramentsGrid';
 import { PastorSpotlight } from '@/components/home/PastorSpotlight';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
@@ -38,6 +40,20 @@ export default async function ParishPublicPortalPage() {
     .eq('is_active', true)
     .order('is_headquarters', { ascending: false })
     .order('name');
+
+  // Buscar festividade litúrgica em destaque na Home (Festa da Co-Padroeira, Padroeiro, Natal, etc.)
+  const { data: featuredEventsData } = await supabase
+    .from('parish_special_events')
+    .select('*')
+    .eq('is_featured_home', true)
+    .eq('status', 'destaque_ativo')
+    .order('start_date', { ascending: true })
+    .limit(1);
+
+  const featuredEvent: ParishSpecialEvent | undefined =
+    featuredEventsData && featuredEventsData.length > 0
+      ? (featuredEventsData[0] as ParishSpecialEvent)
+      : FALLBACK_SPECIAL_EVENTS[0];
 
   // Buscar mensagens pastorais em destaque (Cartas de Natal do Bispo e do Pároco)
   const { data: featuredMessagesData } = await supabase
@@ -85,6 +101,13 @@ export default async function ParishPublicPortalPage() {
 
       {/* Conteúdo Principal do Portal com Diagramação Respiração 1240px */}
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-12 space-y-16 w-full font-sans">
+        {/* 3.1 Banner de Destaque da Grande Festa Litúrgica (TASK-48) */}
+        {featuredEvent && (
+          <div id="destaque-festa" className="w-full">
+            <CathedralSpecialEventBanner event={featuredEvent} />
+          </div>
+        )}
+
         {/* 4. Faixa da Liturgia Diária Oficial (CNBB) */}
         <LiturgicalBanner />
 

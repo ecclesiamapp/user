@@ -25,3 +25,14 @@ Por determinação expressa do desenvolvedor (22/10/2026):
 - O objetivo é dar previsibilidade ao desenvolvedor para que ele possa decidir se autoriza a execução imediata ou se posterga conforme o tempo que possui disponível na sessão de trabalho.
 - Nenhuma task deve ser recomendada sem a indicação clara de tempo e a pergunta de validação: *"Você aprova a execução desta tarefa com base nesta estimativa de tempo?"*
 
+## ⛪ Diretriz Mandatória: Precisão Litúrgica Católica (Altar, Presbitério e Púlpito)
+Por determinação expressa do desenvolvedor (24/10/2026):
+- **Altar:** É a mesa sagrada do sacrifício de Cristo situada no Presbitério. Sobre o Altar consagram-se unicamente o Corpo e Sangue de Cristo (Eucaristia). Folhas de papel, avisos ou listas de intenções **NUNCA** devem ser associadas a leituras ou impressos no Altar.
+- **Presbitério:** Espaço sagrado elevado ("palco") onde ficam o Altar, a Sede dos ministros e o Púlpito/Ambão.
+- **Púlpito (ou Ambão):** Lugar litúrgico próprio onde se proclama a Palavra de Deus, onde são lidas as **intenções da Santa Missa (antes da celebração)** e os **avisos paroquiais (após a Santa Missa / pós-comunhão)**.
+- **Nomenclatura Canônica Obrigatória:** A IA está proibida de usar "Intenções no Altar" ou "Folha de Altar". Use sempre:
+  - **"Intenções de Missa (Púlpito A4)"** ou **"Folha Litúrgica para o Púlpito (A4)"**
+  - **"Proclamada no Púlpito"** ou **"Apresentada nas Intenções da Santa Missa"**
+  - **"Sigilo no Púlpito"** (para intenções anônimas)
+
+

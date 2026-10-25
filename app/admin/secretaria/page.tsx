@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Calendar, FileText, Users, Clock, ShieldCheck, Sparkles } from 'lucide-react';
+import { Calendar, FileText, Users, Clock, ShieldCheck, Sparkles, BookOpen } from 'lucide-react';
 import { AppointmentsManagerTab } from '@/components/admin/secretaria/AppointmentsManagerTab';
 import { SacramentsManagerTab } from '@/components/admin/secretaria/SacramentsManagerTab';
 import { ClergyManagerTab } from '@/components/admin/secretaria/ClergyManagerTab';
+import { MassIntentionsManagerTab } from '@/components/admin/secretaria/MassIntentionsManagerTab';
+import { CertificatesManagerTab } from '@/components/admin/secretaria/CertificatesManagerTab';
 
-type AdminTab = 'agendamentos' | 'inscricoes' | 'clero';
+type AdminTab = 'agendamentos' | 'intencoes' | 'certidoes' | 'inscricoes' | 'clero';
 
 export default function AdminSecretariaPage() {
   const [activeTab, setActiveTab] = useState<AdminTab>('agendamentos');
@@ -26,7 +28,7 @@ export default function AdminSecretariaPage() {
             Gestão da Secretaria Paroquial
           </h1>
           <p className="text-sm text-[var(--dash-text-secondary)] mt-0.5">
-            Gerencie agendamentos pastorais com os padres, aprovações de inscrições sacramentais e o corpo clerical.
+            Gerencie intenções de Santa Missa com lista impressa A4 para o púlpito, pedidos de certidões, agendamentos com os padres e sacramentos.
           </p>
         </div>
       </div>
@@ -44,6 +46,32 @@ export default function AdminSecretariaPage() {
         >
           <Calendar className="w-4 h-4" />
           <span>Agendamentos com os Padres</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('intencoes')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
+            activeTab === 'intencoes'
+              ? 'bg-[var(--dash-surface)] text-[var(--primary)] shadow-xs border border-[var(--dash-border)]'
+              : 'text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-surface-hover)]'
+          }`}
+        >
+          <Sparkles className="w-4 h-4" />
+          <span>Intenções para Santa Missa</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('certidoes')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
+            activeTab === 'certidoes'
+              ? 'bg-[var(--dash-surface)] text-[var(--primary)] shadow-xs border border-[var(--dash-border)]'
+              : 'text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-surface-hover)]'
+          }`}
+        >
+          <BookOpen className="w-4 h-4" />
+          <span>Certidões & Documentos</span>
         </button>
 
         <button
@@ -75,8 +103,11 @@ export default function AdminSecretariaPage() {
 
       {/* Conteúdo Dinâmico da Aba Ativa */}
       {activeTab === 'agendamentos' && <AppointmentsManagerTab />}
+      {activeTab === 'intencoes' && <MassIntentionsManagerTab />}
+      {activeTab === 'certidoes' && <CertificatesManagerTab />}
       {activeTab === 'inscricoes' && <SacramentsManagerTab />}
       {activeTab === 'clero' && <ClergyManagerTab />}
     </div>
   );
 }
+

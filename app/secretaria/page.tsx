@@ -15,7 +15,8 @@ import {
   ArrowRight,
   History,
   Sparkles,
-  FileText
+  FileText,
+  BookOpen
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { Card, Badge, Button } from '@/components/ui';
@@ -146,62 +147,126 @@ export default async function SecretariaInstitucionalPage() {
             Secretaria Paroquial & Clero
           </h1>
           <p className="text-sm sm:text-base text-[var(--dash-text-secondary)] max-w-2xl leading-relaxed">
-            Conheça os sacerdotes responsáveis pelo pastoreio da Catedral, nossos expedientes de atendimento e a história de nossa paróquia.
+            Conheça os sacerdotes responsáveis pelo pastoreio da Catedral, nossos expedientes de atendimento e serviços digitais da secretaria.
           </p>
         </div>
 
         {/* Balcão de Serviços On-line (Acesso Rápido) */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Link href="/secretaria/agendamentos" className="block group">
-            <Card className="p-5 h-full flex flex-col justify-between border-[var(--primary)]/30 bg-[var(--primary)]/5 hover:border-[var(--primary)] transition-all">
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <div className="p-2.5 rounded-xl bg-[var(--primary)] text-white">
-                    <Calendar className="w-5 h-5" />
-                  </div>
-                  <Badge variant="matriz" className="text-[10px] uppercase font-bold tracking-wider">
-                    Disponível On-line
-                  </Badge>
-                </div>
-                <h3 className="text-base font-bold text-[var(--dash-text-primary)] group-hover:text-[var(--primary)] transition-colors">
-                  Agendamento com os Padres
-                </h3>
-                <p className="text-xs text-[var(--dash-text-secondary)] leading-relaxed">
-                  Confissão individual, direção espiritual e atendimento pastoral com horários reservados e confirmação no WhatsApp.
-                </p>
-              </div>
-              <div className="mt-4 flex items-center text-xs font-bold text-[var(--primary)] gap-1">
-                <span>Agendar Horário</span>
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-              </div>
-            </Card>
-          </Link>
+        <section className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--dash-text-muted)]">
+              Balcão de Serviços Digitais
+            </h2>
+            <span className="text-xs text-[var(--dash-text-muted)]">Atendimento On-line 24h</span>
+          </div>
 
-          <Link href="/secretaria/sacramentos" className="block group">
-            <Card className="p-5 h-full flex flex-col justify-between hover:border-[var(--dash-border)] transition-all">
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <div className="p-2.5 rounded-xl bg-[var(--dash-surface-secondary)] text-[var(--dash-text-primary)]">
-                    <FileText className="w-5 h-5" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Card 1: Intenções de Santa Missa */}
+            <Link href="/secretaria/intencoes" className="block group">
+              <Card className="p-4 sm:p-5 h-full flex flex-col justify-between border-[var(--primary)]/30 bg-[var(--primary)]/5 hover:border-[var(--primary)] transition-all">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="p-2.5 rounded-xl bg-[var(--primary)] text-white">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <Badge variant="matriz" className="text-[10px] uppercase font-bold tracking-wider">
+                      Santa Missa
+                    </Badge>
                   </div>
-                  <Badge variant="ceb" className="text-[10px] uppercase font-bold tracking-wider">
-                    Inscrições Digitais
-                  </Badge>
+                  <h3 className="text-base font-bold text-[var(--dash-text-primary)] group-hover:text-[var(--primary)] transition-colors">
+                    Intenções para Santa Missa
+                  </h3>
+                  <p className="text-xs text-[var(--dash-text-secondary)] leading-relaxed">
+                    Falecidos, 7º dia, ação de graças e saúde com proclamação no púlpito antes da Santa Missa.
+                  </p>
                 </div>
-                <h3 className="text-base font-bold text-[var(--dash-text-primary)] group-hover:text-[var(--primary)] transition-colors">
-                  Inscrições Sacramentais
-                </h3>
-                <p className="text-xs text-[var(--dash-text-secondary)] leading-relaxed">
-                  Batismo infantil, catequese paroquial (Eucaristia/Crisma), Curso de Noivos e Curso de Gestantes.
-                </p>
-              </div>
-              <div className="mt-4 flex items-center text-xs font-bold text-[var(--dash-text-primary)] gap-1">
-                <span>Ver Requisitos & Inscrições</span>
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-              </div>
-            </Card>
-          </Link>
+                <div className="mt-4 flex items-center text-xs font-bold text-[var(--primary)] gap-1">
+                  <span>Pedir Intenção</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                </div>
+              </Card>
+            </Link>
+
+            {/* Card 2: Solicitação de Certidões */}
+            <Link href="/secretaria/certidoes" className="block group">
+              <Card className="p-4 sm:p-5 h-full flex flex-col justify-between hover:border-[var(--dash-border-hover)] transition-all">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="p-2.5 rounded-xl bg-[var(--dash-surface-secondary)] text-[var(--dash-text-primary)]">
+                      <BookOpen className="w-5 h-5" />
+                    </div>
+                    <Badge variant="ceb" className="text-[10px] uppercase font-bold tracking-wider">
+                      Livros Tombo
+                    </Badge>
+                  </div>
+                  <h3 className="text-base font-bold text-[var(--dash-text-primary)] group-hover:text-[var(--primary)] transition-colors">
+                    Certidões & 2ª Via
+                  </h3>
+                  <p className="text-xs text-[var(--dash-text-secondary)] leading-relaxed">
+                    Batismo, Crisma, Matrimônio e transferência com protocolo de acompanhamento.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-xs font-bold text-[var(--dash-text-primary)] gap-1">
+                  <span>Solicitar Certidão</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                </div>
+              </Card>
+            </Link>
+
+            {/* Card 3: Agendamentos */}
+            <Link href="/secretaria/agendamentos" className="block group">
+              <Card className="p-4 sm:p-5 h-full flex flex-col justify-between hover:border-[var(--dash-border-hover)] transition-all">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="p-2.5 rounded-xl bg-[var(--dash-surface-secondary)] text-[var(--dash-text-primary)]">
+                      <Calendar className="w-5 h-5" />
+                    </div>
+                    <Badge variant="matriz" className="text-[10px] uppercase font-bold tracking-wider">
+                      Com os Padres
+                    </Badge>
+                  </div>
+                  <h3 className="text-base font-bold text-[var(--dash-text-primary)] group-hover:text-[var(--primary)] transition-colors">
+                    Atendimento Pastoral
+                  </h3>
+                  <p className="text-xs text-[var(--dash-text-secondary)] leading-relaxed">
+                    Confissão individual, direção espiritual e bênçãos com horários reservados.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-xs font-bold text-[var(--dash-text-primary)] gap-1">
+                  <span>Agendar Horário</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                </div>
+              </Card>
+            </Link>
+
+            {/* Card 4: Inscrições Sacramentais */}
+            <Link href="/secretaria/sacramentos" className="block group">
+              <Card className="p-4 sm:p-5 h-full flex flex-col justify-between hover:border-[var(--dash-border-hover)] transition-all">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="p-2.5 rounded-xl bg-[var(--dash-surface-secondary)] text-[var(--dash-text-primary)]">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <Badge variant="ceb" className="text-[10px] uppercase font-bold tracking-wider">
+                      Inscrições
+                    </Badge>
+                  </div>
+                  <h3 className="text-base font-bold text-[var(--dash-text-primary)] group-hover:text-[var(--primary)] transition-colors">
+                    Sacramentos & Cursos
+                  </h3>
+                  <p className="text-xs text-[var(--dash-text-secondary)] leading-relaxed">
+                    Batismo, catequese paroquial (Eucaristia/Crisma), Curso de Noivos e Gestantes.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-xs font-bold text-[var(--dash-text-primary)] gap-1">
+                  <span>Ver Inscrições</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                </div>
+              </Card>
+            </Link>
+          </div>
         </section>
+
 
         {/* Seção 1: O Clero (Pároco e Vigários) */}
         <section className="space-y-4">

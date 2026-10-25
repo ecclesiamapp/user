@@ -17,7 +17,8 @@ import {
   ImageIcon, 
   HeartHandshake, 
   Settings,
-  ShieldCheck
+  ShieldCheck,
+  CalendarDays
 } from 'lucide-react';
 import { Button } from '@/components/ui';
 
@@ -32,6 +33,7 @@ interface AdminTopBarProps {
 const ROUTE_TITLES: Record<string, { title: string; category: string; icon: React.ElementType }> = {
   '/admin': { title: 'Visão Geral', category: 'Painel Geral', icon: Church },
   '/admin/secretaria': { title: 'Secretaria & Inscrições', category: 'Atendimento Pastoral', icon: Inbox },
+  '/admin/programacao': { title: 'Festas & Solenidades', category: 'Liturgia', icon: CalendarDays },
   '/admin/horarios': { title: 'Horários de Missa', category: 'Liturgia', icon: Calendar },
   '/admin/comunidades': { title: '12 Comunidades (CEBs)', category: 'Estrutura Paroquial', icon: MapPin },
   '/admin/folhetos': { title: 'Folhetos Litúrgicos', category: 'Liturgia', icon: FileText },

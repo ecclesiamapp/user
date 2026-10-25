@@ -6,8 +6,10 @@ import { cookies } from 'next/headers';
 import { createClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { LiturgicalScheduleView } from '@/components/horarios/LiturgicalScheduleView';
+import { SpecialEventLiturgicalAlert } from '@/components/horarios/SpecialEventLiturgicalAlert';
 import { fallbackSchedules } from '@/lib/schedules';
-import { MassSchedule } from '@/types';
+import { FALLBACK_SPECIAL_EVENTS } from '@/lib/events';
+import { MassSchedule, ParishSpecialEvent } from '@/types';
 
 export const metadata: Metadata = {
   title: 'Agenda Litúrgica da Catedral • Diocese de Colatina',
@@ -25,6 +27,19 @@ export default async function AgendaLiturgicaPage() {
     .select('*, community:communities(*)')
     .eq('is_active', true)
     .order('time');
+
+  // 1.1 Buscar evento/solenidade ativa da Catedral (TASK-48)
+  const { data: specialEventsData } = await supabase
+    .from('parish_special_events')
+    .select('*')
+    .eq('status', 'destaque_ativo')
+    .order('start_date', { ascending: true })
+    .limit(1);
+
+  const activeSpecialEvent: ParishSpecialEvent | undefined =
+    specialEventsData && specialEventsData.length > 0
+      ? (specialEventsData[0] as ParishSpecialEvent)
+      : FALLBACK_SPECIAL_EVENTS[0];
 
   const allSchedules: MassSchedule[] =
     dbSchedules && dbSchedules.length > 0
@@ -74,6 +89,11 @@ export default async function AgendaLiturgicaPage() {
 
       {/* 3. Conteúdo Principal */}
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full font-sans flex-1">
+        {/* Alerta de Horários Litúrgicos Especiais durante Solenidades (TASK-48) */}
+        {activeSpecialEvent && (
+          <SpecialEventLiturgicalAlert event={activeSpecialEvent} />
+        )}
+
         <LiturgicalScheduleView initialSchedules={finalSchedules} />
       </main>
 

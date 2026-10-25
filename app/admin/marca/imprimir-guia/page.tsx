@@ -246,7 +246,7 @@ export default function ImprimirGuiaMarcaPage() {
                   ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890
                 </p>
                 <p className="text-[10px] text-neutral-500 italic">
-                  Utilizada em títulos solenes, avisos do altar e capas de livretos.
+                  Utilizada em títulos solenes, avisos do púlpito e capas de livretos.
                 </p>
               </div>
 

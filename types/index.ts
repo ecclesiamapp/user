@@ -505,5 +505,153 @@ export interface CommunityActivityLog {
   community_name?: string | null;
 }
 
+export type MassIntentionType = 
+  | 'falecimento' 
+  | 'setimo_dia' 
+  | 'trigesimo_dia' 
+  | 'acao_gracas' 
+  | 'saude' 
+  | 'aniversario_vida' 
+  | 'aniversario_matrimonio' 
+  | 'outros';
+
+export type MassIntentionStatus = 'pendente' | 'aprovada' | 'rezada' | 'cancelada';
+
+export interface MassIntention {
+  id: string;
+  parish_id: string;
+  community_id?: string | null;
+  celebration_date: string; // YYYY-MM-DD
+  celebration_time: string; // HH:mm
+  intention_type: MassIntentionType;
+  intention_for: string;
+  offered_by?: string | null;
+  contact_phone?: string | null;
+  contact_email?: string | null;
+  is_anonymous?: boolean;
+  protocol_code?: string | null;
+  protocol?: string | null;
+  notes?: string | null;
+  status: MassIntentionStatus;
+  created_at: string;
+  updated_at?: string;
+  community_name?: string;
+}
+
+export type CertificateType = 'batismo' | 'crisma' | 'matrimonio' | 'transferencia' | 'outros';
+
+export type CertificateStatus = 
+  | 'pendente' 
+  | 'em_busca' 
+  | 'localizado' 
+  | 'emitido' 
+  | 'pronto_para_retirada' 
+  | 'entregue' 
+  | 'nao_localizado';
+
+export interface CertificateRequest {
+  id: string;
+  parish_id: string;
+  certificate_type: CertificateType;
+  applicant_name: string;
+  applicant_phone: string;
+  applicant_email?: string | null;
+  applicant_relation: 'proprio' | 'pai_mae' | 'conjuge' | 'responsavel' | 'outro';
+  holder_name: string;
+  holder_birth_date?: string | null;
+  parents_names?: string | null;
+  godparents_names?: string | null;
+  approximate_year?: number | null;
+  community_name?: string | null;
+  book_number?: string | null;
+  page_number?: string | null;
+  entry_number?: string | null;
+  purpose?: string | null;
+  status: CertificateStatus;
+  delivery_preference: 'retirada_presencial' | 'email_digital' | 'whatsapp';
+  notes?: string | null;
+  internal_notes?: string | null;
+  reviewed_by?: string | null;
+  reviewed_at?: string | null;
+  created_at: string;
+  updated_at?: string;
+}
+
+// ==========================================
+// 🕊️ Módulo de Grandes Festas & Solenidades
+// ==========================================
+
+export type EventType = 
+  | 'copadroeira' 
+  | 'padroeiro_matriz' 
+  | 'liturgico_global' 
+  | 'padroeiro_ceb' 
+  | 'solenidade_especial';
+
+export type EventStatus = 'rascunho' | 'destaque_ativo' | 'encerrado';
+
+export interface EventScheduleItem {
+  time: string;
+  title: string;
+  location?: string;
+  celebrant?: string;
+  description?: string;
+}
+
+export interface ParishEventDay {
+  id: string;
+  event_id: string;
+  event_date: string; // YYYY-MM-DD
+  day_title: string;
+  day_subtitle?: string | null;
+  liturgical_color?: string;
+  celebrant_name?: string | null;
+  gesture_of_charity?: string | null;
+  responsible_group?: string | null;
+  social_attractions?: string | null;
+  schedule_items: EventScheduleItem[];
+  order_index: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export type EventColorPreset = 
+  | 'mariano' 
+  | 'sagrado_coracao' 
+  | 'natal' 
+  | 'pascoa' 
+  | 'pentecostes' 
+  | 'sao_jose' 
+  | 'custom';
+
+export interface ParishSpecialEvent {
+  id: string;
+  parish_id: string;
+  community_id?: string | null;
+  title: string;
+  slug: string;
+  event_type: EventType;
+  theme?: string | null;
+  motto?: string | null;
+  description?: string | null;
+  start_date: string; // YYYY-MM-DD
+  end_date: string; // YYYY-MM-DD
+  banner_url?: string | null;
+  poster_pdf_url?: string | null;
+  is_featured_home: boolean;
+  status: EventStatus;
+  color_preset?: EventColorPreset;
+  primary_color?: string;
+  secondary_color?: string;
+  accent_color?: string;
+  created_at?: string;
+  updated_at?: string;
+  // Joins opcionais
+  community_name?: string;
+  days?: ParishEventDay[];
+}
+
+
+
 
 

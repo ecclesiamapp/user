@@ -21,7 +21,8 @@ import {
   Inbox,
   Palette,
   Scroll,
-  QrCode
+  QrCode,
+  CalendarDays
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAdminAppearance } from '@/components/admin/context/AdminAppearanceContext';
@@ -55,6 +56,7 @@ const NAV_GROUPS: NavGroup[] = [
   {
     category: 'Liturgia & Comunidades',
     items: [
+      { href: '/admin/programacao', label: 'Festas & Solenidades', icon: CalendarDays, badge: 'Novo' },
       { href: '/admin/horarios', label: 'Horários de Missa', icon: Calendar },
       { href: '/admin/comunidades', label: '12 Comunidades (CEBs)', icon: MapPin },
       { href: '/admin/folhetos', label: 'Folhetos Litúrgicos', icon: FileText },

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Parish, Community, SacramentType, ApplicantRole } from '@/types';
 import { SACRAMENTS_CONFIG } from './types';
 import { SacramentSelector } from './SacramentSelector';
@@ -12,7 +12,8 @@ import { SacramentFormPregnant } from './SacramentFormPregnant';
 import { SacramentSuccessCard } from './SacramentSuccessCard';
 import { Card, Button, Input, Select } from '@/components/ui';
 import { createClient } from '@/utils/supabase/client';
-import { Loader2, Send, User, Phone, Mail, HelpCircle } from 'lucide-react';
+import { Loader2, Send, User, Phone, Mail, HelpCircle, AlertCircle, ShieldCheck } from 'lucide-react';
+import { maskPhone } from '@/lib/utils';
 
 interface SacramentRegistrationContainerProps {
   parish: Parish;
@@ -29,12 +30,15 @@ export function SacramentRegistrationContainer({
   const [protocol, setProtocol] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [lgpdAccepted, setLgpdAccepted] = useState<boolean>(false);
+  const [isDateFull, setIsDateFull] = useState<boolean>(false);
 
   // Dados do Solicitante (Contato principal da secretaria)
   const [applicantName, setApplicantName] = useState<string>('');
   const [applicantPhone, setApplicantPhone] = useState<string>('');
   const [applicantEmail, setApplicantEmail] = useState<string>('');
   const [applicantRole, setApplicantRole] = useState<ApplicantRole>('proprio');
+
 
   // Estado específico: Batismo
   const [baptismData, setBaptismData] = useState({
@@ -110,6 +114,40 @@ export function SacramentRegistrationContainer({
     setErrorMessage(null);
   };
 
+  // Verificação de Limite de Vagas Automático
+  useEffect(() => {
+    async function checkCapacity() {
+      const targetDate =
+        selectedType === 'batismo'
+          ? baptismData.preferred_date
+          : selectedType === 'noivos'
+          ? marriageData.wedding_date
+          : null;
+
+      if (!targetDate) {
+        setIsDateFull(false);
+        return;
+      }
+
+      const maxLimit = selectedType === 'batismo' ? 8 : 15;
+      try {
+        const { count } = await supabase
+          .from('sacramental_registrations')
+          .select('id', { count: 'exact', head: true })
+          .eq('parish_id', parish.id)
+          .eq('sacrament_type', selectedType)
+          .eq('preferred_date', targetDate)
+          .neq('status', 'cancelado');
+
+        setIsDateFull(Boolean(count && count >= maxLimit));
+      } catch (e) {
+        // Ignora silenciosamente em caso de erro de rede
+      }
+    }
+
+    checkCapacity();
+  }, [selectedType, baptismData.preferred_date, marriageData.wedding_date, parish.id]);
+
   // Submit unificado
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,6 +159,10 @@ export function SacramentRegistrationContainer({
     }
     if (!applicantPhone.trim() || applicantPhone.length < 8) {
       setErrorMessage('Por favor, informe um telefone/WhatsApp válido com DDD.');
+      return;
+    }
+    if (!lgpdAccepted) {
+      setErrorMessage('Por favor, confirme a concordância com o termo de consentimento LGPD para registro eclesiástico.');
       return;
     }
 
@@ -361,7 +403,7 @@ export function SacramentRegistrationContainer({
                   required
                   placeholder="(27) 99999-9999"
                   value={applicantPhone}
-                  onChange={(e) => setApplicantPhone(e.target.value)}
+                  onChange={(e) => setApplicantPhone(maskPhone(e.target.value))}
                 />
               </div>
 
@@ -411,6 +453,29 @@ export function SacramentRegistrationContainer({
               communities={communities}
             />
           )}
+
+          {/* Alerta de Capacidade Atingida */}
+          {isDateFull && (
+            <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-semibold flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>Atenção: A data selecionada atingiu o limite de vagas para celebração comunitária. Recomendamos escolher outra data ou comparecer à secretaria.</span>
+            </div>
+          )}
+
+          {/* Termo de Consentimento LGPD */}
+          <div className="p-3.5 rounded-xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)] flex items-start gap-3">
+            <input
+              id="lgpd_sacrament_consent"
+              type="checkbox"
+              checked={lgpdAccepted}
+              onChange={(e) => setLgpdAccepted(e.target.checked)}
+              className="mt-0.5 h-4 w-4 rounded border-[var(--dash-border)] text-[var(--primary)] focus:ring-[var(--primary)] cursor-pointer"
+              required
+            />
+            <label htmlFor="lgpd_sacrament_consent" className="text-xs text-[var(--dash-text-secondary)] leading-relaxed cursor-pointer">
+              Concordo com o tratamento dos dados pessoais e canônicos informados para fins exclusivos da inscrição sacramental e registro nos livros paroquiais, conforme a LGPD (Lei 13.709/2018).
+            </label>
+          </div>
 
           {/* Feedback de Erro */}
           {errorMessage && (

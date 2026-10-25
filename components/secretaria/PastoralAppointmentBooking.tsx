@@ -650,6 +650,11 @@ export function PastoralAppointmentBooking({
               />
             </div>
 
+            <div className="p-3 rounded-xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)] flex items-center gap-2.5 text-xs text-[var(--dash-text-secondary)]">
+              <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+              <span><strong>Sigilo Pastoral & LGPD:</strong> Seus dados de contato são estritamente confidenciais e protegidos nos termos da Lei 13.709/2018 para o acolhimento pastoral.</span>
+            </div>
+
             {errorMessage && (
               <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs font-medium">
                 {errorMessage}

@@ -9,6 +9,7 @@ interface ImageUploaderFieldProps {
   value: string;
   onChange: (url: string) => void;
   folder?: string;
+  bucket?: string;
   aspectRatio?: number;
   placeholder?: string;
 }
@@ -18,6 +19,7 @@ export function ImageUploaderField({
   value,
   onChange,
   folder = 'geral',
+  bucket = 'parish-media',
   aspectRatio,
   placeholder = '/images/exemplo.webp',
 }: ImageUploaderFieldProps) {
@@ -119,6 +121,7 @@ export function ImageUploaderField({
         onClose={() => setModalOpen(false)}
         onUploadSuccess={(url) => onChange(url)}
         folder={folder}
+        bucket={bucket}
         initialAspectRatio={aspectRatio}
       />
     </div>

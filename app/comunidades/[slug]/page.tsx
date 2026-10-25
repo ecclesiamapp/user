@@ -4,15 +4,17 @@ import { cookies } from 'next/headers';
 import { Image as ImageIcon } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { Card } from '@/components/ui';
-import { Community, MassSchedule, Gallery } from '@/types';
+import { Community, MassSchedule, Gallery, ParishSpecialEvent } from '@/types';
 
 import { fallbackCommunities } from '@/lib/communities';
+import { FALLBACK_SPECIAL_EVENTS } from '@/lib/events';
 import { getLiturgicalColorTheme } from '@/lib/liturgy';
 import { CommunityJsonLd } from '@/components/comunidades/CommunityJsonLd';
 import { CommunityHeader } from '@/components/comunidades/CommunityHeader';
 import { CommunityLiturgicalBanner } from '@/components/comunidades/CommunityLiturgicalBanner';
 import { CommunityAccessibilityProvider } from '@/components/comunidades/CommunityAccessibilityContext';
 import { CommunityHero } from '@/components/comunidades/CommunityHero';
+import { CommunitySpecialEventCard } from '@/components/comunidades/CommunitySpecialEventCard';
 import { CommunityLiturgyCard } from '@/components/comunidades/CommunityLiturgyCard';
 import { CommunityNoticesCard } from '@/components/comunidades/CommunityNoticesCard';
 import { CommunityCalendarCard } from '@/components/comunidades/CommunityCalendarCard';
@@ -62,6 +64,33 @@ export default async function CommunityDetailPage({ params }: Props) {
     .order('event_date', { ascending: false });
 
   const galleries: Gallery[] = galleriesData || [];
+
+  // 3.1 Buscar festividade solene vinculada a esta comunidade ou festa geral da paróquia (TASK-48)
+  const { data: communityEventsData } = await supabase
+    .from('parish_special_events')
+    .select('*')
+    .eq('community_id', community.id)
+    .eq('status', 'destaque_ativo')
+    .limit(1);
+
+  let featuredSpecialEvent: ParishSpecialEvent | undefined = communityEventsData?.[0] as ParishSpecialEvent | undefined;
+
+  // Se a comunidade não tiver festa própria ativa no momento, buscar a festividade geral da matriz/paróquia
+  if (!featuredSpecialEvent) {
+    const { data: globalEventsData } = await supabase
+      .from('parish_special_events')
+      .select('*')
+      .eq('is_featured_home', true)
+      .eq('status', 'destaque_ativo')
+      .order('start_date', { ascending: true })
+      .limit(1);
+
+    if (globalEventsData && globalEventsData.length > 0) {
+      featuredSpecialEvent = globalEventsData[0] as ParishSpecialEvent;
+    } else {
+      featuredSpecialEvent = FALLBACK_SPECIAL_EVENTS[0];
+    }
+  }
 
   // 4. Buscar paróquia para o rodapé oficial
   const { data: parishesData } = await supabase.from('parishes').select('*').limit(1);
@@ -139,6 +168,11 @@ export default async function CommunityDetailPage({ params }: Props) {
 
       {/* 3. Grade Principal de 5 Cards Numerados (Diagramação Exata do Mockup) */}
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-10 sm:py-14 w-full flex-1">
+        {/* Destaque de Festividade Litúrgica Solene (TASK-48) */}
+        {featuredSpecialEvent && (
+          <CommunitySpecialEventCard community={community} event={featuredSpecialEvent} />
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
           {/* Card 1: Celebrações & Liturgia */}
           <div id="horarios" className="scroll-mt-24 flex flex-col h-full">
