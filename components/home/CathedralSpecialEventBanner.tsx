@@ -32,10 +32,17 @@ export function CathedralSpecialEventBanner({ event }: CathedralSpecialEventBann
   }, [event.start_date, event.end_date]);
 
   const datesFormatted = formatEventDateRange(event.start_date, event.end_date);
-  const eventUrl = typeof window !== 'undefined' 
-    ? `${window.location.origin}/programacao/${event.slug}` 
-    : `https://catedraldecolatina.org.br/programacao/${event.slug}`;
-  const whatsappShareUrl = `https://api.whatsapp.com/send?text=${generateWhatsAppShareText(event, eventUrl)}`;
+
+  const handleShareWhatsApp = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://catedraldecolatina.org.br';
+    const liveEventUrl = `${origin}/programacao/${event.slug}`;
+    const shareUrl = `https://api.whatsapp.com/send?text=${generateWhatsAppShareText(event, liveEventUrl)}`;
+    window.open(shareUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const canonicalEventUrl = `https://catedraldecolatina.org.br/programacao/${event.slug}`;
+  const defaultShareUrl = `https://api.whatsapp.com/send?text=${generateWhatsAppShareText(event, canonicalEventUrl)}`;
 
   return (
     <section 
@@ -127,27 +134,28 @@ export function CathedralSpecialEventBanner({ event }: CathedralSpecialEventBann
             </div>
 
             {countdown.status !== 'ended' ? (
-              <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center">
+              <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center" suppressHydrationWarning>
                 <div className="bg-[var(--dash-surface)]/5 border border-white/10 rounded-xl p-2 min-w-[58px] sm:min-w-[68px]">
-                  <span className="block font-cinzel text-xl sm:text-2xl font-bold text-white tracking-wider">
+                  <span suppressHydrationWarning className="block font-cinzel text-xl sm:text-2xl font-bold text-white tracking-wider">
                     {String(countdown.days).padStart(2, '0')}
                   </span>
                   <span className="text-[10px] uppercase font-bold text-zinc-400">Dias</span>
                 </div>
                 <div className="bg-[var(--dash-surface)]/5 border border-white/10 rounded-xl p-2 min-w-[58px] sm:min-w-[68px]">
-                  <span className="block font-cinzel text-xl sm:text-2xl font-bold text-white tracking-wider">
+                  <span suppressHydrationWarning className="block font-cinzel text-xl sm:text-2xl font-bold text-white tracking-wider">
                     {String(countdown.hours).padStart(2, '0')}
                   </span>
                   <span className="text-[10px] uppercase font-bold text-zinc-400">Horas</span>
                 </div>
                 <div className="bg-[var(--dash-surface)]/5 border border-white/10 rounded-xl p-2 min-w-[58px] sm:min-w-[68px]">
-                  <span className="block font-cinzel text-xl sm:text-2xl font-bold text-white tracking-wider">
+                  <span suppressHydrationWarning className="block font-cinzel text-xl sm:text-2xl font-bold text-white tracking-wider">
                     {String(countdown.minutes).padStart(2, '0')}
                   </span>
                   <span className="text-[10px] uppercase font-bold text-zinc-400">Min</span>
                 </div>
                 <div className="bg-[var(--dash-surface)]/5 border border-white/10 rounded-xl p-2 min-w-[58px] sm:min-w-[68px]">
                   <span 
+                    suppressHydrationWarning
                     className="block font-cinzel text-xl sm:text-2xl font-bold tracking-wider"
                     style={{ color: theme.secondary }}
                   >
@@ -177,7 +185,8 @@ export function CathedralSpecialEventBanner({ event }: CathedralSpecialEventBann
             </Link>
 
             <a
-              href={whatsappShareUrl}
+              href={defaultShareUrl}
+              onClick={handleShareWhatsApp}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Compartilhar no WhatsApp"

@@ -113,8 +113,9 @@ export function AdventWreathSvg({
           {/* Folhagens de Pinheiro e Cipreste em arco (Textura rica e orgânica) */}
           {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, idx) => {
             const rad = (angle * Math.PI) / 180;
-            const fx = 250 + Math.cos(rad) * 145;
-            const fy = 230 + Math.sin(rad) * 145;
+            // Arredondar para 1 casa decimal para evitar divergência de ponto flutuante entre Node SSR e V8 Client
+            const fx = Math.round((250 + Math.cos(rad) * 145) * 10) / 10;
+            const fy = Math.round((230 + Math.sin(rad) * 145) * 10) / 10;
             return (
               <g key={`branch-${idx}`} transform={`translate(${fx}, ${fy}) rotate(${angle + 45})`}>
                 <path d="M-15,-6 Q0,0 15,-6 Q0,8 -15,-6" fill="#10b981" opacity="0.75" />
