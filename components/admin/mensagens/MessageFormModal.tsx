@@ -16,6 +16,14 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import { PastoralMessage } from '@/types';
+import { ImageUploaderField, ImagePreset } from '@/components/admin/shared/ImageUploaderField';
+
+const CLERGY_PRESETS: ImagePreset[] = [
+  { label: 'Pe. Irineu (Pároco)', url: '/images/pastores/pe-irineu-claudino-sales.webp' },
+  { label: 'Dom Lauro (Bispo)', url: '/images/pastores/dom-lauro-versiani.webp' },
+  { label: 'Pe. Deivid (Vigário)', url: '/images/pastores/Deivid.jpg' },
+  { label: 'Pe. Ernandes (Vigário)', url: '/images/pastores/Ernandes.jpg' },
+];
 
 interface MessageFormModalProps {
   isOpen: boolean;
@@ -72,7 +80,7 @@ export function MessageFormModal({
     setAuthorType('paroco');
     setAuthorName('Padre Irineu Claudino Sales');
     setAuthorTitle('Pároco e Cura da Catedral');
-    setAuthorPhotoUrl('');
+    setAuthorPhotoUrl('/images/pastores/pe-irineu-claudino-sales.webp');
     setTitle('');
     setSlug('');
     setSubtitle('');
@@ -91,12 +99,15 @@ export function MessageFormModal({
       if (type === 'paroco') {
         setAuthorName('Padre Irineu Claudino Sales');
         setAuthorTitle('Pároco e Cura da Catedral');
+        setAuthorPhotoUrl('/images/pastores/pe-irineu-claudino-sales.webp');
       } else if (type === 'bispo') {
         setAuthorName('Dom Lauro Sérgio Versiani Barbosa');
         setAuthorTitle('Bispo Diocesano de Colatina');
+        setAuthorPhotoUrl('/images/pastores/dom-lauro-versiani.webp');
       } else {
         setAuthorName('Padre Deivid José');
         setAuthorTitle('Vigário Paroquial');
+        setAuthorPhotoUrl('/images/pastores/Deivid.jpg');
       }
     }
   };
@@ -285,6 +296,17 @@ export function MessageFormModal({
             </div>
           </div>
 
+          {/* Foto do Autor com Presets Oficiais */}
+          <ImageUploaderField
+            label="Foto do Autor (Padre / Bispo)"
+            value={authorPhotoUrl}
+            onChange={setAuthorPhotoUrl}
+            folder="pastores"
+            aspectRatio={1}
+            presets={CLERGY_PRESETS}
+            placeholder="/images/pastores/pe-irineu-claudino-sales.webp"
+          />
+
           {/* Título Principal */}
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-[var(--dash-text-primary)]">
@@ -343,6 +365,16 @@ export function MessageFormModal({
               className="w-full rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-secondary)] p-3.5 text-xs leading-relaxed text-[var(--dash-text-primary)] placeholder-[var(--dash-text-secondary)]/50 focus:outline-none focus:ring-1 focus:ring-amber-500"
             />
           </div>
+
+          {/* Imagem de Capa da Mensagem (Opcional) */}
+          <ImageUploaderField
+            label="Imagem de Capa da Mensagem (Opcional)"
+            value={coverImageUrl}
+            onChange={setCoverImageUrl}
+            folder="mensagens"
+            aspectRatio={16 / 9}
+            placeholder="/images/historia/catedral-interior.jpg"
+          />
 
           {/* Checkboxes de Configuração */}
           <div className="p-4 rounded-xl bg-[var(--dash-surface-secondary)] border border-[var(--dash-border)] space-y-3">

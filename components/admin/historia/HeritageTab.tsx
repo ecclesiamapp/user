@@ -233,9 +233,22 @@ export function HeritageTab({ initialHeritage, parishId }: HeritageTabProps) {
                 </div>
 
                 {item.image_url && (
-                  <div className="flex items-center gap-1.5 text-[11px] text-[var(--dash-text-secondary)] pt-1">
-                    <ImageIcon className="w-3.5 h-3.5 text-[#FFA82A]" />
-                    <span className="truncate max-w-xs">{item.image_url}</span>
+                  <div className="flex items-center gap-2.5 pt-1">
+                    <div className="w-14 h-12 rounded-lg overflow-hidden border border-[var(--dash-border)] shrink-0 bg-stone-900">
+                      <img
+                        src={item.image_url}
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="text-[11px] text-[var(--dash-text-secondary)] truncate">
+                      <span className="font-medium text-[var(--dash-text-primary)] block truncate">
+                        {item.image_caption || 'Obra sacra'}
+                      </span>
+                      <span className="font-mono text-[10px] text-[var(--dash-text-secondary)]/80 truncate block">
+                        {item.image_url}
+                      </span>
+                    </div>
                   </div>
                 )}
               </div>

@@ -7,7 +7,7 @@
 ---
 
 ## 🟢 FASE 1: Go-Live do Portal Oficial da Matriz
-* **Data Limite:** 01 de Novembro de 2026 (Solenidade de Todos os Santos)
+* **Data Limite:** 29 de Novembro de 2026 (1º Domingo do Advento — Início do Novo Ano Litúrgico C)
 * **Objetivo:** Portal oficial no ar no domínio definitivo, clero completo, missas, doações PIX, folhetos e mensagens pastorais.
 
 ### Tarefas Técnicas & Entregas:

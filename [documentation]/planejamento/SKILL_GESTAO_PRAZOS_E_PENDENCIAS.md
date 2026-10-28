@@ -26,7 +26,7 @@ Avaliar de forma contínua a saúde do cronograma de desenvolvimento do **Eccles
 
 | Fase | Data Alvo | Evento Litúrgico | Escopo de Entrega |
 | :--- | :---: | :--- | :--- |
-| **Fase 1** | **01/11/2026** | Solenidade de Todos os Santos | Portal da Matriz no ar, Domínio Oficial, Palavra do Pároco na Home, Central do Dízimo (Theòs) + QR Code PIX, Clero (4 padres), Capacitação 1 da secretária (4h). |
+| **Fase 1** | **29/11/2026** | 1º Domingo do Advento (Ano C) | Go-Live Oficial: Portal da Matriz & 12 CEBs no ar, Domínio Oficial, Palavra do Pároco/Bispo, Central do Dízimo (Theòs) + QR Code PIX, Clero (4 padres), Capacitação da equipe. |
 | **Fase 2** | **22/11/2026** | Solenidade de Cristo Rei | Mini-sites das 12 CEBs & Grupo Santa Rita com rotas GPS, Folhetos em PDF («Sou do Sagrado Missa»), Liturgia CNBB, Capacitação 2 das CEBs (4h). |
 | **Fase 3** | **06/12/2026** | 2º Domingo do Advento | Secretaria On-line completa, agendamento de confissões com os 4 sacerdotes, fichas de batismo/catequese/noivos, e-mails via Resend. |
 | **Fase 4** | **25/12/2026** | Solenidade do Natal | Grade de fim de ano (Missa do Galo), campanha PWA nos celulares, formalização do setup piloto e início do plano mensal. |

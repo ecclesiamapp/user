@@ -3,7 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import { X, Loader2, Crown, User, Check, Image as ImageIcon } from 'lucide-react';
 import { ParishPastorSuccession } from '@/types';
-import { ImageUploaderField } from '@/components/admin/shared/ImageUploaderField';
+import { ImageUploaderField, ImagePreset } from '@/components/admin/shared/ImageUploaderField';
+
+const PASTOR_PHOTO_PRESETS: ImagePreset[] = [
+  { label: 'Dom Lauro (4º Bispo - Atual)', url: '/images/pastores/dom-lauro-versiani.webp' },
+  { label: 'Pe. Irineu (Pároco Atual)', url: '/images/pastores/pe-irineu-claudino-sales.webp' },
+  { label: 'Dom Joaquim Wladimir (3º Bispo)', url: '/images/pastores/dom-joaquim-wladimir.webp' },
+  { label: 'Dom Décio Zandonade (2º Bispo)', url: '/images/pastores/dom-decio-zandonade.webp' },
+  { label: 'Dom Geraldo Lyrio (1º Bispo)', url: '/images/pastores/dom-geraldo-lyrio-rocha.webp' },
+  { label: 'Pe. Deivid (Vigário)', url: '/images/pastores/Deivid.jpg' },
+  { label: 'Pe. Ernandes (Vigário)', url: '/images/pastores/Ernandes.jpg' },
+];
 
 interface PastorModalProps {
   isOpen: boolean;
@@ -271,6 +281,7 @@ export function PastorModal({ isOpen, onClose, onSave, pastor, defaultCategory =
               onChange={setImageUrl}
               folder="pastores"
               aspectRatio={3 / 4}
+              presets={PASTOR_PHOTO_PRESETS}
               placeholder="/images/pastores/bispo.webp"
             />
 

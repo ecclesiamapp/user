@@ -27,7 +27,7 @@ const PLAN_PATH_SECONDARY = path.join(ROOT_DIR, '[documentation]/PLANO_DE_ACAO_D
 // Metadados técnicos enriquecidos por tarefa para apoiar o Card Executivo
 const TASK_METADATA = {
   'TASK-09': {
-    phase: 'Fase 1 (Solenidade de Todos os Santos)',
+    phase: 'Fase 1 (1º Domingo do Advento)',
     category: 'Capacitação / Documentação',
     estimated_time: '30 a 45 minutos',
     files: [
@@ -37,7 +37,7 @@ const TASK_METADATA = {
     objective: 'Criar a apostila/roteiro oficial de treinamento da secretária paroquial (4h presenciais) para uso prático das telas /admin (horários, avisos, folhetos e mensagens).'
   },
   'TASK-10': {
-    phase: 'Fase 1 (Solenidade de Todos os Santos)',
+    phase: 'Fase 1 (1º Domingo do Advento)',
     category: 'Segurança & Banco de Dados (Supabase)',
     estimated_time: '30 minutos',
     files: [
@@ -47,7 +47,7 @@ const TASK_METADATA = {
     objective: 'Auditar políticas de Row Level Security (RLS) garantindo isolamento estrito por parish_id em todas as tabelas (pastoral_messages, liturgical_booklets, communities, etc.).'
   },
   'TASK-11': {
-    phase: 'Fase 1 (Solenidade de Todos os Santos)',
+    phase: 'Fase 1 (1º Domingo do Advento)',
     category: 'Infraestrutura & Dependências',
     estimated_time: '20 minutos',
     files: [
@@ -57,7 +57,7 @@ const TASK_METADATA = {
     objective: 'Executar npm audit para checagem de vulnerabilidades e validar checklist de variáveis de ambiente de produção na Vercel.'
   },
   'TASK-12': {
-    phase: 'Fase 1 (Solenidade de Todos os Santos)',
+    phase: 'Fase 1 (1º Domingo do Advento)',
     category: 'DevOps & Domínio',
     estimated_time: '25 minutos',
     files: [

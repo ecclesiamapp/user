@@ -55,24 +55,24 @@ A reunião realizada com o Pároco Pe. Irineu Claudino Sales no dia 07/10/2026 r
 ## 🗓️ 2. Linha do Tempo e Marcos Litúrgicos Dominicais
 
 ```
-Outubro 2026                     Novembro 2026                    Dezembro 2026
+Outubro/Nov 2026                 Novembro 2026                    Dezembro 2026
 ┌──────────────────────┐         ┌──────────────────────┐         ┌──────────────────────┐
-│  07/10: Kickoff      │         │  01/11: GO-LIVE      │         │  06/12: GO-LIVE      │
-│  Sprints 1 e 2       │ ──────> │  FASE 1 (Portal)     │ ──────> │  FASE 3 (Secretaria) │ ──────> NATAL
-│  Preparo Domínio DNS │         │  22/11: GO-LIVE      │         │  25/12: Solenidade   │
-│  Treino Secretária   │         │  FASE 2 (12 CEBs)    │         │  Ecossistema Pleno   │
+│  07/10: Kickoff      │         │  29/11: GO-LIVE      │         │  06/12: MARCO 2      │
+│  Sprints 1 e 2       │ ──────> │  FASE 1 (Matriz+CEBs)│ ──────> │  (Secretaria On-line)│ ──────> NATAL
+│  Preparo Domínio DNS │         │  1º Domingo Advento  │         │  25/12: Solenidade   │
+│  Treino Secretária   │         │  Início Ano Litúrgico│         │  Ecossistema Pleno   │
 └──────────────────────┘         └──────────────────────┘         └──────────────────────┘
 ```
 
 | Marco | Data Alvo | Evento / Solenidade | Entregas em Produção |
 | :--- | :--- | :--- | :--- |
 | **Kickoff & Planejamento** | **07/10/2026** | Quarta-feira | Alinhamento do plano com ata do Pe. Irineu (Grupo Santa Rita + Dízimo/Theòs + QR Code + Palavra do Pároco/Bispo) |
-| **Treinamento 1 (Secretaria)** | **29/10 ou 30/10** | Quinta/Sexta | 4h presenciais com a secretária na Catedral (Avisos, Missas, Clero, Doações e Mensagens do Padre) |
-| **🟢 GO-LIVE FASE 1** | **Domingo, 01/11/2026** | **Solenidade de Todos os Santos** | **Portal Oficial da Matriz no Ar** (Domínio próprio, Missas, 4 Padres, Central do Dízimo + QR Code de Doações, **Palavra do Pároco no ar**, WhatsApp, PWA) |
-| **Treinamento 2 (CEBs & PASCOM)** | **19/11 ou 20/11** | Quinta/Sexta | 4h presenciais com as 12 Comunidades/CEBs e equipe litúrgica (Mini-sites e Folhetos) |
-| **🟡 GO-LIVE FASE 2** | **Domingo, 22/11/2026** | **Solenidade de Cristo Rei** | **Mini-sites das 12 Comunidades + Folhetos de Missa** (Incluindo Santa Rita Brisa do Vale, GPS Google Maps/Waze, download de folhetos em PDF, Liturgia CNBB) |
-| **🔵 GO-LIVE FASE 3** | **Domingo, 06/12/2026** | **2º Domingo do Advento** | **Secretaria On-line Completa** (Agendamentos com Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes + Inscrições de Sacramentos) |
-| **🌟 Solenidade do Natal** | **Quinta/Sexta, 24-25/12** | **Natividade do Senhor** | **Consolidação Plena:** Missa da Vigília/Galo, Horários Especiais de Fim de Ano, PWA instalado nos celulares |
+| **Treinamento 1 (Secretaria)** | **Novembro/2026** | Quinzena Pré-Advento | 4h presenciais com a secretária na Catedral (Avisos, Missas, Clero, Doações e Mensagens do Padre) |
+| **Treinamento 2 (CEBs & PASCOM)** | **20/11 a 27/11** | Semana Pré-Advento | Capacitação presencial com as 12 Comunidades/CEBs e equipe litúrgica (Mini-sites e Folhetos) |
+| **🟢 GO-LIVE OFICIAL** | **Domingo, 29/11/2026** | **1º Domingo do Advento (Ano C)** | **Portal Oficial da Matriz & 12 CEBs no Ar** (Domínio próprio, Missas, 4 Padres, Central do Dízimo + QR Code de Doações, Mini-sites das CEBs, Folhetos em PDF, Palavra do Pároco/Bispo, PWA) |
+| **🔵 MARCO 2: SECRETARIA** | **Domingo, 06/12/2026** | **2º Domingo do Advento** | **Secretaria On-line Completa** (Agendamentos com Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes + Inscrições de Sacramentos) |
+| **🟣 MARCO 3: IA PAROQUIAL** | **Domingo, 13/12/2026** | **3º Domingo do Advento (Gaudete)** | **Inteligência Paroquial & Assistente IA** (RAG Copilot, Drawer administrativo, triagem pastoral e manuais) |
+| **🌟 Solenidade do Natal** | **Quinta/Sexta, 24-25/12** | **Natividade do Senhor** | **Consolidação Plena:** Missa da Vigília/Galo, Horários Especiais de Fim de Ano, PWA instalado nos celulares dos paroquianos |
 
 ---
 

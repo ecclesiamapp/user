@@ -3,7 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import { X, Loader2, Newspaper, AlertCircle, Sparkles } from 'lucide-react';
 import { Announcement } from '@/types';
-import { ImageUploaderField } from '@/components/admin/shared/ImageUploaderField';
+import { ImageUploaderField, ImagePreset } from '@/components/admin/shared/ImageUploaderField';
+
+const ANNOUNCEMENT_PHOTO_PRESETS: ImagePreset[] = [
+  { label: 'Interior da Catedral', url: '/images/historia/catedral-interior.jpg' },
+  { label: 'Vitrais Sagrados', url: '/images/historia/catedral-vitrais.jpg' },
+  { label: 'Nave Revitalizada', url: '/images/historia/nave-revitalizada.jpg' },
+  { label: 'Altar & Baldaquino', url: '/images/historia/altar-baldaquino.jpg' },
+];
 
 interface AnnouncementModalProps {
   isOpen: boolean;
@@ -159,7 +166,8 @@ export function AnnouncementModal({
             onChange={setImageUrl}
             folder="avisos"
             aspectRatio={16 / 9}
-            placeholder="https://exemplo.com/foto-aviso.webp"
+            presets={ANNOUNCEMENT_PHOTO_PRESETS}
+            placeholder="/images/historia/catedral-interior.jpg"
           />
 
           <div>

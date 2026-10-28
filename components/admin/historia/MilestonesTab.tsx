@@ -215,9 +215,22 @@ export function MilestonesTab({ initialMilestones, parishId }: MilestonesTabProp
                       </div>
                     )}
                     {m.image_url && (
-                      <div className="flex items-center gap-1.5 text-[11px] text-[var(--dash-text-secondary)] pt-2">
-                        <ImageIcon className="w-3.5 h-3.5 text-[#FFA82A]" />
-                        <span className="truncate max-w-xs">{m.image_url}</span>
+                      <div className="flex items-center gap-2.5 pt-2">
+                        <div className="w-16 h-10 rounded-lg overflow-hidden border border-[var(--dash-border)] shrink-0 bg-stone-900">
+                          <img
+                            src={m.image_url}
+                            alt={m.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="text-[11px] text-[var(--dash-text-secondary)] truncate">
+                          <span className="font-medium text-[var(--dash-text-primary)] block truncate">
+                            {m.image_caption || 'Foto do marco'}
+                          </span>
+                          <span className="font-mono text-[10px] text-[var(--dash-text-secondary)]/80 truncate block">
+                            {m.image_url}
+                          </span>
+                        </div>
                       </div>
                     )}
                   </div>

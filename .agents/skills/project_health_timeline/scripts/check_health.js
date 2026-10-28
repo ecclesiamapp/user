@@ -11,45 +11,44 @@ const fs = require('fs');
 const MILESTONES = [
   {
     id: 'fase_1',
-    name: 'Fase 1: Go-Live do Portal Oficial da Matriz',
-    liturgical_event: 'Solenidade de Todos os Santos',
-    target_date: '2026-11-01',
+    name: 'Fase 1: Go-Live Oficial do Portal da Matriz & 12 CEBs',
+    liturgical_event: '1º Domingo do Advento (Início do Ano Litúrgico C)',
+    target_date: '2026-11-29',
     deliverables: [
-      'Portal da Matriz no ar com fotos oficiais e brasão',
-      'Card Missas de Hoje (07h e 19h) e Palavra do Pároco na Home',
+      'Portal da Matriz e Mini-sites das 12 CEBs no ar no domínio definitivo',
+      'Card Missas de Hoje e Palavra do Pároco/Bispo na Home',
       'Central do Dízimo (Theòs) + QR Code PIX de Doações',
       'Clero oficial (4 padres) e WhatsApp da secretaria',
       'Configuração de DNS, Cloudflare e Vercel (Produção)',
-      'Capacitação 1: Secretária Paroquial (4h presenciais)'
+      'Capacitação da secretária e lideranças paroquiais'
     ]
   },
   {
     id: 'fase_2',
-    name: 'Fase 2: 12 Comunidades & Folhetos Litúrgicos',
-    liturgical_event: 'Solenidade de Cristo Rei',
-    target_date: '2026-11-22',
-    deliverables: [
-      'Mini-sites das 12 CEBs e Grupo Santa Rita com rotas GPS',
-      'Repositório de Folhetos em PDF («Sou do Sagrado Missa»)',
-      'Widget Liturgia Diária oficial da CNBB',
-      'Capacitação 2: Lideranças das 12 CEBs e Liturgia (4h presenciais)'
-    ]
-  },
-  {
-    id: 'fase_3',
-    name: 'Fase 3: Secretaria On-line & Agendamentos',
+    name: 'Fase 2: Secretaria On-line & Agendamentos com Padres',
     liturgical_event: '2º Domingo do Advento',
     target_date: '2026-12-06',
     deliverables: [
       'Agendamento de confissões sacramentais com os 4 sacerdotes',
       'Inscrições de sacramentos (Batismo, Catequese, Noivos)',
-      'Painel /admin/agendamentos e /admin/inscricoes',
+      'Painel /admin/secretaria e sub-abas de atendimento',
       'Notificações por e-mail transacional (Resend)'
     ]
   },
   {
+    id: 'fase_3',
+    name: 'Fase 3: Inteligência Paroquial & Assistente IA',
+    liturgical_event: '3º Domingo do Advento (Gaudete)',
+    target_date: '2026-12-13',
+    deliverables: [
+      'Assistente IA Paroquial com RAG (Gemini 2.5 Flash + Supabase pgvector)',
+      'Drawer flutuante global no /admin e hub de documentos',
+      'Homologação de respostas canônicas e pastorais'
+    ]
+  },
+  {
     id: 'fase_4',
-    name: 'Fase 4: Solenidade de Natal & Entrega Plena',
+    name: 'Fase 4: Solenidade de Natal & Consolidação Plena',
     liturgical_event: 'Natividade do Senhor (Natal)',
     target_date: '2026-12-25',
     deliverables: [

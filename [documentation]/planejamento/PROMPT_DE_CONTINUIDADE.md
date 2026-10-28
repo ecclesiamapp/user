@@ -34,7 +34,7 @@ Por favor, adote e siga rigorosamente as seguintes DIRETRIZES E REGRAS MANDATÓR
 
 ### ESTADO ATUAL DO PROJETO (11/10/2026):
 1. **Progresso Global do Roadmap:** **60% concluído (18 de 30 tarefas entregues)**.
-   - 🟢 **Fase 1 (01/11/2026 - Solenidade de Todos os Santos):** **92% concluída** (11/12 tarefas). Resta apenas o apontamento DNS da Catedral.
+   - 🟢 **Fase 1 (29/11/2026 - 1º Domingo do Advento):** **92% concluída** (11/12 tarefas). Resta apenas o apontamento DNS da Catedral.
    - 🟡 **Fase 2 (22/11/2026 - Solenidade de Cristo Rei):** **100% CONCLUÍDA** (7/7 tarefas entregues 🎉).
 2. **Upload & Gestão de Fotos de Fachadas das CEBs ([TASK-17]):** Componente modular anti-monolito `CommunityFacadeUploader.tsx` com drag & drop e upload direto para o Supabase Storage (`galleries/facades/`), integrado ao modal `CommunityFormModal.tsx`, cards administrativos `CommunityCard.tsx` e aos minisites `/comunidades/[slug]`.
 3. **Roteiro da Capacitação 2: Lideranças das 12 CEBs & PASCOM ([TASK-19]):** Guia presencial completo de 4 horas em `[documentation]/ROTEIRO_CAPACITACAO_LIDERANCAS_CEBS.md` com 6 blocos programáticos e ficha cadastral das capelas.

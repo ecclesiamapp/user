@@ -5,7 +5,7 @@ Consulte [`[documentation]/planejamento/PROMPT_DE_CONTINUIDADE.md`](file:///c:/U
 ### 📌 Conquistas Desta Sessão (11/10/2026):
 1. **Marcos Globais do Projeto:**
    * **60% de conclusão de todo o Roadmap (18 de 30 tarefas entregues)**.
-   * **Fase 1 (01/11/2026 - Solenidade de Todos os Santos):** **92% concluída** (11 de 12 tarefas). Resta apenas o apontamento de DNS da Catedral.
+   * **Fase 1 (29/11/2026 - 1º Domingo do Advento):** **92% concluída** (11 de 12 tarefas). Resta apenas o apontamento de DNS da Catedral.
    * **Fase 2 (22/11/2026 - Solenidade de Cristo Rei):** **100% CONCLUÍDA** (7 de 7 tarefas entregues 🎉).
 
 2. **Upload e Gestão de Fotos de Fachadas das Capelas ([TASK-17]):**

@@ -3,7 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { X, Loader2, Sparkles, Image as ImageIcon } from 'lucide-react';
 import { ParishHistoryMilestone } from '@/types';
-import { ImageUploaderField } from '@/components/admin/shared/ImageUploaderField';
+import { ImageUploaderField, ImagePreset } from '@/components/admin/shared/ImageUploaderField';
+
+const MILESTONE_PHOTO_PRESETS: ImagePreset[] = [
+  { label: 'Projeto Benedito Calixto (1952)', url: '/images/historia/projeto-benedito-calixto.jpg' },
+  { label: 'Interior da Catedral', url: '/images/historia/catedral-interior.jpg' },
+  { label: 'Vitrais Sagrados', url: '/images/historia/catedral-vitrais.jpg' },
+  { label: 'Altar & Baldaquino', url: '/images/historia/altar-baldaquino.jpg' },
+  { label: 'Caminho das Procissões', url: '/images/historia/caminho-procissoes.jpg' },
+];
 
 interface MilestoneModalProps {
   isOpen: boolean;
@@ -240,6 +248,7 @@ export function MilestoneModal({ isOpen, onClose, onSave, milestone }: Milestone
               onChange={setImageUrl}
               folder="historia"
               aspectRatio={16 / 9}
+              presets={MILESTONE_PHOTO_PRESETS}
               placeholder="/images/historia/projeto-benedito-calixto.jpg"
             />
 

@@ -212,12 +212,22 @@ export function PastorsTab({ initialPastors, parishId }: PastorsTabProps) {
             >
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <span className="p-2 rounded-xl bg-[#8B1E22]/10 text-[#8B1E22] dark:text-[#FFA82A]">
-                      {p.category === 'bishop' ? <Crown className="w-4 h-4" /> : <User className="w-4 h-4" />}
-                    </span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-14 rounded-xl overflow-hidden bg-stone-900 border border-[var(--dash-border)] shrink-0 flex items-center justify-center">
+                      {p.image_url ? (
+                        <img
+                          src={p.image_url}
+                          alt={p.name}
+                          className="w-full h-full object-cover object-top"
+                        />
+                      ) : (
+                        <span className="p-2 text-[#8B1E22] dark:text-[#FFA82A]">
+                          {p.category === 'bishop' ? <Crown className="w-5 h-5" /> : <User className="w-5 h-5" />}
+                        </span>
+                      )}
+                    </div>
                     <div>
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#FFA82A]/10 text-[#FFA82A] border border-[#FFA82A]/20">
                           {p.order_label || (p.category === 'bishop' ? 'Bispo Diocesano' : 'Pároco')}
                         </span>

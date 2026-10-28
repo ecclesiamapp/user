@@ -3,7 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { X, Loader2, Sparkles, Image as ImageIcon } from 'lucide-react';
 import { ParishSacredHeritage } from '@/types';
-import { ImageUploaderField } from '@/components/admin/shared/ImageUploaderField';
+import { ImageUploaderField, ImagePreset } from '@/components/admin/shared/ImageUploaderField';
+
+const HERITAGE_PHOTO_PRESETS: ImagePreset[] = [
+  { label: 'Vitrais Sagrados', url: '/images/historia/catedral-vitrais.jpg' },
+  { label: 'Altar & Baldaquino', url: '/images/historia/altar-baldaquino.jpg' },
+  { label: 'Interior da Catedral', url: '/images/historia/catedral-interior.jpg' },
+  { label: 'Nave Revitalizada', url: '/images/historia/nave-revitalizada.jpg' },
+  { label: 'Caminho das Procissões', url: '/images/historia/caminho-procissoes.jpg' },
+];
 
 interface HeritageModalProps {
   isOpen: boolean;
@@ -208,6 +216,7 @@ export function HeritageModal({ isOpen, onClose, onSave, item }: HeritageModalPr
               onChange={setImageUrl}
               folder="patrimonio"
               aspectRatio={4 / 3}
+              presets={HERITAGE_PHOTO_PRESETS}
               placeholder="/images/historia/catedral-vitrais.jpg"
             />
 

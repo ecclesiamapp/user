@@ -32,22 +32,29 @@ export function PastoralMessageFeatured({ message, messages }: PastoralMessageFe
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
   const current = messageList[activeIndex] || messageList[0];
   const isBispo = current.author_type === 'bispo';
 
+  const markImageFailed = (id: string) => {
+    setFailedImages((prev) => ({ ...prev, [id]: true }));
+  };
+
   const handleShareWhatsApp = () => {
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://catedraldecolatina.org.br';
     const text = encodeURIComponent(
       `🕊️ *${current.title}*\n` +
       `✍️ *${current.author_name}* (${current.author_title})\n\n` +
       `${current.subtitle ? `_«${current.subtitle}»_\n\n` : ''}` +
-      `Leia a mensagem completa no portal da Catedral:\nhttps://catedraldecolatina.org.br/mensagens/${current.slug}`
+      `Leia a mensagem completa no portal da Catedral:\n${baseUrl}/mensagens/${current.slug}`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
   };
 
   const handleCopyLink = () => {
-    const url = `${window.location.origin}/mensagens/${current.slug}`;
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://catedraldecolatina.org.br';
+    const url = `${baseUrl}/mensagens/${current.slug}`;
     navigator.clipboard.writeText(url);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -98,11 +105,12 @@ export function PastoralMessageFeatured({ message, messages }: PastoralMessageFe
                 }`}
               >
                 <div className="w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/20 bg-stone-800">
-                  {msg.author_photo_url ? (
+                  {msg.author_photo_url && !failedImages[msg.id] ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={msg.author_photo_url}
                       alt={msg.author_name}
+                      onError={() => markImageFailed(msg.id)}
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -136,15 +144,18 @@ export function PastoralMessageFeatured({ message, messages }: PastoralMessageFe
           <div className="flex sm:flex-col items-center sm:items-start gap-4 shrink-0">
             <div className="relative">
               <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden ring-3 ring-[#FFA82A]/40 shadow-lg bg-[var(--dash-bg)] flex items-center justify-center">
-                {current.author_photo_url ? (
+                {current.author_photo_url && !failedImages[current.id] ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={current.author_photo_url}
                     alt={current.author_name}
+                    onError={() => markImageFailed(current.id)}
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <UserCheck className="w-10 h-10 text-[#8B1E22]" />
+                  <div className="w-full h-full flex items-center justify-center bg-[#8B1E22]/10 text-[#8B1E22] dark:text-[#FFA82A]">
+                    {isBispo ? <Crown className="w-10 h-10" /> : <UserCheck className="w-10 h-10" />}
+                  </div>
                 )}
               </div>
               <div className="absolute -bottom-2 -right-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FFA82A] text-[#2D1A16] shadow-xs uppercase tracking-wider">
@@ -167,10 +178,10 @@ export function PastoralMessageFeatured({ message, messages }: PastoralMessageFe
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#8B1E22]/10 text-[#8B1E22] dark:text-[#FFA82A] border border-[#8B1E22]/20">
                 <Sparkles className="w-3.5 h-3.5" />
-                Mensagem Pastoral de Natal
+                {isBispo ? 'Carta Episcopal' : 'Palavra do Pastor'}
               </span>
               {current.liturgical_season && (
-                <span className="text-xs px-2.5 py-0.5 rounded-full bg-[var(--dash-bg)] text-[var(--dash-text-secondary)] border border-[var(--dash-border)]">
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-[var(--dash-bg)] text-[var(--dash-text-secondary)] border border-[var(--dash-border)] font-medium">
                   {current.liturgical_season}
                 </span>
               )}
