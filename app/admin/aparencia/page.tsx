@@ -17,6 +17,7 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { LiturgicalColor } from '@/lib/liturgy';
+import { AdventPreviewControl } from '@/components/admin/aparencia/AdventPreviewControl';
 
 interface CanonicalColorMeta {
   color: LiturgicalColor;
@@ -398,6 +399,9 @@ export default function AdminAparenciaPage() {
           })}
         </div>
       </Card>
+
+      {/* Simulador Especial da Coroa do Advento & Velas Litúrgicas */}
+      <AdventPreviewControl />
     </div>
   );
 }

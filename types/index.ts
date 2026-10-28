@@ -651,6 +651,45 @@ export interface ParishSpecialEvent {
   days?: ParishEventDay[];
 }
 
+export type AdventCandleColor = 'roxo' | 'vermelho' | 'rosa' | 'branco';
+
+export interface AdventCandle {
+  week: number; // 1, 2, 3, 4, 5 (5 = Vela Central de Cristo)
+  name: string;
+  candleTitle: string;
+  color: AdventCandleColor;
+  colorLabel: string;
+  hexColor: string;
+  glowColor: string;
+  periodLabel: string;
+  biblicalFigure: string;
+  biblicalPassage: {
+    reference: string;
+    text: string;
+  };
+  theme: string;
+  catechesis: string;
+  familyPrayer: string;
+  fraternalGesture: string;
+  isLit: boolean;
+  isCurrentWeek: boolean;
+}
+
+export type AdventSimulationMode = 'auto' | 'week-1' | 'week-2' | 'week-3' | 'week-4' | 'christmas';
+
+export interface AdventSeasonState {
+  currentWeek: number; // 0 (espera), 1, 2, 3, 4, 5 (Natal)
+  seasonLabel: string;
+  isAdventSeason: boolean;
+  isChristmas: boolean;
+  liturgicalColor: 'roxo' | 'vermelho' | 'rosa' | 'branco';
+  daysUntilChristmas: number;
+  candles: AdventCandle[];
+  activeCandle: AdventCandle;
+  simulationMode: AdventSimulationMode;
+}
+
+
 
 
 

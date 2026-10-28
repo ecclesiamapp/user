@@ -18,6 +18,7 @@ import { FALLBACK_SPECIAL_EVENTS } from '@/lib/events';
 import { LiturgicalBanner } from '@/components/liturgy/LiturgicalBanner';
 import { YearEndLiturgySection } from '@/components/liturgy/YearEndLiturgySection';
 import { MissalBookletsSection } from '@/components/liturgy/MissalBookletsSection';
+import { AdventWreathBanner } from '@/components/advent/AdventWreathBanner';
 import { PastoralMessageFeatured } from '@/components/pastoral/PastoralMessageFeatured';
 import { fallbackFeaturedMessages } from '@/lib/pastoral-messages';
 import { DizimoDoacoesSection } from '@/components/dizimo/DizimoDoacoesSection';
@@ -101,6 +102,11 @@ export default async function ParishPublicPortalPage() {
 
       {/* Conteúdo Principal do Portal com Diagramação Respiração 1240px */}
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-12 space-y-16 w-full font-sans">
+        {/* Coroa do Advento Viva: A Luz de Cristo Dissipa as Trevas */}
+        <div id="coroa-advento" className="w-full">
+          <AdventWreathBanner />
+        </div>
+
         {/* 3.1 Banner de Destaque da Grande Festa Litúrgica (TASK-48) */}
         {featuredEvent && (
           <div id="destaque-festa" className="w-full">
