@@ -147,10 +147,10 @@ ON CONFLICT DO NOTHING;
 INSERT INTO public.tithe_transparency_items (parish_id, title, tag, highlight, description, icon_name, order_index)
 SELECT 
   id as parish_id,
-  'Comunhão com as 12 Capelas (CEBs)' as title,
+  'Comunhão com as 12 Comunidades (CEBs)' as title,
   'Igreja em Saída' as tag,
   '12 CEBs fortalecidas' as highlight,
-  'Ajuda fraterna da Catedral Matriz para que as comunidades menores do interior e periferia mantenham suas capelas dignas para as Santas Missas.' as description,
+  'Ajuda fraterna da Catedral Diocesana para que as comunidades menores do interior e periferia mantenham seus templos e comunidades dignas para as Santas Missas.' as description,
   'Church' as icon_name,
   3 as order_index
 FROM public.parishes LIMIT 1
@@ -191,7 +191,7 @@ INSERT INTO public.tithe_faqs (parish_id, question, answer, order_index)
 SELECT 
   id as parish_id,
   'Como faço para receber meu número de dizimista e os envelopes?' as question,
-  'Ao realizar seu cadastro aqui no portal "Sou do Sagrado", a Secretaria Paroquial registrará sua ficha. Você poderá retirar seu kit de envelopes mensais na Secretaria ou diretamente com os agentes da Pastoral do Dízimo no plantão das Santas Missas na Catedral.' as answer,
+  'Ao realizar seu cadastro aqui no portal "Sou do Sagrado", a Secretaria Paroquial formaliza seu registro no sistema eclesial oficial (Theòs). Você poderá retirar seu número de dizimista e seu kit de envelopes mensais na Secretaria ou diretamente com os agentes da Pastoral do Dízimo no plantão das Santas Missas na Catedral.' as answer,
   3 as order_index
 FROM public.parishes LIMIT 1
 ON CONFLICT DO NOTHING;
