@@ -75,7 +75,7 @@ export default async function CommunityDetailPage({ params }: Props) {
 
   let featuredSpecialEvent: ParishSpecialEvent | undefined = communityEventsData?.[0] as ParishSpecialEvent | undefined;
 
-  // Se a comunidade não tiver festa própria ativa no momento, buscar a festividade geral da matriz/paróquia
+  // Se a comunidade não tiver festa própria ativa no momento, buscar a festividade geral da catedral/paróquia
   if (!featuredSpecialEvent) {
     const { data: globalEventsData } = await supabase
       .from('parish_special_events')

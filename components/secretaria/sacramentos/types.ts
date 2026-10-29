@@ -26,7 +26,7 @@ export const SACRAMENTS_CONFIG: Record<SacramentType, SacramentConfig> = {
     type: 'batismo',
     title: 'Batismo Infantil',
     badge: 'Porta da Fé',
-    subtitle: 'Para crianças de 0 a 7 anos incompletos na Matriz ou Comunidades',
+    subtitle: 'Para crianças de 0 a 7 anos incompletos na Catedral ou Comunidades',
     icon: Baby,
     accentColor: '#3B82F6',
     minAgeNotice: 'Crianças a partir de 7 anos devem ser inscritas na Catequese Infantil.',
@@ -58,7 +58,7 @@ export const SACRAMENTS_CONFIG: Record<SacramentType, SacramentConfig> = {
     ],
     canonicalGuidelines: [
       'Caso a criança ainda não seja batizada, ela será preparada durante a catequese para receber o Batismo.',
-      'Encontros semanais na Matriz ou na Comunidade escolhida.',
+      'Encontros semanais na Catedral ou na Comunidade escolhida.',
       'Participação dos pais nos encontros formativos da Pastoral Catequética.'
     ]
   },

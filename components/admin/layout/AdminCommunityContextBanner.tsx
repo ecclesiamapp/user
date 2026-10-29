@@ -11,9 +11,10 @@ export function AdminCommunityContextBanner() {
     selectedCommunityId,
     selectedCommunity,
     setSelectedCommunityId,
+    isSimulating,
   } = useAdminCommunity();
 
-  if (!isParishMaster || !selectedCommunityId || !selectedCommunity) {
+  if (isSimulating || !isParishMaster || !selectedCommunityId || !selectedCommunity) {
     return null;
   }
 
@@ -26,7 +27,7 @@ export function AdminCommunityContextBanner() {
         <p className="leading-snug">
           <span className="font-bold">Modo Comunidade Ativa:</span> Você está gerenciando o conteúdo exclusivo da{' '}
           <strong className="underline underline-offset-2">{selectedCommunity.name}</strong>.
-          Edições salvas alimentam diretamente a LP desta capela.
+          Edições salvas alimentam diretamente a LP desta comunidade.
         </p>
       </div>
 

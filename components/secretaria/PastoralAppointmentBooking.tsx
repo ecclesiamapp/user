@@ -245,7 +245,7 @@ export function PastoralAppointmentBooking({
             priestName: selectedPriest?.name || 'Qualquer Sacerdote Disponível',
             formattedDate: selectedDate.split('-').reverse().join('/'),
             time: selectedTime,
-            communityName: selectedCommunity?.name || 'Catedral Matriz',
+            communityName: selectedCommunity?.name || 'Catedral Diocesana',
             notes: notes.trim() || undefined,
           }),
         }).catch((notifErr) => {

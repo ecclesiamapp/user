@@ -7,17 +7,17 @@
 
 ## 🏛️ Conceito 1: Landing Page Imersiva & Storytelling (Recomendado)
 
-> **Sensação:** Site próprio de uma capela/igreja moderna, solene e acolhedora.
+> **Sensação:** Site próprio de uma comunidade/igreja moderna, solene e acolhedora.
 > **Links Diretos:**
 > * Visualizar Imagem em Alta Resolução: [http://localhost:3000/images/mockups/ceb_lp_fullwidth.jpg](http://localhost:3000/images/mockups/ceb_lp_fullwidth.jpg)
 
 ### Destaques do Conceito 1:
-1. **Header Próprio da Capela:** Menu de âncoras locais (`Início`, `Horários`, `Avisos`, `CPC`, `Dízimo`, `Contato`) e insígnia oficial do Padroeiro.
+1. **Header Próprio da Comunidade:** Menu de âncoras locais (`Início`, `Horários`, `Avisos`, `CPC`, `Dízimo`, `Contato`) e insígnia oficial do Padroeiro.
 2. **Top Utility Bar Discreta:** Barra fina conectando à Catedral ("✝ Paróquia Catedral do Sagrado Coração de Jesus").
 3. **Hero Monumental de Boas-Vindas:** Fachada iluminada com card flutuante em vidro destacando a **Próxima Celebração**.
 4. **Faixas Horizontais com Respiração:**
    - Horários de Missas e Celebrações da Palavra em cards com toque litúrgico.
-   - Mural de Avisos da Capela com categorização e badges.
+   - Mural de Avisos da Comunidade com categorização e badges.
    - Conselho Pastoral Comunitário (CPC) com avatares e funções eclesiais.
    - Dízimo & Partilha Local com QR Code PIX direto e orientações da CEB.
    - Mapa Interativo e botões de rota GPS (Google Maps e Waze).

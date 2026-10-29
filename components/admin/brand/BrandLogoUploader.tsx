@@ -25,7 +25,7 @@ const LOGO_SLOTS: LogoSlotMeta[] = [
     key: 'main_url',
     title: 'Brasão Oficial Principal',
     subtitle: 'Aplicação policromática padrão',
-    recommendation: 'Utilizado no topo do portal, cabeçalho e páginas oficiais da matriz.',
+    recommendation: 'Utilizado no topo do portal, cabeçalho e páginas oficiais da catedral.',
     idealDimensions: 'PNG transparente ou SVG, mín. 512x512px',
     aspectRatio: 'square',
   },

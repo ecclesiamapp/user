@@ -47,7 +47,7 @@ export function CommunityFooter({
                 </h4>
               </div>
               <p className="text-xs text-[#EAE3D9]/75 leading-relaxed">
-                Sua partilha voluntária sustenta a conservação da capela de <strong>{community.name}</strong>, as celebrações litúrgicas e o apoio aos mais necessitados do bairro.
+                Sua partilha voluntária sustenta a conservação da comunidade de <strong>{community.name}</strong>, as celebrações litúrgicas e o apoio aos mais necessitados do bairro.
               </p>
             </div>
 

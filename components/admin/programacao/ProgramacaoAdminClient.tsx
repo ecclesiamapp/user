@@ -107,7 +107,7 @@ export function ProgramacaoAdminClient({
     const comm = communities.find((c) => c.id === savedEvent.community_id);
     const enriched: ParishSpecialEvent = {
       ...savedEvent,
-      community_name: comm ? comm.name : 'Catedral Sagrado Coração de Jesus (Matriz)',
+      community_name: comm ? comm.name : 'Catedral Sagrado Coração de Jesus (Sede)',
       days: eventToEdit?.days || [],
     };
 
@@ -179,7 +179,7 @@ export function ProgramacaoAdminClient({
             Festas, Solenidades & Programações Especiais
           </h1>
           <p className="text-sm text-[var(--dash-text-secondary)] mt-0.5">
-            Crie landing pages ricas para a Festa da Co-Padroeira, Tríduo Pascal, Padroeiro da Matriz e festas das 12 comunidades (CEBs).
+            Crie landing pages ricas para a Festa da Co-Padroeira, Tríduo Pascal, Padroeiro da Catedral e festas das 12 comunidades (CEBs).
           </p>
         </div>
 

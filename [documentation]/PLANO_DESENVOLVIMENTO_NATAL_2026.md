@@ -16,7 +16,7 @@ A reunião realizada com o Pároco Pe. Irineu Claudino Sales no dia 07/10/2026 r
 
 ### 📝 Ajustes da Reunião com o Pároco (Anotações em Ata):
 1. **Inclusão do Grupo de Reflexão Santa Rita (Brisa do Vale):**
-   - A paróquia passa a contar oficialmente com **12 Comunidades e Núcleos Eclesiais** cadastrados no sistema (a Igreja Matriz + 10 CEBs + Grupo de Reflexão Santa Rita no Brisa do Vale).
+   - A paróquia passa a contar oficialmente com **12 Comunidades e Núcleos Eclesiais** cadastrados no sistema (a Catedral + 10 CEBs + Grupo de Reflexão Santa Rita no Brisa do Vale).
    - O Grupo de Reflexão ganha card na Home e mini-site próprio (`/comunidades/santa-rita-brisa-do-vale`) com localização e horários de encontros bíblicos.
 2. **Central de Conscientização Pastoral do Dízimo (Theòs):**
    - O aplicativo **não fará captação direta de dízimo** neste primeiro momento, respeitando o ecossistema existente da paróquia onde o controle e cadastro de dizimistas oficiais são operados pela secretaria no sistema **Theòs**.
@@ -34,7 +34,7 @@ A reunião realizada com o Pároco Pe. Irineu Claudino Sales no dia 07/10/2026 r
 ### 🏛️ Parâmetros Contratuais & Arquiteturais Consolidados:
 1. **Regra de Ouro do White-Label:** A interface do fiel exibe exclusivamente o brasão, cores e identidade da Catedral do Sagrado Coração de Jesus. O Ecclesiam App opera de forma transparente nos bastidores de infraestrutura.
 2. **Escopo Fechado de Natal (2026):**
-   - Portal Institucional Solene da Matriz (Clero com 4 padres, Missas, Avisos, Dízimo/Ofertas PIX com QR Code, Card de Destaque da Palavra do Pastor, WhatsApp, PWA).
+   - Portal Institucional Solene da Catedral (Clero com 4 padres, Missas, Avisos, Dízimo/Ofertas PIX com QR Code, Card de Destaque da Palavra do Pastor, WhatsApp, PWA).
    - **Coluna Editorial Pastoral (`/mensagens`):** Acervo da Palavra do Pároco e Palavra do Bispo.
    - Mini-sites dinâmicos das **12 Comunidades e Grupos de Reflexão** (incluindo Santa Rita no Brisa do Vale) com rotas GPS.
    - Módulo de Folhetos Litúrgicos semanais (*"Sou do Sagrado Missa"*) com download e upload no `/admin/folhetos`.
@@ -68,7 +68,7 @@ Outubro 2026                     Novembro 2026                    Dezembro 2026
 | :--- | :--- | :--- | :--- |
 | **Kickoff & Planejamento** | **07/10/2026** | Quarta-feira | Alinhamento do plano com ata do Pe. Irineu (Grupo Santa Rita + Dízimo/Theòs + QR Code + Palavra do Pároco/Bispo) |
 | **Treinamento 1 (Secretaria)** | **29/10 ou 30/10** | Quinta/Sexta | 4h presenciais com a secretária na Catedral (Avisos, Missas, Clero, Doações e Mensagens do Padre) |
-| **🟢 GO-LIVE FASE 1** | **Domingo, 01/11/2026** | **Solenidade de Todos os Santos** | **Portal Oficial da Matriz no Ar** (Domínio próprio, Missas, 4 Padres, Central do Dízimo + QR Code de Doações, **Palavra do Pároco no ar**, WhatsApp, PWA) |
+| **🟢 GO-LIVE FASE 1** | **Domingo, 01/11/2026** | **Solenidade de Todos os Santos** | **Portal Oficial da Catedral no Ar** (Domínio próprio, Missas, 4 Padres, Central do Dízimo + QR Code de Doações, **Palavra do Pároco no ar**, WhatsApp, PWA) |
 | **Treinamento 2 (CEBs & PASCOM)** | **19/11 ou 20/11** | Quinta/Sexta | 4h presenciais com as 12 Comunidades/CEBs e equipe litúrgica (Mini-sites e Folhetos) |
 | **🟡 GO-LIVE FASE 2** | **Domingo, 22/11/2026** | **Solenidade de Cristo Rei** | **Mini-sites das 12 Comunidades + Folhetos de Missa** (Incluindo Santa Rita Brisa do Vale, GPS Google Maps/Waze, download de folhetos em PDF, Liturgia CNBB) |
 | **🔵 GO-LIVE FASE 3** | **Domingo, 06/12/2026** | **2º Domingo do Advento** | **Secretaria On-line Completa** (Agendamentos com Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes + Inscrições de Sacramentos) |
@@ -121,7 +121,7 @@ Outubro 2026                     Novembro 2026                    Dezembro 2026
 1. **Páginas Individuais das 12 Comunidades (`/comunidades/[slug]`):**
    - Homologação das páginas das 12 comunidades (incluindo `/comunidades/santa-rita-brisa-do-vale`).
    - Integração com mapas GPS: botões de rota direta no **Google Maps** e **Waze**.
-   - Coleta e inserção das fotos reais das fachadas das capelas (via pasta compartilhada com a PASCOM).
+   - Coleta e inserção das fotos reais das fachadas das comunidades (via pasta compartilhada com a PASCOM).
    - Grade específica de celebrações e encontros bíblicos de cada comunidade/grupo.
 2. **Módulo de Folhetos de Missa ("Sou do Sagrado Missa"):**
    - Criação da tela administrativa `/admin/folhetos` para upload de PDF e definição do domingo litúrgico correspondente.
@@ -218,12 +218,12 @@ Outubro 2026                     Novembro 2026                    Dezembro 2026
 
 ### 🏛️ SPRINT 7: Expansão das Comunidades, Gestão de Acessos & Secretaria On-line
 * **Período:** Março de 2027 (Autonomia Paroquial, Governança & Eficiência Pastoral)
-* **Objetivo:** Definir e consolidar as Landing Pages completas das 12 CEBs, construir o dashboard administrativo de capelas com upload de mídias e CPC, estruturar a gestão de usuários com RBAC e auditar/expandir os processos digitais da secretaria paroquial.
+* **Objetivo:** Definir e consolidar as Landing Pages completas das 12 CEBs, construir o dashboard administrativo de comunidades com upload de mídias e CPC, estruturar a gestão de usuários com RBAC e auditar/expandir os processos digitais da secretaria paroquial.
 * **Especificação Técnica:** [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md)
 
 #### Tarefas Técnicas & Entregas:
 1. **Definição de Escopo Completo das LPs das Comunidades (TASK-41):**
-   - Especificação das Landing Pages individuais para as 12 CEBs: brasão/identidade da capela, liderança local (CPC), mural de avisos próprio, regras e canais de dízimo da comunidade, calendário de tríduos/padroeiros e marcação SEO Schema.org.
+   - Especificação das Landing Pages individuais para as 12 CEBs: brasão/identidade da comunidade, liderança local (CPC), mural de avisos próprio, regras e canais de dízimo da comunidade, calendário de tríduos/padroeiros e marcação SEO Schema.org.
 2. **Dashboard de Gestão das LPs no `/admin/comunidades` (TASK-42):**
    - Construção de sub-módulos no painel administrativo: upload e corte com `ImageCropCompressModal` de fotos de fachada/altar no Supabase Storage, gestão de membros do CPC, publicação de avisos restritos à CEB e delegação futura de acessos.
 3. **Auditoria de Ambiente & Gestão de Usuários e Permissões (TASK-43):**
@@ -241,7 +241,7 @@ Outubro 2026                     Novembro 2026                    Dezembro 2026
 | Configuração de DNS e Domínio Oficial | **R** / **A** | C | A | I |
 | Fornecimento das chaves PIX e contatos | C | **R** | **A** | I |
 | Redação das Cartas Pastorais (Pároco/Bispo) | I | C | **R** / **A** | I |
-| Envio de fotos oficiais dos padres e capelas | C | C | A | **R** |
+| Envio de fotos oficiais dos padres e comunidades | C | C | A | **R** |
 | Alimentação semanal de horários e avisos | S | **R** | A | C |
 | Upload dos folhetos de missa em PDF | S | **R** (ou PASCOM) | I | I |
 | Gestão dos agendamentos de confissões | S | **R** | **A** | I |

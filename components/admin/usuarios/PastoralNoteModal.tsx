@@ -102,7 +102,7 @@ export function PastoralNoteModal({
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-[var(--dash-text-primary)] flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-[var(--primary)]" />
-              <span>Comunidade / Capela de Destino *</span>
+              <span>Comunidade de Destino (CEB) *</span>
             </label>
             <select
               value={communityId}

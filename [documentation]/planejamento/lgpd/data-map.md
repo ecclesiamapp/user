@@ -96,7 +96,7 @@
 | :--- | :--- |
 | **Identificador / Slug** | `a004-community-leaders` |
 | **Descrição** | Exibição pública dos nomes de coordenadores e contatos do CPC nas páginas das 12 comunidades rurais e urbanas. |
-| **Finalidade Específica (Art. 6º, I)** | Facilitar o contato direto dos moradores dos bairros e localidades com os responsáveis pela capela local. |
+| **Finalidade Específica (Art. 6º, I)** | Facilitar o contato direto dos moradores dos bairros e localidades com os responsáveis pela comunidade local. |
 | **Base Legal Sugerida** | Art. 7º, I da LGPD (Consentimento formal e prévio da liderança leiga para divulgação institucional de contato) ou Art. 7º, IX (Legítimo Interesse com número corporativo/pastoral). |
 | **Categorias de Titulares** | Coordenadores e lideranças leigas das CEBs (adultos). |
 | **Dados Pessoais Sensíveis?** | Não. |

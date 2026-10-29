@@ -87,7 +87,7 @@ export function YearEndLiturgySection() {
           </h2>
 
           <p className="font-sans text-xs sm:text-sm text-[#EAE3D9] leading-relaxed">
-            <em>«O povo que andava nas trevas viu uma grande luz (Is 9, 1)».</em> Participe com sua família dos momentos centrais da nossa fé: a Novena de Natal, a Solene Missa da Vigília (Missa do Galo), o Dia da Natividade e a Ação de Graças de Ano Novo na Catedral Matriz e nas 12 Comunidades.
+            <em>«O povo que andava nas trevas viu uma grande luz (Is 9, 1)».</em> Participe com sua família dos momentos centrais da nossa fé: a Novena de Natal, a Solene Missa da Vigília (Missa do Galo), o Dia da Natividade e a Ação de Graças de Ano Novo na Catedral Diocesana e nas 12 Comunidades.
           </p>
 
           {/* Filtros de Categoria em Chips */}
@@ -135,7 +135,7 @@ export function YearEndLiturgySection() {
                 : 'text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)]'
             }`}
           >
-            Catedral Matriz
+            Catedral Diocesana
           </button>
           <button
             onClick={() => setFilterHeadquarters('cebs')}

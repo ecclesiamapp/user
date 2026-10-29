@@ -68,7 +68,7 @@ export function MassIntentionsManagerTab() {
       if (!error && data) {
         const formatted: MassIntention[] = data.map((item: any) => ({
           ...item,
-          community_name: item.community?.name || 'Catedral Matriz',
+          community_name: item.community?.name || 'Catedral Diocesana',
         }));
         setIntentions(formatted);
       }
@@ -110,7 +110,7 @@ export function MassIntentionsManagerTab() {
     const formattedDate = new Date(intention.celebration_date + 'T12:00:00').toLocaleDateString('pt-BR');
     const msg = encodeURIComponent(
       `Paz e Bem, ${recipientName}! 🕊️\n\n` +
-      `Confirmamos que a intenção para *${intention.intention_for}* foi acolhida com carinho e será proclamada no púlpito durante as intenções da Santa Missa do dia *${formattedDate}* às *${intention.celebration_time}h* (${intention.community_name || 'Catedral Matriz'}).\n\n` +
+      `Confirmamos que a intenção para *${intention.intention_for}* foi acolhida com carinho e será proclamada no púlpito durante as intenções da Santa Missa do dia *${formattedDate}* às *${intention.celebration_time}h* (${intention.community_name || 'Catedral Diocesana'}).\n\n` +
       `Que o Sagrado Coração de Jesus derrame bênçãos sobre você e sua família!\n` +
       `_Secretaria da Catedral de Colatina_`
     );
@@ -275,7 +275,7 @@ export function MassIntentionsManagerTab() {
               className="dash-select w-full rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-secondary)] pl-3.5 pr-10 py-1.5 text-xs text-[var(--dash-text-primary)] cursor-pointer"
             >
               <option value="all">Todas as Igrejas</option>
-              <option value="matriz">Catedral Matriz</option>
+              <option value="matriz">Catedral Diocesana</option>
               {communities.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}
@@ -453,8 +453,8 @@ export function MassIntentionsManagerTab() {
         celebrationTime={printTime}
         communityName={
           filterCommunity === 'all' || filterCommunity === 'matriz'
-            ? 'Catedral Matriz'
-            : communities.find((c) => c.id === filterCommunity)?.name || 'Catedral Matriz'
+            ? 'Catedral Diocesana'
+            : communities.find((c) => c.id === filterCommunity)?.name || 'Catedral Diocesana'
         }
         intentions={intentions}
       />

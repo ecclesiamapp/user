@@ -34,13 +34,13 @@ Vamos dissecar a concorrência sem ilusões:
 #### 1. O "Gorila de 800 kg": Theòs Sistemas Eclesiais (SGCP)
 * **O que eles dominam:** Mais de 60% a 70% das cúrias diocesanas do Brasil usam o Theòs para consolidar balanços contábeis, livros de tombo, registros canônicos de batismo e tributação diocesana (eSocial).
 * **Por que você NÃO pode bater de frente:** O ecônomo da diocese e o Bispo não vão trocar o sistema contábil que usam há 15 anos. Vender contra o Theòs é uma venda política de ciclo de 18 a 24 meses.
-* **O Calcanhar de Aquiles do Theòs (Sua mina de ouro):** O aplicativo deles para fiéis (**ParóquiaNet**) é **péssimo**. Foi desenhado com mentalidade de TI dos anos 2000. É burocrático, cinza, exige código de dizimista e senha que ninguém lembra, ignora as capelas/comunidades periféricas e tem avaliações horríveis nas lojas.
+* **O Calcanhar de Aquiles do Theòs (Sua mina de ouro):** O aplicativo deles para fiéis (**ParóquiaNet**) é **péssimo**. Foi desenhado com mentalidade de TI dos anos 2000. É burocrático, cinza, exige código de dizimista e senha que ninguém lembra, ignora às comunidades/comunidades periféricas e tem avaliações horríveis nas lojas.
 * **O seu posicionamento vencedor:** **"Simbiótico e Complementar"**.
-  > *"Padre, o Theòs é excelente para a parte contábil da Cúria e o senhor deve mantê-lo. O Ecclesiam App é para o fiel, para a acolhida, para as capelas que se sentem esquecidas e para as escalas pastorais. Nós cuidamos do rebanho; o Theòs cuida da nota fiscal."*
+  > *"Padre, o Theòs é excelente para a parte contábil da Cúria e o senhor deve mantê-lo. O Ecclesiam App é para o fiel, para a acolhida, para às comunidades que se sentem esquecidas e para as escalas pastorais. Nós cuidamos do rebanho; o Theòs cuida da nota fiscal."*
 
 #### 2. Players de Apps White-Label e Igrejas Evangélicas (InPeace, Faithful)
 * Cobram fortunas (R$ 800 a R$ 1.500/mês + R$ 3.000 de setup).
-* Ignoram a eclesiologia católica: não entendem o que é CEB, capela com padroeiro próprio, pastoral de batismo, coroinhas ou calendário litúrgico romano. Fracassaram sistematicamente no meio católico.
+* Ignoram a eclesiologia católica: não entendem o que é CEB, comunidade com padroeiro próprio, pastoral de batismo, coroinhas ou calendário litúrgico romano. Fracassaram sistematicamente no meio católico.
 
 #### 3. O Mercado Católico é "Imune a Crise" e Muito Fiel:
 * Paróquias católicas **não fecham as portas**. Não entram em falência como startups ou comércio varejista.
@@ -75,9 +75,9 @@ O custo de ferramentas só passa a existir quando o projeto atinge uma escala on
 
 ## 💰 3. Modelo de Precificação & Unit Economics Atualizado
 
-* **Plano Semente (Até 3 capelas):** R$ 149 / mês
-* **Plano Semeador (Até 8 capelas - Carro-Chefe):** R$ 289 / mês
-* **Plano Pescador (Até 20 capelas - Catedrais/Pólos):** R$ 490 / mês
+* **Plano Semente (Até 3 comunidades):** R$ 149 / mês
+* **Plano Semeador (Até 8 comunidades - Carro-Chefe):** R$ 289 / mês
+* **Plano Pescador (Até 20 comunidades - Catedrais/Pólos):** R$ 490 / mês
 * **Ticket Médio Ponderado (ARPU):** **R$ 275,00 / mês por paróquia**
 * **Taxa Média de Setup / Implantação:** **R$ 500,00 (One-off por paróquia)**
 * **Custo Direto de Servidores no Início:** **R$ 0,00 / mês** (100% Free Tier sustentável).

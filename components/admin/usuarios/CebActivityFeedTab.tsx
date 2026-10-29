@@ -61,7 +61,7 @@ export function CebActivityFeedTab({
             onChange={(e) => setSelectedCommunityFilter(e.target.value)}
             className="dash-select text-xs font-medium rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface)] text-[var(--dash-text-primary)] pl-3.5 pr-10 py-2 min-h-[40px] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20"
           >
-            <option value="all">Todas as 12 Capelas</option>
+            <option value="all">Todas as 14 Comunidades (CEBs)</option>
             {communities.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.is_headquarters ? '⭐ ' : '⛪ '}
@@ -161,7 +161,7 @@ export function CebActivityFeedTab({
                     ) : (
                       <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-600 dark:text-amber-400">
                         <AlertCircle className="w-3.5 h-3.5" />
-                        Aguardando ciência do coordenador na capela
+                        Aguardando ciência do coordenador na comunidade
                       </span>
                     )}
                   </div>

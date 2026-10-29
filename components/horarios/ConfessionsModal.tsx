@@ -64,7 +64,7 @@ export function ConfessionsModal({ isOpen, onClose }: ConfessionsModalProps) {
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-[#8B1E22] shrink-0" />
               <h3 className="font-bold text-sm text-[var(--dash-text-primary)]">
-                Horários Fixos no Confessionário da Matriz
+                Horários Fixos no Confessionário da Catedral
               </h3>
             </div>
             
@@ -92,7 +92,7 @@ export function ConfessionsModal({ isOpen, onClose }: ConfessionsModalProps) {
               </h3>
             </div>
             <p className="text-xs text-[var(--dash-text-secondary)] leading-relaxed">
-              Todas as <strong>Quintas-feiras</strong>, o Santíssimo Sacramento fica exposto na Capela do Santíssimo da Catedral das <strong>08h00 às 19h00</strong> ininterruptamente para oração silenciosa, culminando na Santa Missa e Bênção Eucarística.
+              Todas as <strong>Quintas-feiras</strong>, o Santíssimo Sacramento fica exposto na Comunidade do Santíssimo da Catedral das <strong>08h00 às 19h00</strong> ininterruptamente para oração silenciosa, culminando na Santa Missa e Bênção Eucarística.
             </p>
           </div>
 

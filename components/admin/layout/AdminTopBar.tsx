@@ -40,7 +40,7 @@ const ROUTE_TITLES: Record<string, { title: string; category: string; icon: Reac
   '/admin/conteudo': { title: 'Avisos & Notícias', category: 'Comunicação', icon: Newspaper },
   '/admin/mensagens': { title: 'Palavra do Pároco/Bispo', category: 'Comunicação', icon: BookOpen },
   '/admin/galerias': { title: 'Galerias & Fotos', category: 'Mídia', icon: ImageIcon },
-  '/admin/dizimo': { title: 'Dízimo & Doações PIX', category: 'Pastoral do Dízimo', icon: HeartHandshake },
+  '/admin/dizimo': { title: 'Pastoral do Dízimo • Sou do Sagrado', category: 'Pastoral & Evangelização', icon: HeartHandshake },
   '/admin/configuracoes': { title: 'Identidade & Contato', category: 'Configurações', icon: Settings },
 };
 

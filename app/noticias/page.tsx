@@ -87,7 +87,7 @@ export default async function CathedralNewsPage() {
         isUrgent: !!a.is_urgent,
         isFeatured: idx === 0,
         readTimeMinutes: Math.max(2, Math.ceil(a.content.length / 500)),
-        communityName: 'Matriz Catedral',
+        communityName: 'Catedral Diocesana',
       }));
 
       articles = mappedDb;

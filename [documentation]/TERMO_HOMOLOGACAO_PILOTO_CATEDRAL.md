@@ -44,7 +44,7 @@ A CONTRATADA disponibiliza à CONTRATANTE os seguintes serviços e estruturas di
    * Interface solene com a identidade visual exclusiva do Sagrado Coração de Jesus (brasão, cores e tipografia de alta legibilidade para idosos).
 2. **Edição e Organização da Grade Litúrgica e Escala do Clero:**
    * Exibição atualizada dos horários de Santas Missas do dia, expediente da secretaria, horários de confissões e perfil pastoral dos sacerdotes.
-3. **Cadastro e Páginas Dedicadas das Comunidades e Capelas (CEBs):**
+3. **Cadastro e Páginas Dedicadas das Comunidades Eclesiais de Base (CEBs):**
    * Subpáginas individuais (`/comunidades/[slug]`) com acervo fotográfico das fachadas, histórico dos padroeiros, horários locais e rota GPS integrada (Google Maps e Waze).
 4. **Apoio à Arrecadação Pastoral do Dízimo («Sou do Sagrado») via PIX:**
    * Canal de conscientização do dizimista e botão *"PIX Copia e Cola"* conectado diretamente à conta bancária oficial da Paróquia/Mitra Diocesana, **sem qualquer intermediação financeira ou taxa por parte da CONTRATADA**.

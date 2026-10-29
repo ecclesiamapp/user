@@ -120,7 +120,7 @@ export function SacramentFormMarriage({
             value={data.community_id}
             onChange={(e) => onChange('community_id', e.target.value)}
           >
-            <option value="">Catedral (Altar-Mor da Matriz)</option>
+            <option value="">Catedral (Presbitério Central da Catedral)</option>
             {communities.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name} {c.is_headquarters ? '(Matriz)' : ''}

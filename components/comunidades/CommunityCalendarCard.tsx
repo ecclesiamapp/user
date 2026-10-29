@@ -28,7 +28,7 @@ export function CommunityCalendarCard({
       day_of_week: 'Segunda-feira',
       time: '19:30',
       category: 'oracao',
-      location: 'Capela da Comunidade',
+      location: 'Comunidade Eclesial',
       responsible_group: 'Terço dos Homens',
       description: 'Oração contemplativa do terço pelas famílias.',
     },

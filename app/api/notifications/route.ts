@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
         applicantPhone: parishionerPhone,
         applicantEmail: parishionerEmail,
         detailsTitle: `${appointmentTypeLabel} com ${priestName}`,
-        extraDetails: `Data: ${formattedDate} às ${time} | Local: ${communityName || 'Catedral Matriz'}${notes ? ` | Obs: ${notes}` : ''}`,
+        extraDetails: `Data: ${formattedDate} às ${time} | Local: ${communityName || 'Catedral Diocesana'}${notes ? ` | Obs: ${notes}` : ''}`,
       });
 
       return NextResponse.json({
@@ -149,7 +149,7 @@ export async function POST(req: NextRequest) {
         applicantPhone: parishionerPhone,
         applicantEmail: parishionerEmail,
         detailsTitle: 'Adesão Dizimista (Sou do Sagrado)',
-        extraDetails: `Comunidade: ${communityName || 'Catedral Matriz'} | Forma: ${preferredMethodLabel || 'PIX'} | Dia preferido: ${preferredDay || 10}${notes ? ` | Obs: ${notes}` : ''}`,
+        extraDetails: `Comunidade: ${communityName || 'Catedral Diocesana'} | Forma: ${preferredMethodLabel || 'PIX'} | Dia preferido: ${preferredDay || 10}${notes ? ` | Obs: ${notes}` : ''}`,
       });
 
       return NextResponse.json({

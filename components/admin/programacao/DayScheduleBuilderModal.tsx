@@ -107,7 +107,7 @@ export function DayScheduleBuilderModal({
       {
         time: '19:30',
         title: 'Santa Missa Solene de Abertura',
-        location: 'Catedral Matriz',
+        location: 'Catedral Diocesana',
         celebrant: 'Pe. Irineu Valmorbida',
       },
     ]);
@@ -150,7 +150,7 @@ export function DayScheduleBuilderModal({
       responsible_group: '',
       gesture_of_charity: '',
       social_attractions: '',
-      schedule_items: [{ time: '19:30', title: 'Santa Missa Solene', location: 'Catedral Matriz' }],
+      schedule_items: [{ time: '19:30', title: 'Santa Missa Solene', location: 'Catedral Diocesana' }],
       order_index: nextIndex,
     };
 

@@ -219,7 +219,7 @@ export function CommunityNoticesTab({ notices = [], onChange }: CommunityNotices
           <Bell className="w-8 h-8 mx-auto text-[var(--dash-text-secondary)]/50" />
           <p className="font-semibold">Nenhum comunicado cadastrado no momento.</p>
           <p className="text-[11px]">
-            Adicione comunicados para alimentar o mural de avisos público da capela.
+            Adicione comunicados para alimentar o mural de avisos público da comunidade.
           </p>
         </div>
       ) : (

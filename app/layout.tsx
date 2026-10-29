@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Cormorant_Garamond, Cinzel, Suez_One } from "next/fo
 import "./globals.css";
 import { PwaInstallPrompt } from "@/components/pwa/PwaInstallPrompt";
 import { ExtensionErrorSuppressor } from "@/components/layout/ExtensionErrorSuppressor";
+import { AdminGlobalFloatingReturnBar } from "@/components/layout/AdminGlobalFloatingReturnBar";
 import { getParishBrandIdentity } from "@/lib/brand";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -87,6 +88,7 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col font-sans">
         <ExtensionErrorSuppressor />
         {children}
+        <AdminGlobalFloatingReturnBar />
         <PwaInstallPrompt />
       </body>
     </html>

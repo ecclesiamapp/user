@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
           parishionerEmail: email,
           preferredMethodLabel: methodLabels[preferredPaymentMethod] || 'PIX',
           preferredDay: preferredDay ? Number(preferredDay) : 10,
-          communityName: body.communityName || 'Catedral Matriz',
+          communityName: body.communityName || 'Catedral Diocesana',
           notes,
         }),
       });

@@ -27,7 +27,7 @@ export function PwaBenefitGrid() {
             Horários de Santa Missa
           </h4>
           <p className="text-xs text-[var(--dash-text-secondary)] leading-relaxed">
-            Consulte os horários da Matriz e das 12 CEBs em tempo real, sem depender de ligar para a paróquia.
+            Consulte os Horários da Catedral e das 12 CEBs em tempo real, sem depender de ligar para a paróquia.
           </p>
         </div>
 

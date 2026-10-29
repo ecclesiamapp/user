@@ -16,10 +16,10 @@ interface UserModalProps {
 const MODULE_OPTIONS: { id: AllowedCommunityModule; label: string; description: string }[] = [
   { id: 'lp_geral', label: 'Landing Page & Fachada', description: 'Edição de fotos de altar/fachada, história e endereço' },
   { id: 'cpc', label: 'Conselho Pastoral (CPC)', description: 'Gestão de coordenadores, tesoureiros e secretários locais' },
-  { id: 'avisos', label: 'Mural de Avisos', description: 'Publicação de comunicados e avisos da capela' },
+  { id: 'avisos', label: 'Mural de Avisos', description: 'Publicação de comunicados e Avisos da Comunidade' },
   { id: 'pastorais', label: 'Pastorais & Grupos', description: 'Gestão de grupos bíblicos, catequese e pastorais locais' },
   { id: 'horarios', label: 'Horários de Missas', description: 'Gestão dos horários de celebrações da comunidade' },
-  { id: 'dizimo', label: 'Dízimo & Chave PIX', description: 'Configuração da chave PIX e orientações de partilha' },
+  { id: 'dizimo', label: 'Pastoral do Dízimo & PIX', description: 'Chave PIX e orientações pastorais de partilha da comunidade' },
   { id: 'galerias', label: 'Fotos & Galerias', description: 'Upload e fotos de eventos da comunidade' },
 ];
 
@@ -129,7 +129,7 @@ export function UserModal({
                 {userToEdit ? 'Editar Usuário & Permissões' : 'Novo Usuário & Colaborador'}
               </h3>
               <p className="text-xs text-[var(--dash-text-muted)]">
-                Configuração de perfil canônico, capela vinculada e governança modular
+                Configuração de perfil canônico, comunidade vinculada e governança modular
               </p>
             </div>
           </div>
@@ -222,11 +222,12 @@ export function UserModal({
               onChange={(e) => setRole(e.target.value as UserRole)}
               className="dash-select w-full text-xs font-medium rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface)] text-[var(--dash-text-primary)] pl-3.5 pr-10 py-2 min-h-[40px] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20"
             >
+              <option value="superadmin">⚡ Superadmin (Gestão Ecclesiam SaaS & Suporte Técnico)</option>
               <option value="paroco">👑 Pároco (Acesso Pleno Paroquial)</option>
               <option value="vigario">✝️ Vigário Paroquial (Acesso Pleno Paroquial)</option>
               <option value="secretaria">📋 Secretaria Paroquial (Gestão Administrativa & LPs)</option>
               <option value="pascom">📢 PASCOM (Comunicação & Notícias)</option>
-              <option value="coordenador_ceb">⛪ Coordenador de CEB (Painel da Capela)</option>
+              <option value="coordenador_ceb">⛪ Coordenador de CEB (Painel da Comunidade)</option>
             </select>
           </div>
 
@@ -235,7 +236,7 @@ export function UserModal({
             <div className="space-y-1.5 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
               <label className="text-xs font-bold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5" />
-                <span>Comunidade / Capela Vinculada *</span>
+                <span>Comunidade Vinculada (CEB) *</span>
               </label>
               <select
                 value={communityId}
@@ -243,7 +244,7 @@ export function UserModal({
                 className="dash-select w-full text-xs font-medium rounded-xl border border-amber-500/30 bg-[var(--dash-surface)] text-[var(--dash-text-primary)] pl-3.5 pr-10 py-2 min-h-[40px] focus:outline-none focus:ring-2 focus:ring-amber-500/20"
                 required
               >
-                <option value="">Selecione a capela...</option>
+                <option value="">Selecione a comunidade...</option>
                 {communities.map((c) => (
                   <option key={c.id} value={c.id}>
                     {c.is_headquarters ? '⭐ ' : '⛪ '}
@@ -259,7 +260,7 @@ export function UserModal({
             <div className="space-y-2.5 pt-2">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-bold text-[var(--dash-text-primary)]">
-                  Módulos Autorizados para a Capela
+                  Módulos Autorizados na Comunidade
                 </label>
                 <button
                   type="button"

@@ -9,7 +9,7 @@
 
 ## 📌 1. Visão Geral da Funcionalidade
 
-O **Calendário Litúrgico Inteligente** conecta o Ecclesiam App ao ritmo do Ano Litúrgico da Igreja Católica universal e local. O sistema responde dinamicamente às cores das vestes litúrgicas de forma sutil, tanto no **Portal Público do Fiel** quanto no **Painel Administrativo da Paróquia**, além de empoderar a Matriz e as Comunidades (CEBs) no agendamento de seus Santos Padroeiros, Novenas e Tríduos.
+O **Calendário Litúrgico Inteligente** conecta o Ecclesiam App ao ritmo do Ano Litúrgico da Igreja Católica universal e local. O sistema responde dinamicamente às cores das vestes litúrgicas de forma sutil, tanto no **Portal Público do Fiel** quanto no **Painel Administrativo da Paróquia**, além de empoderar à Catedral e as Comunidades (CEBs) no agendamento de seus Santos Padroeiros, Novenas e Tríduos.
 
 ---
 
@@ -56,8 +56,8 @@ A aplicação visual deve ser **elegante, sutil e equilibrada**, respeitando os 
   * Botão de Ação: **"Ver Liturgia Diária Completa"** (abre modal/drawer com 1ª Leitura, Salmo Responsorial, 2ª Leitura e Evangelho completo).
 
 ### 4.2 Integração com as Comunidades (CEBs)
-* **Visão Integrada na Home:** As festas de padroeiros das CEBs aparecem no calendário paroquial com etiqueta da comunidade (ex: `Capela Santa Luzia`).
-* **Destaque na Página da CEB (`/comunidades/[slug]`):** No período de novena ou dia da festa do padroeiro da capela, a página daquela CEB assume o destaque solene próprio.
+* **Visão Integrada na Home:** As festas de padroeiros das CEBs aparecem no calendário paroquial com etiqueta da comunidade (ex: `Comunidade Santa Luzia`).
+* **Destaque na Página da CEB (`/comunidades/[slug]`):** No período de novena ou dia da festa do padroeiro da comunidade, a página daquela CEB assume o destaque solene próprio.
 
 ---
 

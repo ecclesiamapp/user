@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Church, MapPin, Menu, X, ArrowLeft, Navigation, Sparkles, Phone } from 'lucide-react';
+import { Church, MapPin, Menu, X, ArrowLeft, Navigation, Sparkles, Phone, ShieldCheck } from 'lucide-react';
 import { Community } from '@/types';
 import { AccessibilityFontScaleControl } from './AccessibilityFontScaleControl';
+import { useAdminSession } from '@/lib/hooks/useAdminSession';
 
 interface CommunityHeaderProps {
   community: Community;
@@ -13,6 +14,7 @@ interface CommunityHeaderProps {
 
 export function CommunityHeader({ community, googleMapsUrl }: CommunityHeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { hasAdminSession } = useAdminSession();
 
   const navLinks = [
     { label: 'Horários', href: '#horarios' },
@@ -36,6 +38,18 @@ export function CommunityHeader({ community, googleMapsUrl }: CommunityHeaderPro
           <div className="flex items-center gap-3 shrink-0">
             {/* Controle de Redimensionamento de Fonte (TASK-41B) */}
             <AccessibilityFontScaleControl />
+
+            {/* Atalho ao Painel da Comunidade para Usuário Logado */}
+            {hasAdminSession && (
+              <Link
+                href="/admin/comunidades"
+                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 hover:text-amber-200 border border-amber-500/40 text-[10px] font-bold transition-colors"
+                title="Voltar ao Painel da Comunidade"
+              >
+                <ShieldCheck className="w-3 h-3 text-amber-400" />
+                <span>Painel Admin</span>
+              </Link>
+            )}
 
             <Link
               href="/comunidades"
@@ -138,6 +152,17 @@ export function CommunityHeader({ community, googleMapsUrl }: CommunityHeaderPro
                   <span>Traçar Rota no Google Maps</span>
                 </a>
               )}
+              {hasAdminSession && (
+                <Link
+                  href="/admin/comunidades"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-800 dark:text-amber-300 font-bold text-xs min-h-[44px]"
+                >
+                  <ShieldCheck className="w-4 h-4 text-amber-500" />
+                  <span>Voltar ao Painel da Comunidade</span>
+                </Link>
+              )}
+
               <Link
                 href="/comunidades"
                 className="w-full inline-flex items-center justify-center gap-2 py-2 rounded-xl bg-[var(--dash-surface-secondary)] text-xs text-[var(--dash-text-secondary)] min-h-[40px]"

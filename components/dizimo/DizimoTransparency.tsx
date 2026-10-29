@@ -31,7 +31,7 @@ const DEFAULT_PILLARS = [
     tag: 'Igreja em Saída',
     icon_name: 'Church',
     description:
-      'Ajuda fraterna da Catedral Matriz para que as comunidades menores do interior e periferia mantenham seus templos e comunidades dignas para as Santas Missas.',
+      'Ajuda fraterna da Catedral Diocesana para que as comunidades menores do interior e periferia mantenham seus templos e comunidades dignas para as Santas Missas.',
     highlight: '12 CEBs fortalecidas',
   },
   {

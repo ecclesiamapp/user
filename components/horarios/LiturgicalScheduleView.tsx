@@ -202,7 +202,7 @@ export function LiturgicalScheduleView({
                 {nextPrayerEvent?.schedule.description || 'Momento de Oração & Perdão'}
               </h3>
               <p className="text-xs text-[var(--dash-text-secondary)] mt-0.5">
-                {nextPrayerEvent ? nextPrayerEvent.dateFormatted : 'Capela do Santíssimo / Secretaria'}
+                {nextPrayerEvent ? nextPrayerEvent.dateFormatted : 'Comunidade do Santíssimo / Secretaria'}
               </p>
             </div>
           </div>
@@ -310,7 +310,7 @@ export function LiturgicalScheduleView({
                       </span>
                     </div>
                     <p className="text-[11px] text-[var(--dash-text-secondary)] line-clamp-1">
-                      {item.schedule.description || 'Catedral Matriz'}
+                      {item.schedule.description || 'Catedral Diocesana'}
                     </p>
                   </div>
                 </div>

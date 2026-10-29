@@ -13,7 +13,7 @@
 * **Nome da Paróquia:** **PARÓQUIA ______________________________________________________**
 * **Diocese / Arquidiocese:** **Mitra Diocesana de ____________________________________**
 * **CNPJ da Paróquia/Mitra:** `____.____.____/____-__`
-* **Endereço da Matriz / Secretaria:** Rua/Av. __________________________________________, nº _____, Bairro ________________________, Cidade _____________________ – UF ___, CEP `_____-___`
+* **Endereço da Catedral / Secretaria:** Rua/Av. __________________________________________, nº _____, Bairro ________________________, Cidade _____________________ – UF ___, CEP `_____-___`
 * **Representante Legal (Pároco / Administrador Paroquial):** **Revmo. Pe. ______________________________________________________**, CPF nº `___.___.___-__`, com anuência do **Conselho Paroquial de Assuntos Econômicos (CAEP)**.
 
 ### CONTRATADA (PRESTADORA DE SERVIÇOS):
@@ -42,7 +42,7 @@ Para a execução eficiente dos serviços descritos no item 1.1 e para facilitar
 De acordo com o plano selecionado na Cláusula Terceira, os serviços da CONTRATADA compreendem:
 
 1. **Implantação Inicial e Estruturação de Cadastros (Setup):**
-   * Levantamento, tratamento fotográfico e cadastro inicial da Igreja Matriz, dos sacerdotes, das pastorais e das Comunidades/Capelas (CEBs) vinculadas;
+   * Levantamento, tratamento fotográfico e cadastro inicial da Catedral, dos sacerdotes, das pastorais e das Comunidades/Comunidades (CEBs) vinculadas;
    * Configuração dos horários de Santas Missas, Celebrações da Palavra, confissões e expediente da secretaria;
    * Sessão de orientação e treinamento prático com a secretária paroquial e equipe da PASCOM.
 2. **Apoio Mensal Contínuo e Manutenção de Informações:**
@@ -59,11 +59,11 @@ De acordo com o plano selecionado na Cláusula Terceira, os serviços da CONTRAT
 **3.1. Escolha do Plano Paroquial:**  
 A CONTRATANTE opta pelo plano assinalado com um **"( X )"** na tabela abaixo:
 
-| Seleção | Plano | Capacidade de Comunidades / Capelas | Taxa Única de Implantação (Setup) | Valor no Ciclo Mensal | Valor no Ciclo Anual Fidelidade (Com Desconto) |
+| Seleção | Plano | Capacidade de Comunidades / Comunidades | Taxa Única de Implantação (Setup) | Valor no Ciclo Mensal | Valor no Ciclo Anual Fidelidade (Com Desconto) |
 | :---: | :--- | :--- | :--- | :--- | :--- |
-| **( &nbsp; )** | **1. PLANO SEMENTE** | Matriz + até **03 capelas/CEBs** | R$ 350,00 *(Isento no Anual)* | R$ 149,00 / mês | **R$ 119,00 / mês** *(ou R$ 1.428/ano)* |
-| **( &nbsp; )** | **2. PLANO SEMEADOR** ⭐ | Matriz + até **08 capelas/CEBs** | R$ 600,00 *(R$ 300 no Anual)* | R$ 289,00 / mês | **R$ 229,00 / mês** *(ou R$ 2.748/ano)* |
-| **( &nbsp; )** | **3. PLANO PESCADOR** | Matriz + até **20 capelas/CEBs** | R$ 1.200,00 *(R$ 600 no Anual)* | R$ 490,00 / mês | **R$ 390,00 / mês** *(ou R$ 4.680/ano)* |
+| **( &nbsp; )** | **1. PLANO SEMENTE** | Matriz + até **03 comunidades/CEBs** | R$ 350,00 *(Isento no Anual)* | R$ 149,00 / mês | **R$ 119,00 / mês** *(ou R$ 1.428/ano)* |
+| **( &nbsp; )** | **2. PLANO SEMEADOR** ⭐ | Matriz + até **08 comunidades/CEBs** | R$ 600,00 *(R$ 300 no Anual)* | R$ 289,00 / mês | **R$ 229,00 / mês** *(ou R$ 2.748/ano)* |
+| **( &nbsp; )** | **3. PLANO PESCADOR** | Matriz + até **20 comunidades/CEBs** | R$ 1.200,00 *(R$ 600 no Anual)* | R$ 490,00 / mês | **R$ 390,00 / mês** *(ou R$ 4.680/ano)* |
 | **( &nbsp; )** | **4. PLANO VIDEIRA** | Comunidades e acessos **Ilimitados** | R$ 1.500,00 | R$ 649,00 / mês | **R$ 549,00 / mês** *(ou R$ 6.588/ano)* |
 
 * **Modalidade de Ciclo Escolhida:** ( &nbsp; ) **Ciclo Anual com Desconto** &nbsp;&nbsp;|&nbsp;&nbsp; ( &nbsp; ) **Ciclo Mensal Padrão**

@@ -73,7 +73,7 @@
   * Barra lateral fixa persistente: 260px (expandida) / 72px (colapsada em modo ícones).
   * Transição suave com tooltip nos ícones colapsados.
 * **Organização dos Módulos do Backend:**
-  * **Header:** Logo da Paróquia + Dropdown para selecionar comunidade/capela (*Matriz*, *Capela São José*, etc.).
+  * **Header:** Logo da Paróquia + Dropdown para selecionar Comunidade (CEB) (*Matriz*, *Comunidade São José*, etc.).
   * **Menu Administrativo:**
     1. **Dashboard:** Visão geral de acessos, visualizações da transmissão e dízimo do mês.
     2. **Liturgia & Celebrações:** Cadastro de horários fixos e especiais (semana santa, natal, festas), escala de padres e intenções de missa recebidas.
@@ -118,7 +118,7 @@ create table parish_pastors (
   is_current boolean default false,   -- Indicador de Pároco Atual
   motto text,                         -- Lema sacerdotal (ex.: "Oportet Illum Crescere")
   biography text,                     -- Histórico pastoral e vocacional
-  legacy_highlights jsonb,            -- Obras realizadas (construção da torre, criação de capelas)
+  legacy_highlights jsonb,            -- Obras realizadas (construção da torre, criação de comunidades)
   portrait_url text,                  -- Retrato oficial em alta resolução
   created_at timestamptz default now()
 );
@@ -132,7 +132,7 @@ create table parish_pastors (
   * Marcadores verticais dourados conectando cada pároco em ordem cronológica reversa (do mais recente até o fundador da paróquia).
   * Retratos em preto e branco / sépia com tratamento visual unificado.
   * *Badge de Memória:* "In Memoriam" ou "Pároco Emérito".
-  * *Sanfona Expansível (Accordion):* Ao clicar, abre as principais realizações daquele período (ex.: *"1954: Instalação dos vitrais alemães; 1962: Criação da Capela São Judas"*).
+  * *Sanfona Expansível (Accordion):* Ao clicar, abre as principais realizações daquele período (ex.: *"1954: Instalação dos vitrais alemães; 1962: Criação da Comunidade São Judas"*).
 
 ---
 
@@ -202,13 +202,13 @@ create table parish_pastors (
 **Conceito Arquitetural:** O layout e a experiência de usuário desenvolvidos para a **Agenda Litúrgica da Catedral** funcionam como o molde oficial (*blueprint*) para as Landing Pages públicas individuais das 12 CEBs (`/comunidades/[slug]`).
 
 ### 6.1 Anatomia da Página Comunitária
-1. **Header & Contexto:** Selo da Capela Padroeira, vínculo com a Paróquia Sagrado Coração de Jesus e Marquee de avisos exclusivos daquela comunidade.
-2. **Hero Monumental da Capela:** Foto de destaque da igreja da comunidade, nome do padroeiro e acolhida pastoral.
+1. **Header & Contexto:** Selo da Comunidade Padroeira, vínculo com a Paróquia Sagrado Coração de Jesus e Marquee de avisos exclusivos daquela comunidade.
+2. **Hero Monumental da Comunidade:** Foto de destaque da igreja da comunidade, nome do padroeiro e acolhida pastoral.
 3. **Cards de Destaque (Próximos Acontecimentos):**
    * *Card 1:* Próxima celebração (Santa Missa com sacerdote ou Celebração da Palavra com os ministros leigos).
    * *Card 2:* Próximo momento de oração comunitária (Adoração, Terço dos Homens, Grupo de Oração, Catequese).
-4. **Lista Semanal:** Grade cronológica dos compromissos da semana na capela.
+4. **Lista Semanal:** Grade cronológica dos compromissos da semana na comunidade.
 5. **Filtros Litúrgicos:** Pílulas ergonômicas para alternar entre Santa Missa, Celebração da Palavra, Adoração e Pastorais.
 6. **Calendário Mensal ("Google Agenda Litúrgico"):** Grade mensal interativa onde os fiéis visualizam toda a escala de missas e celebrações da comunidade, abrindo o modal com botões para **Adicionar ao Google Agenda** e **Compartilhar no WhatsApp**.
-7. **Rodapé Pastoral:** Endereço da capela, botão de rota GPS (Google Maps / Waze) e contato da liderança comunitária.
+7. **Rodapé Pastoral:** Endereço da comunidade, botão de rota GPS (Google Maps / Waze) e contato da liderança comunitária.
 

@@ -22,7 +22,7 @@ const DEFAULT_FAQS: Array<{ question: string; answer: string }> = [
   {
     question: 'Como faço para receber meu número de dizimista e os envelopes?',
     answer:
-      'Ao realizar seu cadastro aqui no portal "Sou do Sagrado", a Secretaria Paroquial registrará sua ficha. Você poderá retirar seu kit de envelopes mensais na Secretaria ou diretamente com os agentes da Pastoral do Dízimo no plantão das Santas Missas na Catedral.',
+      'Ao realizar seu cadastro aqui no portal "Sou do Sagrado", a Secretaria Paroquial formaliza seu registro no sistema eclesial oficial (Theòs). Você poderá retirar seu número de dizimista e seu kit de envelopes mensais na Secretaria ou diretamente com os agentes da Pastoral do Dízimo no plantão das Santas Missas na Catedral.',
   },
   {
     question: 'Posso contribuir exclusivamente via PIX sem pegar envelope?',

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Search, Shield, UserCheck, Edit3, Lock, Unlock, Eye, Sparkles, MapPin, Mail, Phone } from 'lucide-react';
+import { Search, Shield, UserCheck, Edit3, Lock, Unlock, Eye, Sparkles, MapPin, Mail, Phone, Share2 } from 'lucide-react';
 import { UserProfile, UserRole, UserStatus, Community } from '@/types';
 import { Button, Input, Card, Badge } from '@/components/ui';
 import { UserRoleBadge, UserStatusBadge } from './UserRoleBadge';
@@ -12,6 +12,8 @@ interface ActiveUsersTabProps {
   communities: Community[];
   onEditUser: (user: UserProfile) => void;
   onToggleStatus: (user: UserProfile) => void;
+  onInviteUser?: (user: UserProfile) => void;
+  onDeleteUser?: (user: UserProfile) => void;
 }
 
 export function ActiveUsersTab({
@@ -19,6 +21,8 @@ export function ActiveUsersTab({
   communities,
   onEditUser,
   onToggleStatus,
+  onInviteUser,
+  onDeleteUser,
 }: ActiveUsersTabProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState<string>('all');
@@ -44,6 +48,7 @@ export function ActiveUsersTab({
       // Filtro de cargo
       const matchesRole =
         roleFilter === 'all' ||
+        (roleFilter === 'superadmin' && u.role === 'superadmin') ||
         (roleFilter === 'clero' && (u.role === 'paroco' || u.role === 'vigario')) ||
         (roleFilter === 'paroquia' && (u.role === 'secretaria' || u.role === 'pascom')) ||
         (roleFilter === 'ceb' && u.role === 'coordenador_ceb');
@@ -73,6 +78,7 @@ export function ActiveUsersTab({
             className="dash-select text-xs font-medium rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface)] text-[var(--dash-text-primary)] pl-3.5 pr-10 py-2 min-h-[40px] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20"
           >
             <option value="all">Todos os Cargos</option>
+            <option value="superadmin">⚡ Superadmin (SaaS)</option>
             <option value="clero">👑 Clero (Pároco & Vigário)</option>
             <option value="paroquia">📋 Equipe Matriz (Secretaria & PASCOM)</option>
             <option value="ceb">⛪ Coordenadores de CEB</option>
@@ -84,7 +90,7 @@ export function ActiveUsersTab({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         {filteredUsers.map((user) => {
           const isCurrentUser = currentUser?.id === user.id;
-          const commName = user.community_id ? communityMap.get(user.community_id) : 'Matriz Catedral';
+          const commName = user.community_id ? communityMap.get(user.community_id) : 'Catedral Diocesana';
 
           return (
             <Card
@@ -140,31 +146,63 @@ export function ActiveUsersTab({
 
                 {/* Ações */}
                 <div className="flex flex-col gap-1.5 shrink-0">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => onEditUser(user)}
-                    className="h-8 px-2.5 rounded-lg text-xs font-semibold border-[var(--dash-border)] hover:bg-[var(--dash-surface-secondary)] flex items-center gap-1"
-                    title="Editar dados e permissões"
-                  >
-                    <Edit3 className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Editar</span>
-                  </Button>
+                  <div className="flex items-center gap-1.5">
+                    {onInviteUser && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => onInviteUser(user)}
+                        className="h-8 px-2 rounded-lg text-xs font-semibold border-emerald-500/30 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/10 flex items-center gap-1"
+                        title="Enviar convite e dados de acesso via WhatsApp"
+                      >
+                        <Share2 className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline">Convite</span>
+                      </Button>
+                    )}
 
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={() => switchUser(user.id)}
-                    className={`h-8 px-2.5 rounded-lg text-xs font-semibold flex items-center gap-1 ${
-                      isCurrentUser
-                        ? 'text-emerald-600 bg-emerald-500/10 hover:bg-emerald-500/20'
-                        : 'text-[var(--dash-text-muted)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-surface-secondary)]'
-                    }`}
-                    title="Simular visualização deste usuário para testar RBAC"
-                  >
-                    <Eye className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">{isCurrentUser ? 'Simulando' : 'Simular'}</span>
-                  </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => onEditUser(user)}
+                      className="h-8 px-2.5 rounded-lg text-xs font-semibold border-[var(--dash-border)] hover:bg-[var(--dash-surface-secondary)] flex items-center gap-1"
+                      title="Editar dados e permissões"
+                    >
+                      <Edit3 className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Editar</span>
+                    </Button>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => onToggleStatus(user)}
+                      className={`h-8 px-2 rounded-lg text-xs font-semibold flex items-center gap-1 ${
+                        user.status === 'ativo'
+                          ? 'text-rose-600 dark:text-rose-400 hover:bg-rose-500/10'
+                          : 'text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10'
+                      }`}
+                      title={user.status === 'ativo' ? 'Suspender/Bloquear acesso' : 'Reativar acesso'}
+                    >
+                      {user.status === 'ativo' ? <Lock className="w-3.5 h-3.5" /> : <Unlock className="w-3.5 h-3.5" />}
+                      <span className="hidden sm:inline">{user.status === 'ativo' ? 'Bloquear' : 'Ativar'}</span>
+                    </Button>
+
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => switchUser(user.id)}
+                      className={`h-8 px-2 rounded-lg text-xs font-semibold flex items-center gap-1 ${
+                        isCurrentUser
+                          ? 'text-emerald-600 bg-emerald-500/10 hover:bg-emerald-500/20'
+                          : 'text-[var(--dash-text-muted)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-surface-secondary)]'
+                      }`}
+                      title="Simular visualização deste usuário para testar RBAC"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">{isCurrentUser ? 'Simulando' : 'Simular'}</span>
+                    </Button>
+                  </div>
                 </div>
               </div>
 
@@ -172,7 +210,7 @@ export function ActiveUsersTab({
               {user.role === 'coordenador_ceb' && user.allowed_modules && (
                 <div className="mt-3 pt-3 border-t border-[var(--dash-border)]">
                   <span className="text-[10px] uppercase font-bold text-[var(--dash-text-muted)] block mb-1.5">
-                    Módulos Autorizados na Capela:
+                    Módulos Autorizados na Comunidade:
                   </span>
                   <div className="flex flex-wrap gap-1">
                     {user.allowed_modules.map((mod: any) => (

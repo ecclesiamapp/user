@@ -351,7 +351,7 @@ export const knowledgeFormatters = {
       type: string;
       description?: string;
     },
-    communityName = 'Igreja Matriz'
+    communityName = 'Catedral'
   ): TextChunk {
     const daysMap: Record<string, string> = {
       domingo: 'Domingo',

@@ -179,7 +179,7 @@ export async function POST(request: NextRequest) {
       for (const sched of schedulesList) {
         const commName = sched.community_id
           ? communityMap.get(sched.community_id) || "Comunidade"
-          : "Igreja Matriz";
+          : "Catedral";
         chunks.push(knowledgeFormatters.schedule(sched, commName));
         breakdown.schedules++;
       }

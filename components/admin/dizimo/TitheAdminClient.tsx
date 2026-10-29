@@ -14,6 +14,7 @@ import { TitheRegistrationsTab } from './TitheRegistrationsTab';
 import { TitheTransparencyTab } from './TitheTransparencyTab';
 import { TitheFaqTab } from './TitheFaqTab';
 import { TitheSettingsTab } from './TitheSettingsTab';
+import { AdminRoleGuard } from '@/components/admin/auth/AdminRoleGuard';
 
 interface TitheAdminClientProps {
   parish: Parish;
@@ -33,8 +34,12 @@ export function TitheAdminClient({
   const pendingCount = registrations.filter((r) => r.status === 'pendente').length;
 
   return (
-    <div className="space-y-6">
-      {/* Cabeçalho da Página Administrativa */}
+    <AdminRoleGuard
+      allowedRoles={['superadmin', 'paroco', 'vigario', 'secretaria']}
+      moduleName="a Pastoral do Dízimo • Sou do Sagrado"
+    >
+      <div className="space-y-6">
+        {/* Cabeçalho da Página Administrativa */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[var(--dash-border)] pb-5">
         <div>
           <div className="flex items-center gap-2">
@@ -43,10 +48,10 @@ export function TitheAdminClient({
             </span>
           </div>
           <h1 className="font-cinzel text-2xl sm:text-3xl font-bold uppercase tracking-wide text-[var(--dash-text-primary)] mt-1">
-            Gestão do Dízimo & Ofertas
+            Pastoral do Dízimo & Obras
           </h1>
           <p className="text-xs sm:text-sm text-[var(--dash-text-secondary)] mt-1 font-sans">
-            Acompanhe novas adesões, gerencie a prestação de contas das obras e configure os esclarecimentos canônicos da paróquia.
+            Acolha novas adesões pastorais (para lançamento oficial no Theòs), gerencie a prestação visual das obras da Catedral e configure a chave PIX direta da paróquia.
           </p>
         </div>
 
@@ -133,5 +138,6 @@ export function TitheAdminClient({
         )}
       </div>
     </div>
-  );
+  </AdminRoleGuard>
+);
 }

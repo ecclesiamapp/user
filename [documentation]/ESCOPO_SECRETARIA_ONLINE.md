@@ -35,7 +35,7 @@ A **Secretaria On-line** transforma o portal da paróquia de uma vitrine passiva
 ### 2.1 Pilar 1 • Agendamentos Pastorais
 Permite que o fiel reserve um horário com confirmação e lembrete:
 * **Modalidades de Atendimento:**
-  1. *Confissão Individual:* Horários reservados no confessionário da Catedral ou das capelas.
+  1. *Confissão Individual:* Horários reservados no confessionário da Catedral ou das comunidades.
   2. *Direção Espiritual:* Atendimento pastoral prolongado na casa paroquial/secretaria.
   3. *Pastoral da Escuta:* Acolhimento fraterno e suporte pastoral por agentes preparados.
   4. *Atendimento com o Padre / Outros Assuntos:* Questões canônicas, bênçãos de residências, processos matrimoniais.

@@ -68,7 +68,7 @@ export default async function AdminProgramacaoPage() {
         const eventDays = allDays.filter((d) => d.event_id === ev.id);
         return {
           ...ev,
-          community_name: comm ? comm.name : 'Catedral Sagrado Coração de Jesus (Matriz)',
+          community_name: comm ? comm.name : 'Catedral Sagrado Coração de Jesus (Sede)',
           days: eventDays,
         };
       });

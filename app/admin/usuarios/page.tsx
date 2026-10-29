@@ -20,8 +20,11 @@ import {
   PendingRequestsTab, 
   CebActivityFeedTab, 
   UserModal, 
-  PastoralNoteModal 
+  PastoralNoteModal,
+  UserStatsBanner,
+  UserInviteModal
 } from '@/components/admin/usuarios';
+import { AdminRoleGuard } from '@/components/admin/auth/AdminRoleGuard';
 import { useAdminCommunity } from '@/components/admin/context/AdminCommunityContext';
 
 type TabKey = 'active' | 'pending' | 'activity';
@@ -36,6 +39,7 @@ export default function UsuariosAdminPage() {
   // Modais
   const [isUserModalOpen, setIsUserModalOpen] = useState<boolean>(false);
   const [userToEdit, setUserToEdit] = useState<UserProfile | null>(null);
+  const [userToInvite, setUserToInvite] = useState<UserProfile | null>(null);
   const [isPastoralModalOpen, setIsPastoralModalOpen] = useState<boolean>(false);
 
   const supabase = createClient();
@@ -200,70 +204,74 @@ export default function UsuariosAdminPage() {
   }, [users]);
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto pb-12 animate-fade-in">
-      {/* Toast de Feedback */}
-      {feedbackMsg && (
-        <div
-          className={`fixed bottom-6 right-6 z-50 p-4 rounded-xl shadow-xl flex items-center gap-2.5 text-xs font-semibold animate-slide-up ${
-            feedbackMsg.type === 'success'
-              ? 'bg-emerald-600 text-white'
-              : 'bg-rose-600 text-white'
-          }`}
-        >
-          {feedbackMsg.type === 'success' ? (
-            <CheckCircle2 className="w-4 h-4 shrink-0" />
-          ) : (
-            <AlertCircle className="w-4 h-4 shrink-0" />
-          )}
-          <span>{feedbackMsg.text}</span>
-        </div>
-      )}
-
-      {/* Header da Página */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2 border-b border-[var(--dash-border)]">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--dash-text-muted)]">
-              Governança Canônica & RBAC
-            </span>
-            <Badge variant="outline" className="text-[10px] bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/30 font-bold">
-              Multi-Comunidades
-            </Badge>
+    <AdminRoleGuard allowedRoles={['superadmin', 'paroco', 'vigario']} moduleName="a Gestão de Usuários e Governança RBAC">
+      <div className="space-y-6 max-w-7xl mx-auto pb-12 animate-fade-in">
+        {/* Toast de Feedback */}
+        {feedbackMsg && (
+          <div
+            className={`fixed bottom-6 right-6 z-50 p-4 rounded-xl shadow-xl flex items-center gap-2.5 text-xs font-semibold animate-slide-up ${
+              feedbackMsg.type === 'success'
+                ? 'bg-emerald-600 text-white'
+                : 'bg-rose-600 text-white'
+            }`}
+          >
+            {feedbackMsg.type === 'success' ? (
+              <CheckCircle2 className="w-4 h-4 shrink-0" />
+            ) : (
+              <AlertCircle className="w-4 h-4 shrink-0" />
+            )}
+            <span>{feedbackMsg.text}</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-[var(--dash-text-primary)] tracking-tight">
-            Gestão de Usuários & Permissões
-          </h2>
-          <p className="text-xs sm:text-sm text-[var(--dash-text-muted)] mt-0.5">
-            Controle de acessos de Pároco, Vigário, Secretaria, PASCOM e Coordenadores de CEB com changelog fraterno.
-          </p>
+        )}
+
+        {/* Header da Página */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2 border-b border-[var(--dash-border)]">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--dash-text-muted)]">
+                Governança Canônica & RBAC
+              </span>
+              <Badge variant="outline" className="text-[10px] bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/30 font-bold">
+                Multi-Comunidades
+              </Badge>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-[var(--dash-text-primary)] tracking-tight">
+              Gestão de Usuários & Permissões
+            </h2>
+            <p className="text-xs sm:text-sm text-[var(--dash-text-muted)] mt-0.5">
+              Controle de acessos de Pároco, Vigário, Secretaria, PASCOM e Coordenadores de CEB com changelog fraterno.
+            </p>
+          </div>
+
+          {/* Botões de Ação Rápida */}
+          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            <Button
+              variant="outline"
+              onClick={() => setIsPastoralModalOpen(true)}
+              className="flex-1 sm:flex-none text-xs font-semibold rounded-xl border-amber-500/40 text-amber-700 dark:text-amber-300 hover:bg-amber-500/10 min-h-[42px] px-3.5 flex items-center justify-center gap-1.5"
+            >
+              <Scroll className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <span>Emitir Nota Pastoral</span>
+            </Button>
+
+            <Button
+              onClick={() => {
+                setUserToEdit(null);
+                setIsUserModalOpen(true);
+              }}
+              className="flex-1 sm:flex-none text-xs font-semibold rounded-xl bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white min-h-[42px] px-4 flex items-center justify-center gap-1.5 shadow-sm"
+            >
+              <UserPlus className="w-4 h-4" />
+              <span>Novo Colaborador</span>
+            </Button>
+          </div>
         </div>
 
-        {/* Botões de Ação Rápida */}
-        <div className="flex items-center gap-2.5 w-full sm:w-auto">
-          <Button
-            variant="outline"
-            onClick={() => setIsPastoralModalOpen(true)}
-            className="flex-1 sm:flex-none text-xs font-semibold rounded-xl border-amber-500/40 text-amber-700 dark:text-amber-300 hover:bg-amber-500/10 min-h-[42px] px-3.5 flex items-center justify-center gap-1.5"
-          >
-            <Scroll className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-            <span>Emitir Nota Pastoral</span>
-          </Button>
+        {/* Banner de Estatísticas Consolidadas */}
+        <UserStatsBanner users={users} communities={communities} />
 
-          <Button
-            onClick={() => {
-              setUserToEdit(null);
-              setIsUserModalOpen(true);
-            }}
-            className="flex-1 sm:flex-none text-xs font-semibold rounded-xl bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white min-h-[42px] px-4 flex items-center justify-center gap-1.5 shadow-sm"
-          >
-            <UserPlus className="w-4 h-4" />
-            <span>Novo Colaborador</span>
-          </Button>
-        </div>
-      </div>
-
-      {/* Abas Superiores */}
-      <div className="flex items-center gap-2 border-b border-[var(--dash-border)] pb-px">
+        {/* Abas Superiores */}
+        <div className="flex items-center gap-2 border-b border-[var(--dash-border)] pb-px">
         <button
           type="button"
           onClick={() => setActiveTab('active')}
@@ -325,6 +333,7 @@ export default function UsuariosAdminPage() {
             setIsUserModalOpen(true);
           }}
           onToggleStatus={handleToggleStatus}
+          onInviteUser={(user) => setUserToInvite(user)}
         />
       )}
 
@@ -357,12 +366,20 @@ export default function UsuariosAdminPage() {
         communities={communities}
       />
 
+      <UserInviteModal
+        isOpen={Boolean(userToInvite)}
+        onClose={() => setUserToInvite(null)}
+        user={userToInvite}
+        communityName={communities.find((c) => c.id === userToInvite?.community_id)?.name}
+      />
+
       <PastoralNoteModal
         isOpen={isPastoralModalOpen}
         onClose={() => setIsPastoralModalOpen(false)}
         onSend={handleSendPastoralNote}
         communities={communities}
       />
-    </div>
+      </div>
+    </AdminRoleGuard>
   );
 }

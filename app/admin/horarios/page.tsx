@@ -143,7 +143,7 @@ function HorariosContent() {
   }, [schedules, selectedCommunityId, selectedType]);
 
   const selectedCommunityName = useMemo(() => {
-    if (selectedCommunityId === 'all') return 'Todas as Comunidades & Matriz';
+    if (selectedCommunityId === 'all') return 'Todas as Comunidades & Catedral';
     const found = communities.find((c) => c.id === selectedCommunityId);
     return found ? found.name : 'Comunidade Selecionada';
   }, [communities, selectedCommunityId]);
@@ -197,7 +197,7 @@ function HorariosContent() {
             value={selectedCommunityId}
             onChange={(e) => setSelectedCommunityId(e.target.value)}
           >
-            <option value="all">Todas as Comunidades & Matriz</option>
+            <option value="all">Todas as Comunidades & Catedral</option>
             {communities.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.is_headquarters ? '⭐ ' : ''}{c.name}

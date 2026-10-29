@@ -35,14 +35,14 @@ graph TD
 
 ## ⛪ 3. "Mini-Sites" das Comunidades (CEBs) — `/comunidades/[slug]`
 Cada uma das 11 CEBs da Catedral (e de futuras paróquias) contará com sua subpágina dinâmica (*mini-site*), contendo:
-1. **Identificação & Localização:** Foto da fachada da capela, padroeiro local, endereço com rotas GPS (Google Maps) e contato da coordenação.
-2. **Horários da Comunidade:** Missas, celebrações da palavra e adorações fixas daquela capela.
+1. **Identificação & Localização:** Foto da Fachada da Comunidade, padroeiro local, endereço com rotas GPS (Google Maps) e contato da coordenação.
+2. **Horários da Comunidade:** Missas, celebrações da palavra e adorações fixas daquela comunidade.
 3. **Calendário Mensal de Atividades:** Cronograma de missas, tríduos, novenas do padroeiro e reuniões de movimentos (EAC, ECC, Terço) exclusivos da CEB.
 4. **Breve História da Fundação:** Memória histórica da comunidade, ano de fundação (ex: 1956, 1962, 1986), marcos e fotos antigas.
 5. **Galeria de Fotos da Comunidade:** Álbuns das festas e celebrações locais.
 6. **Modelo de Permissões (Gestão Híbrida):**
-   * Controle total e auditoria permanente pela Secretaria Paroquial da Matriz no painel `/admin`.
-   * Suporte arquitetural a login restrito para o(a) coordenador(a) da CEB poder atualizar fotos, avisos e eventos locais da sua capela.
+   * Controle total e auditoria permanente pela Secretaria Paroquial da Catedral no painel `/admin`.
+   * Suporte arquitetural a login restrito para o(a) coordenador(a) da CEB poder atualizar fotos, avisos e eventos locais da sua comunidade.
 
 ---
 
@@ -65,7 +65,7 @@ Integração com o ritmo do Ano Litúrgico da Igreja Católica universal e local
   * Verde (Tempo Comum), Roxo (Quaresma e Advento), Vermelho (Santos Mártires, Pentecostes, Ramos) e Branco/Dourado (Solenidades e Festas).
 * **No Painel Administrativo (`/admin`):**
   * Sidebar com borda/glow sutil da cor litúrgica do dia e badge de identificação do tempo/festa.
-  * Tela de Calendário (`/admin/calendario`) para visualização mensal e agendamento de Padroeiros, Novenas e Tríduos da Matriz e das CEBs com suporte a override da cor litúrgica.
+  * Tela de Calendário (`/admin/calendario`) para visualização mensal e agendamento de Padroeiros, Novenas e Tríduos da Catedral e das CEBs com suporte a override da cor litúrgica.
 * **No Portal Público do Fiel (Home & CEBs):**
   * Faixa litúrgica rica logo abaixo do topo/banners com a cor do dia, celebração e o resumo do Evangelho, expansível para a Liturgia Diária completa.
   * Destaque integrado para os padroeiros das comunidades na Home e nas páginas das CEBs.

@@ -35,4 +35,17 @@ Por determinação expressa do desenvolvedor (24/10/2026):
   - **"Proclamada no Púlpito"** ou **"Apresentada nas Intenções da Santa Missa"**
   - **"Sigilo no Púlpito"** (para intenções anônimas)
 
+## ⛪ Diretriz Mandatória: Auditoria de Terminologia Canônica (Capela ➔ Comunidade, Matriz ➔ Catedral)
+Por determinação expressa do desenvolvedor (28/10/2026):
+- **{Capela} / {Capelas}:** Substituir sempre por **"Comunidade"** ou **"Comunidades Eclesiais de Base (CEBs)"**.
+- **{Matriz} / {Igreja Matriz}:** Substituir sempre por **"Catedral"** ou **"Catedral Diocesana"** (Sede).
+- **Skill Oficial Mandatória:** `canonical_terminology_auditor` (`.agents/skills/canonical_terminology_auditor/`).
+- **Automação no Protocolo Deploy:** O script `node .agents/skills/canonical_terminology_auditor/scripts/audit_terminology.js --fix` roda automaticamente antes de qualquer build e git push.
+- **Preservação Histórica e Técnica:** Marcos de fundação histórica (1928–1990) e variáveis técnicas de código (`variant="matriz"`, `is_headquarters`, etc.) são preservados.
+
+## 💰 Diretriz Mandatória: Delimitação de Escopo com o THEOS (Proibição de Captação e Controle Contábil do Dízimo)
+Por determinação expressa do desenvolvedor (28/10/2026):
+- **O THEOS é o ERP Eclesial Oficial:** O controle contábil canônico, balanços, relatórios de arrecadação do dízimo, carnês, numeração de dizimistas e controle de caixa são executados EXCLUSIVAMENTE pelo sistema **THEOS**.
+- **O Ecclesiam App NÃO faz captação nem controle do dízimo cadastrado:** O app opera estritamente no campo **pastoral, litúrgico, informativo e catequético** (dimensões bíblicas do dízimo, transparência visual de obras e divulgação da chave PIX oficial da paróquia).
+- **Proibição de Cards e Dashboards Financeiros:** É terminantemente proibido exibir cards ou métricas com valores arrecadados (ex: 'DÍZIMO / PIX (MÊS) R$ 8.420,00') no dashboard do Ecclesiam App. No lugar de métricas financeiras, o dashboard deve exibir métricas estritamente pastorais e de atendimento (ex: 'Secretaria & Intenções', 'Rede Paroquial', 'Missas Semanais', 'Avisos e Notícias').
 

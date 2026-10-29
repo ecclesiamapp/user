@@ -120,7 +120,7 @@
 * **Objetivo:** Apresentar a modelagem de mercado em 4 faixas com inspiração bíblica e posicionar a Catedral no Plano Pescador (até 20 CEBs) com benefício de Paróquia Piloto.
 * **O que dizer ao Pároco:**
   > *"Fizemos um estudo aprofundado do mercado católico e estruturamos os planos com nomes bíblicos que refletem cada etapa da vida comunitária:*
-  > *1. **01 • Plano Semente (R$ 149/mês | Setup R$ 350):** voltado para capelas e paróquias menores com até 3 comunidades.*
+  > *1. **01 • Plano Semente (R$ 149/mês | Setup R$ 350):** voltado para comunidades e paróquias menores com até 3 comunidades.*
   > *2. **02 • Plano Semeador (R$ 289/mês | Setup R$ 600):** atende a média das paróquias brasileiras com até 8 comunidades, mapas GPS e gestão pastoral.*
   > *3. **03 • Plano Pescador (R$ 490/mês | Setup R$ 1.200):** planejado sob medida para a nossa Catedral, com capacidade para **até 20 Comunidades (CEBs)** — atendendo com folga as nossas 11 comunidades —, múltiplos sacerdotes, QR codes de bancos e onboarding VIP presencial.*
   > *4. **04 • Plano Videira (R$ 649/mês | Setup R$ 1.500):** o plano teto para grandes santuários e basílicas com **todos os recursos anteriores inclusos**, **CEBs ilimitadas**, **acessos ilimitados** e infraestrutura para **alta volumetria de fiéis**.*

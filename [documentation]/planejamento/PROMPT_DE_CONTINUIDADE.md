@@ -37,7 +37,7 @@ Por favor, adote e siga rigorosamente as seguintes DIRETRIZES E REGRAS MANDATÓR
    - 🟢 **Fase 1 (29/11/2026 - 1º Domingo do Advento):** **92% concluída** (11/12 tarefas). Resta apenas o apontamento DNS da Catedral.
    - 🟡 **Fase 2 (22/11/2026 - Solenidade de Cristo Rei):** **100% CONCLUÍDA** (7/7 tarefas entregues 🎉).
 2. **Upload & Gestão de Fotos de Fachadas das CEBs ([TASK-17]):** Componente modular anti-monolito `CommunityFacadeUploader.tsx` com drag & drop e upload direto para o Supabase Storage (`galleries/facades/`), integrado ao modal `CommunityFormModal.tsx`, cards administrativos `CommunityCard.tsx` e aos minisites `/comunidades/[slug]`.
-3. **Roteiro da Capacitação 2: Lideranças das 12 CEBs & PASCOM ([TASK-19]):** Guia presencial completo de 4 horas em `[documentation]/ROTEIRO_CAPACITACAO_LIDERANCAS_CEBS.md` com 6 blocos programáticos e ficha cadastral das capelas.
+3. **Roteiro da Capacitação 2: Lideranças das 12 CEBs & PASCOM ([TASK-19]):** Guia presencial completo de 4 horas em `[documentation]/ROTEIRO_CAPACITACAO_LIDERANCAS_CEBS.md` com 6 blocos programáticos e ficha cadastral das comunidades.
 4. **Módulo de Galerias Fotográficas & Storage ([TASK-18]):** Rota `/admin/galerias` com `GalleryCard` e `GalleryFormModal`, upload direto para bucket `galleries` do Supabase e renderização nos minisites `/comunidades/[slug]`.
 5. **Gestão de Horários por CEB ([TASK-16]):** Rota `/admin/horarios` com suporte a query params (`?community_id=...`), filtros por tipo de celebração e componentes modulares `ScheduleItem` e `ScheduleFormModal`.
 6. **Gestão de Conteúdo e História das CEBs ([TASK-15]):** Rota `/admin/comunidades` com `CommunityCard` e `CommunityFormModal` (edição de história, fundadores, ano de fundação e contatos).

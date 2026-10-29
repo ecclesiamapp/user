@@ -179,7 +179,7 @@ export default function GaleriasAdminPage() {
             value={selectedCommunityId}
             onChange={(e) => setSelectedCommunityId(e.target.value)}
           >
-            <option value="all">Todas as Comunidades & Matriz</option>
+            <option value="all">Todas as Comunidades & Catedral</option>
             <option value="matriz_geral">⭐ Apenas Catedral Matriz (Geral)</option>
             {communities.map((c) => (
               <option key={c.id} value={c.id}>

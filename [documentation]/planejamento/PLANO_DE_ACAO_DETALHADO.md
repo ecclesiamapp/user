@@ -6,7 +6,7 @@
 
 ---
 
-## 🟢 FASE 1: Go-Live do Portal Oficial da Matriz
+## 🟢 FASE 1: Go-Live do Portal Oficial da Catedral
 * **Data Limite:** 29 de Novembro de 2026 (1º Domingo do Advento — Início do Novo Ano Litúrgico C)
 * **Objetivo:** Portal oficial no ar no domínio definitivo, clero completo, missas, doações PIX, folhetos e mensagens pastorais.
 
@@ -28,14 +28,14 @@
 
 ## 🟡 FASE 2: 12 Comunidades & Folhetos Litúrgicos
 * **Data Limite:** 22 de Novembro de 2026 (Solenidade de Cristo Rei)
-* **Objetivo:** Ativação plena das 12 comunidades/capelas com rotas GPS, histórico de fundadores e envolvimento dos coordenadores de CEBs.
+* **Objetivo:** Ativação plena das 12 comunidades/comunidades com rotas GPS, histórico de fundadores e envolvimento dos coordenadores de CEBs.
 
 ### Tarefas Técnicas & Entregas:
 - [x] **TASK-13:** Cadastro inicial das 12 comunidades e Grupos de Reflexão no banco Supabase e fallback em `lib/communities.ts`.
 - [x] **TASK-14:** Mini-sites dinâmicos `/comunidades/[slug]` com botões de rota direta no Google Maps e Waze.
 - [x] **TASK-15:** Painel de Gestão de Conteúdo das CEBs no `/admin/comunidades` (edição de história, fundadores e contatos dos coordenadores).
-- [x] **TASK-16:** Gestão de Horários por Comunidade no `/admin/horarios` (filtro e cadastro de missas e celebrações da palavra específicas por capela).
-- [x] **TASK-17:** Coleta e inserção de fotos oficiais das fachadas das 12 capelas com a PASCOM e lideranças locais.
+- [x] **TASK-16:** Gestão de Horários por Comunidade no `/admin/horarios` (filtro e cadastro de missas e celebrações da palavra específicas por comunidade).
+- [x] **TASK-17:** Coleta e inserção de fotos oficiais das fachadas das 14 comunidades (CEBs) com a PASCOM e lideranças locais.
 - [x] **TASK-18:** Galeria de Fotos das Comunidades (`public.galleries` conectada ao Supabase Storage para álbuns de padroeiros).
 - [x] **TASK-19:** Roteiro da Capacitação 2: Lideranças das 12 CEBs e Equipe Litúrgica/PASCOM (4 horas presenciais na Catedral).
 
@@ -69,7 +69,7 @@
   3. *Badge Canônico "In Memoriam":* Campo no Supabase e destaque visual solene com cruz e ano de falecimento para sacerdotes e bispos falecidos.
   4. *Censo Histórico Profundo de Párocos:* Pesquisa arquivística para listar integralmente todos os párocos, curas e vigários que a Catedral já teve desde 1928.
 - [x] **TASK-26D:** Subpágina `/noticias`: Portal completo de notícias e avisos da PASCOM com leitor individual `/noticias/[slug]` e filtros por categoria.
-- [x] **TASK-26E:** Subpágina `/comunidades`: Diretório geral e mapa das 12 capelas com endereços, padroeiros e rotas GPS (Google Maps e Waze).
+- [x] **TASK-26E:** Subpágina `/comunidades`: Diretório geral e mapa das 14 comunidades (CEBs) com endereços, padroeiros e rotas GPS (Google Maps e Waze).
 - [x] **TASK-27:** Módulo Litúrgico de Fim de Ano: destaque da Novena de Natal, Missa da Vigília (Missa do Galo) e celebrações de Ano Novo na Home.
 - [x] **TASK-28:** Cartas Pastorais de Natal do Pároco Pe. Irineu e do Bispo Dom Lauro em destaque na Coluna Pastoral.
 - [x] **TASK-29:** Campanha de Instalação do PWA: QR Code impresso nos bancos da Catedral para os fiéis salvarem o ícone no celular.
@@ -106,7 +106,7 @@
 
 ## 🏛️ FASE 7: Expansão das Comunidades, Gestão de Acessos & Secretaria On-line
 * **Data Limite:** Março de 2027 (Autonomia Paroquial, Governança & Eficiência Pastoral)
-* **Objetivo:** Definir e consolidar as Landing Pages completas das 12 CEBs, construir o dashboard administrativo de capelas com upload de mídias e CPC, estruturar a gestão de usuários com RBAC e auditar/expandir os processos digitais da secretaria paroquial.
+* **Objetivo:** Definir e consolidar as Landing Pages completas das 12 CEBs, construir o dashboard administrativo de comunidades com upload de mídias e CPC, estruturar a gestão de usuários com RBAC e auditar/expandir os processos digitais da secretaria paroquial.
 * **Documento de Especificação Técnica:** [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md)
 
 ### Tarefas Técnicas & Entregas:
@@ -126,7 +126,7 @@
 ---
 
 ## 🕊️ FASE 8: Grandes Festas, Solenidades & Programações Litúrgicas Especiais
-* **Data Limite:** Abril de 2027 (Semana Santa, Festas de Padroeiros & Solenidades da Matriz e CEBs)
+* **Data Limite:** Abril de 2027 (Semana Santa, Festas de Padroeiros & Solenidades da Catedral e CEBs)
 * **Objetivo:** Criar o sistema completo de Landing Pages Dinâmicas de Festas (/programacao/[slug]) alimentadas por um Construtor Visual no Painel Administrativo (/admin/programacao), com banner de contagem regressiva na Home, alertas na página de horários, compartilhamento rápido no WhatsApp e integração direta com os mini-sites das 12 CEBs.
 * **Documento de Especificação Técnica:** [`[documentation]/planejamento/ESPECIFICACAO_PAGINA_FESTAS_PROGRAMACOES.md`](file:///c:/Users/Start/ecclesiam-app/[documentation]/planejamento/ESPECIFICACAO_PAGINA_FESTAS_PROGRAMACOES.md)
 

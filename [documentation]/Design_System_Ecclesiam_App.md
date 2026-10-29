@@ -9,7 +9,7 @@
 
 | Plataforma | Origem | Pontos Fortes | Oportunidade / Diferencial Ecclesiam |
 | :--- | :--- | :--- | :--- |
-| **eCatholic** ([ecatholic.com](https://www.ecatholic.com)) | EUA | • Padrão-ouro visual católico e solene.<br>• Módulo de Missas/Confissões sempre visível na dobra superior.<br>• Integração litúrgica diária. | É focado no mercado norte-americano. Não possui integração com o ecossistema brasileiro (PIX instantâneo, WhatsApp paroquial, nem gestão de múltiplas capelas/comunidades rurais e urbanas). |
+| **eCatholic** ([ecatholic.com](https://www.ecatholic.com)) | EUA | • Padrão-ouro visual católico e solene.<br>• Módulo de Missas/Confissões sempre visível na dobra superior.<br>• Integração litúrgica diária. | É focado no mercado norte-americano. Não possui integração com o ecossistema brasileiro (PIX instantâneo, WhatsApp paroquial, nem gestão de múltiplas comunidades/comunidades rurais e urbanas). |
 | **Subsplash** ([subsplash.com](https://www.subsplash.com)) | Global | • Aplicativos móveis white-label de alto padrão.<br>• Notificações push por grupos/pastorais.<br>• Transmissões com player contínuo. | Foco primário protestante/evangélico com custo elevado em dólar; falta a sensibilidade dos ritos, sacramentos e solenidade católica. |
 | **ParóquiaNet / Theòs** ([paroquianet.com.br](https://www.paroquianet.com.br)) | Brasil | • Grande presença em dioceses brasileiras.<br>• Sistema de cadastro e controle de dízimo. | Interfaces antigas, visual web corporativo/legado, sem foco em experiência do fiel, baixa usabilidade para idosos e sem identidade visual personalizada para cada paróquia. |
 | **Tithe.ly** ([tithe.ly](https://get.tithe.ly)) | Global | • Doação ágil e transparente em poucos toques.<br>• Relatórios claros para a comunidade. | Excelente referência de checkout rápido e sem atrito, que no Ecclesiam é adaptada para PIX e linguagem pastoral de gratidão/partilha. |
@@ -59,7 +59,7 @@ O design system utiliza variáveis CSS estruturadas para que cada paróquia esco
 ### Cores de Ação Universais
 * **Botão WhatsApp da Secretaria:** `#25D366`
 * **Badge "Ao Vivo Agora":** `#D32F2F` (Pulsante litúrgico)
-* **Card de Destaque "Hoje na Matriz":** `#EBF3FB` (Borda na cor primária do tema)
+* **Card de Destaque "Hoje na Catedral":** `#EBF3FB` (Borda na cor primária do tema)
 
 ---
 
@@ -77,7 +77,7 @@ O design system utiliza variáveis CSS estruturadas para que cada paróquia esco
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│ TOPO: Brasão | Seletor de Capela | Controle de Fonte [A-] [A+] | Whats │
+│ TOPO: Brasão | Seletor de Comunidade | Controle de Fonte [A-] [A+] | Whats │
 ├────────────────────────────────────────────────────────────────────────┤
 │ HERO LITÚRGICO & PRÓXIMA CELEBRAÇÃO                                    │
 │ • Foto de capa / Padroeiro                                             │
@@ -97,7 +97,7 @@ O design system utiliza variáveis CSS estruturadas para que cada paróquia esco
 │ • Botões com mensagens pré-formatadas para o WhatsApp da secretaria    │
 ├────────────────────────────────────────────────────────────────────────┤
 │ CAPELAS & COMUNIDADES VINCULADAS                                       │
-│ • Grade com localização, padroeiro e horários de cada capela           │
+│ • Grade com localização, padroeiro e horários de cada comunidade           │
 ├────────────────────────────────────────────────────────────────────────┤
 │ RODAPÉ PASTORAL                                                        │
 │ • Endereço, expediente da secretaria, redes sociais e telefone         │

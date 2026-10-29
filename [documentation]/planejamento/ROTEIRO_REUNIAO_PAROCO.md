@@ -112,7 +112,7 @@
 * **Objetivo:** Apresentar a modelagem de mercado em 4 faixas com inspiração bíblica, posicionar a Catedral no Plano Pescador (até 20 CEBs) e destacar o Sticker de Implantação e Treinamento.
 * **O que dizer ao Pároco:**
   > *"Fizemos um estudo aprofundado do mercado católico e estruturamos os planos de acordo com o tamanho de cada paróquia:*
-  > *1. **01 • Plano Semente (R$ 149/mês | Setup R$ 350):** para capelas e paróquias menores com até 3 comunidades.*
+  > *1. **01 • Plano Semente (R$ 149/mês | Setup R$ 350):** para comunidades e paróquias menores com até 3 comunidades.*
   > *2. **02 • Plano Semeador (R$ 289/mês | Setup R$ 600):** para paróquias de médio porte com até 8 comunidades e Localização no Maps.*
   > *3. **03 • Plano Pescador (R$ 490/mês ou R$ 390/mês no anual):** planejado sob medida para a nossa Catedral, cobrindo com folga as nossas 11 comunidades (capacidade para até 20 CEBs), múltiplos sacerdotes e suporte prioritário.*
   > *4. **04 • Plano Videira (R$ 649/mês):** voltado para grandes santuários e basílicas com CEBs e acessos ilimitados.*

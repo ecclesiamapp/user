@@ -138,7 +138,7 @@ export default async function ParishSpecialEventPage({ params }: EventPageProps)
 
   const enrichedEvent: ParishSpecialEvent = {
     ...event,
-    community_name: community ? community.name : 'Catedral Sagrado Coração de Jesus (Matriz)',
+    community_name: community ? community.name : 'Catedral Sagrado Coração de Jesus (Sede)',
   };
 
   // 4. Buscar os dias da programação

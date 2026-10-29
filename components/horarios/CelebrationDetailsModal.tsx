@@ -64,7 +64,7 @@ export function CelebrationDetailsModal({
       label: 'Adoração ao Santíssimo',
       icon: Flame,
       colorClass: 'text-amber-700 dark:text-amber-300 bg-amber-500/10 border-amber-500/30',
-      internalLocation: 'Capela do Santíssimo Sacramento',
+      internalLocation: 'Comunidade do Santíssimo Sacramento',
     },
     expediente: {
       label: 'Expediente Paroquial',

@@ -28,12 +28,12 @@ Este documento reúne todas as funcionalidades e estruturas aprovadas conceitual
 * **Rota Prevista:** `/comunidades/[slug]` (ex: `/comunidades/perpetuo-socorro`, `/comunidades/santa-luzia`).
 * **Escopo Funcional:**
   * **Página individual dinâmica** para cada uma das 11 comunidades da paróquia.
-  * **Identificação e Padroeiro:** Foto de fachada da capela, histórico da comunidade, padroeiro e rota GPS integrada (Google Maps).
-  * **Horários Exclusivos:** Grade apenas com as missas e celebrações da palavra daquela capela específica.
+  * **Identificação e Padroeiro:** Foto de Fachada da Comunidade, histórico da comunidade, padroeiro e rota GPS integrada (Google Maps).
+  * **Horários Exclusivos:** Grade apenas com as missas e celebrações da palavra daquela comunidade específica.
   * **Calendário Mensal da Comunidade:** Missas, novenas, tríduos de padroeiro e encontros de movimentos locais (EAC, ECC, Terço).
   * **História da CEB:** Ano de fundação (ex: 1956, 1962, 1986), pioneiros e trajetória pastoral.
   * **Galeria de Fotos Própria:** Álbuns de festividades daquela comunidade.
-  * **Gestão Híbrida:** Edição total pela secretaria da Matriz, com permissão futura para os coordenadores de capela alimentarem suas páginas.
+  * **Gestão Híbrida:** Edição total pela Secretaria da Catedral, com permissão futura para os coordenadores de comunidade alimentarem suas páginas.
 
 ---
 
@@ -88,7 +88,7 @@ Este documento reúne todas as funcionalidades e estruturas aprovadas conceitual
      * Acompanhamento de confissões sacramentais e conversas pastorais marcadas com Pe. Irineu, Pe. Deivid ou Pe. Ernandes.
      * Status em tempo real (`Pendente`, `Confirmado`) e cancelamento com aviso prévio.
   4. **Minha Comunidade (CEB Favorita):**
-     * Seleção da capela que o fiel frequenta (Matriz, Perpétuo Socorro, Santa Luzia, etc.).
+     * Seleção da comunidade que o fiel frequenta (Matriz, Perpétuo Socorro, Santa Luzia, etc.).
      * Feed priorizado com horários de missas, tríduos e avisos pastorais daquela CEB.
   5. **Pedidos de Intenções de Santa Missa:**
      * Envio direto de pedidos de oração (Saúde, Falecidos, Ação de Graças) para as próximas missas do altar.
@@ -135,10 +135,10 @@ Assim como as CEBs, cada movimento contará com um **mini-site próprio com info
      * Cores canônicas da Igreja Católica refletidas de modo refinado (sem quebrar o tema neutro escuro): Verde (Tempo Comum), Roxo (Quaresma e Advento), Vermelho (Santos Mártires, Pentecostes, Ramos) e Branco/Dourado (Solenidades e Santos do Senhor e da Virgem Maria).
   2. **No Painel Administrativo (`/admin`):**
      * **Sidebar com Acentos Elegantes:** Indicador de borda/glow com a cor litúrgica do dia e badge de identificação (ex: `Tempo Comum • 26ª Semana`).
-     * **Tela de Gestão Litúrgica (`/admin/calendario`):** Visualização mensal em grade, com modal para cadastro de festas de Padroeiros, Novenas e Tríduos da Matriz e das CEBs, além de override manual de cor litúrgica para missas pontuais.
+     * **Tela de Gestão Litúrgica (`/admin/calendario`):** Visualização mensal em grade, com modal para cadastro de festas de Padroeiros, Novenas e Tríduos da Catedral e das CEBs, além de override manual de cor litúrgica para missas pontuais.
   3. **No Portal Público do Fiel (Home & CEBs):**
      * **Faixa Litúrgica Rica:** Localizada logo abaixo dos banners principais, exibindo a cor do dia, a celebração e a leitura do Evangelho com botão para expandir a Liturgia Diária completa.
-     * **Integração com as CEBs:** Destaque para as festas e padroeiros de cada comunidade na Home da Matriz e nas respectivas páginas das CEBs.
+     * **Integração com as CEBs:** Destaque para as festas e padroeiros de cada comunidade na Home da Catedral e nas respectivas páginas das CEBs.
   4. **Arquitetura (Motor Híbrido Resiliente):**
      * Cálculo canônico oficial do Vaticano/CNBB sincronizado em tabelas do Supabase (`liturgical_calendar`, `liturgical_readings`, `parish_liturgical_events`), garantindo 100% de disponibilidade offline/cache e alta performance.
 
@@ -202,12 +202,12 @@ Assim como as CEBs, cada movimento contará com um **mini-site próprio com info
 * **Documento Oficial de Especificação:** [`[documentation]/planejamento/ESPECIFICACAO_TECNICA_LP_COMUNIDADES.md`](file:///c:/Users/Start/ecclesiam-app/[documentation]/planejamento/ESPECIFICACAO_TECNICA_LP_COMUNIDADES.md)
 * **Rotas Envolvidas:**
   * Diretório Geral: [`app/comunidades/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/comunidades/page.tsx)
-  * LP Dinâmica da Capela: [`app/comunidades/[slug]/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/comunidades/%5Bslug%5D/page.tsx)
+  * LP Dinâmica da Comunidade: [`app/comunidades/[slug]/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/comunidades/%5Bslug%5D/page.tsx)
   * Biblioteca de Dados: [`lib/communities.ts`](file:///c:/Users/Start/ecclesiam-app/lib/communities.ts)
   * Componentes Modulares:
     * [`components/comunidades/CommunityJsonLd.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityJsonLd.tsx) (Schema.org CatholicChurch)
     * [`components/comunidades/CommunityCPCSection.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityCPCSection.tsx) (Conselho Pastoral Comunitário)
-    * [`components/comunidades/CommunityNoticesSection.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityNoticesSection.tsx) (Mural de Avisos da Capela)
+    * [`components/comunidades/CommunityNoticesSection.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityNoticesSection.tsx) (Mural de Avisos da Comunidade)
     * [`components/comunidades/CommunityDizimoSection.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityDizimoSection.tsx) (Dízimo e Partilha Local)
     * [`components/comunidades/CommunityPastoralGroupsSection.tsx`](file:///c:/Users/Start/ecclesiam-app/components/comunidades/CommunityPastoralGroupsSection.tsx) (Pastorais e Círculos)
 * **🔍 Entrega Consolidada:**
@@ -232,44 +232,30 @@ Assim como as CEBs, cada movimento contará com um **mini-site próprio com info
     1. **Painel Base Operacional:** Rota `/admin/comunidades` com listagem em cards, busca textual e toggle de ativação/desativação (`is_active`).
     2. **Modal de Cadastro/Edição:** `CommunityFormModal.tsx` permite editar campos básicos (nome, padroeiro, data da festa, endereço, bairro, coordenadas GPS, ano de fundação e histórico).
   * **O que FALTA / Escopo de Construção do Novo Dashboard:**
-    1. **Gestor de Imagens & Banners da Capela:** Componente de upload e recorte com o `ImageCropCompressModal` para foto de fachada, foto do padroeiro e banner do topo, enviando para bucket Supabase Storage `community_assets`.
+    1. **Gestor de Imagens & Banners da Comunidade:** Componente de upload e recorte com o `ImageCropCompressModal` para foto de fachada, foto do padroeiro e banner do topo, enviando para bucket Supabase Storage `community_assets`.
     2. **Módulo de Liderança (CPC):** Interface de cadastro e gestão de nomes, fotos, telefones e funções dos membros do conselho comunitário daquela CEB.
-    3. **Gestor de Avisos da Capela:** Painel para publicar, editar e expirar avisos que serão exibidos exclusivamente no mini-site daquela comunidade.
-    4. **Vínculo de Grupos & Pastorais:** Sistema para selecionar quais pastorais e movimentos estão ativos naquela capela e seus respectivos horários.
-    5. **Perfil de Acesso Delegado (Futuro):** Criação de permissão de login restrita para coordenadores de capela atualizarem apenas a sua respectiva comunidade, sem acesso aos dados gerais da Matriz.
+    3. **Gestor de Avisos da Comunidade:** Painel para publicar, editar e expirar avisos que serão exibidos exclusivamente no mini-site daquela comunidade.
+    4. **Vínculo de Grupos & Pastorais:** Sistema para selecionar quais pastorais e movimentos estão ativos naquela comunidade e seus respectivos horários.
+    5. **Perfil de Acesso Delegado (Futuro):** Criação de permissão de login restrita para coordenadores de comunidade atualizarem apenas a sua respectiva comunidade, sem acesso aos dados gerais da Catedral.
 
 ---
 
 ## 📌 13. [Pendência 03] — Auditar Ambiente para Gestão de Usuários
 
+* **Status:** ✅ **Concluído (100%)** — TASK-43 / RBAC Consolidado
 * **Prioridade:** Alta / Governança, Segurança & RLS
-* **Origem:** Solicitação do Desenvolvedor (22/10/2026)
-* **Rotas Previstas:**
-  * Gestão de Acessos: `/admin/usuarios`
-  * Middleware e Hooks de Auth: `middleware.ts`, `utils/supabase/`
-* **🔍 Análise de Implementação Atual (Diagnóstico do Código):**
-  * **Status Atual:** **Não Implementado / Embrionário (~10%)**.
-  * **O que JÁ ESTÁ implementado:**
-    1. **Supabase Auth Ativo:** Bibliotecas `@supabase/ssr` e `@supabase/supabase-js` integradas e funcionando.
-    2. **Políticas de RLS nas Migrações:** Tabelas do banco possuem RLS configurado com `parish_id`.
-    3. **Avatar Estático:** Barra lateral (`AdminSidebar.tsx`) exibe uma sigla estática ("SP - Painel da Secretaria").
-  * **O que FALTA / Escopo da Auditoria & Implementação:**
-    1. **Tabela de Perfis de Usuários (`user_profiles` ou `parish_users`):** Criar tabela vinculando `auth.users.id` a `parishes(id)` com papéis canônicos e administrativos:
-       * `superadmin` (Gestor do Ecclesiam SaaS)
-       * `paroco` (Pároco - Acesso irrestrito pastoral e administrativo)
-       * `vigario` (Vigários paroquiais)
-       * `secretaria` (Secretárias paroquiais - Agendamentos, batismos, dízimo)
-       * `pascom` (Equipe de comunicação - Notícias, mídias, redes)
-       * `coordenador_ceb` (Coordenador de capela - Mini-site e avisos locais)
-    2. **Controle de Acesso Baseado em Papéis (RBAC):** Proteção de rotas no Next.js (ex: equipe da PASCOM não acessa dados financeiros do dízimo; secretária não altera tenants do SaaS).
-    3. **Interface Administrativa de Usuários (`/admin/usuarios`):**
-       * Convidar novo usuário por e-mail.
-       * Atribuir ou alterar papel (Role).
-       * Redefinir senha ou enviar Magic Link.
-       * Desativar/revogar acesso imediato de ex-colaboradores.
-    4. **Auditoria de Sessão e Segurança:**
-       * Verificação de tempo de expiração de token JWT.
-       * Proteção contra vazamento de credenciais e auditoria de logs de login.
+* **Rotas Implementadas:**
+  * Gestão de Acessos: [`app/admin/usuarios/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/admin/usuarios/page.tsx)
+  * Guardião Canônico de Rotas: [`components/admin/auth/AdminRoleGuard.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/auth/AdminRoleGuard.tsx)
+  * Banner de Estatísticas de Liderança: [`components/admin/usuarios/UserStatsBanner.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/usuarios/UserStatsBanner.tsx)
+  * Convite & Instruções WhatsApp: [`components/admin/usuarios/UserInviteModal.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/usuarios/UserInviteModal.tsx)
+  * Contexto Comunitário & RBAC: [`components/admin/context/AdminCommunityContext.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/context/AdminCommunityContext.tsx)
+  * Sidebar Adaptativa Canônica: [`components/admin/layout/AdminSidebar.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/layout/AdminSidebar.tsx)
+* **🔍 Entrega Consolidada:**
+  1. **Modelagem Multi-Tenant Supabase:** Migração `20261028_user_profiles_rbac_enhancements.sql` aplicando `parish_id`, campos de auditoria (`last_sign_in_at`, `invitation_sent_at`), papéis canônicos (`superadmin`, `paroco`, `vigario`, `secretaria`, `pascom`, `coordenador_ceb`) e políticas RLS.
+  2. **Controle de Acesso Baseado em Papéis (RBAC):** Proteção estrutural via `AdminRoleGuard` e filtragem dinâmica de menu no `AdminSidebar.tsx`. A equipe da PASCOM não visualiza nem acessa `/admin/dizimo` nem `/admin/usuarios`; a Secretaria possui acesso operacional pleno e a Gestão de Usuários permanece restrita ao Clero/Superadmin.
+  3. **Convites & Comunicação Pastoral:** Modal para geração de mensagens personalizadas de boas-vindas com disparo direto no WhatsApp do colaborador e cópia de credenciais.
+  4. **Painel de Controle e Auditoria:** Estatísticas de cobertura de CEBs no topo da página, alternador de status ativo/bloqueado com 1 clique e simulador de visualização de perfis para homologação ágil.
 
 ---
 

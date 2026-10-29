@@ -5,6 +5,7 @@ import { Church, Smartphone, ShieldCheck, Printer, ArrowLeft } from 'lucide-reac
 import { CathedralHeader } from '@/components/layout/CathedralHeader';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
 import { PwaInstallGuide } from '@/components/pwa/PwaInstallGuide';
+import { SubpageNavHeader } from '@/components/layout/SubpageNavHeader';
 
 export const metadata: Metadata = {
   title: 'Instalar Aplicativo Oficial • Catedral de Colatina',
@@ -31,20 +32,13 @@ export default function InstalarPwaPage() {
           
           <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center space-y-4">
             {/* Navegação Retrô / Voltar */}
-            <div className="flex items-center justify-between text-xs text-[var(--dash-text-secondary)] pb-2">
-              <Link 
-                href="/" 
-                className="inline-flex items-center gap-1.5 hover:text-amber-400 transition-colors cursor-pointer"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Voltar ao Portal da Catedral</span>
-              </Link>
-
-              <span className="inline-flex items-center gap-1.5 text-amber-400/90 font-medium">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Canal Paroquial Oficial</span>
-              </span>
-            </div>
+            <SubpageNavHeader 
+              portalBackText="Voltar ao Portal da Catedral"
+              portalBackHref="/"
+              adminReturnHref="/admin/materiais-impressao"
+              adminReturnText="Painel Admin"
+              badgeText="Canal Paroquial Oficial"
+            />
 
             {/* Selo Litúrgico Solene */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#8B1E22]/15 via-[#C8A463]/10 to-[#8B1E22]/15 border border-[#C8A463]/40 text-[#8B1E22] text-xs font-bold uppercase tracking-wider shadow-xs">

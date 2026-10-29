@@ -33,7 +33,7 @@ Você **pode e deve** iniciar o projeto, testes, homologação e o piloto com a 
 ### B. Supabase Free Tier ($0 / R$ 0)
 * **Capacidade de Dados:** 500 MB no banco Postgres. Como o registro de um fiel ou horário ocupa ~1 KB, 500 MB comportam **mais de 40.000 fiéis cadastrados** e anos de postagens de avisos e horários.
 * **Usuários Ativos (Auth):** Até 50.000 fiéis ativos por mês.
-* **Armazenamento de Mídias (Storage):** 1 GB para fotos de padres, capelas e PDFs de folhetos de missa.
+* **Armazenamento de Mídias (Storage):** 1 GB para fotos de padres, comunidades e PDFs de folhetos de missa.
 
 ### C. Como Contornar os 2 Gargalos do Supabase Free sem Pagar Nada:
 1. **Gargalo de E-mail (Rate Limit):**

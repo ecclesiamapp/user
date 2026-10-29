@@ -98,7 +98,7 @@ export function GalleryCard({
           <div className="pt-2 border-t border-[var(--dash-border)] flex items-center gap-1.5 text-xs text-[var(--dash-text-secondary)] truncate">
             <MapPin className="w-3.5 h-3.5 text-[var(--primary)] shrink-0" />
             <span className="truncate font-medium text-[var(--dash-text-primary)]">
-              {gallery.community?.name || 'Igreja Matriz (Geral)'}
+              {gallery.community?.name || 'Catedral Diocesana (Geral)'}
             </span>
           </div>
         </div>

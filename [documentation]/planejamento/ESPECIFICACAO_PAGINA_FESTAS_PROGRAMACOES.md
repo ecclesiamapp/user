@@ -1,5 +1,5 @@
 # 📋 Especificação Técnica: Grandes Festas, Solenidades & Programações Litúrgicas Especiais
-> **Módulo:** Festas Pontuais, Semana Santa, Padroeiros & Solenidades da Matriz e das 12 CEBs  
+> **Módulo:** Festas Pontuais, Semana Santa, Padroeiros & Solenidades da Catedral e das 12 CEBs  
 > **Status:** Aprovado via `/grill-me` (22/10/2026)  
 > **Referência:** Decisões Arquiteturais Alinhadas com o Desenvolvedor  
 
@@ -33,7 +33,7 @@ A página de cada festa é projetada no padrão *Mobile-First Extremo* com esté
    * Título Solene (ex: *Festa da Co-Padroeira 2026 • Catedral de Colatina*).
    * Tema e Lema canônico da festa (ex: *"Com Maria, peregrinos da oração e da esperança"*).
    * Período de realização com destaque (ex: *18 a 27 de Outubro de 2026*).
-   * Botão de Rota GPS para o local do evento (Matriz ou capela da CEB no Google Maps e Waze).
+   * Botão de Rota GPS para o local do evento (Matriz ou comunidade da CEB no Google Maps e Waze).
    * Botão rápido: *"Compartilhar Programação no WhatsApp"*.
    * Botão de download do Cartaz Oficial em PDF / Imagem.
 
@@ -48,7 +48,7 @@ A página de cada festa é projetada no padrão *Mobile-First Extremo* com esté
      * **Programação Cultural / Festiva:** Horários de barracas, quermesse, cantina, leilão e apresentações musicais católicas.
 
 3. **Integração com Mini-Sites das 12 Comunidades (`/comunidades/[slug]`):**
-   * Quando uma festa estiver vinculada a uma CEB (ex: Comunidade São Francisco), a própria página daquela comunidade exibirá um card de destaque da festa com contagem regressiva e acesso direto à programação completa da capela.
+   * Quando uma festa estiver vinculada a uma CEB (ex: Comunidade São Francisco), a própria página daquela comunidade exibirá um card de destaque da festa com contagem regressiva e acesso direto à programação completa da comunidade.
 
 4. **Gatilhos de Notificação no Portal:**
    * **Na Home (`/`):** Banner hero no topo com contagem regressiva (*"Faltam 3 dias para a Festa da Co-Padroeira • Confira a programação"*).
@@ -62,7 +62,7 @@ A página de cada festa é projetada no padrão *Mobile-First Extremo* com esté
 A secretária ou equipe da PASCOM não precisa digitar HTML ou formatações complexas:
 1. **Dados Gerais da Festa:**
    * Título da Festa e Slug automático.
-   * Tipo da Festa: `copadroeira` | `padroeiro_matriz` | `liturgico_global` (Semana Santa, Corpus Christi, Natal) | `padroeiro_ceb` (Festa de Capela).
+   * Tipo da Festa: `copadroeira` | `padroeiro_matriz` | `liturgico_global` (Semana Santa, Corpus Christi, Natal) | `padroeiro_ceb` (Festa de Comunidade).
    * Comunidade Vinculada: Seleção entre as 12 CEBs ou Matriz Sagrado Coração.
    * Tema, Lema e Texto Pastoral de Abertura.
    * Datas: Início e Encerramento.

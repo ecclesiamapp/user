@@ -196,7 +196,7 @@ export function BrandLivePreviewMockup({
                       fontFamily: fonts.heading ? `'${fonts.heading}', serif` : 'serif',
                     }}
                   >
-                    Missas de Hoje na Matriz
+                    Missas de Hoje na Catedral
                   </h3>
                 </div>
 

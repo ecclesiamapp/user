@@ -58,7 +58,7 @@ Este treinamento presencial foi estruturado para ser **prático, simples e livre
 ---
 
 ### ⏰ BLOCO 2: Horários de Missas & Celebrações (45 min)
-* **Objetivo:** Adicionar, editar e desativar horários de missas, confissões e adorações da Matriz e das capelas filiadas.
+* **Objetivo:** Adicionar, editar e desativar horários de missas, confissões e adorações da Catedral e das comunidades filiadas.
 * **Rota:** `/admin/horarios`
 
 1. **Como Cadastrar uma Nova Missa ou Celebração:**
@@ -70,7 +70,7 @@ Este treinamento presencial foi estruturado para ser **prático, simples e livre
      * `Confissão Sacramental`
      * `Adoração ao Santíssimo`
      * `Celebração da Palavra`
-   * Selecionar o **Local** (Igreja Matriz ou uma das 11 Comunidades/Capelas).
+   * Selecionar o **Local** (Catedral ou uma das 11 Comunidades/Comunidades).
    * Inserir Observação pastoral (ex: *"Com bênção da saúde"* ou *"Missa com as crianças"*).
    * Clicar em **Salvar Horário**.
 2. **Como Alterar ou Excluir um Horário:**

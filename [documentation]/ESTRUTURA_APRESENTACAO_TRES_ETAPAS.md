@@ -36,7 +36,7 @@ Despertar o encanto pastoral do pároco, mostrando que a solução foi feita sob
 5. **Slide 5 — Coração Pastoral:** Missas de hoje, confissões, liturgia, dízimo e Secretaria On-line.
 6. **Slide 6 — Missas e Padres:** Escala de confissões dos padres (Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes) e WhatsApp da secretaria.
 7. **Slide 7 — Força das Comunidades (CEBs):** Espaço exclusivo para cada uma das comunidades com foto, GPS "Como Chegar" e avisos.
-8. **Slide 8 — Rede Paroquial (11 CEBs):** Catedral Matriz no centro gerador e a grade das 10 CEBs filiadas.
+8. **Slide 8 — Rede Paroquial (11 CEBs):** Catedral Diocesana no centro gerador e a grade das 10 CEBs filiadas.
 9. **Slide 9 — Calendário Litúrgico:** Festas mundiais, Padroeiro Sagrado Coração de Jesus e Leituras CNBB.
 10. **Slide 10 — Pastoral do Dízimo:** Contribuição fraterna facilitada com PIX em 1 clique (copia e cola) 100% direto na conta da paróquia.
 11. **Slide 11 — Gestão Descomplicada:** Painel da secretaria intuitivo em português.

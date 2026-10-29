@@ -4,7 +4,7 @@
 Adicionar **2 novos slides com diagramas visuais de alta fidelidade e riqueza estética** na apresentação executiva para o Pároco Pe. Irineu ([apresentacao_catedral_pe_irineu.html](file:///c:/Users/Start/ecclesiam-app/[documentation]/apresentacao_catedral_pe_irineu.html)):
 
 1. **Slide 1 — Diagrama de Funções do Portal:** Nó central da Catedral ramificando-se nas principais funcionalidades e serviços que o fiel encontra no site.
-2. **Slide 2 — Diagrama da Rede de CEBs:** Nó central da Matriz ramificando-se nos mini-sites das **11 Comunidades Eclesiais de Base**, evidenciando como a paróquia abraça todas as capelas com GPS, história e horários.
+2. **Slide 2 — Diagrama da Rede de CEBs:** Nó central da Catedral ramificando-se nos mini-sites das **11 Comunidades Eclesiais de Base**, evidenciando como a paróquia abraça Todas as 14 Comunidades (CEBs) com GPS, história e horários.
 
 ---
 
@@ -26,7 +26,7 @@ graph TD
     end
 
     subgraph Slide_B ["Slide B: Diagrama da Rede Paroquial (11 CEBs)"]
-        RootB["⛪ Catedral Sagrado Coração de Jesus (Igreja Matriz)"]
+        RootB["⛪ Catedral Sagrado Coração de Jesus (Catedral)"]
         RootB --> C1["N. Sra. do Perpétuo Socorro (1956)"]
         RootB --> C2["Sagrada Família (1968)"]
         RootB --> C3["São Francisco de Assis (1974)"]
@@ -37,7 +37,7 @@ graph TD
         RootB --> C8["Santo Expedito (1995)"]
         RootB --> C9["São Bento (2004)"]
         RootB --> C10["São Lucas (2008)"]
-        RootB --> C11["Catedral Matriz (1927)"]
+        RootB --> C11["Catedral Diocesana (1927)"]
     end
 ```
 
@@ -61,12 +61,12 @@ graph TD
 ---
 
 ### ⛪ Slide B: A Rede Viva das 11 Comunidades (CEBs)
-* **Título:** A Força da Rede: <span>Nenhuma Capela Fica de Fora</span>
+* **Título:** A Força da Rede: <span>Nenhuma Comunidade Fica de Fora</span>
 * **Subtítulo:** A Catedral como centro de comunhão que irradia vida e comunicação para todas as comunidades do território paroquial.
 * **Layout Visual:**
-  * **Nó Matriz Central:** *"Igreja Matriz & Governo Pastoral"* em destaque solene.
-  * **Grade de Ramificação das 11 Capelas:** Cards elegantes e compactos para cada uma das comunidades:
-    * Nome da Capela & Padroeiro
+  * **Nó Matriz Central:** *"Catedral & Governo Pastoral"* em destaque solene.
+  * **Grade de Ramificação das 11 Comunidades:** Cards elegantes e compactos para cada uma das comunidades:
+    * Nome da Comunidade & Padroeiro
     * Bairro e ano de fundação
     * Badges visuais: `GPS Integrado`, `Horários Próprios`, `História Local`
   * **Mensagem Pastoral de Apoio:** Destaque para o padre de que *as comunidades deixam de ser apenas um anexo esquecido e ganham presença digital de primeira classe*.
@@ -82,7 +82,7 @@ A apresentação passará de **17 para 19 slides**:
 * **Slide 4:** Dignidade, Solenidade e Acessibilidade
 * ⭐ **Slide 5 (NOVO):** **Diagrama da Árvore de Funções do Portal**
 * **Slide 6:** Missas, Confissões e Escala dos 4 Padres
-* ⭐ **Slide 7 (NOVO):** **Diagrama da Rede Paroquial (A Matriz e as 11 CEBs)**
+* ⭐ **Slide 7 (NOVO):** **Diagrama da Rede Paroquial (À Catedral e as 11 CEBs)**
 * **Slide 8:** Força das Comunidades (CEBs)
 * **Slide 9:** Calendário Litúrgico & CNBB
 * **Slide 10:** Pastoral do Dízimo & PIX

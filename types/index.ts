@@ -463,7 +463,7 @@ export interface ParishSacredHeritage {
   updated_at?: string;
 }
 
-export type UserRole = 'paroco' | 'vigario' | 'secretaria' | 'pascom' | 'coordenador_ceb';
+export type UserRole = 'superadmin' | 'paroco' | 'vigario' | 'secretaria' | 'pascom' | 'coordenador_ceb';
 export type UserStatus = 'pendente' | 'ativo' | 'bloqueado';
 
 export type AllowedCommunityModule = 
@@ -478,6 +478,7 @@ export type AllowedCommunityModule =
 
 export interface UserProfile {
   id: string;
+  parish_id?: string | null;
   user_id?: string | null;
   name: string;
   email: string;
@@ -486,6 +487,8 @@ export interface UserProfile {
   community_id?: string | null;
   status: UserStatus;
   allowed_modules: AllowedCommunityModule[] | string[];
+  last_sign_in_at?: string | null;
+  invitation_sent_at?: string | null;
   created_at?: string;
   updated_at?: string;
   community_name?: string | null;

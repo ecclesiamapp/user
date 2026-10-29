@@ -4,30 +4,30 @@
 Para garantir a paz e a harmonia pastoral entre a Paróquia Matriz e as 12 Comunidades Eclesiais de Base (CEBs), foi estabelecida a seguinte governança canônica e tecnológica:
 
 1. **Multi-Comunidades Tenant Switcher:**
-   - O painel da Paróquia possui visão mestre, mas permite alternar para o contexto dedicado de qualquer uma das 12 capelas via seletor global no topo (`AdminCommunitySwitcher`).
-   - Quando uma capela está selecionada, um banner contextual dourado sinaliza que as edições serão aplicadas na LP daquela comunidade.
+   - O painel da Paróquia possui visão mestre, mas permite alternar para o contexto dedicado de qualquer uma das 14 comunidades (CEBs) via seletor global no topo (`AdminCommunitySwitcher`).
+   - Quando uma comunidade está selecionada, um banner contextual dourado sinaliza que as edições serão aplicadas na LP daquela comunidade.
 
 2. **Sidebar Adaptativa Canônica:**
-   - Usuários com papel de **Coordenador de CEB** visualizam uma sidebar estritamente enxuta e travada na sua capela.
-   - Itens globais da Matriz (Folhetos, Mensagens do Pároco, Assistente IA, Hub de Marca) são ocultados para manter o foco pastoral.
+   - Usuários com papel de **Coordenador de CEB** visualizam uma sidebar estritamente enxuta e travada na sua comunidade.
+   - Itens globais da Catedral (Folhetos, Mensagens do Pároco, Assistente IA, Hub de Marca) são ocultados para manter o foco pastoral.
 
 3. **Governança por Módulos Ativáveis:**
    - A Paróquia concede permissões granulares por checkboxes no perfil do coordenador:
      - `lp_geral`: Informações da Landing Page e Fotos
      - `cpc`: Conselho Pastoral Comunitário
-     - `avisos`: Mural de Comunicados da Capela
+     - `avisos`: Mural de Comunicados da Comunidade
      - `pastorais`: Pastorais e Grupos de Reflexão
      - `horarios`: Horários de Santa Missa e Celebrações da Palavra
-     - `dizimo`: Dízimo e Chave PIX da Capela
+     - `dizimo`: Dízimo e Chave PIX da Comunidade
      - `galerias`: Galerias de Fotos e Memória
 
 4. **Fluxo de Auto-Cadastro & Aprovação:**
    - Lideranças que solicitam acesso entram no status `pendente`.
-   - A Secretaria Paroquial ou o Pároco avalia a solicitação em `/admin/usuarios` na aba *Solicitações Pendentes*, definindo o cargo, a capela e os módulos permitidos antes da liberação.
+   - A Secretaria Paroquial ou o Pároco avalia a solicitação em `/admin/usuarios` na aba *Solicitações Pendentes*, definindo o cargo, à comunidade e os módulos permitidos antes da liberação.
 
 5. **Prevenção de Atrito & Changelog Fraterno:**
-   - Quando a Matriz edita dados de uma comunidade, é emitida uma "Nota Pastoral / Justificativa" que gera um Banner de Alerta destacado (`CommunityPastoralNoticeBanner`) no topo do painel do coordenador ("Confirmar Leitura e Ciência").
-   - A Matriz possui a aba *Auditoria & Changelog Fraterno* para acompanhar em tempo real as movimentações das 12 CEBs.
+   - Quando à Catedral edita dados de uma comunidade, é emitida uma "Nota Pastoral / Justificativa" que gera um Banner de Alerta destacado (`CommunityPastoralNoticeBanner`) no topo do painel do coordenador ("Confirmar Leitura e Ciência").
+   - À Catedral possui a aba *Auditoria & Changelog Fraterno* para acompanhar em tempo real as movimentações das 12 CEBs.
 
 ---
 

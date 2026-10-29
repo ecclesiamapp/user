@@ -2,7 +2,7 @@ export const EVENT_TYPES = [
   { value: 'copadroeira', label: 'Festa da Co-Padroeira', description: 'Festividade mariana e da padroeira secundária da paróquia' },
   { value: 'padroeiro_matriz', label: 'Padroeiro Principal (Matriz)', description: 'Solenidade do Sagrado Coração de Jesus' },
   { value: 'liturgico_global', label: 'Solenidade do Calendário Universal', description: 'Semana Santa, Corpus Christi, Natal, Pentecostes' },
-  { value: 'padroeiro_ceb', label: 'Festa de Padroeiro de Comunidade (CEB)', description: 'Festa anual da capela/comunidade paroquial' },
+  { value: 'padroeiro_ceb', label: 'Festa de Padroeiro de Comunidade (CEB)', description: 'Festa anual da comunidade (CEB) paroquial' },
   { value: 'solenidade_especial', label: 'Celebração ou Jubileu Especial', description: 'Ordinações, crisma paroquial, aniversários de dedicação' },
 ] as const;
 

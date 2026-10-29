@@ -223,7 +223,7 @@ export function TitheRegistrationsTab({ initialRegistrations, parishId }: TitheR
 
                     <span className="flex items-center gap-1">
                       <Building2 className="w-3 h-3 text-[var(--dash-text-secondary)]" />
-                      {reg.community?.name || 'Catedral Matriz'}
+                      {reg.community?.name || 'Catedral Diocesana'}
                     </span>
 
                     <span className="text-xs bg-[var(--dash-surface-secondary)] px-2 py-0.5 rounded-md text-[var(--dash-text-secondary)]">

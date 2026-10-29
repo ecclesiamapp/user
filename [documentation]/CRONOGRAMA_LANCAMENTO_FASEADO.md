@@ -61,7 +61,7 @@ Como a base técnica já está ~70% pronta (banco Supabase migrado, Next.js comp
 ## ⛪ 3. E as 11 Comunidades (CEBs)? (Fase 2)
 
 Lançar as comunidades na segunda etapa é a **decisão estratégica mais inteligente**, pois:
-1. **Elimina o gargalo de espera:** Não ficamos travados esperando os coordenadores de bairro enviarem fotos das capelas e textos históricos.
+1. **Elimina o gargalo de espera:** Não ficamos travados esperando os coordenadores de bairro enviarem fotos das comunidades e textos históricos.
 2. **Gera expectativa positiva:** Na missa de lançamento, o Padre já anuncia:  
    > *"Neste primeiro momento estamos inaugurando o portal principal da Catedral, e nas próximas semanas cada uma das nossas 11 comunidades do interior e bairros terá sua página exclusiva no ar!"*
 
@@ -75,6 +75,6 @@ Lançar as comunidades na segunda etapa é a **decisão estratégica mais inteli
 > 
 > *1. **No Domingo, 18 de Outubro**, inauguramos o Portal Principal da Catedral. Já colocamos no ar as missas de hoje, o WhatsApp da secretaria e o Dízimo no PIX, além de fazermos o treinamento da secretária.*
 > 
-> *2. **Em seguida, durante as semanas seguintes**, vamos envolver os coordenadores de cada uma das 11 comunidades para recolher fotos e lançar os mini-sites das capelas com mapas GPS.*
+> *2. **Em seguida, durante as semanas seguintes**, vamos envolver os coordenadores de cada uma das 11 comunidades para recolher fotos e lançar os mini-sites das comunidades com mapas GPS.*
 > 
 > *Dessa forma, o senhor já tem um resultado concreto no celular dos fiéis em menos de 3 semanas, sem atropelos."*

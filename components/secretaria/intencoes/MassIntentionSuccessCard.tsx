@@ -57,7 +57,7 @@ export function MassIntentionSuccessCard({
   // Normalização caso venha através do objeto legado `intention`
   const resolvedDate = celebrationDate || intention?.celebration_date || '';
   const resolvedTime = celebrationTime || intention?.celebration_time || '';
-  const resolvedCommunity = communityName || intention?.community_name || 'Catedral Matriz';
+  const resolvedCommunity = communityName || intention?.community_name || 'Catedral Diocesana';
   const resolvedAnonymous = isAnonymous ?? intention?.is_anonymous ?? false;
   const resolvedOfferedBy = offeredBy ?? intention?.offered_by ?? 'Fiel da Comunidade';
   const resolvedPhone = contactPhone ?? intention?.contact_phone ?? null;

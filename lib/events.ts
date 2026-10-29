@@ -65,7 +65,7 @@ export const EVENT_COLOR_PRESETS: Record<EventColorPreset, EventThemeConfig> = {
   sao_jose: {
     id: 'sao_jose',
     name: '⚒️ São José & Padroeiros',
-    subtitle: 'Santos & Capelas das CEBs (Marrom Âmbar)',
+    subtitle: 'Santos & Comunidades das CEBs (Marrom Âmbar)',
     primary: '#78350F', // Marrom Franciscano
     secondary: '#D97706', // Âmbar Dourado
     accent: '#FFFBEB', // Marfim
@@ -75,7 +75,7 @@ export const EVENT_COLOR_PRESETS: Record<EventColorPreset, EventThemeConfig> = {
   custom: {
     id: 'custom',
     name: '🎨 Personalizado',
-    subtitle: 'Seletor de cores livre para capelas',
+    subtitle: 'Seletor de cores livre para comunidades',
     primary: '#8B1E22',
     secondary: '#FFA82A',
     accent: '#FFFFFF',
@@ -123,7 +123,7 @@ export const FALLBACK_SPECIAL_EVENTS: ParishSpecialEvent[] = [
     primary_color: '#1E3A8A',
     secondary_color: '#38BDF8',
     accent_color: '#FFFFFF',
-    community_name: 'Catedral Sagrado Coração de Jesus (Matriz)',
+    community_name: 'Catedral Sagrado Coração de Jesus (Sede)',
   },
 ];
 
@@ -143,7 +143,7 @@ export const FALLBACK_EVENT_DAYS: Record<string, ParishEventDay[]> = {
       order_index: 1,
       schedule_items: [
         { time: '18:30', title: 'Santo Terço Luminoso com os Homens', location: 'Presbitério da Catedral' },
-        { time: '19:30', title: 'Santa Missa Solene de Abertura', location: 'Catedral Matriz', celebrant: 'Pe. Irineu Valmorbida' },
+        { time: '19:30', title: 'Santa Missa Solene de Abertura', location: 'Catedral Diocesana', celebrant: 'Pe. Irineu Valmorbida' },
         { time: '20:45', title: 'Abertura das Barracas e Noite dos Caldos', location: 'Pátio Paroquial' }
       ]
     },
@@ -160,8 +160,8 @@ export const FALLBACK_EVENT_DAYS: Record<string, ParishEventDay[]> = {
       social_attractions: 'Show acústico com músicos católicos da diocese e barracas de lanches',
       order_index: 2,
       schedule_items: [
-        { time: '18:45', title: 'Ofício de Nossa Senhora Cantado', location: 'Catedral Matriz' },
-        { time: '19:30', title: 'Santa Missa com Envio dos Jovens e Crismanos', location: 'Catedral Matriz' },
+        { time: '18:45', title: 'Ofício de Nossa Senhora Cantado', location: 'Catedral Diocesana' },
+        { time: '19:30', title: 'Santa Missa com Envio dos Jovens e Crismanos', location: 'Catedral Diocesana' },
         { time: '21:00', title: 'Apresentação Musical e Praça de Alimentação', location: 'Pátio da Catedral' }
       ]
     },
@@ -178,10 +178,10 @@ export const FALLBACK_EVENT_DAYS: Record<string, ParishEventDay[]> = {
       social_attractions: 'Grande almoço festivo comunitário, leilão de prendas e sorteio beneficente',
       order_index: 3,
       schedule_items: [
-        { time: '07:00', title: 'Santa Missa da Aurora', location: 'Catedral Matriz' },
-        { time: '10:00', title: 'Santa Missa com as Crianças e Coroação de Nossa Senhora', location: 'Catedral Matriz' },
+        { time: '07:00', title: 'Santa Missa da Aurora', location: 'Catedral Diocesana' },
+        { time: '10:00', title: 'Santa Missa com as Crianças e Coroação de Nossa Senhora', location: 'Catedral Diocesana' },
         { time: '17:30', title: 'Procissão Solene pelas ruas do Centro com o Andor', location: 'Saída da Praça da Catedral' },
-        { time: '18:30', title: 'Santa Missa Pontifical Solene presidida pelo Bispo Diocesano', location: 'Catedral Matriz', celebrant: 'Dom Lauro Sérgio Versiani Barbosa' },
+        { time: '18:30', title: 'Santa Missa Pontifical Solene presidida pelo Bispo Diocesano', location: 'Catedral Diocesana', celebrant: 'Dom Lauro Sérgio Versiani Barbosa' },
         { time: '20:15', title: 'Bênção do Santíssimo e Encerramento com Cantina Festiva', location: 'Pátio Paroquial' }
       ]
     }

@@ -31,7 +31,7 @@ A subpágina pública `/dizimo` da Catedral e das CEBs existe para atender a **d
 ### B. Canal Informativo para Captação de Ofertas Espontâneas
 * Exibição clara e segura da chave PIX oficial (E-mail/CNPJ) e QR Code estático do Banco Central vinculado à Mitra Diocesana.
 * Campo opcional para que o fiel possa deixar uma mensagem fraterna ou intenção de oração para a comunidade.
-* Transparência ativa sobre as obras de conservação da Catedral Matriz e projetos caritativos da paróquia.
+* Transparência ativa sobre as obras de conservação da Catedral Diocesana e projetos caritativos da paróquia.
 
 ---
 

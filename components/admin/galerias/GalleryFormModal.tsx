@@ -253,7 +253,7 @@ export function GalleryFormModal({
               value={communityId}
               onChange={(e) => setCommunityId(e.target.value)}
             >
-              <option value="none">Igreja Matriz / Paróquia Geral</option>
+              <option value="none">Catedral / Paróquia Geral</option>
               {communities.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.is_headquarters ? '⭐ ' : ''}{c.name}

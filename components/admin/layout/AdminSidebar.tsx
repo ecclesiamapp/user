@@ -69,7 +69,7 @@ const NAV_GROUPS: NavGroup[] = [
       { href: '/admin/mensagens', label: 'Palavra do Pároco/Bispo', icon: BookOpen },
       { href: '/admin/galerias', label: 'Galerias & Fotos', icon: ImageIcon },
       { href: '/admin/historia', label: 'História & Memória', icon: Scroll, badge: 'Novo' },
-      { href: '/admin/dizimo', label: 'Dízimo & Doações PIX', icon: HeartHandshake },
+      { href: '/admin/dizimo', label: 'Pastoral do Dízimo', icon: HeartHandshake },
       { href: '/admin/materiais-impressao', label: 'Cartazes & Bancos', icon: QrCode, badge: 'PWA' },
     ],
   },
@@ -101,36 +101,66 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
   const { liturgicalColoringEnabled, liturgy } = useAdminAppearance();
   const { currentUser, isParishMaster, hasModulePermission, selectedCommunity } = useAdminCommunity();
 
-  // Grupos de navegação adaptativos (Paróquia Geral vs Coordenador de CEB)
+  // Grupos de navegação adaptativos (RBAC por perfil canônico)
   const activeNavGroups = React.useMemo<NavGroup[]>(() => {
-    if (isParishMaster) {
-      return NAV_GROUPS;
+    // 1. Se for Coordenador de CEB: visualização restrita à comunidade
+    if (currentUser?.role === 'coordenador_ceb') {
+      const cebItems: NavGroup['items'] = [
+        { href: '/admin/comunidades', label: 'Minha Comunidade & LP', icon: MapPin, exact: true, badge: 'CEB' },
+      ];
+
+      if (hasModulePermission('horarios')) {
+        cebItems.push({ href: '/admin/horarios', label: 'Horários de Missa', icon: Calendar });
+      }
+      if (hasModulePermission('avisos')) {
+        cebItems.push({ href: '/admin/conteudo', label: 'Avisos da Comunidade', icon: Newspaper });
+      }
+      if (hasModulePermission('galerias')) {
+        cebItems.push({ href: '/admin/galerias', label: 'Fotos & Galerias', icon: ImageIcon });
+      }
+      if (hasModulePermission('dizimo')) {
+        cebItems.push({ href: '/admin/dizimo', label: 'Pastoral do Dízimo', icon: HeartHandshake });
+      }
+
+      return [
+        {
+          category: selectedCommunity?.name || 'Painel da Comunidade',
+          items: cebItems,
+        },
+      ];
     }
 
-    const cebItems: NavGroup['items'] = [
-      { href: '/admin/comunidades', label: 'Minha Comunidade & LP', icon: MapPin, exact: true, badge: 'CEB' },
-    ];
+    // 2. Se for PASCOM: foco estrito em comunicação, fotos, mídias e marca (sem dízimo nem gestão de usuários)
+    if (currentUser?.role === 'pascom') {
+      return [
+        {
+          category: 'Comunicação & PASCOM',
+          items: [
+            { href: '/admin', label: 'Visão Geral', icon: Church, exact: true },
+            { href: '/admin/conteudo', label: 'Avisos & Notícias', icon: Newspaper },
+            { href: '/admin/programacao', label: 'Festas & Solenidades', icon: CalendarDays, badge: 'Festas' },
+            { href: '/admin/galerias', label: 'Galerias & Fotos', icon: ImageIcon },
+            { href: '/admin/mensagens', label: 'Palavra do Pároco/Bispo', icon: BookOpen },
+            { href: '/admin/historia', label: 'História & Memória', icon: Scroll },
+            { href: '/admin/materiais-impressao', label: 'Cartazes & Bancos', icon: QrCode, badge: 'PWA' },
+            { href: '/admin/marca', label: 'Hub de Marca & Moodboard', icon: Palette },
+            { href: '/admin/assistente-ia', label: 'Assistente IA & RAG', icon: Sparkles, badge: 'IA' },
+          ],
+        },
+      ];
+    }
 
-    if (hasModulePermission('horarios')) {
-      cebItems.push({ href: '/admin/horarios', label: 'Horários de Missa', icon: Calendar });
-    }
-    if (hasModulePermission('avisos')) {
-      cebItems.push({ href: '/admin/conteudo', label: 'Avisos da Capela', icon: Newspaper });
-    }
-    if (hasModulePermission('galerias')) {
-      cebItems.push({ href: '/admin/galerias', label: 'Fotos & Galerias', icon: ImageIcon });
-    }
-    if (hasModulePermission('dizimo')) {
-      cebItems.push({ href: '/admin/dizimo', label: 'Dízimo & Ofertas', icon: HeartHandshake });
+    // 3. Se for Secretaria Paroquial: visualiza tudo da paróquia exceto Gestão de Usuários (restrito ao Clero/Superadmin)
+    if (currentUser?.role === 'secretaria') {
+      return NAV_GROUPS.map((group) => ({
+        ...group,
+        items: group.items.filter((item) => item.href !== '/admin/usuarios'),
+      }));
     }
 
-    return [
-      {
-        category: selectedCommunity?.name || 'Painel da Comunidade',
-        items: cebItems,
-      },
-    ];
-  }, [isParishMaster, hasModulePermission, selectedCommunity]);
+    // 4. Pároco, Vigário ou Superadmin: acesso pleno irrestrito
+    return NAV_GROUPS;
+  }, [currentUser, hasModulePermission, selectedCommunity]);
 
   // Iniciais do usuário ativo
   const userInitials = React.useMemo(() => {
@@ -144,6 +174,7 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
   const roleLabel = React.useMemo(() => {
     if (!currentUser) return 'Secretária Paroquial';
     switch (currentUser.role) {
+      case 'superadmin': return 'Superadmin (SaaS)';
       case 'paroco': return 'Pároco';
       case 'vigario': return 'Vigário Paroquial';
       case 'secretaria': return 'Secretaria Paroquial';
@@ -214,9 +245,11 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
               <h2 className="text-sm font-bold truncate text-white tracking-wide group-hover:text-[#FFCC36] transition-colors font-display">
                 Catedral de Colatina
               </h2>
-              <div className="flex items-center gap-1.5 text-[11px] text-[#A39E98]">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[#C8A463] font-medium">Painel da Secretaria</span>
+              <div className="flex items-center gap-1.5 text-[11px] text-[#A39E98] max-w-[170px]">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                <span className="text-[#C8A463] font-medium truncate">
+                  {selectedCommunity ? selectedCommunity.name : (currentUser?.role === 'pascom' ? 'Painel da PASCOM' : 'Painel da Secretaria')}
+                </span>
               </div>
             </div>
           </Link>

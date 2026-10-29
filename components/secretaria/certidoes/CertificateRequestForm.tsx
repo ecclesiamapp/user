@@ -360,7 +360,7 @@ export function CertificateRequestForm({ parish }: CertificateRequestFormProps) 
               <Input
                 id="community_name"
                 type="text"
-                placeholder="Ex: Catedral Matriz ou Comunidade São José"
+                placeholder="Ex: Catedral Diocesana ou Comunidade São José"
                 value={communityName}
                 onChange={(e) => setCommunityName(e.target.value)}
                 className="text-xs"

@@ -158,7 +158,7 @@ export function CommunitiesDirectory({ communities, schedules = [] }: Communitie
                 : 'bg-[var(--dash-bg)] text-[var(--dash-text-secondary)] hover:bg-[var(--dash-surface)] border border-[var(--dash-border)]'
             }`}
           >
-            Igreja Matriz (1)
+            Catedral (1)
           </button>
 
           <button

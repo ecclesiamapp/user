@@ -44,8 +44,8 @@ Ao entrar na Home, o visitante deve encontrar sem rolagem:
 
 ### 1.4 Componentes Específicos Modelados
 * **Floating Schedule Card:** Card flutuante posicionado entre a imagem hero e a primeira seção, exibindo:
-  * `"Hoje na Matriz: Missa às 19h30 • Confissões das 17h às 19h"`.
-  * Botão de 1 clique: `[ Ver grade completa da semana e capelas ]`.
+  * `"Hoje na Catedral: Missa às 19h30 • Confissões das 17h às 19h"`.
+  * Botão de 1 clique: `[ Ver grade completa da semana e comunidades ]`.
 * **Módulo "Preserve o Nosso Templo" (Giving Digno):** Doação não mercantilizada, apresentada como dever fraterno de conservação e sustento pastoral:
   * Valores pré-sugeridos: R$ 30, R$ 50, R$ 100 ou Outro valor.
   * Checkout direto via PIX Copia e Cola / QR Code com mensagem pastoral de gratidão.
@@ -137,7 +137,7 @@ Ao entrar na Home, o visitante deve encontrar sem rolagem:
      * *Transmissão Ao Vivo* (Vincular link/ID do YouTube com ativação em 1 clique).
   4. **Dízimo & Financeiro:** Extrato simplificado de PIX recebidos e relatórios de arrecadação por campanha.
   5. **Secretaria:** Caixa de entrada de pedidos de sacramentos e intenções para impressão da folha do padre.
-  6. **Personalização White-Label:** Upload de brasão, seleção de capelas e escolha do tema de cores litúrgicas.
+  6. **Personalização White-Label:** Upload de brasão, seleção de comunidades e escolha do tema de cores litúrgicas.
 
 ---
 

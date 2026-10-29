@@ -19,7 +19,7 @@ O objetivo é transformar o projeto que nasceu para a Catedral de Colatina em um
 * Gestão de Horários: Missas, Confissões e Expediente.
 * Módulo de Doações: Acompanhamento e relatórios de Dízimo/Intenções de Missa gerados via PIX.
 * Personalização: Alteração da identidade visual do Site/App.
-* Calendário Litúrgico & Festas: Grade mensal com cores canônicas e cadastro de festas de padroeiros da Matriz e das CEBs.
+* Calendário Litúrgico & Festas: Grade mensal com cores canônicas e cadastro de festas de padroeiros da Catedral e das CEBs.
 
 ### 3.2 O Site da Paróquia
 * Interface web amigável e responsiva baseada no template escolhido.

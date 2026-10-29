@@ -38,7 +38,7 @@ Após consulta aprofundada ao código-fonte, rotas do Next.js, esquemas do banco
 Para que a Catedral de Colatina tenha a experiência digital perfeita apresentada nos slides, restam apenas os seguintes blocos:
 
 1. **Refinamento da Home do Fiel:** Aplicar os tokens finais de design aprovados (fundo pergaminho quente `#F5EFE7`, tipografia Clara, vermelho Sagrado Coração e atalhos rápidos de WhatsApp).
-2. **Mini-Sites das 11 Comunidades (`/comunidades/[slug]`):** Criar as subpáginas individuais com as fotos das capelas e mapas GPS (as tabelas e dados no banco já estão prontos).
+2. **Mini-Sites das 11 Comunidades (`/comunidades/[slug]`):** Criar as subpáginas individuais com as fotos das comunidades e mapas GPS (as tabelas e dados no banco já estão prontos).
 3. **Módulo "Sou do Sagrado Missa":** Área para download dos folhetos de missa semanais em PDF e widget com a liturgia diária da CNBB.
 4. **Alimentação Final de Mídia:** Inserir fotos oficiais atualizadas dos padres, da Catedral e das 11 comunidades fornecidas pela secretaria/PASCOM.
 
@@ -77,14 +77,14 @@ A melhor estratégia com sacerdotes e conselhos paroquiais é o **Lançamento Es
   > *"Padre, em apenas 7 a 10 dias os paroquianos da Catedral já estarão abrindo o novo portal no celular nas missas de domingo e utilizando o PIX para o dízimo."*
 
 #### 🟡 Fase 2 — Mini-Sites das 11 Comunidades e Folhetos (Prazo: 15 a 21 dias)
-* **Objetivo:** Incluir todas as capelas filiadas e os fiéis das comunidades no ecossistema paroquial.
+* **Objetivo:** Incluir Todas as 14 Comunidades (CEBs) filiadas e os fiéis das comunidades no ecossistema paroquial.
 * **Entregas desta fase:**
   - Mini-sites individuais das 11 CEBs (`/comunidades/:slug`) com fotos das fachadas, localização GPS e história dos fundadores.
   - Grade de missas e celebrações da palavra específicas de cada comunidade.
   - Módulo de download de folhetos semanais em PDF (*"Sou do Sagrado Missa"*).
   - Integração da Liturgia Diária oficial da CNBB na primeira página.
 * **Argumento para o Padre:**  
-  > *"Na segunda semana, envolvemos as lideranças de cada uma das 11 comunidades para recolher fotos e horários das capelas, garantindo que toda a paróquia se sinta acolhida."*
+  > *"Na segunda semana, envolvemos as lideranças de cada uma das 11 comunidades para recolher fotos e horários das comunidades, garantindo que toda a paróquia se sinta acolhida."*
 
 #### 🔵 Fase 3 — Agendamento de Confissões e Área do Fiel (Prazo: 30 a 45 dias)
 * **Objetivo:** Automação avançada dos atendimentos pastorais dos sacerdotes.

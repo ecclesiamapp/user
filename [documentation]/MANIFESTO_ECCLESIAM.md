@@ -32,7 +32,7 @@ O objetivo primordial do MVP é entregar valor imediato, estabilidade e facilida
 
 2. **Gestão e Consulta Inteligente de Horários:**
    * Módulo estruturado para horários fixos e sazonais de:
-     * Santas Missas (matriz e comunidades/capelas vinculadas).
+     * Santas Missas (Catedral e CEBs/comunidades vinculadas).
      * Confissões e Direção Espiritual.
      * Expediente da Secretaria Paroquial.
    * Apresentação limpa, clara e de rápido acesso para o fiel pelo celular ou computador.

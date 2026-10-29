@@ -19,7 +19,7 @@
 ## 1. Teste de Finalidade (Purpose Test)
 
 * **Qual o interesse legítimo perseguido?**  
-  A manutenção da subsistência material da comunidade paroquial, conservação do templo da Catedral e das 12 capelas comunitárias, sustento do clero e realização de obras de caridade e evangelização da Igreja Católica, conforme preceito bíblico e canônico do dízimo (Cânon 222 do Código de Direito Canônico).
+  A manutenção da subsistência material da comunidade paroquial, conservação do templo da Catedral e das 14 comunidades (CEBs) comunitárias, sustento do clero e realização de obras de caridade e evangelização da Igreja Católica, conforme preceito bíblico e canônico do dízimo (Cânon 222 do Código de Direito Canônico).
 * **É um interesse lícito, específico e real (não hipotético)?**  
   Sim. É um interesse real, lícito e constitucionalmente amparado (liberdade de culto e organização religiosa — Art. 5º, VI da CF/88). O tratamento visa especificamente identificar o dizimista para envio de lembretes devocionais, confirmação de recebimento de doações via Pix/envelope e prestação de contas pastoral.
 * **Quem se beneficia?**  
@@ -32,7 +32,7 @@
 ## 2. Teste de Necessidade (Necessity Test)
 
 * **O tratamento é estritamente necessário para a finalidade? (Art. 10, II da LGPD)**  
-  Sim. Para emitir carnês, registrar chave Pix e direcionar doações à capela correspondente do fiel, é indispensável saber seu nome, comunidade e forma de pagamento.
+  Sim. Para emitir carnês, registrar chave Pix e direcionar doações à comunidade correspondente do fiel, é indispensável saber seu nome, comunidade e forma de pagamento.
 * **Há forma menos invasiva de atingir a mesma finalidade?**  
   Doações anônimas em dinheiro na cesta das Missas já ocorrem, porém a modalidade de "Dizimista Cadastrado" confere ao fiel um número de cadastro pastoral, lembretes de aniversário e prestação de contas pessoalizada, o que exige identificação cadastral mínima.
 * **Os dados coletados são os mínimos para a finalidade? (Art. 6º, III — Princípio da Necessidade)**  

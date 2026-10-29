@@ -46,7 +46,7 @@ export default async function AgendaLiturgicaPage() {
       ? (dbSchedules as MassSchedule[])
       : fallbackSchedules;
 
-  // 2. Filtrar estritamente celebrações da Catedral Matriz (CEBs possuem seus próprios murais)
+  // 2. Filtrar estritamente celebrações da Catedral Diocesana (CEBs possuem seus próprios murais)
   const cathedralSchedules = allSchedules.filter((s) => {
     const isHeadquarters = s.community?.is_headquarters;
     const isCathedralId =
@@ -82,7 +82,7 @@ export default async function AgendaLiturgicaPage() {
           </Link>
 
           <span className="text-[11px] font-bold text-[#8B1E22] dark:text-[#FFA82A] uppercase tracking-wider bg-[#8B1E22]/10 px-3 py-1 rounded-full border border-[#8B1E22]/20">
-            Catedral Matriz
+            Catedral Diocesana
           </span>
         </div>
       </header>

@@ -23,7 +23,7 @@ interface ScheduleCardProps {
 
 export function ScheduleCard({ schedule, community }: ScheduleCardProps) {
   const isHeadquarters = community?.is_headquarters || schedule.community_id === 'b1aac446-758d-4595-8724-38ce39b3a27e';
-  const communityName = community?.name || schedule.location_name || 'Catedral Matriz';
+  const communityName = community?.name || schedule.location_name || 'Catedral Diocesana';
   const communitySlug = community?.slug;
 
   // Mapeamento visual por tipo de celebração
@@ -85,7 +85,7 @@ export function ScheduleCard({ schedule, community }: ScheduleCardProps) {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Badge variant={isHeadquarters ? 'matriz' : 'ceb'} className="text-[10px] font-bold uppercase tracking-wider">
-              {isHeadquarters ? 'Igreja Matriz' : 'Comunidade Eclesial'}
+              {isHeadquarters ? 'Catedral' : 'Comunidade Eclesial'}
             </Badge>
           </div>
           

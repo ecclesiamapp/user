@@ -242,7 +242,7 @@ export function MassIntentionBooking({ parish, communities }: MassIntentionBooki
         protocol: protocolNumber,
         celebrationDate,
         celebrationTime,
-        communityName: selectedCommunity?.name || 'Catedral Matriz',
+        communityName: selectedCommunity?.name || 'Catedral Diocesana',
         categoriesSummary,
         offeredBy: resolvedOfferedBy,
         contactPhone: contactPhone.trim() || null,
@@ -306,7 +306,7 @@ export function MassIntentionBooking({ parish, communities }: MassIntentionBooki
                 onChange={(e) => setCommunityId(e.target.value)}
                 className="dash-select w-full rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-secondary)] pl-3.5 pr-10 py-2.5 text-xs text-[var(--dash-text-primary)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/30"
               >
-                <option value="">Catedral Matriz (Centro)</option>
+                <option value="">Catedral Diocesana (Centro)</option>
                 {communities.map((comm) => (
                   <option key={comm.id} value={comm.id}>
                     {comm.name}

@@ -5,19 +5,19 @@ import Link from 'next/link';
 import { 
   Calendar, 
   Newspaper, 
-  QrCode, 
-  ArrowUpRight, 
   Sparkles,
   Clock,
   CheckCircle2,
   Church,
-  Plus
+  Plus,
+  Inbox
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import { Card, CardHeader, CardTitle, Badge, Button } from '@/components/ui';
 
 export default function AdminDashboardPage() {
-  const [communityCount, setCommunityCount] = useState<number>(3);
+  const [communityCount, setCommunityCount] = useState<number>(15);
+  const [secretariaCount, setSecretariaCount] = useState<number>(38);
   const [parishName, setParishName] = useState<string>('Catedral do Sagrado Coração de Jesus');
   const [pixKey, setPixKey] = useState<string>('secretaria@catedral.org.br');
   const [whatsapp, setWhatsapp] = useState<string>('(27) 99999-0000');
@@ -32,6 +32,13 @@ export default function AdminDashboardPage() {
           .select('*', { count: 'exact', head: true });
         if (count !== null && count !== undefined) {
           setCommunityCount(count);
+        }
+
+        const { count: intCount } = await supabase
+          .from('mass_intentions')
+          .select('*', { count: 'exact', head: true });
+        if (intCount !== null && intCount !== undefined && intCount > 0) {
+          setSecretariaCount(intCount);
         }
 
         const { data: parishes } = await supabase
@@ -59,7 +66,7 @@ export default function AdminDashboardPage() {
             Painel da Paróquia
           </h1>
           <p className="text-sm text-[var(--dash-text-secondary)] mt-1">
-            Gestão pastoral de conteúdos, celebrações e arrecadações via PIX.
+            Gestão pastoral da Catedral e Comunidades (CEBs), celebrações e atendimento da secretaria.
           </p>
         </div>
 
@@ -75,63 +82,71 @@ export default function AdminDashboardPage() {
       {/* Cards de Métricas Principais (4 Colunas) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* Métrica 1: Comunidades (CEBs) */}
-        <Card className="flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between text-[var(--dash-text-secondary)]">
-              <span className="text-xs font-semibold uppercase tracking-wider">Rede Paroquial</span>
-              <Church className="w-4 h-4 text-[var(--primary)]" />
+        <Link href="/admin/comunidades" className="block group text-decoration-none">
+          <Card className="flex flex-col justify-between h-full group-hover:border-[var(--primary)] transition-colors cursor-pointer">
+            <div>
+              <div className="flex items-center justify-between text-[var(--dash-text-secondary)]">
+                <span className="text-xs font-semibold uppercase tracking-wider">Rede Paroquial</span>
+                <Church className="w-4 h-4 text-[var(--primary)]" />
+              </div>
+              <p className="text-3xl font-extrabold mt-3 text-[var(--dash-text-primary)]">{communityCount}</p>
             </div>
-            <p className="text-3xl font-extrabold mt-3 text-[var(--dash-text-primary)]">{communityCount}</p>
-          </div>
-          <p className="text-xs text-emerald-600 mt-2 flex items-center gap-1 font-medium">
-            <CheckCircle2 className="w-3.5 h-3.5" />
-            Matriz e CEBs ativas
-          </p>
-        </Card>
+            <p className="text-xs text-emerald-600 mt-2 flex items-center gap-1 font-medium">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              Catedral e CEBs ativas
+            </p>
+          </Card>
+        </Link>
 
         {/* Métrica 2: Missas Semanais */}
-        <Card className="flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between text-[var(--dash-text-secondary)]">
-              <span className="text-xs font-semibold uppercase tracking-wider">Missas Semanais</span>
-              <Calendar className="w-4 h-4 text-[var(--primary)]" />
+        <Link href="/admin/horarios" className="block group text-decoration-none">
+          <Card className="flex flex-col justify-between h-full group-hover:border-[var(--primary)] transition-colors cursor-pointer">
+            <div>
+              <div className="flex items-center justify-between text-[var(--dash-text-secondary)]">
+                <span className="text-xs font-semibold uppercase tracking-wider">Missas Semanais</span>
+                <Calendar className="w-4 h-4 text-[var(--primary)]" />
+              </div>
+              <p className="text-3xl font-extrabold mt-3 text-[var(--dash-text-primary)]">14</p>
             </div>
-            <p className="text-3xl font-extrabold mt-3 text-[var(--dash-text-primary)]">14</p>
-          </div>
-          <p className="text-xs text-emerald-600 mt-2 flex items-center gap-1 font-medium">
-            <CheckCircle2 className="w-3.5 h-3.5" />
-            Sincronizados no portal
-          </p>
-        </Card>
+            <p className="text-xs text-emerald-600 mt-2 flex items-center gap-1 font-medium">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              Sincronizados no portal
+            </p>
+          </Card>
+        </Link>
 
         {/* Métrica 3: Avisos e Notícias */}
-        <Card className="flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between text-[var(--dash-text-secondary)]">
-              <span className="text-xs font-semibold uppercase tracking-wider">Avisos e Notícias</span>
-              <Newspaper className="w-4 h-4 text-[var(--primary)]" />
+        <Link href="/admin/conteudo" className="block group text-decoration-none">
+          <Card className="flex flex-col justify-between h-full group-hover:border-[var(--primary)] transition-colors cursor-pointer">
+            <div>
+              <div className="flex items-center justify-between text-[var(--dash-text-secondary)]">
+                <span className="text-xs font-semibold uppercase tracking-wider">Avisos e Notícias</span>
+                <Newspaper className="w-4 h-4 text-[var(--primary)]" />
+              </div>
+              <p className="text-3xl font-extrabold mt-3 text-[var(--dash-text-primary)]">6</p>
             </div>
-            <p className="text-3xl font-extrabold mt-3 text-[var(--dash-text-primary)]">6</p>
-          </div>
-          <p className="text-xs text-[var(--dash-text-secondary)] mt-2">
-            2 avisos urgentes ativos
-          </p>
-        </Card>
+            <p className="text-xs text-[var(--dash-text-secondary)] mt-2">
+              2 avisos urgentes ativos
+            </p>
+          </Card>
+        </Link>
 
-        {/* Métrica 4: Dízimo / PIX */}
-        <Card className="flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between text-[var(--dash-text-secondary)]">
-              <span className="text-xs font-semibold uppercase tracking-wider">Dízimo / PIX (Mês)</span>
-              <QrCode className="w-4 h-4 text-[var(--primary)]" />
+        {/* Métrica 4: Secretaria & Atendimento Pastoral (Substitui Dízimo contábil do Theòs) */}
+        <Link href="/admin/secretaria" className="block group text-decoration-none">
+          <Card className="flex flex-col justify-between h-full group-hover:border-[var(--primary)] transition-colors cursor-pointer">
+            <div>
+              <div className="flex items-center justify-between text-[var(--dash-text-secondary)]">
+                <span className="text-xs font-semibold uppercase tracking-wider">Secretaria & Intenções</span>
+                <Inbox className="w-4 h-4 text-[var(--primary)]" />
+              </div>
+              <p className="text-3xl font-extrabold mt-3 text-[var(--dash-text-primary)]">{secretariaCount}</p>
             </div>
-            <p className="text-3xl font-extrabold mt-3 text-[var(--dash-text-primary)]">R$ 8.420,00</p>
-          </div>
-          <p className="text-xs text-emerald-600 mt-2 flex items-center gap-1 font-medium">
-            <ArrowUpRight className="w-3.5 h-3.5" />
-            Direto na conta paroquial
-          </p>
-        </Card>
+            <p className="text-xs text-amber-600 dark:text-amber-400 mt-2 flex items-center gap-1 font-medium">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              Intenções (Púlpito A4) & Balcão
+            </p>
+          </Card>
+        </Link>
       </div>
 
       {/* Blocos de Ação Rápida */}
@@ -152,7 +167,7 @@ export default function AdminDashboardPage() {
             <div className="flex items-center justify-between p-3.5 rounded-xl bg-[var(--dash-surface-secondary)] text-sm">
               <div>
                 <span className="font-semibold text-[var(--dash-text-primary)]">07:00</span>
-                <p className="text-xs text-[var(--dash-text-secondary)]">Santa Missa Matriz</p>
+                <p className="text-xs text-[var(--dash-text-secondary)]">Santa Missa na Catedral</p>
               </div>
               <Badge variant="active">Confirmada</Badge>
             </div>

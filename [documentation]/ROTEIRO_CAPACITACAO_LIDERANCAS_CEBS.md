@@ -7,7 +7,7 @@
 > **Horário Recomendado:** 08h00 às 12h00 (4 Horas Líquidas)  
 > **Local:** Auditório Paroquial Dom Geraldo Lyrio Rocha / Salão da Catedral de Colatina  
 > **Público-Alvo:**  
-> * Coordenadores e Vice-coordenadores das 12 Comunidades Eclesiais de Base (CEBs / Capelas)  
+> * Coordenadores e Vice-coordenadores das 12 Comunidades Eclesiais de Base (CEBs / Comunidades)  
 > * Equipe da PASCOM Paroquial (Pastoral da Comunicação)  
 > * Coordenadores da Equipe de Liturgia e Canto  
 > * Clero Paroquial (Pe. Irineu Valter Rohr e Vigários)  
@@ -19,10 +19,10 @@
 
 ## 🧭 1. Visão Geral & Fundamentação Pastoral
 
-As Comunidades Eclesiais de Base (CEBs) são o coração missionário da Paróquia Catedral. O Ecclesiam App não foi concebido como um portal exclusivo da Igreja Matriz no Centro, mas sim como uma **rede de comunhão eclesial**, onde cada uma das 12 comunidades possui o seu próprio espaço oficial na internet:
+As Comunidades Eclesiais de Base (CEBs) são o coração missionário da Paróquia Catedral. O Ecclesiam App não foi concebido como um portal exclusivo da Catedral no Centro, mas sim como uma **rede de comunhão eclesial**, onde cada uma das 12 comunidades possui o seu próprio espaço oficial na internet:
 * Endereço direto e limpo (ex: `catedraldecolatina.org.br/comunidades/sao-jose`)
 * Rota GPS em 1 clique (Google Maps e Waze)
-* Galeria de fotos em alta resolução da capela e das festas dos padroeiros
+* Galeria de fotos em alta resolução da comunidade e das festas dos padroeiros
 * Mural de horários atualizado das celebrações dominicais da Palavra e das visitas dos padres
 * Resgate histórico dos pioneiros e fundadores da comunidade
 
@@ -33,7 +33,7 @@ As Comunidades Eclesiais de Base (CEBs) são o coração missionário da Paróqu
 1. **Kit Físico Entregue a Cada CEB:**
    * Apostila impressa deste Guia de Operação da Comunidade.
    * Ficha Cadastral Oficial da CEB (para anotação de datas festivas e dados históricos).
-   * Modelo de Placa / Display com QR Code para fixação na entrada da capela.
+   * Modelo de Placa / Display com QR Code para fixação na entrada da comunidade.
 2. **Infraestrutura no Local da Capacitação:**
    * Projetor multimídia / Telão HDMI conectado ao notebook da Start Agência.
    * Conexão Wi-Fi estável no auditório paroquial para os coordenadores acessarem via celular.
@@ -51,7 +51,7 @@ As Comunidades Eclesiais de Base (CEBs) são o coração missionário da Paróqu
 │ 08:30 - 09:15 │ Bloco 2: O Minisite da sua Comunidade (História, Dados & Contatos)     │
 │ 09:15 - 10:00 │ Bloco 3: Gestão de Horários Locais (Missas & Celebrações da Palavra)   │
 │ 10:00 - 10:20 │ Intervalo Fraterno & Café com Partilha Comunitária                     │
-│ 10:20 - 11:10 │ Bloco 4: Cobertura PASCOM & Módulo de Galerias de Fotos das Capelas    │
+│ 10:20 - 11:10 │ Bloco 4: Cobertura PASCOM & Módulo de Galerias de Fotos das Comunidades    │
 │ 11:10 - 11:45 │ Bloco 5: Laboratório Prático no Celular (Oficina Hands-On)             │
 │ 11:45 - 12:00 │ Bloco 6: Envio Pastoral, Bênção de Encerramento e Entrega dos Kits     │
 └───────────────┴────────────────────────────────────────────────────────────────────────┘
@@ -72,7 +72,7 @@ As Comunidades Eclesiais de Base (CEBs) são o coração missionário da Paróqu
    * O papel de cada coordenador como zelador da vida comunitária, agora também no ambiente digital.
 2. **Apresentação do Ecclesiam App:**
    * Demonstração ao vivo do portal público da Catedral no celular e no computador.
-   * Exibição do mapa interativo das 12 capelas na página inicial.
+   * Exibição do mapa interativo das 14 comunidades (CEBs) na página inicial.
    * Apresentação da Regra de Ouro White-Label: A marca da Paróquia Catedral é o único destaque.
 
 ---
@@ -83,7 +83,7 @@ As Comunidades Eclesiais de Base (CEBs) são o coração missionário da Paróqu
 
 1. **Anatomia do Minisite da CEB:**
    * Cabeçalho com o nome solene da comunidade e bairro/setor rural.
-   * Botões de trajeto GPS automático: como os fiéis e visitantes de fora usam para chegar na capela.
+   * Botões de trajeto GPS automático: como os fiéis e visitantes de fora usam para chegar na comunidade.
    * Dados do padroeiro(a) e data da festa anual da comunidade.
 2. **O Resgate Histórico dos Fundadores:**
    * Como documentar a memória dos pioneiros: ano de fundação, primeiras famílias, construção do templo.
@@ -134,7 +134,7 @@ As Comunidades Eclesiais de Base (CEBs) são o coração missionário da Paróqu
    * Vínculo direto à comunidade correspondente.
    * Upload de até dezenas de fotos em alta resolução direto para a nuvem paroquial (Supabase Storage).
    * Definição da foto de capa do álbum.
-3. **Exibição no Minisite da Capela:**
+3. **Exibição no Minisite da Comunidade:**
    * Como os fiéis da comunidade podem rever as fotos, baixar lembranças e compartilhar no WhatsApp da família.
 
 ---
@@ -147,7 +147,7 @@ As Comunidades Eclesiais de Base (CEBs) são o coração missionário da Paróqu
    * Demonstração de funcionamento rápido e sem necessidade de baixar pela Play Store/App Store.
 2. **Dinâmica Prática de Alimentação:**
    * Cada dupla de comunidade recebe 1 desafio prático para executar no painel de testes:
-     * *Desafio A:* Inserir o resumo histórico da capela.
+     * *Desafio A:* Inserir o resumo histórico da comunidade.
      * *Desafio B:* Atualizar a data da festa do padroeiro do ano corrente.
      * *Desafio C:* Simular o upload de uma foto de fachada.
 3. **Plantão de Dúvidas Personalizado:**
@@ -159,7 +159,7 @@ As Comunidades Eclesiais de Base (CEBs) são o coração missionário da Paróqu
 * **Encerramento Solene:**
 
 1. **Palavra de Envio do Pároco:** Pe. Irineu agradece a dedicação das lideranças e destaca a importância da unidade paroquial rumo ao Natal de 2026.
-2. **Entrega dos Displays com QR Code:** Cada coordenador leva para sua capela o kit oficial de divulgação para afixar no mural de avisos e bancos.
+2. **Entrega dos Displays com QR Code:** Cada coordenador leva para sua comunidade o kit oficial de divulgação para afixar no mural de avisos e bancos.
 3. **Bênção e Oração Final:** Oração de São Francisco ou oração ao Sagrado Coração de Jesus.
 
 ---
@@ -170,10 +170,10 @@ Para garantir que a capacitação seja 100% prática, esta ficha deve ser preenc
 
 | Campo Cadastral | Informação a Coletar com a Comunidade |
 | :--- | :--- |
-| **Nome Oficial da Capela:** | Ex: Comunidade São Francisco de Assis |
+| **Nome Oficial da Comunidade:** | Ex: Comunidade São Francisco de Assis |
 | **Bairro / Localidade Rural:** | Ex: Bairro São Pedro |
 | **Ano Aproximado de Fundação:** | Ex: 1974 |
-| **Pioneiros / Primeiras Famílias:** | Nomes dos primeiros moradores que doaram o terreno ou ergueram a capela |
+| **Pioneiros / Primeiras Famílias:** | Nomes dos primeiros moradores que doaram o terreno ou ergueram à comunidade |
 | **Padroeiro(a) & Data da Festa:** | Ex: São Francisco de Assis (04 de Outubro) |
 | **Horários Fixos de Missas e Celebrações:** | Domingos às 08h / Quartas às 19h30 |
 | **Nome do Coordenador(a) Atual:** | Nome completo |

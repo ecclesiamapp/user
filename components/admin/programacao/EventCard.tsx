@@ -113,7 +113,7 @@ export function EventCard({
           <div className="flex items-center gap-1.5 text-xs text-[var(--dash-text-muted)]">
             <MapPin className="w-3.5 h-3.5 text-[var(--primary)] shrink-0" />
             <span className="truncate font-medium">
-              {event.community_name || 'Catedral Sagrado Coração de Jesus (Matriz)'}
+              {event.community_name || 'Catedral Sagrado Coração de Jesus (Sede)'}
             </span>
           </div>
 

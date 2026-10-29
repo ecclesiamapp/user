@@ -318,7 +318,7 @@ export function EventFormModal({
                 onChange={(e) => setCommunityId(e.target.value)}
                 className="dash-select w-full rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] pl-3.5 pr-10 py-2.5 text-xs text-[var(--dash-text-primary)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/50"
               >
-                <option value="">Catedral Sagrado Coração de Jesus (Matriz)</option>
+                <option value="">Catedral Sagrado Coração de Jesus (Sede)</option>
                 {communities.map((c) => (
                   <option key={c.id} value={c.id}>
                     {c.name}

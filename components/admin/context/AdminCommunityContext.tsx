@@ -11,6 +11,8 @@ interface AdminCommunityContextType {
   selectedCommunityId: string | null;
   selectedCommunity: Community | null;
   isParishMaster: boolean;
+  isSimulating: boolean;
+  exitSimulation: () => void;
   unreadPastoralNotes: CommunityActivityLog[];
   loading: boolean;
   setSelectedCommunityId: (id: string | null) => void;
@@ -30,6 +32,7 @@ const AdminCommunityContext = createContext<AdminCommunityContextType | undefine
 
 export function AdminCommunityProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
+  const [primaryUserId, setPrimaryUserId] = useState<string | null>(null);
   const [allUsers, setAllUsers] = useState<UserProfile[]>([]);
   const [communities, setCommunities] = useState<Community[]>([]);
   const [selectedCommunityId, setSelectedCommunityIdState] = useState<string | null>(null);
@@ -62,13 +65,15 @@ export function AdminCommunityProvider({ children }: { children: React.ReactNode
       if (usersData && usersData.length > 0) {
         setAllUsers(usersData as UserProfile[]);
 
+        const defaultParoco = (usersData as UserProfile[]).find((u) => u.role === 'paroco') || usersData[0];
+        setPrimaryUserId((prev) => prev || defaultParoco.id);
+
         // Se ainda não houver usuário selecionado, define o Pároco por padrão
         setCurrentUser((prev) => {
           if (prev) {
             const updated = (usersData as UserProfile[]).find((u) => u.id === prev.id);
             return updated || prev;
           }
-          const defaultParoco = (usersData as UserProfile[]).find((u) => u.role === 'paroco') || usersData[0];
           return defaultParoco as UserProfile;
         });
       }
@@ -220,6 +225,45 @@ export function AdminCommunityProvider({ children }: { children: React.ReactNode
     return false;
   }, [currentUser, isParishMaster, selectedCommunityId, fetchUnreadNotes, supabase]);
 
+  // Modo de simulação ativo
+  const isSimulating = useMemo(() => {
+    return Boolean(primaryUserId && currentUser && currentUser.id !== primaryUserId);
+  }, [primaryUserId, currentUser]);
+
+  // Sair da simulação e voltar para o usuário mestre da paróquia
+  const exitSimulation = useCallback(() => {
+    if (primaryUserId) {
+      const found = allUsers.find((u) => u.id === primaryUserId);
+      if (found) {
+        setCurrentUser(found);
+        setSelectedCommunityIdState(null);
+      }
+    }
+  }, [primaryUserId, allUsers]);
+
+  // Sincronizar sessão administrativa para que páginas públicas e subpáginas reconheçam o usuário logado
+  useEffect(() => {
+    if (typeof window !== 'undefined' && currentUser) {
+      try {
+        localStorage.setItem(
+          'ecclesiam_admin_session',
+          JSON.stringify({
+            active: true,
+            id: currentUser.id,
+            name: currentUser.name,
+            role: currentUser.role,
+            community_id: currentUser.community_id,
+            is_simulating: isSimulating,
+            updatedAt: Date.now(),
+          })
+        );
+        document.cookie = 'ecclesiam_admin_active=true; path=/; max-age=86400; SameSite=Lax';
+      } catch (e) {
+        // ignore storage quota error
+      }
+    }
+  }, [currentUser, isSimulating]);
+
   return (
     <AdminCommunityContext.Provider
       value={{
@@ -229,6 +273,8 @@ export function AdminCommunityProvider({ children }: { children: React.ReactNode
         selectedCommunityId,
         selectedCommunity,
         isParishMaster,
+        isSimulating,
+        exitSimulation,
         unreadPastoralNotes,
         loading,
         setSelectedCommunityId,

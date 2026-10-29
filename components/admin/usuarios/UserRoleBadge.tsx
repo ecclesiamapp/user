@@ -11,6 +11,12 @@ interface UserRoleBadgeProps {
 
 export function UserRoleBadge({ role, className = '' }: UserRoleBadgeProps) {
   switch (role) {
+    case 'superadmin':
+      return (
+        <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 ${className}`}>
+          ⚡ Superadmin (SaaS)
+        </span>
+      );
     case 'paroco':
       return (
         <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#8B1E22]/15 text-[#8B1E22] dark:text-[#FFA82A] border border-[#8B1E22]/30 ${className}`}>

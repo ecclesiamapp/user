@@ -45,7 +45,7 @@ export function CommunitySpecialEventCard({ community, event }: CommunitySpecial
               <Sparkles className="w-3.5 h-3.5" style={{ color: theme.secondary }} />
               <span>
                 {isCommunityHost 
-                  ? 'Festa Litúrgica da Nossa Capela' 
+                  ? 'Festa Litúrgica da Nossa Comunidade' 
                   : 'Programação Solene da Paróquia'}
               </span>
             </span>
@@ -81,7 +81,7 @@ export function CommunitySpecialEventCard({ community, event }: CommunitySpecial
 
           <div className="flex items-center gap-1.5 text-xs text-zinc-400">
             <MapPin className="w-3.5 h-3.5 text-[#FFA82A] shrink-0" />
-            <span>{event.community_name || 'Catedral Matriz & Comunidades Eclesiais de Base'}</span>
+            <span>{event.community_name || 'Catedral Diocesana & Comunidades Eclesiais de Base'}</span>
           </div>
         </div>
 

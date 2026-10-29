@@ -32,7 +32,7 @@ export function EventHeroSection({
   const eventTheme = getEventTheme(event);
 
   const formattedDate = formatEventDateRange(event.start_date, event.end_date);
-  const locationName = event.community_name || 'Catedral Sagrado Coração de Jesus (Matriz)';
+  const locationName = event.community_name || 'Catedral Sagrado Coração de Jesus (Sede)';
 
   // Geração de link de compartilhamento para WhatsApp
   const currentUrl = typeof window !== 'undefined' ? window.location.href : `https://catedraldecolatina.org.br/programacao/${event.slug}`;

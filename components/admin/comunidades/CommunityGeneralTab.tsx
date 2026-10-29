@@ -81,7 +81,7 @@ export function CommunityGeneralTab({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Foto da Fachada */}
           <ImageUploaderField
-            label="Foto da Fachada da Capela"
+            label="Foto da Fachada da Comunidade"
             value={imageUrl}
             onChange={setImageUrl}
             folder="comunidades"
@@ -127,7 +127,7 @@ export function CommunityGeneralTab({
             htmlFor="is_headquarters"
             className="text-xs font-semibold text-[var(--dash-text-primary)] cursor-pointer select-none"
           >
-            Esta comunidade é a Igreja Matriz (Sede Paroquial)?
+            Esta comunidade é a Catedral (Sede Paroquial)?
           </label>
         </div>
 

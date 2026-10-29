@@ -8,3 +8,4 @@ export * from './CommunityPastoralsTab';
 export * from './CommunityHistoryTab';
 export * from './CommunityLocationTab';
 export * from './CommunityPastoralNoticeBanner';
+export * from './CebDedicatedDashboard';

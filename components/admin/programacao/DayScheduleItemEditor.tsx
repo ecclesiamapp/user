@@ -14,7 +14,7 @@ export function DayScheduleItemEditor({ items, onChange }: DayScheduleItemEditor
     const newItem: EventScheduleItem = {
       time: '19:30',
       title: 'Santa Missa Solene',
-      location: 'Catedral Matriz',
+      location: 'Catedral Diocesana',
       celebrant: '',
       description: '',
     };
@@ -120,7 +120,7 @@ export function DayScheduleItemEditor({ items, onChange }: DayScheduleItemEditor
                     type="text"
                     value={item.location || ''}
                     onChange={(e) => handleUpdateItem(index, 'location', e.target.value)}
-                    placeholder="Ex: Catedral Matriz, Pátio ou Salão"
+                    placeholder="Ex: Catedral Diocesana, Pátio ou Salão"
                     className="w-full px-2.5 py-1.5 rounded-lg border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-xs text-[var(--dash-text-primary)] focus:outline-none focus:ring-1 focus:ring-[#8B1E22]"
                   />
                 </div>

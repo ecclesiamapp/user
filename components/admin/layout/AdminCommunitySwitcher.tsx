@@ -46,7 +46,7 @@ export function AdminCommunitySwitcher() {
           aria-label="Alternar contexto paroquial ou de comunidade"
         >
           <option value="">🏛️ Visão Paroquial (Geral)</option>
-          <optgroup label="12 Comunidades & Capelas (CEBs)">
+          <optgroup label="14 Comunidades Eclesiais de Base (CEBs)">
             {communities.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.is_headquarters ? '⭐ ' : '⛪ '}
@@ -57,7 +57,7 @@ export function AdminCommunitySwitcher() {
         </select>
       </div>
 
-      {/* Botão de reset rápido para Paróquia quando uma capela estiver selecionada */}
+      {/* Botão de reset rápido para Paróquia quando uma comunidade estiver selecionada */}
       {selectedCommunityId && (
         <button
           type="button"

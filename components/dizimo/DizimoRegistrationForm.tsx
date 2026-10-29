@@ -48,7 +48,7 @@ export function DizimoRegistrationForm({ parish, communities }: DizimoRegistrati
     setErrorMessage(null);
 
     const communityObj = communities.find((c) => c.id === selectedCommunity);
-    const communityName = communityObj?.name || 'Catedral Matriz do Sagrado Coração de Jesus';
+    const communityName = communityObj?.name || 'Catedral Diocesana do Sagrado Coração de Jesus';
 
     try {
       const res = await fetch('/api/dizimo/register', {
@@ -131,7 +131,7 @@ export function DizimoRegistrationForm({ parish, communities }: DizimoRegistrati
             </div>
 
             <p className="text-xs text-[var(--dash-text-secondary)] max-w-md mx-auto italic">
-              Caso tenha escolhido envelopes mensais, você poderá retirá-los com a equipe da Pastoral do Dízimo no plantão das Santas Missas na Catedral.
+              A Secretaria formalizará seu cadastro no sistema eclesial diocesano (Theòs) e você poderá retirar seu número de dizimista e envelopes com a equipe da Pastoral do Dízimo no plantão das Santas Missas na Catedral.
             </p>
 
             <div className="pt-2 flex flex-wrap justify-center gap-3">
@@ -261,7 +261,7 @@ export function DizimoRegistrationForm({ parish, communities }: DizimoRegistrati
                   onChange={(e) => setSelectedCommunity(e.target.value)}
                   className="dash-select w-full rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-secondary)] text-sm text-[var(--dash-text-primary)] pl-3.5 pr-10 py-2.5 focus:outline-hidden focus:border-[#FFA82A] min-h-[44px]"
                 >
-                  <option value="">Catedral Matriz do Sagrado Coração de Jesus (Centro)</option>
+                  <option value="">Catedral Diocesana do Sagrado Coração de Jesus (Centro)</option>
                   {communities.map((comm) => (
                     <option key={comm.id} value={comm.id}>
                       {comm.name} {comm.neighborhood ? `(${comm.neighborhood})` : ''}

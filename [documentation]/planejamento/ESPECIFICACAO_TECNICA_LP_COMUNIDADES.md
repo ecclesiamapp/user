@@ -17,7 +17,7 @@ No modelo eclesial católico e nas diretrizes pastorais da **Diocese de Colatina
 ### O Problema Atual:
 Anteriormente, o portal exibia apenas um resumo simples (histórico curto, endereço e horários de missas). O paroquiano do bairro não encontrava:
 1. Quem são os coordenadores locais do seu **Conselho Pastoral Comunitário (CPC)**.
-2. Os avisos internos semanais da sua capela (ensaios, reuniões da catequese, mutirões comunitários).
+2. Os avisos internos semanais da sua comunidade (ensaios, reuniões da catequese, mutirões comunitários).
 3. Como funciona a partilha do Dízimo e ofertas na própria comunidade (mensageiros dos setores e plantão).
 4. O calendário de celebrações comunitárias e festas do padroeiro local.
 5. Dados estruturados para indexação no Google Maps e busca orgânica local por bairro.
@@ -35,11 +35,11 @@ Cada Landing Page de comunidade é estruturada em 6 módulos integrados:
 ┌─────────────────────────────────────────────────────────────┐
 │ 0. BARRA DE AFILIAÇÃO & HEADER FLUTUANTE DA CAPELA          │
 │    • Faixa discreta: Paróquia Sagrado Coração de Jesus      │
-│    • Header flutuante minimalista: Logo + Nome da Capela    │
+│    • Header flutuante minimalista: Logo + Nome da Comunidade    │
 │    • Menu de âncoras locais: Horários, Avisos, CPC, Dízimo  │
 ├─────────────────────────────────────────────────────────────┤
 │ 1. HERO MONUMENTAL & IDENTIDADE SACRA (IMERSIVO)            │
-│    • Foto da Fachada / Vitral da Capela com iluminação nobre│
+│    • Foto da Fachada / Vitral da Comunidade com iluminação nobre│
 │    • Nome Oficial + Padroeiro(a) + Solenidade + Chips       │
 │    • Card Flutuante Inteligente: Próxima Celebração da CEB  │
 │    • Ações Rápidas: Rota GPS (Google Maps & Waze) + WhatsApp│
@@ -64,7 +64,7 @@ Cada Landing Page de comunidade é estruturada em 6 módulos integrados:
 │    • Endereço no bairro, mapa e rotas Google Maps e Waze    │
 ├─────────────────────────────────────────────────────────────┤
 │ 7. RODAPÉ EXCLUSIVO DA COMUNIDADE (COMMUNITY FOOTER)        │
-│    • Dados e canais da Capela + Selo de pertença paroquial  │
+│    • Dados e canais da Comunidade + Selo de pertença paroquial  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -76,17 +76,17 @@ O CPC é o órgão de comunhão e corresponsabilidade na comunidade. A estrutura
 
 | Cargo Canônico | Responsabilidade Pastoral |
 | :--- | :--- |
-| **Coordenador(a) do CPC** | Articulação geral das atividades da capela e representação no CPP paroquial. |
+| **Coordenador(a) do CPC** | Articulação geral das atividades da comunidade e representação no CPP paroquial. |
 | **Vice-Coordenador(a)** | Apoio executivo e coordenação operacional de eventos locais. |
-| **Secretário(a)** | Registro de atas, comunicações internas e contato com a secretaria da Matriz. |
-| **Tesoureiro(a)** | Prestação de contas das ofertas locais, manutenção da capela e dízimo. |
+| **Secretário(a)** | Registro de atas, comunicações internas e contato com a Secretaria da Catedral. |
+| **Tesoureiro(a)** | Prestação de contas das ofertas locais, manutenção da comunidade e dízimo. |
 | **Coordenador(a) de Liturgia** | Equipes de canto, leitores, ministros da Eucaristia e acolhida. |
 | **Coordenador(a) de Catequese** | Iniciação à Vida Cristã (Crianças, Jovens e Adultos) no bairro. |
 | **Coordenador(a) do Dízimo** | Conscientização pastoral e animação dos mensageiros de setor. |
 
 ---
 
-## 4. 📢 Mural de Avisos Dinâmico da Capela
+## 4. 📢 Mural de Avisos Dinâmico da Comunidade
 
 Para evitar o excesso de papel impresso e garantir que os avisos dados no presbitério alcancem as famílias durante a semana:
 * **Entrada de Dados:** No `/admin/comunidades`, a secretária ou a liderança autorizada cadastra comunicados com título, conteúdo, data de publicação e data de expiração.
@@ -94,7 +94,7 @@ Para evitar o excesso de papel impresso e garantir que os avisos dados no presbi
   * `aviso` (comunicados gerais de assembleias, horários de secretaria)
   * `liturgia` (escalas de leitores, ensaios de cantores, tríduos)
   * `formacao` (encontros de catequese, formação de ministros, círculos bíblicos)
-  * `mutirao` (limpeza da capela, ornamentação, preparação de quermesse)
+  * `mutirao` (limpeza da comunidade, ornamentação, preparação de quermesse)
 * **Status:** Avisos expirados saem automaticamente da visualização pública.
 
 ---
@@ -104,15 +104,15 @@ Para evitar o excesso de papel impresso e garantir que os avisos dados no presbi
 De acordo com o Direito Canônico e as diretrizes do Theòs:
 * A arrecadação do Dízimo é paroquial, mas o fiel do bairro realiza sua devolução prioritariamente em sua comunidade de pertença.
 * **Informações Prestadas na LP:**
-  * Dias e horários do **Plantão do Dízimo** na capela (ex: antes e após as celebrações dominicais).
+  * Dias e horários do **Plantão do Dízimo** na comunidade (ex: antes e após as celebrações dominicais).
   * Contato com os **Mensageiros do Dízimo** que atendem as ruas do bairro.
-  * Chave PIX oficial da paróquia acompanhada da instrução canônica para inserção do nome da capela no campo de identificação/descrição do PIX.
+  * Chave PIX oficial da paróquia acompanhada da instrução canônica para inserção do nome da comunidade no campo de identificação/descrição do PIX.
 
 ---
 
 ## 6. 🌐 SEO Local & Microdados Schema.org
 
-Para garantir que moradores de bairros como *Maria Ismênia, Operário, Tropical, Perpétuo Socorro e Vista da Serra* encontrem a sua capela imediatamente ao buscar no Google termos como *"Igreja católica no Bairro Operário Colatina"* ou *"Horário de missa Perpétuo Socorro Colatina"*:
+Para garantir que moradores de bairros como *Maria Ismênia, Operário, Tropical, Perpétuo Socorro e Vista da Serra* encontrem a sua comunidade imediatamente ao buscar no Google termos como *"Igreja católica no Bairro Operário Colatina"* ou *"Horário de missa Perpétuo Socorro Colatina"*:
 
 ### Marcação Schema.org Implementada:
 ```json

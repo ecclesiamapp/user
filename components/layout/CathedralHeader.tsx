@@ -15,8 +15,10 @@ import {
   Sparkles,
   ExternalLink,
   BookOpen,
-  ChevronDown
+  ChevronDown,
+  ShieldCheck
 } from 'lucide-react';
+import { useAdminSession } from '@/lib/hooks/useAdminSession';
 
 interface CathedralHeaderProps {
   parishName?: string;
@@ -34,6 +36,7 @@ export function CathedralHeader({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cathedralMenuOpen, setCathedralMenuOpen] = useState(false);
   const [fontSizeLevel, setFontSizeLevel] = useState<'sm' | 'md' | 'lg'>('md');
+  const { hasAdminSession } = useAdminSession();
 
   const handleFontSizeChange = (level: 'sm' | 'md' | 'lg') => {
     setFontSizeLevel(level);
@@ -194,6 +197,18 @@ export function CathedralHeader({
               </span>
             </button>
 
+            {/* Botão de Retorno ao Painel Administrativo para Usuário Logado */}
+            {hasAdminSession && (
+              <Link
+                href="/admin"
+                className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 hover:text-amber-200 text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[40px]"
+                title="Voltar ao Painel Administrativo"
+              >
+                <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
+                <span className="hidden xl:inline">Painel </span>Admin
+              </Link>
+            )}
+
             {/* Botão Dourado de Dízimo / Sou do Sagrado */}
             <Link
               href="/dizimo"
@@ -252,6 +267,21 @@ export function CathedralHeader({
                   <X className="w-5 h-5" />
                 </button>
               </div>
+
+              {/* Card de Retorno ao Painel Administrativo para Usuário Logado */}
+              {hasAdminSession && (
+                <Link
+                  href="/admin"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-transparent border border-amber-500/40 text-amber-300 font-bold text-xs uppercase tracking-wider shadow-sm min-h-[44px]"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
+                    <span>Painel Administrativo</span>
+                  </div>
+                  <span className="text-[10px] text-amber-400 font-normal">Voltar ➔</span>
+                </Link>
+              )}
 
               {/* Seletor de Acessibilidade (Fiéis Idosos) */}
               <div className="bg-[#1B1E22] rounded-xl p-3 border border-[#22262B] flex items-center justify-between text-xs">
@@ -390,6 +420,15 @@ export function CathedralHeader({
                 <MessageCircle className="w-4 h-4" />
                 <span>WhatsApp da Secretaria</span>
               </a>
+
+              <Link
+                href="/admin"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2 px-4 rounded-xl bg-transparent hover:bg-[var(--dash-surface)]/5 text-[#A39E98] hover:text-[#C8A463] text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors min-h-[44px]"
+              >
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Acesso Administrativo (Clero & Secretaria)</span>
+              </Link>
             </div>
           </aside>
         </div>

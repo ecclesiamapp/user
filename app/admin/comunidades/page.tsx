@@ -5,7 +5,13 @@ import { Plus, RefreshCw, Search, CheckCircle2 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import { Community } from '@/types';
 import { Button, Card, Badge, Input } from '@/components/ui';
-import { CommunityCard, CommunityFormModal, CommunityPastoralNoticeBanner } from '@/components/admin/comunidades';
+import { 
+  CommunityCard, 
+  CommunityFormModal, 
+  CommunityPastoralNoticeBanner,
+  CebDedicatedDashboard
+} from '@/components/admin/comunidades';
+import { useAdminCommunity } from '@/components/admin/context/AdminCommunityContext';
 
 
 export default function ComunidadesAdminPage() {
@@ -19,6 +25,7 @@ export default function ComunidadesAdminPage() {
   const [parishId, setParishId] = useState<string>('c0000000-0000-0000-0000-000000000001');
 
   const supabase = createClient();
+  const { currentUser, isParishMaster, selectedCommunity, selectedCommunityId } = useAdminCommunity();
 
   const fetchCommunities = async () => {
     setLoading(true);
@@ -103,6 +110,51 @@ export default function ComunidadesAdminPage() {
     );
   }, [communities, searchTerm]);
 
+  // Se o usuário for Coordenador de CEB ou estiver filtrando uma comunidade específica
+  const isCebView = useMemo(() => {
+    return !isParishMaster || currentUser?.role === 'coordenador_ceb' || Boolean(selectedCommunityId);
+  }, [isParishMaster, currentUser, selectedCommunityId]);
+
+  const activeCebCommunity = useMemo(() => {
+    if (selectedCommunity) return selectedCommunity;
+    if (currentUser?.community_id) {
+      return communities.find((c) => c.id === currentUser.community_id) || null;
+    }
+    return communities.length > 0 ? communities[0] : null;
+  }, [selectedCommunity, currentUser, communities]);
+
+  // Visualização Restrita da Comunidade (Coordenador de CEB)
+  if (isCebView) {
+    if (loading && !activeCebCommunity) {
+      return (
+        <Card className="flex flex-col items-center justify-center p-12 space-y-3">
+          <RefreshCw className="w-8 h-8 animate-spin text-[var(--primary)]" />
+          <p className="text-sm text-[var(--dash-text-secondary)]">Carregando Painel da Comunidade...</p>
+        </Card>
+      );
+    }
+
+    if (activeCebCommunity) {
+      return (
+        <div className="space-y-6">
+          <CebDedicatedDashboard
+            community={activeCebCommunity}
+            onEdit={handleEdit}
+            onToggleActive={handleToggleActive}
+          />
+
+          <CommunityFormModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onSuccess={handleSuccess}
+            communityToEdit={communityToEdit}
+            parishId={parishId}
+          />
+        </div>
+      );
+    }
+  }
+
   return (
     <div className="space-y-6">
       {/* Cabeçalho */}
@@ -133,7 +185,7 @@ export default function ComunidadesAdminPage() {
         </div>
       </div>
 
-      {/* Banner de Notas Pastorais da Matriz para a Comunidade Selecionada */}
+      {/* Banner de Nota Pastoral da Catedral para a Comunidade Selecionada */}
       <CommunityPastoralNoticeBanner />
 
       {/* Alerta de Feedback Temporário */}

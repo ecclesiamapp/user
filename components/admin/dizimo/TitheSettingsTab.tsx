@@ -64,7 +64,7 @@ export function TitheSettingsTab({ parish }: TitheSettingsTabProps) {
               Chave PIX Oficial da Mitra Diocesana
             </h3>
             <p className="text-xs text-[var(--dash-text-secondary)]">
-              Utilizada na subpágina pública /dizimo para captação de ofertas espontâneas
+              Exibida na subpágina pública /dizimo para doações e ofertas espontâneas diretamente na conta paroquial da Mitra
             </p>
           </div>
         </div>

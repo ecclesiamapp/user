@@ -13,8 +13,17 @@ async function runPrePushChecks() {
   console.log('🛡️  INICIANDO VARREDURA PRÉ-DEPLOY & PRÉ-GIT PUSH');
   console.log('======================================================\n');
 
-  // 1. Validar Build e Tipagem Local
-  console.log('📦 1/3. Validando compilação TypeScript e Next.js...');
+  // 1. Auditoria e Padronização de Terminologia Canônica (Capela -> Comunidade, Matriz -> Catedral)
+  console.log('⛪ 1/4. Validando Terminologia Canônica Católica (Catedral & CEBs)...');
+  try {
+    execSync('node .agents/skills/canonical_terminology_auditor/scripts/audit_terminology.js --fix', { stdio: 'inherit' });
+    console.log('✅ Terminologia canônica 100% em conformidade!\n');
+  } catch (err) {
+    console.warn('⚠️ Alerta na auditoria de terminologia canônica (não bloqueante).\n');
+  }
+
+  // 2. Validar Build e Tipagem Local
+  console.log('📦 2/4. Validando compilação TypeScript e Next.js...');
   try {
     execSync('npx tsc --noEmit', { stdio: 'inherit' });
     console.log('✅ TypeScript compilado com 0 erros!\n');
@@ -23,8 +32,8 @@ async function runPrePushChecks() {
     process.exit(1);
   }
 
-  // 2. Validar Auditoria de UX/UI
-  console.log('🎨 2/3. Executando Auditoria UX/UI...');
+  // 3. Validar Auditoria de UX/UI
+  console.log('🎨 3/4. Executando Auditoria UX/UI...');
   try {
     execSync('node .agents/skills/ux_ui_auditor/scripts/audit_ux_ui.js', { stdio: 'inherit' });
     console.log('✅ Auditoria UX/UI aprovada!\n');
@@ -32,8 +41,8 @@ async function runPrePushChecks() {
     console.warn('⚠️ Alerta na auditoria UX/UI (não bloqueante).\n');
   }
 
-  // 3. Checagem de Integrações Cloud (Supabase Inativo / Pausado)
-  console.log('☁️ 3/3. Verificação de Saúde das Integrações Cloud (Vercel & Supabase)...');
+  // 4. Checagem de Integrações Cloud (Supabase Inativo / Pausado)
+  console.log('☁️ 4/4. Verificação de Saúde das Integrações Cloud (Vercel & Supabase)...');
   console.log('ℹ️  Nota de Governança: Se a Vercel estiver vinculada a integrações do Supabase,');
   console.log('    garanta que nenhum projeto vinculado esteja em status INACTIVE ou PAUSED.');
   console.log('    Caso ocorra "Resource provisioning failed" na Vercel, o projeto pausado deve');

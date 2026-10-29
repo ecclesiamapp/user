@@ -64,7 +64,7 @@ A Pastoral Social e a Conferência Vicentina também estarão recolhendo aliment
     isUrgent: false,
     isFeatured: true,
     readTimeMinutes: 4,
-    communityName: 'Matriz Catedral',
+    communityName: 'Catedral Diocesana',
   },
   {
     id: 'n-02',
@@ -129,7 +129,7 @@ O folheto está otimizado para visualização leve em qualquer modelo de smartph
     isUrgent: false,
     isFeatured: false,
     readTimeMinutes: 2,
-    communityName: 'Matriz Catedral',
+    communityName: 'Catedral Diocesana',
   },
   {
     id: 'n-04',
@@ -158,7 +158,7 @@ Agradecemos a todos os dizimistas e benfeitores que, através do portal **«Sou 
     isUrgent: false,
     isFeatured: false,
     readTimeMinutes: 4,
-    communityName: 'Matriz Catedral',
+    communityName: 'Catedral Diocesana',
   },
   {
     id: 'n-05',
@@ -166,7 +166,7 @@ Agradecemos a todos os dizimistas e benfeitores que, através do portal **«Sou 
     title: 'Assembleia Paroquial com as 12 Comunidades Rumo à Novena de Natal',
     subtitle: 'Coordenadores de CEBs e lideranças pastorais alinham a grande vigília de fim de ano',
     summary:
-      'Encontro sinodal reuniu representantes de todas as comunidades para organizar os círculos bíblicos nos bairros e a Missa da Noite de Natal na Matriz.',
+      'Encontro sinodal reuniu representantes de todas as comunidades para organizar os círculos bíblicos nos bairros e a Missa da Noite de Natal na Catedral.',
     content: `
 Em comunhão com as diretrizes diocesanas emanadas por Dom Lauro Sérgio Versiani Barbosa, a Paróquia da Catedral reuniu os coordenadores e ministros das 12 Comunidades Eclesiais de Base para a Assembleia Pastoral de Planejamento do Tempo do Advento e Natal de 2026.
 
@@ -207,7 +207,7 @@ A caridade cristã é o fruto mais autêntico da Eucaristia celebrada no Altar. 
 * Cobertores e agasalhos em bom estado de conservação.
 
 ### Postos de Coleta
-As doações podem ser entregues diariamente na Secretaria Paroquial da Catedral (Praça da Matriz) ou depositadas nos cestos de ofertório solene ao término de cada Santa Missa. Se você deseja fazer uma doação via PIX, utilize a chave oficial da paróquia com a descrição *"Caridade Vicentina"*.
+As doações podem ser entregues diariamente na Secretaria Paroquial da Catedral (Praça da Catedral) ou depositadas nos cestos de ofertório solene ao término de cada Santa Missa. Se você deseja fazer uma doação via PIX, utilize a chave oficial da paróquia com a descrição *"Caridade Vicentina"*.
 
 *"Quem se compadece do pobre empresta ao Senhor, que lhe retribuirá o benefício." (Pr 19, 17)*
     `.trim(),
@@ -221,7 +221,7 @@ As doações podem ser entregues diariamente na Secretaria Paroquial da Catedral
     isUrgent: true,
     isFeatured: false,
     readTimeMinutes: 3,
-    communityName: 'Matriz Catedral',
+    communityName: 'Catedral Diocesana',
   },
 ];
 

@@ -97,7 +97,7 @@ export default async function CathedralNewsDetailPage({ params }: NewsDetailPage
         authorRole: 'Pastoral da Comunicação',
         isUrgent: !!dbArticle.is_urgent,
         readTimeMinutes: Math.max(2, Math.ceil(dbArticle.content.length / 500)),
-        communityName: 'Matriz Catedral',
+        communityName: 'Catedral Diocesana',
       };
     }
   } catch (err) {

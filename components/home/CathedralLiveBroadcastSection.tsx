@@ -29,7 +29,7 @@ export function CathedralLiveBroadcastSection({
     {
       id: 'UGX9gkbjnM0',
       title: 'Missa Diária Matutina',
-      subtitle: 'Capela do Santíssimo • St. Patrick\'s Cathedral NYC',
+      subtitle: 'Comunidade do Santíssimo • St. Patrick\'s Cathedral NYC',
       badge: 'Diária',
     },
   ];

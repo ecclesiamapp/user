@@ -23,7 +23,7 @@
 | **Evangelize Web** | Gestão Paroquial em Nuvem | Web / SaaS | Presença relevante em paróquias que buscam sair do software legado desktop, com foco em secretaria e dízimo. |
 | **iParóquia** | Site paroquial + App básico | Web CMS + App white-label | Focado na presença web da paróquia e envio de notícias/avisos. Pouca inteligência de comunidade. |
 | **Mitra Sistemas / Paulus / Celebre** | Gestão canônica e litúrgica | Módulos paroquiais e secretaria | Utilizados em nichos regionais ou por tradição de editoras católicas. |
-| **InPeace / Faithful** | Plataforma de App para Igrejas | App Mobile nativo white-label | Gigante no meio evangélico; **fracassou na tentativa de penetração no meio católico** por não compreender a eclesiologia católica (ignora capelas/CEBs, pastorais, liturgia diária, calendário canônico) e pelo custo abusivo. |
+| **InPeace / Faithful** | Plataforma de App para Igrejas | App Mobile nativo white-label | Gigante no meio evangélico; **fracassou na tentativa de penetração no meio católico** por não compreender a eclesiologia católica (ignora comunidades/CEBs, pastorais, liturgia diária, calendário canônico) e pelo custo abusivo. |
 | **E-Dízimo / Dízimo Fiel / Paróquia Digital** | Arrecadação de Dízimo e PIX | Gateway / Portal de pagamentos | Focado exclusivamente na transação financeira e recorrência de cartões/boletos/PIX. |
 
 ### 1.3 Como é a Adesão Real: Gestão Paroquial vs. App do Fiel
@@ -37,7 +37,7 @@
    * O pároco continua sofrendo com:
      - Escalas de leitores, ministros e coroinhas feitas em papel ou planilhas confusas de WhatsApp;
      - Idosos que não conseguem baixar apps pesados da Play Store;
-     - Capelas e Comunidades (as "CEBs") que se sentem abandonadas porque todo o sistema gira em torno da "Igreja Matriz";
+     - Comunidades e Comunidades (as "CEBs") que se sentem abandonadas porque todo o sistema gira em torno da "Catedral";
      - Pedidos de intenção de missa desorganizados que geram papelinhos perdidos na sacristia.
 
 ---
@@ -57,7 +57,7 @@
 * ❌ **Cobrança por número de fiéis/dizimistas cadastrados:** **Rejeição total.** As paróquias sentem que estão sendo "punidas" por evangelizar e cadastrar mais membros. NUNCA adote cobrança por quantidade de fiéis cadastrados.
 * ❌ **Porcentagem alta sobre doações/PIX (ex: 5% a 8% estilo Benfeitoria):** Padres e conselhos econômicos paroquiais (CAEP) consideram isso "lucro indevido sobre o dízimo sagrado". A aceitação só ocorre se as taxas forem exclusivamente as de custo do gateway (PIX a centavos ou ~0,99%).
 * ✅ **Valor fixo mensal previsível (SaaS puro):** É o modelo mais bem aceito pelos Conselhos Paroquiais de Assuntos Econômicos (CAEP), pois cabe na planilha orçamentária anual da paróquia.
-* ✅ **Diferenciação por número de Comunidades/Capelas e Recursos Avançados:** As paróquias entendem com clareza que uma paróquia com 1 Matriz e 2 capelas consome menos suporte do que uma paróquia com 15 capelas rurais e 40 pastorais ativas.
+* ✅ **Diferenciação por número de Comunidades/Comunidades e Recursos Avançados:** As paróquias entendem com clareza que uma paróquia com 1 Matriz e 2 comunidades consome menos suporte do que uma paróquia com 15 comunidades rurais e 40 pastorais ativas.
 
 ---
 
@@ -71,9 +71,9 @@
 * **Concorrente:** Fontes pequenas (12px cinza claro), botões minúsculos, navegação confusa em 4 níveis de abas.
 * **Vantagem Ecclesiam:** Tipografia Clara e legível, modo de alto contraste/leitura confortável (botão para aumentar fonte), fluxos diretos: *"Horários de Missa Hoje"*, *"Liturgia do Dia"*, *"Dízimo PIX Copia e Cola"*, *"Deixar Intenção de Missa"*.
 
-### Ponto Fraco 3: A Exclusão das Comunidades e Capelas (CEBs)
-* **Concorrente:** O sistema trata a paróquia como um bloco monolítico central. A Capela de Nossa Senhora Aparecida no bairro periférico não tem espaço próprio.
-* **Vantagem Ecclesiam:** **Arquitetura Multi-Comunidades nativa**. Cada capela/comunidade da paróquia tem sua própria "página/aba" dentro do Ecclesiam App: os avisos da comunidade, o horário de missa e celebração local, a festa do padroeiro da capela e o dízimo direcionado especificamente para a manutenção daquela capela. O coordenador de capela vira o maior promotor do Ecclesiam.
+### Ponto Fraco 3: A Exclusão das Comunidades Eclesiais de Base (CEBs)
+* **Concorrente:** O sistema trata a paróquia como um bloco monolítico central. À Comunidade de Nossa Senhora Aparecida no bairro periférico não tem espaço próprio.
+* **Vantagem Ecclesiam:** **Arquitetura Multi-Comunidades nativa**. Cada comunidade (CEB) da paróquia tem sua própria "página/aba" dentro do Ecclesiam App: os avisos da comunidade, o horário de missa e celebração local, a festa do padroeiro da comunidade e o dízimo direcionado especificamente para a manutenção daquela comunidade. O coordenador de comunidade vira o maior promotor do Ecclesiam.
 
 ### Ponto Fraco 4: Gestão do Caos Pastoral & Escalas Litúrgicas
 * **Concorrente:** Focam apenas no dinheiro (dízimo) ou na certidão. Zero suporte para a vida comunitária ativa.
@@ -81,7 +81,7 @@
 
 ### Ponto Fraco 5: Dízimo e Ofertas com Fricção Zero (PIX com propósito)
 * **Concorrente:** Formulários burocráticos exigindo endereço completo, CEP e dados de cartão antes de doar.
-* **Vantagem Ecclesiam:** PIX nativo instantâneo com botão "Copiar Chave/Código PIX" de um toque. Criação de **Campanhas de Doação Específicas** (ex: *"Reforma do Telhado da Capela São Francisco"*, *"Festa da Padroeira"*, *"Cesta Básica Vicentina"*), com termômetro visual de arrecadação.
+* **Vantagem Ecclesiam:** PIX nativo instantâneo com botão "Copiar Chave/Código PIX" de um toque. Criação de **Campanhas de Doação Específicas** (ex: *"Reforma do Telhado da Comunidade São Francisco"*, *"Festa da Padroeira"*, *"Cesta Básica Vicentina"*), com termômetro visual de arrecadação.
 
 ---
 
@@ -109,7 +109,7 @@ Para maximizar a conversão, penetração e receita recorrente (MRR), recomendam
 ### Detalhamento dos Planos:
 
 #### 1. Plano Semente – R$ 149/mês (ou R$ 119/mês no anual)
-* **Público-alvo:** Paróquias pequenas, capelas ou comunidades menores (1 Matriz + até 3 capelas/CEBs).
+* **Público-alvo:** Paróquias pequenas, comunidades ou comunidades menores (1 Matriz + até 3 comunidades/CEBs).
 * **Recursos inclusos:**
   - PWA Web App moderno e ultrarrápido para os fiéis.
   - Horários de Missas, Confissões e Atendimento da Secretaria.
@@ -120,9 +120,9 @@ Para maximizar a conversão, penetração e receita recorrente (MRR), recomendam
   - **Setup de Implantação & Treinamento:** R$ 350 (Isento na adesão anual).
 
 #### 2. Plano Semeador – R$ 289/mês (ou R$ 229/mês no anual) ⭐ *Plano Carro-Chefe (Best-Seller)*
-* **Público-alvo:** 70% das paróquias brasileiras (Matriz + até 8 comunidades/capelas com GPS).
+* **Público-alvo:** 70% das paróquias brasileiras (Matriz + até 8 comunidades/comunidades com GPS).
 * **Tudo do Plano Semente, mais:**
-  - Visão dedicada por Comunidade/Capela (avisos e eventos descentralizados com GPS).
+  - Visão dedicada por Comunidade (CEB) (avisos e eventos descentralizados com GPS).
   - Módulo de Escalas Litúrgicas (Leitores, Ministros, Coroinhas, Músicos).
   - Gestão de Pastorais e Movimentos (com líderes de pastoral acessando suas áreas).
   - Campanhas de Arrecadação com Metas Visuais (ex: Festa do Padroeiro, Obras).
@@ -134,7 +134,7 @@ Para maximizar a conversão, penetração e receita recorrente (MRR), recomendam
 #### 3. Plano Pescador – R$ 490/mês (ou R$ 390/mês no anual) ⭐ *Plano da Catedral de Colatina (Paróquia Piloto)*
 * **Público-alvo:** Catedrais, paróquias polo e sedes forâneas (**com até 20 comunidades/CEBs** – acomodando perfeitamente as 11 comunidades da Catedral com ampla margem de crescimento).
 * **Tudo do Plano Semeador, mais:**
-  - **Suporte a até 20 Comunidades e Capelas (CEBs)** com mini-sites dedicados e geolocalização por GPS.
+  - **Suporte a até 20 Comunidades Eclesiais de Base (CEBs)** com mini-sites dedicados e geolocalização por GPS.
   - Gestão e escala de múltiplos sacerdotes (Pároco, Vigários e Diáconos).
   - Transmissão ao vivo integrada de missas e solenidades sem anúncios ou distrações externas.
   - QR Codes personalizados para displays físicos nos bancos da igreja e totens de acolhida.
@@ -145,7 +145,7 @@ Para maximizar a conversão, penetração e receita recorrente (MRR), recomendam
 * **Público-alvo:** Grandes Santuários, Basílicas, Arquidioceses e paróquias com altíssima demanda comunitária.
 * **Tudo do Plano Pescador, mais:**
   - **Todos os recursos anteriores inclusos.**
-  - **Comunidades (CEBs) e Capelas Ilimitadas.**
+  - **Comunidades (CEBs) e Comunidades Ilimitadas.**
   - **Acessos e usuários administradores ilimitados.**
   - **Infraestrutura para alta volumetria de fiéis simultâneos.**
   - Módulo dedicado de **Romarias, Peregrinações e Caravanas**.

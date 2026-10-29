@@ -116,7 +116,7 @@ export function PrintPosterA4({ qrCodeUrl }: PrintPosterA4Props) {
               Santas Missas
             </p>
             <p className="text-[10px] text-[#514D4B] leading-snug">
-              Horários da Matriz e das 12 CEBs em tempo real.
+              Horários da Catedral e das 12 CEBs em tempo real.
             </p>
           </div>
 

@@ -25,8 +25,8 @@ Consultamos a base oficial da Receita Federal para o CNPJ informado e o resultad
 | :--- | :--- | :--- | :--- |
 | **Principal** | **`5819-1/00`** | **Edição de cadastros, listas e de outros produtos gráficos** | ✅ **PERFEITO!** Cobre a edição e manutenção dos cadastros de pastorais, listas de horários de missas e folhetos litúrgicos (*Sou do Sagrado Missa*). |
 | **Secundário** | **`8219-9/99`** | **Preparação de documentos e serviços especializados de apoio administrativo não especificados anteriormente** | ✅ **JÁ ESTÁ LÁ!** É exatamente o CNAE-chave recomendado para faturar a assinatura mensal de apoio à secretaria paroquial. |
-| **Secundário** | **`5812-3/02`** | **Edição de jornais não diários** | ✅ **EXCELENTE!** Cobre a edição de boletins paroquiais e informativos das comunidades/capelas. |
-| **Secundário** | **`7420-0/01`** | **Atividades de produção de fotografias, exceto aérea e submarina** | ✅ **ÓTIMO P/ SETUP!** Justifica perfeitamente a taxa de implantação (cadastro visual e fotográfico das capelas e clero). |
+| **Secundário** | **`5812-3/02`** | **Edição de jornais não diários** | ✅ **EXCELENTE!** Cobre a edição de boletins paroquiais e informativos das comunidades/comunidades. |
+| **Secundário** | **`7420-0/01`** | **Atividades de produção de fotografias, exceto aérea e submarina** | ✅ **ÓTIMO P/ SETUP!** Justifica perfeitamente a taxa de implantação (cadastro visual e fotográfico das comunidades e clero). |
 | Secundário | `5813-1/00` | Edição de revistas | Ativo no CNPJ |
 | Secundário | `5812-3/01` | Edição de jornais diários | Ativo no CNPJ |
 | Secundário | `1821-1/00` | Serviços de pré-impressão | Ativo no CNPJ |

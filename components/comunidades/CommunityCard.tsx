@@ -75,7 +75,7 @@ export function CommunityCard({ community, schedules = [], onSelectOnMap }: Comm
           <div className="flex flex-wrap items-center gap-1.5">
             {community.is_headquarters ? (
               <Badge variant="matriz" className="text-xs font-bold uppercase tracking-wider">
-                Igreja Matriz
+                Catedral
               </Badge>
             ) : isGrupoReflexao ? (
               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">

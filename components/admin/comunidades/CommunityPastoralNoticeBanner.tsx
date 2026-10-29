@@ -49,7 +49,7 @@ export function CommunityPastoralNoticeBanner() {
                 <div className="space-y-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <Badge variant="outline" className="border-amber-500/40 text-amber-700 dark:text-amber-300 bg-amber-500/10 text-[11px] font-bold">
-                      🏛️ Nota Pastoral da Matriz
+                      🏛️ Nota Pastoral da Catedral
                     </Badge>
                     <span className="text-[11px] text-[var(--dash-text-muted)] flex items-center gap-1">
                       <Clock className="w-3 h-3" />

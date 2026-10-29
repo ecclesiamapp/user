@@ -45,7 +45,7 @@
 3. **Hero Monumental:**
    * "Bem-vindo à Casa do Sagrado Coração" + Botão de Missa Ao Vivo (com indicador pulsante vermelho).
 4. **Card Flutuante de Horários de Hoje:**
-   * Missa de Hoje na Matriz: `19:30` (Pe. Irineu Sales).
+   * Missa de Hoje na Catedral: `19:30` (Pe. Irineu Sales).
    * Confissões: `16:00 às 18:00`.
    * Expediente da Secretaria.
 5. **Mural "Sou do Sagrado" (Notícias e Formação):**

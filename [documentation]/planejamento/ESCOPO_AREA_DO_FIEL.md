@@ -52,7 +52,7 @@
 * **Lembrete Automático:** Notificação com data, local (Secretaria da Catedral) e botão para cancelar com antecedência.
 
 ### 3.3 Minha Comunidade (CEB Favorita)
-* **Vínculo Pastoral:** O fiel escolhe a sua capela habitual (ex: Matriz, Comunidade Perpétuo Socorro, Santa Luzia, etc.).
+* **Vínculo Pastoral:** O fiel escolhe a sua comunidade habitual (ex: Matriz, Comunidade Perpétuo Socorro, Santa Luzia, etc.).
 * **Feed Exclusivo:** O painel prioriza os horários de missas, tríduos e avisos daquela CEB específica.
 
 ### 3.4 Pedidos de Intenções de Santa Missa

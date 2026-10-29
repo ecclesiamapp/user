@@ -141,7 +141,7 @@ export function HomeHeroSection({
                 </span>
               </div>
               <h3 className="font-cinzel text-lg font-bold text-[#2D1A16] uppercase tracking-wide mt-2">
-                Santa Missa na Matriz
+                Santa Missa na Catedral
               </h3>
               <div className="text-3xl sm:text-4xl font-black text-[#8B1E22] tabular-nums mt-1 font-sans">
                 19:30

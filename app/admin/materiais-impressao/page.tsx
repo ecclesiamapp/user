@@ -78,7 +78,7 @@ export default function MateriaisImpressaoAdminPage() {
             </li>
             <li className="flex items-center gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span>Grade de missas da Matriz e das 12 CEBs sempre atualizadas na palma da mão.</span>
+              <span>Grade de missas da Catedral e das 12 CEBs sempre atualizadas na palma da mão.</span>
             </li>
           </ul>
         </div>

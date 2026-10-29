@@ -42,7 +42,7 @@ Tratamos apenas os dados indispensáveis para o acolhimento pastoral e funcionam
    * *Finalidade*: Envio de informações da paróquia, geração de envelopes/carnês e prestação de contas pastoral.
 4. **Comunicação com Lideranças do CPC**:
    * *Dados*: Nome e telefone de WhatsApp do coordenador comunitário.
-   * *Finalidade*: Facilitar o contato dos moradores do bairro com a capela local, mediante autorização prévia da liderança leiga.
+   * *Finalidade*: Facilitar o contato dos moradores do bairro com à comunidade local, mediante autorização prévia da liderança leiga.
 
 ---
 
