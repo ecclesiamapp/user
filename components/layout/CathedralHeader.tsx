@@ -2,29 +2,25 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { 
-  Menu, 
-  X, 
-  Radio, 
-  Heart, 
-  Calendar, 
-  Church, 
-  User, 
-  FileText, 
-  MessageCircle, 
+import {
+  Menu,
+  Heart,
+  User,
   Sparkles,
-  ExternalLink,
   BookOpen,
   ChevronDown,
-  ShieldCheck
+  ShieldCheck,
 } from 'lucide-react';
 import { useAdminSession } from '@/lib/hooks/useAdminSession';
+import { ResolvedEventTheme } from '@/lib/events';
+import { CathedralMobileDrawer } from './CathedralMobileDrawer';
 
 interface CathedralHeaderProps {
   parishName?: string;
   dioceseName?: string;
   whatsappNumber?: string;
   onOpenLiveVideo?: () => void;
+  themeOverride?: ResolvedEventTheme;
 }
 
 export function CathedralHeader({
@@ -32,6 +28,7 @@ export function CathedralHeader({
   dioceseName = 'Diocese de Colatina',
   whatsappNumber = '552737221234',
   onOpenLiveVideo,
+  themeOverride,
 }: CathedralHeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cathedralMenuOpen, setCathedralMenuOpen] = useState(false);
@@ -48,59 +45,102 @@ export function CathedralHeader({
     }
   };
 
+  const t = themeOverride;
+  const headerVars = {
+    '--hdr-bg': t ? `rgba(${t.pageBgRgb}, 0.95)` : 'rgba(22, 24, 27, 0.95)',
+    '--hdr-border': t ? `${t.secondary}40` : 'rgba(200, 164, 99, 0.25)',
+    '--hdr-emblem-bg': t
+      ? `linear-gradient(135deg, ${t.primary}, ${t.surfaceBg}, ${t.pageBg})`
+      : 'linear-gradient(135deg, #8B1E22, #5E1417, #2D1A16)',
+    '--hdr-emblem-border': t ? `${t.secondary}70` : 'rgba(200, 164, 99, 0.40)',
+    '--hdr-accent': t ? t.secondary : '#FFCC36',
+    '--hdr-gold-muted': t ? `${t.secondary}CC` : '#C8A463',
+    '--hdr-nav-text': t ? t.textSecondary : '#EAE3D9',
+    '--hdr-dropdown-bg': t ? `rgba(${t.pageBgRgb}, 0.98)` : 'rgba(22, 24, 27, 0.98)',
+    '--hdr-item-hover': t ? `${t.primary}55` : 'rgba(139, 30, 34, 0.30)',
+    '--hdr-live-bg': t ? `${t.primary}55` : 'rgba(139, 30, 34, 0.30)',
+    '--hdr-live-border': t ? `${t.secondary}66` : 'rgba(211, 47, 47, 0.60)',
+    '--hdr-live-dot': t ? t.secondary : '#D32F2F',
+    '--hdr-admin-bg': t ? `${t.secondary}20` : 'rgba(245, 158, 11, 0.20)',
+    '--hdr-admin-border': t ? `${t.secondary}65` : 'rgba(245, 158, 11, 0.50)',
+    '--hdr-admin-text': t ? t.secondary : '#FCD34D',
+    '--hdr-cta-bg': t
+      ? `linear-gradient(90deg, ${t.secondary}, #FFE2B8, ${t.secondary})`
+      : 'linear-gradient(90deg, #FFA82A, #FFCC36, #FFA82A)',
+    '--hdr-cta-text': t ? t.ctaTextOnSecondary : '#2D1A16',
+  } as React.CSSProperties;
+
   return (
     <>
-      {/* HEADER TRANSLÚCIDO NOBRE (Estilo St. Patrick's Cathedral NY) */}
-      <header className="sticky top-0 z-40 w-full bg-[#16181B]/95 backdrop-blur-md border-b border-[#C8A463]/25 transition-all">
+      <header
+        style={{
+          ...headerVars,
+          backgroundColor: 'var(--hdr-bg)',
+          borderColor: 'var(--hdr-border)',
+        }}
+        className="sticky top-0 z-40 w-full backdrop-blur-md border-b transition-all"
+      >
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
-          
           {/* 1. Identidade e Brasão da Catedral */}
           <Link href="/" className="flex items-center gap-3 group text-decoration-none shrink-0">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-[#8B1E22] via-[#5E1417] to-[#2D1A16] border border-[#C8A463]/40 flex items-center justify-center text-[#FFCC36] shadow-md shadow-black/40 group-hover:border-[#FFCC36] transition-colors shrink-0">
+            <div
+              style={{
+                background: 'var(--hdr-emblem-bg)',
+                borderColor: 'var(--hdr-emblem-border)',
+                color: 'var(--hdr-accent)',
+              }}
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border flex items-center justify-center shadow-md shadow-black/40 group-hover:brightness-110 transition-all shrink-0"
+            >
               <span className="font-serif text-xl sm:text-2xl font-bold leading-none select-none">✝</span>
             </div>
             <div className="shrink-0">
-              <span className="block font-cinzel text-sm sm:text-base xl:text-lg font-bold tracking-[0.04em] text-white uppercase leading-tight group-hover:text-[#FFCC36] transition-colors whitespace-nowrap">
+              <span className="block font-cinzel text-sm sm:text-base xl:text-lg font-bold tracking-[0.04em] text-[#FAF6F0] uppercase leading-tight group-hover:text-[var(--hdr-accent)] transition-colors whitespace-nowrap">
                 {parishName}
               </span>
-              <span className="hidden sm:block text-[10px] xl:text-[11px] font-medium text-[#C8A463] tracking-wide whitespace-nowrap">
+              <span
+                style={{ color: 'var(--hdr-gold-muted)' }}
+                className="hidden sm:block text-[10px] xl:text-[11px] font-medium tracking-wide whitespace-nowrap"
+              >
                 Paróquia Sagrado Coração de Jesus • {dioceseName}
               </span>
             </div>
           </Link>
 
-          {/* 2. Menu Central Desktop: Limpo, Nobre & Sem Quebra de Linhas */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-bold tracking-[0.05em] text-[#EAE3D9] uppercase font-sans">
-            <Link 
-              href="/agenda-liturgica" 
-              className="whitespace-nowrap hover:text-[#FFCC36] transition-colors py-2"
+          {/* 2. Menu Central Desktop */}
+          <nav
+            style={{ color: 'var(--hdr-nav-text)' }}
+            className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-bold tracking-[0.05em] uppercase font-sans"
+          >
+            <Link
+              href="/agenda-liturgica"
+              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2"
             >
               Horários & Missas
             </Link>
-            
-            <a 
-              href="#comunidades" 
-              className="whitespace-nowrap hover:text-[#FFCC36] transition-colors py-2"
+
+            <Link
+              href="/comunidades"
+              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2"
             >
               Comunidades
-            </a>
-            
-            <Link 
-              href="/noticias" 
-              className="whitespace-nowrap hover:text-[#FFCC36] transition-colors py-2"
+            </Link>
+
+            <Link
+              href="/noticias"
+              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2"
             >
               Notícias
             </Link>
-            
-            <a 
-              href="#secretaria" 
-              className="whitespace-nowrap hover:text-[#FFCC36] transition-colors py-2"
+
+            <Link
+              href="/secretaria"
+              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2"
             >
               Secretaria
-            </a>
+            </Link>
 
             {/* Dropdown Institucional: A Catedral */}
-            <div 
+            <div
               className="relative"
               onMouseEnter={() => setCathedralMenuOpen(true)}
               onMouseLeave={() => setCathedralMenuOpen(false)}
@@ -108,121 +148,129 @@ export function CathedralHeader({
               <button
                 onClick={() => setCathedralMenuOpen(!cathedralMenuOpen)}
                 type="button"
-                className="whitespace-nowrap hover:text-[#FFCC36] transition-colors py-2 flex items-center gap-1 cursor-pointer uppercase text-xs font-bold"
+                className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 flex items-center gap-1 cursor-pointer uppercase text-xs font-bold"
                 aria-expanded={cathedralMenuOpen}
               >
                 <span>A Catedral</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${cathedralMenuOpen ? 'rotate-180 text-[#FFCC36]' : 'text-[#C8A463]'}`} />
+                <ChevronDown
+                  style={{ color: cathedralMenuOpen ? 'var(--hdr-accent)' : 'var(--hdr-gold-muted)' }}
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${cathedralMenuOpen ? 'rotate-180' : ''}`}
+                />
               </button>
 
-              {/* Dropdown Menu Flutuante */}
               {cathedralMenuOpen && (
-                <div className="absolute top-full right-0 mt-1 w-64 rounded-2xl bg-[#16181B]/98 backdrop-blur-xl border border-[#C8A463]/30 shadow-2xl shadow-black/80 p-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="px-3 py-2 border-b border-[#C8A463]/15 mb-1">
-                    <span className="text-[10px] uppercase tracking-wider text-[#C8A463] font-bold block">
+                <div
+                  style={{
+                    backgroundColor: 'var(--hdr-dropdown-bg)',
+                    borderColor: 'var(--hdr-border)',
+                  }}
+                  className="absolute top-full right-0 mt-1 w-64 rounded-2xl backdrop-blur-xl border shadow-2xl shadow-black/80 p-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                >
+                  <div
+                    style={{ borderColor: 'var(--hdr-border)' }}
+                    className="px-3 py-2 border-b mb-1"
+                  >
+                    <span
+                      style={{ color: 'var(--hdr-gold-muted)' }}
+                      className="text-[10px] uppercase tracking-wider font-bold block"
+                    >
                       Institucional & Memória
                     </span>
-                    <span className="text-xs text-white/80 font-serif">
+                    <span className="text-xs text-[#FAF6F0]/85 font-serif">
                       Catedral Sagrado Coração de Jesus
                     </span>
                   </div>
 
-                  <Link
-                    href="/historia"
-                    onClick={() => setCathedralMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-[#8B1E22]/30 text-white/90 hover:text-[#FFCC36] transition-colors group"
-                  >
-                    <BookOpen className="w-4 h-4 text-[#C8A463] group-hover:scale-110 transition-transform shrink-0" />
-                    <div>
-                      <span className="block text-xs font-bold normal-case">História & Fé</span>
-                      <span className="block text-[10px] text-[#A39E98] normal-case">Linha do tempo centenária</span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/historia#parocos"
-                    onClick={() => setCathedralMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-[#8B1E22]/30 text-white/90 hover:text-[#FFCC36] transition-colors group"
-                  >
-                    <User className="w-4 h-4 text-[#C8A463] group-hover:scale-110 transition-transform shrink-0" />
-                    <div>
-                      <span className="block text-xs font-bold normal-case">Pároco & Bispos</span>
-                      <span className="block text-[10px] text-[#A39E98] normal-case">Pe. Irineu e sucessão pastoral</span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/historia#patrimonio"
-                    onClick={() => setCathedralMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-[#8B1E22]/30 text-white/90 hover:text-[#FFCC36] transition-colors group"
-                  >
-                    <Sparkles className="w-4 h-4 text-[#C8A463] group-hover:scale-110 transition-transform shrink-0" />
-                    <div>
-                      <span className="block text-xs font-bold normal-case">Patrimônio Sacro</span>
-                      <span className="block text-[10px] text-[#A39E98] normal-case">Vitrais Casa Conrado e Sinos</span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/dizimo"
-                    onClick={() => setCathedralMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-[#8B1E22]/30 text-white/90 hover:text-[#FFCC36] transition-colors group"
-                  >
-                    <Heart className="w-4 h-4 text-[#FFA82A] group-hover:scale-110 transition-transform shrink-0" />
-                    <div>
-                      <span className="block text-xs font-bold normal-case">Dízimo & Ofertas</span>
-                      <span className="block text-[10px] text-[#A39E98] normal-case">Sou do Sagrado benfeitores</span>
-                    </div>
-                  </Link>
+                  {[
+                    { href: '/historia', icon: BookOpen, title: 'História & Fé', sub: 'Linha do tempo centenária' },
+                    { href: '/historia#parocos', icon: User, title: 'Pároco & Bispos', sub: 'Pe. Irineu e sucessão pastoral' },
+                    { href: '/historia#patrimonio', icon: Sparkles, title: 'Patrimônio Sacro', sub: 'Vitrais Casa Conrado e Sinos' },
+                    { href: '/dizimo', icon: Heart, title: 'Dízimo & Ofertas', sub: 'Sou do Sagrado benfeitores' },
+                  ].map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setCathedralMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-[var(--hdr-item-hover)] text-[#FAF6F0]/90 hover:text-[var(--hdr-accent)] transition-colors group"
+                      >
+                        <Icon
+                          style={{ color: 'var(--hdr-accent)' }}
+                          className="w-4 h-4 group-hover:scale-110 transition-transform shrink-0"
+                        />
+                        <div>
+                          <span className="block text-xs font-bold normal-case">{item.title}</span>
+                          <span className="block text-[10px] opacity-70 normal-case">{item.sub}</span>
+                        </div>
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>
           </nav>
 
-          {/* 3. Ações Rápidas à Direita: Ao Vivo + Dízimo + Hambúrguer */}
+          {/* 3. Ações Rápidas à Direita */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Botão de Transmissão Ao Vivo com Indicador Pulsante St. Patrick's */}
             <button
               onClick={onOpenLiveVideo}
               type="button"
-              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl bg-[#8B1E22]/30 hover:bg-[#8B1E22]/50 border border-[#D32F2F]/60 text-white text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer"
+              style={{
+                backgroundColor: 'var(--hdr-live-bg)',
+                borderColor: 'var(--hdr-live-border)',
+              }}
+              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl hover:brightness-115 border text-[#FAF6F0] text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[40px]"
               title="Assistir Transmissão ao Vivo Oficial"
             >
               <span className="relative flex h-2 w-2 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D32F2F] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D32F2F]" />
+                <span
+                  style={{ backgroundColor: 'var(--hdr-live-dot)' }}
+                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                />
+                <span
+                  style={{ backgroundColor: 'var(--hdr-live-dot)' }}
+                  className="relative inline-flex rounded-full h-2 w-2"
+                />
               </span>
               <span className="whitespace-nowrap">
                 <span className="hidden xl:inline">Missa </span>Ao Vivo
               </span>
             </button>
 
-            {/* Botão de Retorno ao Painel Administrativo para Usuário Logado */}
             {hasAdminSession && (
               <Link
                 href="/admin"
-                className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 hover:text-amber-200 text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[40px]"
+                style={{
+                  backgroundColor: 'var(--hdr-admin-bg)',
+                  borderColor: 'var(--hdr-admin-border)',
+                  color: 'var(--hdr-admin-text)',
+                }}
+                className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl hover:brightness-115 border text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[40px]"
                 title="Voltar ao Painel Administrativo"
               >
-                <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
+                <ShieldCheck className="w-4 h-4 shrink-0" />
                 <span className="hidden xl:inline">Painel </span>Admin
               </Link>
             )}
 
-            {/* Botão Dourado de Dízimo / Sou do Sagrado */}
             <Link
               href="/dizimo"
-              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-[#FFA82A] via-[#FFCC36] to-[#FFA82A] hover:brightness-105 text-[#2D1A16] text-xs font-extrabold uppercase tracking-wider font-sans transition-all shadow-md shadow-[#FFA82A]/20 cursor-pointer min-h-[40px]"
+              style={{
+                background: 'var(--hdr-cta-bg)',
+                color: 'var(--hdr-cta-text)',
+              }}
+              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl hover:brightness-105 text-xs font-extrabold uppercase tracking-wider font-sans transition-all shadow-md cursor-pointer min-h-[40px]"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#2D1A16] shrink-0" />
+              <Sparkles className="w-3.5 h-3.5 shrink-0" />
               <span className="whitespace-nowrap">Sou do Sagrado</span>
             </Link>
 
-            {/* Botão Hambúrguer Mobile */}
             <button
               onClick={() => setMobileMenuOpen(true)}
               type="button"
-              className="lg:hidden p-2 rounded-xl text-[#EAE3D9] hover:text-white hover:bg-[var(--dash-surface)]/10 transition-colors"
+              style={{ color: 'var(--hdr-nav-text)' }}
+              className="lg:hidden p-2 rounded-xl hover:text-[var(--hdr-accent)] hover:bg-[var(--dash-surface)]/10 transition-colors"
               aria-label="Abrir menu"
             >
               <Menu className="w-6 h-6" />
@@ -231,208 +279,17 @@ export function CathedralHeader({
         </div>
       </header>
 
-      {/* MOBILE DRAWER: Estilo "Beneditino Digital" (Padre Paulo Ricardo / St. Patrick's) */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden animate-in fade-in duration-200">
-          {/* Backdrop Blur Escuro */}
-          <div 
-            className="fixed inset-0 bg-black/75 backdrop-blur-sm"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-
-          {/* Painel Lateral que Desliza da Esquerda */}
-          <aside className="fixed inset-y-0 left-0 w-80 max-w-[85vw] bg-[#0E1012] border-r border-[#C8A463]/25 shadow-2xl flex flex-col justify-between p-6 z-50 overflow-y-auto">
-            <div className="space-y-6">
-              {/* Topo do Drawer com Brasão e Fechar */}
-              <div className="flex items-center justify-between pb-4 border-b border-[#22262B]">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#8B1E22] to-[#2D1A16] border border-[#C8A463]/40 flex items-center justify-center text-[#FFCC36]">
-                    <span className="font-serif text-xl font-bold">✝</span>
-                  </div>
-                  <div>
-                    <span className="block font-display text-base font-bold text-white leading-tight">
-                      {parishName}
-                    </span>
-                    <span className="block text-[10px] text-[#C8A463]">
-                      Catedral Diocesana
-                    </span>
-                  </div>
-                </div>
-
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  type="button"
-                  className="p-1.5 rounded-lg text-[#7E838B] hover:text-white hover:bg-[var(--dash-surface)]/10"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* Card de Retorno ao Painel Administrativo para Usuário Logado */}
-              {hasAdminSession && (
-                <Link
-                  href="/admin"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-transparent border border-amber-500/40 text-amber-300 font-bold text-xs uppercase tracking-wider shadow-sm min-h-[44px]"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
-                    <span>Painel Administrativo</span>
-                  </div>
-                  <span className="text-[10px] text-amber-400 font-normal">Voltar ➔</span>
-                </Link>
-              )}
-
-              {/* Seletor de Acessibilidade (Fiéis Idosos) */}
-              <div className="bg-[#1B1E22] rounded-xl p-3 border border-[#22262B] flex items-center justify-between text-xs">
-                <span className="text-[#A39E98] font-medium">Tamanho da Letra:</span>
-                <div className="flex items-center gap-1.5">
-                  <button
-                    onClick={() => handleFontSizeChange('sm')}
-                    className={`px-2.5 py-1 rounded-lg font-bold ${fontSizeLevel === 'sm' ? 'bg-[#C8A463] text-[#121314]' : 'bg-[#22262B] text-[#A39E98]'}`}
-                  >
-                    A-
-                  </button>
-                  <button
-                    onClick={() => handleFontSizeChange('md')}
-                    className={`px-2.5 py-1 rounded-lg font-bold ${fontSizeLevel === 'md' ? 'bg-[#C8A463] text-[#121314]' : 'bg-[#22262B] text-[#A39E98]'}`}
-                  >
-                    A
-                  </button>
-                  <button
-                    onClick={() => handleFontSizeChange('lg')}
-                    className={`px-2.5 py-1 rounded-lg font-bold ${fontSizeLevel === 'lg' ? 'bg-[#C8A463] text-[#121314]' : 'bg-[#22262B] text-[#A39E98]'}`}
-                  >
-                    A+
-                  </button>
-                </div>
-              </div>
-
-              {/* Links de Navegação Agrupados */}
-              <div className="space-y-5">
-                <div>
-                  <span className="block text-[11px] font-bold text-[#7E838B] uppercase tracking-wider mb-2">
-                    Liturgia & Vida
-                  </span>
-                  <ul className="space-y-1">
-                    <li>
-                      <Link
-                        href="/agenda-liturgica"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#F4F3EF] hover:bg-[#1B1E22] hover:text-[#FFCC36] transition-colors text-sm font-medium"
-                      >
-                        <Calendar className="w-4 h-4 text-[#C8A463]" />
-                        <span>Agenda Litúrgica</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <a
-                        href="#comunidades"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#F4F3EF] hover:bg-[#1B1E22] hover:text-[#FFCC36] transition-colors text-sm font-medium"
-                      >
-                        <Church className="w-4 h-4 text-[#C8A463]" />
-                        <span>12 Comunidades (CEBs)</span>
-                      </a>
-                    </li>
-                    <li>
-                      <Link
-                        href="/historia"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#F4F3EF] hover:bg-[#1B1E22] hover:text-[#FFCC36] transition-colors text-sm font-medium"
-                      >
-                        <BookOpen className="w-4 h-4 text-[#C8A463]" />
-                        <span>Nossa História & Catedral</span>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <span className="block text-[11px] font-bold text-[#7E838B] uppercase tracking-wider mb-2">
-                    Secretaria & Pastorais
-                  </span>
-                  <ul className="space-y-1">
-                    <li>
-                      <a
-                        href="#secretaria"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#F4F3EF] hover:bg-[#1B1E22] hover:text-[#FFCC36] transition-colors text-sm font-medium"
-                      >
-                        <User className="w-4 h-4 text-[#C8A463]" />
-                        <span>Sacramentos & Atendimento</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#paroco"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#F4F3EF] hover:bg-[#1B1E22] hover:text-[#FFCC36] transition-colors text-sm font-medium"
-                      >
-                        <Sparkles className="w-4 h-4 text-[#C8A463]" />
-                        <span>O Pároco (Pe. Irineu)</span>
-                      </a>
-                    </li>
-                    <li>
-                      <Link
-                        href="/noticias"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#F4F3EF] hover:bg-[#1B1E22] hover:text-[#FFCC36] transition-colors text-sm font-medium"
-                      >
-                        <FileText className="w-4 h-4 text-[#C8A463]" />
-                        <span>Notícias & Avisos</span>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Rodapé do Drawer com Ações Rápidas */}
-            <div className="pt-4 border-t border-[#22262B] space-y-2.5">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenLiveVideo?.();
-                }}
-                type="button"
-                className="w-full py-2.5 px-4 rounded-xl bg-[#8B1E22] hover:bg-[#721C24] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-sm"
-              >
-                <Radio className="w-4 h-4 text-[#FFCC36] animate-pulse" />
-                <span>Assistir Missa Ao Vivo</span>
-              </button>
-
-              <Link
-                href="/dizimo"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#FFA82A] to-[#FFCC36] text-[#2D1A16] text-xs font-extrabold flex items-center justify-center gap-2 shadow-sm min-h-[44px]"
-              >
-                <Heart className="w-4 h-4 text-[#8B1E22]" />
-                <span>Sou do Sagrado (Dízimo & PIX)</span>
-              </Link>
-
-              <a
-                href={`https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=Olá,%20gostaria%20de%20informações%20da%20secretaria%20da%20Catedral.`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2 px-4 rounded-xl bg-[#1B1E22] hover:bg-[#22262B] text-[#25D366] text-xs font-semibold flex items-center justify-center gap-2 border border-[#22262B]"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp da Secretaria</span>
-              </a>
-
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2 px-4 rounded-xl bg-transparent hover:bg-[var(--dash-surface)]/5 text-[#A39E98] hover:text-[#C8A463] text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors min-h-[44px]"
-              >
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Acesso Administrativo (Clero & Secretaria)</span>
-              </Link>
-            </div>
-          </aside>
-        </div>
-      )}
+      <CathedralMobileDrawer
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        parishName={parishName}
+        whatsappNumber={whatsappNumber}
+        hasAdminSession={hasAdminSession}
+        fontSizeLevel={fontSizeLevel}
+        onFontSizeChange={handleFontSizeChange}
+        onOpenLiveVideo={onOpenLiveVideo}
+        themeOverride={themeOverride}
+      />
     </>
   );
 }

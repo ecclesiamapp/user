@@ -168,6 +168,8 @@ export default async function ParishSpecialEventPage({ params }: EventPageProps)
     `${enrichedEvent.community_name}, ${destinationAddress}`
   )}`;
   const eventTheme = getEventTheme(enrichedEvent);
+  const exclusiveMenuTheme =
+    enrichedEvent.slug === 'festa-copadroeira-2026' ? eventTheme : undefined;
 
   return (
     <div
@@ -178,13 +180,14 @@ export default async function ParishSpecialEventPage({ params }: EventPageProps)
       }}
     >
       {/* 1. Marquee Litúrgico Superior */}
-      <MarqueeAvisos />
+      <MarqueeAvisos themeOverride={exclusiveMenuTheme} />
 
       {/* 2. Top Bar Oficial da Catedral */}
       <CathedralHeader
         parishName={parish.name}
         dioceseName={parish.diocese}
         whatsappNumber={parish.whatsapp_number}
+        themeOverride={exclusiveMenuTheme}
       />
 
       {/* 3. Conteúdo Principal */}
