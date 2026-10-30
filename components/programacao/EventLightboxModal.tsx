@@ -38,26 +38,26 @@ export function EventLightboxModal({
       onClick={onClose}
     >
       <div 
-        className="relative max-w-4xl w-full max-h-[92vh] flex flex-col items-center justify-center"
+        className="relative max-w-5xl w-full max-h-[92vh] flex flex-col items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Barra Superior do Lightbox */}
-        <div className="w-full flex items-center justify-between pb-3 text-white">
+        <div className="w-full flex items-center justify-between pb-3 text-[#FAF6F0]">
           <div className="flex items-center gap-2 overflow-hidden pr-2">
             <span className="p-1.5 rounded-lg bg-[#8B1E22] text-[#FFCC36] text-xs">✝</span>
             <span className="text-xs sm:text-sm font-bold truncate drop-shadow-md">
-              {title} • Cartaz Oficial
+              {title} • Arte Oficial
             </span>
           </div>
 
           <div className="flex items-center gap-2">
             <a
               href={imageUrl}
-              download={`${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-cartaz.webp`}
+              download={`${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-arte.webp`}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-[var(--dash-surface)]/10 hover:bg-[var(--dash-surface)]/20 text-white transition-colors flex items-center gap-1.5 text-xs font-semibold min-h-[44px] min-w-[44px] justify-center"
-              title="Baixar Cartaz"
+              className="p-2.5 rounded-xl bg-[var(--dash-surface)]/10 hover:bg-[var(--dash-surface)]/20 text-[#FAF6F0] transition-colors flex items-center gap-1.5 text-xs font-semibold min-h-[44px] min-w-[44px] justify-center"
+              title="Baixar Arte Oficial"
             >
               <Download className="w-4 h-4 text-[#FFA82A]" />
               <span className="hidden sm:inline">Baixar Imagem</span>

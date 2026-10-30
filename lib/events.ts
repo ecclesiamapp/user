@@ -115,7 +115,7 @@ export const FALLBACK_SPECIAL_EVENTS: ParishSpecialEvent[] = [
     description: 'A Catedral de Colatina convida todos os fiéis, pastorais, movimentos e as 12 Comunidades Eclesiais de Base para celebrarem com piedade o Tríduo e a Solenidade da Co-Padroeira da nossa paróquia.',
     start_date: '2026-11-20',
     end_date: '2026-11-22',
-    banner_url: '/images/festas/copadroeira-banner.webp',
+    banner_url: '/images/festas/copadroeira-nossa-senhora-das-gracas.webp',
     poster_pdf_url: null,
     is_featured_home: true,
     status: 'destaque_ativo',

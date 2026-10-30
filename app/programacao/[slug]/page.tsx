@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: EventPageProps): Promise<Meta
 
   const title = `${event.title} • Programação Oficial • Catedral de Colatina`;
   const description = event.theme || event.description || `Confira a programação completa de ${event.title} na Catedral de Colatina.`;
-  const bannerImage = event.banner_url || '/images/festas/copadroeira-banner.webp';
+  const bannerImage = event.banner_url || '/images/festas/copadroeira-nossa-senhora-das-gracas.webp';
 
   return {
     title,

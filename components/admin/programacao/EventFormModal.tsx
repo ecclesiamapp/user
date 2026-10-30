@@ -1,23 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { 
-  X, 
-  Sparkles, 
-  Calendar, 
-  MapPin, 
-  FileText, 
-  Loader2, 
-  AlertCircle,
-  Tag,
-  Star
-} from 'lucide-react';
+import { X, Sparkles, AlertCircle } from 'lucide-react';
 import { ParishSpecialEvent, Community, EventType, EventStatus, EventColorPreset } from '@/types';
 import { createClient } from '@/utils/supabase/client';
-import { ImageUploaderField } from '@/components/admin/shared/ImageUploaderField';
-import { EVENT_TYPES, EVENT_STATUSES } from './eventConstants';
 import { EVENT_COLOR_PRESETS } from '@/lib/events';
-import { EventColorThemeSelector } from './EventColorThemeSelector';
+import { EventFormFields } from './EventFormFields';
 
 interface EventFormModalProps {
   isOpen: boolean;
@@ -134,6 +122,11 @@ export function EventFormModal({
     }
   };
 
+  const handleManualSlugChange = (val: string) => {
+    setSlug(val);
+    setSlugManuallyEdited(true);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -228,7 +221,7 @@ export function EventFormModal({
                 {eventToEdit ? 'Editar Festa / Solenidade' : 'Criar Nova Festa ou Solenidade'}
               </h3>
               <p className="text-xs text-[var(--dash-text-secondary)]">
-                Configure os dados da celebração, tema, lema, cartaz e visibilidade no portal.
+                Configure os dados da celebração, tema, lema, arte panorâmica e visibilidade no portal.
               </p>
             </div>
           </div>
@@ -250,252 +243,45 @@ export function EventFormModal({
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-5 space-y-4 max-h-[75vh] overflow-y-auto pr-1">
-          {/* Título & Slug */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-[var(--dash-text-secondary)] uppercase tracking-wider mb-1.5">
-                Título da Celebração *
-              </label>
-              <input
-                type="text"
-                required
-                value={title}
-                onChange={(e) => handleTitleChange(e.target.value)}
-                placeholder="Ex: Festa da Co-Padroeira 2026"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-xs text-[var(--dash-text-primary)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/50"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-[var(--dash-text-secondary)] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <Tag className="w-3.5 h-3.5 text-[#FFA82A]" />
-                <span>Slug da URL *</span>
-              </label>
-              <input
-                type="text"
-                required
-                value={slug}
-                onChange={(e) => {
-                  setSlug(e.target.value);
-                  setSlugManuallyEdited(true);
-                }}
-                placeholder="festa-copadroeira-2026"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-xs font-mono text-[var(--dash-text-primary)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/50"
-              />
-              <span className="text-[10px] text-[var(--dash-text-muted)] mt-1 block">
-                Link público: /programacao/{slug || '...'}
-              </span>
-            </div>
-          </div>
-
-          {/* Tipo de Evento & Comunidade Vinculada */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-[var(--dash-text-secondary)] uppercase tracking-wider mb-1.5">
-                Tipo da Festividade
-              </label>
-              <select
-                value={eventType}
-                onChange={(e) => setEventType(e.target.value as EventType)}
-                className="dash-select w-full rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] pl-3.5 pr-10 py-2.5 text-xs text-[var(--dash-text-primary)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/50"
-              >
-                {EVENT_TYPES.map((t) => (
-                  <option key={t.value} value={t.value}>
-                    {t.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-[var(--dash-text-secondary)] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[var(--primary)]" />
-                <span>Comunidade / Local</span>
-              </label>
-              <select
-                value={communityId}
-                onChange={(e) => setCommunityId(e.target.value)}
-                className="dash-select w-full rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] pl-3.5 pr-10 py-2.5 text-xs text-[var(--dash-text-primary)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/50"
-              >
-                <option value="">Catedral Sagrado Coração de Jesus (Sede)</option>
-                {communities.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Tema e Lema */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-[var(--dash-text-secondary)] uppercase tracking-wider mb-1.5">
-                Tema Pastoral (opcional)
-              </label>
-              <input
-                type="text"
-                value={theme}
-                onChange={(e) => setTheme(e.target.value)}
-                placeholder="Ex: Com Maria, peregrinos da oração e da esperança"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-xs text-[var(--dash-text-primary)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/50"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-[var(--dash-text-secondary)] uppercase tracking-wider mb-1.5">
-                Lema Bíblico (opcional)
-              </label>
-              <input
-                type="text"
-                value={motto}
-                onChange={(e) => setMotto(e.target.value)}
-                placeholder="Ex: Fazei tudo o que Ele vos disser (Jo 2,5)"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-xs text-[var(--dash-text-primary)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/50"
-              />
-            </div>
-          </div>
-
-          {/* Datas de Início e Término */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-[var(--dash-text-secondary)] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-[#FFA82A]" />
-                <span>Data de Início *</span>
-              </label>
-              <input
-                type="date"
-                required
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-xs text-[var(--dash-text-primary)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/50"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-[var(--dash-text-secondary)] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-[#FFA82A]" />
-                <span>Data de Término *</span>
-              </label>
-              <input
-                type="date"
-                required
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-xs text-[var(--dash-text-primary)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/50"
-              />
-            </div>
-          </div>
-
-          {/* Descrição Pastoral */}
-          <div>
-            <label className="block text-xs font-bold text-[var(--dash-text-secondary)] uppercase tracking-wider mb-1.5">
-              Mensagem Pastoral de Apresentação (opcional)
-            </label>
-            <textarea
-              rows={3}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Apresente aos fiéis o espírito da festividade, motivações e convite oficial dos padres..."
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] text-xs text-[var(--dash-text-primary)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/50 resize-none"
-            />
-          </div>
-
-          {/* Sistema de Cores e Temas Litúrgicos da Festa */}
-          <EventColorThemeSelector
-            selectedPreset={colorPreset}
-            onSelectPreset={handleSelectPreset}
-            primaryColor={primaryColor}
-            onChangePrimary={setPrimaryColor}
-            secondaryColor={secondaryColor}
-            onChangeSecondary={setSecondaryColor}
-            accentColor={accentColor}
-            onChangeAccent={setAccentColor}
-          />
-
-          {/* Upload de Cartaz Oficial com Crop & Compress */}
-          <div className="pt-2">
-            <ImageUploaderField
-              label="Cartaz Oficial da Festa (Banner WebP)"
-              value={bannerUrl}
-              onChange={(url) => setBannerUrl(url)}
-              folder="cartazes"
-              bucket="event_assets"
-              placeholder="/images/festas/cartaz-oficial.webp"
-            />
-          </div>
-
-          {/* Status & Destaque na Home */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <div>
-              <label className="block text-xs font-bold text-[var(--dash-text-secondary)] uppercase tracking-wider mb-1.5">
-                Status da Publicação
-              </label>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value as EventStatus)}
-                className="dash-select w-full rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] pl-3.5 pr-10 py-2.5 text-xs text-[var(--dash-text-primary)] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/50"
-              >
-                {EVENT_STATUSES.map((s) => (
-                  <option key={s.value} value={s.value}>
-                    {s.label} ({s.description})
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="flex flex-col justify-end">
-              <label className="flex items-center gap-3 p-3 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-input)] cursor-pointer hover:border-[#FFA82A]/40 transition-colors">
-                <input
-                  type="checkbox"
-                  checked={isFeaturedHome}
-                  onChange={(e) => setIsFeaturedHome(e.target.checked)}
-                  className="w-4 h-4 rounded text-[#8B1E22] focus:ring-[#8B1E22] cursor-pointer"
-                />
-                <div>
-                  <span className="text-xs font-bold text-[var(--dash-text-primary)] flex items-center gap-1.5">
-                    <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                    <span>Destaque na Página Inicial (Home)</span>
-                  </span>
-                  <span className="text-[11px] text-[var(--dash-text-muted)] block">
-                    Exibe banner hero e contagem regressiva
-                  </span>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          {/* Rodapé do Modal */}
-          <div className="pt-4 border-t border-[var(--dash-border)] flex items-center justify-end gap-3">
-            <button
-              type="button"
-              onClick={onClose}
-              disabled={saving}
-              className="px-4 py-2.5 rounded-xl border border-[var(--dash-border)] text-xs font-bold text-[var(--dash-text-secondary)] hover:bg-[var(--dash-surface-hover)] transition-colors min-h-[44px] cursor-pointer"
-            >
-              Cancelar
-            </button>
-
-            <button
-              type="submit"
-              disabled={saving}
-              className="px-5 py-2.5 rounded-xl bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 min-h-[44px] cursor-pointer disabled:opacity-50"
-            >
-              {saving ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Salvando...</span>
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-4 h-4 text-amber-200" />
-                  <span>{eventToEdit ? 'Atualizar Festa' : 'Criar Festa'}</span>
-                </>
-              )}
-            </button>
-          </div>
-        </form>
+        <EventFormFields
+          title={title}
+          onTitleChange={handleTitleChange}
+          slug={slug}
+          onManualSlugChange={handleManualSlugChange}
+          eventType={eventType}
+          onEventTypeChange={setEventType}
+          communityId={communityId}
+          onCommunityIdChange={setCommunityId}
+          communities={communities}
+          theme={theme}
+          onThemeChange={setTheme}
+          motto={motto}
+          onMottoChange={setMotto}
+          startDate={startDate}
+          onStartDateChange={setStartDate}
+          endDate={endDate}
+          onEndDateChange={setEndDate}
+          description={description}
+          onDescriptionChange={setDescription}
+          colorPreset={colorPreset}
+          onSelectPreset={handleSelectPreset}
+          primaryColor={primaryColor}
+          onChangePrimary={setPrimaryColor}
+          secondaryColor={secondaryColor}
+          onChangeSecondary={setSecondaryColor}
+          accentColor={accentColor}
+          onChangeAccent={setAccentColor}
+          bannerUrl={bannerUrl}
+          onBannerUrlChange={setBannerUrl}
+          status={status}
+          onStatusChange={setStatus}
+          isFeaturedHome={isFeaturedHome}
+          onIsFeaturedHomeChange={setIsFeaturedHome}
+          saving={saving}
+          isEditing={Boolean(eventToEdit)}
+          onCancel={onClose}
+          onSubmit={handleSubmit}
+        />
       </div>
     </div>
   );

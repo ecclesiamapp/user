@@ -2,20 +2,21 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { 
-  Calendar, 
-  MapPin, 
-  Share2, 
-  Navigation, 
-  ZoomIn, 
-  Sparkles, 
-  ChevronRight, 
-  Download,
-  Church
+import {
+  Calendar,
+  MapPin,
+  Share2,
+  Navigation,
+  Maximize2,
+  Sparkles,
+  ChevronRight,
+  Church,
+  FileDown,
 } from 'lucide-react';
 import { ParishSpecialEvent } from '@/types';
 import { formatEventDateRange, generateWhatsAppShareText, getEventTheme } from '@/lib/events';
 import { EventLightboxModal } from './EventLightboxModal';
+import { EventHeroMobileView } from './EventHeroMobileView';
 
 interface EventHeroSectionProps {
   event: ParishSpecialEvent;
@@ -25,7 +26,6 @@ interface EventHeroSectionProps {
 
 export function EventHeroSection({
   event,
-  parishAddress = 'Praça Frei José, Centro - Colatina/ES',
   mapsUrl = 'https://maps.google.com/?q=Catedral+do+Sagrado+Cora%C3%A7%C3%A3o+de+Jesus+Colatina',
 }: EventHeroSectionProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -33,9 +33,12 @@ export function EventHeroSection({
 
   const formattedDate = formatEventDateRange(event.start_date, event.end_date);
   const locationName = event.community_name || 'Catedral Sagrado Coração de Jesus (Sede)';
+  const heroImageUrl = event.banner_url || '';
 
-  // Geração de link de compartilhamento para WhatsApp
-  const currentUrl = typeof window !== 'undefined' ? window.location.href : `https://catedraldecolatina.org.br/programacao/${event.slug}`;
+  const currentUrl =
+    typeof window !== 'undefined'
+      ? window.location.href
+      : `https://catedraldecolatina.org.br/programacao/${event.slug}`;
   const whatsappUrl = `https://api.whatsapp.com/send?text=${generateWhatsAppShareText(event, currentUrl)}`;
 
   const getTypeBadgeLabel = (type: string) => {
@@ -43,7 +46,7 @@ export function EventHeroSection({
       case 'copadroeira':
         return 'Festa da Co-Padroeira';
       case 'padroeiro_matriz':
-        return 'Solenidade do Padroeiro (Matriz)';
+        return 'Solenidade do Padroeiro (Catedral)';
       case 'liturgico_global':
         return 'Solenidade Universal';
       case 'padroeiro_ceb':
@@ -53,200 +56,220 @@ export function EventHeroSection({
     }
   };
 
+  const badgeLabel = getTypeBadgeLabel(event.event_type);
+
   return (
     <>
-      <section 
-        className="relative w-full text-[#EAE3D9] pt-6 pb-12 sm:pb-16 border-b border-[#C8A463]/30 overflow-hidden"
-        style={{
-          background: `radial-gradient(ellipse at top right, ${eventTheme.primary}45 0%, transparent 65%), linear-gradient(180deg, #131418 0%, #16181D 50%, #0F1014 100%)`
-        }}
+      <section
+        aria-label={`Cabeçalho de ${event.title}`}
+        className="relative w-full overflow-hidden border-b border-[#C8A463]/30 bg-[#0B101B] text-[#FAF6F0]"
       >
-        {/* Padrão Geométrico Sacro de Fundo */}
-        <div className="absolute inset-0 bg-[radial-gradient(#C8A463_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
-
-        <div className="max-w-[1140px] mx-auto px-4 sm:px-6 relative z-10 space-y-6">
-          {/* Breadcrumb Amigável */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#A39E98] flex-wrap">
-            <Link href="/" className="hover:text-[#FFCC36] transition-colors flex items-center gap-1 min-h-[36px]">
-              <Church className="w-3.5 h-3.5 text-[#C8A463]" />
-              <span>Início</span>
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-[#5C616C]" />
-            <span className="text-[#C8A463] font-medium">Programação Especial</span>
-            <ChevronRight className="w-3.5 h-3.5 text-[#5C616C]" />
-            <span className="text-white font-bold truncate max-w-[220px] sm:max-w-none">
-              {event.title}
-            </span>
-          </nav>
-
-          {/* Grid Principal: Cartaz à esquerda (ou topo no mobile) + Conteúdo Monumental */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Coluna do Cartaz Oficial */}
-            <div className="lg:col-span-5 flex flex-col items-center">
-              <div 
-                onClick={() => event.banner_url && setLightboxOpen(true)}
-                className="relative group w-full max-w-[340px] sm:max-w-[380px] rounded-3xl overflow-hidden border-2 bg-black/60 shadow-2xl shadow-black/80 cursor-pointer transition-all duration-300 hover:scale-[1.02]"
-                style={{
-                  borderColor: `${eventTheme.secondary}80`,
-                  boxShadow: `0 20px 40px -15px ${eventTheme.primary}60`
-                }}
-              >
-                {event.banner_url ? (
-                  <img
-                    src={event.banner_url}
-                    alt={`Cartaz Oficial - ${event.title}`}
-                    className="w-full h-auto object-cover object-center aspect-[3/4]"
-                    loading="eager"
-                  />
-                ) : (
-                  <div className="w-full aspect-[3/4] flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-[#1E2127] to-[#111317]">
-                    <div className="w-16 h-16 rounded-2xl bg-[#8B1E22]/20 border border-[#C8A463]/40 flex items-center justify-center text-[#FFCC36] mb-3">
-                      <Sparkles className="w-8 h-8" />
-                    </div>
-                    <span className="text-sm font-bold text-white block">
-                      {event.title}
-                    </span>
-                    <span className="text-xs text-[#A39E98] mt-1">
-                      Cartaz oficial da programação
-                    </span>
-                  </div>
-                )}
-
-                {/* Overlay de Toque/Hover para Ampliar */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-bold backdrop-blur-xs">
-                  <ZoomIn className="w-5 h-5 text-[#FFCC36]" />
-                  <span>Toque para Ampliar Cartaz</span>
-                </div>
-
-                {/* Selo no Cartaz */}
-                <div className="absolute top-3 left-3">
-                  <span className="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wider bg-black/75 text-[#FFCC36] border border-[#C8A463]/40 backdrop-blur-md">
-                    {getTypeBadgeLabel(event.event_type)}
-                  </span>
-                </div>
-              </div>
-
-              {/* Botão de Ampliação Auxiliar no Mobile */}
-              {event.banner_url && (
-                <button
-                  type="button"
-                  onClick={() => setLightboxOpen(true)}
-                  className="mt-2.5 text-xs font-semibold text-[#C8A463] hover:text-[#FFCC36] flex items-center gap-1.5 min-h-[38px] cursor-pointer"
-                >
-                  <ZoomIn className="w-3.5 h-3.5" />
-                  <span>Ver Cartaz em Tela Cheia</span>
-                </button>
-              )}
+        {/* VERSÃO DESKTOP (lg+): ARTE 16:9 FULL-BLEED + MOLDURA NOS 4 CANTOS */}
+        <div className="hidden lg:flex relative w-full lg:aspect-[16/8.4] lg:min-h-[630px] lg:max-h-[740px] flex-col justify-between">
+          {heroImageUrl ? (
+            <img
+              src={heroImageUrl}
+              alt={event.title}
+              className="absolute inset-0 w-full h-full object-cover object-[50%_15%] select-none"
+              loading="eager"
+            />
+          ) : (
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{
+                background: `radial-gradient(ellipse at 50% 40%, ${eventTheme.primary}65 0%, #0B101B 75%)`,
+              }}
+            >
+              <Sparkles className="w-20 h-20 text-[#FFCC36]/25" />
             </div>
+          )}
 
-            {/* Coluna dos Textos e Ações */}
-            <div className="lg:col-span-7 space-y-5 text-left">
-              {/* Badges Superiores */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span 
-                  className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider shadow-xs border"
+          {/* Vinheta Cinematográfica Suave nas Extremidades (Centro 100% Puro) */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(ellipse 64% 58% at 50% 42%, transparent 48%, rgba(8, 12, 22, 0.62) 100%)',
+            }}
+          />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#080C16]/85 via-[#080C16]/40 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[46%] bg-gradient-to-t from-[#080C16]/95 via-[#080C16]/65 to-transparent" />
+
+          {/* LINHA SUPERIOR (Canto Superior Esquerdo + Canto Superior Direito) */}
+          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 xl:px-10 pt-5 flex items-start justify-between gap-6">
+            {/* VÉRTICE 1 — TOPO ESQUERDO: Breadcrumb + Selo */}
+            <div className="space-y-2.5 max-w-md">
+              <nav
+                aria-label="Breadcrumb"
+                className="inline-flex items-center gap-1.5 text-xs text-[#E2DDD5] drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] flex-wrap"
+              >
+                <Link
+                  href="/"
+                  className="hover:text-[#FFCC36] transition-colors inline-flex items-center gap-1 min-h-[36px]"
+                >
+                  <Church className="w-3.5 h-3.5 text-[#FFCC36]" />
+                  <span>Início</span>
+                </Link>
+                <ChevronRight className="w-3.5 h-3.5 text-[#A39E98]" />
+                <Link
+                  href="/programacao"
+                  className="text-[#FFD97D] hover:text-[#FFCC36] transition-colors font-medium inline-flex items-center min-h-[36px]"
+                >
+                  Programação Especial
+                </Link>
+                <ChevronRight className="w-3.5 h-3.5 text-[#A39E98]" />
+                <span className="text-[#FAF6F0] font-semibold truncate max-w-[210px]">
+                  {event.title}
+                </span>
+              </nav>
+
+              <div>
+                <span
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider border backdrop-blur-md shadow-lg"
                   style={{
-                    backgroundColor: `${eventTheme.primary}EE`,
+                    backgroundColor: `${eventTheme.primary}D9`,
                     color: eventTheme.accent,
-                    borderColor: `${eventTheme.secondary}90`,
+                    borderColor: `${eventTheme.secondary}80`,
                   }}
                 >
-                  {getTypeBadgeLabel(event.event_type)}
+                  <Sparkles className="w-3.5 h-3.5" style={{ color: eventTheme.secondary }} />
+                  <span>{badgeLabel}</span>
                 </span>
+              </div>
+            </div>
 
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--dash-surface)]/5 border border-white/10 text-amber-200">
+            {/* VÉRTICE 2 — TOPO DIREITO: Data, Localização e "Ver Arte" */}
+            <div className="flex flex-col items-end gap-2 text-right">
+              <div className="inline-flex items-center gap-2 flex-wrap justify-end">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#090E1A]/65 border border-[#FAF6F0]/15 text-[#FFE59E] backdrop-blur-md shadow-lg min-h-[38px]">
                   <Calendar className="w-3.5 h-3.5 text-[#FFCC36]" />
                   <span>{formattedDate}</span>
                 </div>
+
+                {heroImageUrl && (
+                  <button
+                    type="button"
+                    onClick={() => setLightboxOpen(true)}
+                    title="Contemplar arte limpa em tela cheia"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#090E1A]/65 hover:bg-[#090E1A]/85 text-[#FAF6F0] hover:text-[#FFCC36] border border-[#FAF6F0]/15 hover:border-[#FFCC36]/50 backdrop-blur-md transition-all shadow-lg min-h-[38px] cursor-pointer"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5 text-[#FFCC36]" />
+                    <span>Ver Arte</span>
+                  </button>
+                )}
               </div>
 
-              {/* Título Majestoso */}
-              <div className="space-y-2">
-                <h1 className="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                  {event.title}
-                </h1>
-
-                {/* Localização */}
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-[#D2CBC1]">
-                  <MapPin className="w-4 h-4 text-[#FFA82A] shrink-0" />
-                  <span className="font-medium">{locationName}</span>
-                </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#090E1A]/50 border border-[#FAF6F0]/10 backdrop-blur-sm text-xs text-[#E8E2D9] drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                <MapPin className="w-3.5 h-3.5 text-[#FFA82A] shrink-0" />
+                <span className="font-medium">{locationName}</span>
               </div>
+            </div>
+          </div>
 
-              {/* Tema Pastoral e Lema Bíblico */}
+          {/* JANELA DEVOCIONAL CENTRAL: 100% desobstruída */}
+          <div className="flex-1 pointer-events-none" aria-hidden="true" />
+
+          {/* LINHA INFERIOR (Canto Inferior Esquerdo + Canto Inferior Direito) */}
+          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 xl:px-10 pb-7 pt-4 flex items-end justify-between gap-8">
+            {/* VÉRTICE 3 — BASE ESQUERDA: Título + Descrição Enxuta */}
+            <div className="max-w-[460px] xl:max-w-[500px] space-y-2.5">
+              <h1 className="font-cinzel text-2xl xl:text-4xl font-extrabold text-[#FAF6F0] tracking-tight leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+                {event.title}
+              </h1>
+
+              {event.description && (
+                <p className="text-xs xl:text-sm text-[#DDD7CE] leading-relaxed line-clamp-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  {event.description}
+                </p>
+              )}
+            </div>
+
+            {/* VÉRTICE 4 — BASE DIREITA: Inspiração Litúrgica + Botões */}
+            <div className="max-w-[460px] xl:max-w-[490px] w-full flex flex-col items-end space-y-3">
               {(event.theme || event.motto) && (
-                <div 
-                  className="p-4 sm:p-5 rounded-2xl bg-[var(--dash-surface)]/[0.04] border space-y-2 relative"
+                <div
+                  className="w-full px-4 py-3 rounded-2xl bg-[#090E1A]/55 backdrop-blur-md border space-y-1 shadow-xl"
                   style={{
-                    borderColor: `${eventTheme.secondary}40`,
+                    borderColor: `${eventTheme.secondary}55`,
                   }}
                 >
-                  <div 
-                    className="absolute -top-3 left-4 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider border shadow-xs"
-                    style={{
-                      backgroundColor: eventTheme.primary,
-                      color: eventTheme.accent,
-                      borderColor: eventTheme.secondary,
-                    }}
-                  >
-                    Inspiração Litúrgica
+                  <div className="flex items-center justify-between gap-2">
+                    <span
+                      className="text-[10px] font-extrabold uppercase tracking-widest"
+                      style={{ color: eventTheme.secondary }}
+                    >
+                      Inspiração Litúrgica
+                    </span>
+                    {event.poster_pdf_url && (
+                      <a
+                        href={event.poster_pdf_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#FFD97D] hover:underline"
+                      >
+                        <FileDown className="w-3 h-3" />
+                        <span>PDF Oficial</span>
+                      </a>
+                    )}
                   </div>
 
                   {event.theme && (
-                    <p className="text-sm sm:text-base font-serif italic text-[#FFF7E8] leading-relaxed pt-1">
+                    <p className="text-sm font-serif italic text-[#FFF8EB] leading-snug line-clamp-2">
                       &ldquo;{event.theme}&rdquo;
                     </p>
                   )}
 
                   {event.motto && (
-                    <p className="text-xs text-[#C8A463] font-medium font-mono">
+                    <p className="text-[11px] text-[#E6C78B] font-medium font-mono truncate">
                       Lema: {event.motto}
                     </p>
                   )}
                 </div>
               )}
 
-              {/* Descrição Pastoral de Acolhida */}
-              {event.description && (
-                <p className="text-xs sm:text-sm text-[#B8B2A9] leading-relaxed">
-                  {event.description}
-                </p>
-              )}
-
-              {/* Grade de Botões de Ação Rápida (Touch Targets >= 44px) */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                {/* Botão WhatsApp */}
+              <div className="flex items-center justify-end gap-2.5 w-full">
                 <a
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-bold text-xs sm:text-sm transition-all shadow-lg shadow-emerald-950/50 flex items-center justify-center gap-2 min-h-[48px] cursor-pointer"
+                  className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-[#FAF6F0] font-bold text-xs xl:text-sm transition-all shadow-lg shadow-emerald-950/60 flex items-center justify-center gap-2 min-h-[48px] cursor-pointer"
                 >
-                  <Share2 className="w-4 h-4 text-emerald-100" />
-                  <span>Compartilhar Programação no WhatsApp</span>
+                  <Share2 className="w-4 h-4 text-emerald-100 shrink-0" />
+                  <span>Compartilhar no WhatsApp</span>
                 </a>
 
-                {/* Botão Rota GPS */}
                 <a
                   href={mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-3 rounded-xl bg-[#262A32] hover:bg-[#323640] text-[#EAE3D9] hover:text-white border border-white/10 font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 min-h-[48px]"
+                  className="px-4 py-3 rounded-xl bg-[#161B26]/80 hover:bg-[#202736] text-[#FAF6F0] border border-[#FAF6F0]/15 hover:border-[#FFA82A]/40 backdrop-blur-md font-bold text-xs xl:text-sm transition-all flex items-center justify-center gap-2 min-h-[48px] shrink-0"
                 >
-                  <Navigation className="w-4 h-4 text-[#FFA82A]" />
+                  <Navigation className="w-4 h-4 text-[#FFA82A] shrink-0" />
                   <span>Como Chegar (GPS)</span>
                 </a>
               </div>
             </div>
           </div>
         </div>
+
+        {/* VERSÃO MOBILE & TABLET (< lg): ZERO CORTE + FUSÃO EM DEGRADÊ */}
+        <EventHeroMobileView
+          event={event}
+          heroImageUrl={heroImageUrl}
+          formattedDate={formattedDate}
+          locationName={locationName}
+          badgeLabel={badgeLabel}
+          whatsappUrl={whatsappUrl}
+          mapsUrl={mapsUrl}
+          eventTheme={eventTheme}
+          onOpenLightbox={() => setLightboxOpen(true)}
+        />
       </section>
 
-      {/* Modal Lightbox */}
       <EventLightboxModal
         isOpen={lightboxOpen}
         onClose={() => setLightboxOpen(false)}
-        imageUrl={event.banner_url || ''}
+        imageUrl={heroImageUrl}
         title={event.title}
       />
     </>
