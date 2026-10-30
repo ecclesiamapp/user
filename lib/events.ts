@@ -1,107 +1,11 @@
-import { ParishSpecialEvent, ParishEventDay, EventColorPreset } from '@/types';
+import { ParishSpecialEvent, ParishEventDay } from '@/types';
 
-export interface EventThemeConfig {
-  id: EventColorPreset;
-  name: string;
-  subtitle: string;
-  primary: string;
-  secondary: string;
-  accent: string;
-  badgeBg: string;
-  heroGradient: string;
-}
-
-export const EVENT_COLOR_PRESETS: Record<EventColorPreset, EventThemeConfig> = {
-  mariano: {
-    id: 'mariano',
-    name: '🕊️ Mariano',
-    subtitle: 'Nossa Senhora (Azul & Branco)',
-    primary: '#1E3A8A', // Azul Real
-    secondary: '#38BDF8', // Azul Celeste
-    accent: '#FFFFFF', // Branco Puro
-    badgeBg: 'bg-blue-950/80 text-blue-200 border-blue-400/50',
-    heroGradient: 'from-[#0B1528] via-[#101D38] to-[#0A0D14]',
-  },
-  sagrado_coracao: {
-    id: 'sagrado_coracao',
-    name: '❤️ Sagrado Coração',
-    subtitle: 'Padroeiro & Mártires (Bordeaux & Dourado)',
-    primary: '#8B1E22', // Vinho / Bordeaux
-    secondary: '#DC2626', // Vermelho Rubro
-    accent: '#FFA82A', // Dourado
-    badgeBg: 'bg-rose-950/80 text-rose-200 border-rose-400/50',
-    heroGradient: 'from-[#230C0E] via-[#1A0E10] to-[#0E0F12]',
-  },
-  natal: {
-    id: 'natal',
-    name: '⭐ Solenidade do Natal',
-    subtitle: 'Mistério da Encarnação (Vermelho & Verde)',
-    primary: '#991B1B', // Vermelho Natalino
-    secondary: '#166534', // Verde Pinheiro
-    accent: '#FEF08A', // Dourado Claro
-    badgeBg: 'bg-red-950/80 text-red-200 border-emerald-500/50',
-    heroGradient: 'from-[#260C0D] via-[#0E1F14] to-[#0D0F12]',
-  },
-  pascoa: {
-    id: 'pascoa',
-    name: '✨ Páscoa & Corpus Christi',
-    subtitle: 'Ressurreição & Eucaristia (Dourado & Branco)',
-    primary: '#B45309', // Dourado Imperial
-    secondary: '#F59E0B', // Ouro Solar
-    accent: '#FFFFFF', // Branco Puro
-    badgeBg: 'bg-amber-950/80 text-amber-200 border-amber-400/50',
-    heroGradient: 'from-[#241705] via-[#1A1208] to-[#0D0E11]',
-  },
-  pentecostes: {
-    id: 'pentecostes',
-    name: '🔥 Pentecostes & Crisma',
-    subtitle: 'Espírito Santo (Vermelho Fogo & Laranja)',
-    primary: '#B91C1C', // Vermelho Vivo
-    secondary: '#F97316', // Laranja Solene
-    accent: '#FDE047', // Luz
-    badgeBg: 'bg-orange-950/80 text-orange-200 border-orange-400/50',
-    heroGradient: 'from-[#290B0B] via-[#241306] to-[#0E0F12]',
-  },
-  sao_jose: {
-    id: 'sao_jose',
-    name: '⚒️ São José & Padroeiros',
-    subtitle: 'Santos & Comunidades das CEBs (Marrom Âmbar)',
-    primary: '#78350F', // Marrom Franciscano
-    secondary: '#D97706', // Âmbar Dourado
-    accent: '#FFFBEB', // Marfim
-    badgeBg: 'bg-amber-950/80 text-amber-200 border-amber-500/50',
-    heroGradient: 'from-[#1F1106] via-[#181109] to-[#0E0F12]',
-  },
-  custom: {
-    id: 'custom',
-    name: '🎨 Personalizado',
-    subtitle: 'Seletor de cores livre para comunidades',
-    primary: '#8B1E22',
-    secondary: '#FFA82A',
-    accent: '#FFFFFF',
-    badgeBg: 'bg-zinc-900/80 text-zinc-200 border-zinc-600',
-    heroGradient: 'from-[#17191E] via-[#121417] to-[#0D0E10]',
-  },
-};
-
-export function getEventTheme(event?: ParishSpecialEvent | null): {
-  preset: EventColorPreset;
-  primary: string;
-  secondary: string;
-  accent: string;
-  heroGradient: string;
-} {
-  const presetKey = (event?.color_preset || 'sagrado_coracao') as EventColorPreset;
-  const config = EVENT_COLOR_PRESETS[presetKey] || EVENT_COLOR_PRESETS.sagrado_coracao;
-
-  return {
-    preset: presetKey,
-    primary: event?.primary_color || config.primary,
-    secondary: event?.secondary_color || config.secondary,
-    accent: event?.accent_color || config.accent,
-    heroGradient: config.heroGradient,
-  };
-}
+export {
+  EVENT_COLOR_PRESETS,
+  getEventTheme,
+  type EventThemeConfig,
+  type ResolvedEventTheme,
+} from './eventThemes';
 
 export const FALLBACK_SPECIAL_EVENTS: ParishSpecialEvent[] = [
   {
@@ -120,9 +24,9 @@ export const FALLBACK_SPECIAL_EVENTS: ParishSpecialEvent[] = [
     is_featured_home: true,
     status: 'destaque_ativo',
     color_preset: 'mariano',
-    primary_color: '#1E3A8A',
-    secondary_color: '#38BDF8',
-    accent_color: '#FFFFFF',
+    primary_color: '#0E4A80',
+    secondary_color: '#FDCA87',
+    accent_color: '#FAF6F0',
     community_name: 'Catedral Sagrado Coração de Jesus (Sede)',
   },
 ];
@@ -136,14 +40,14 @@ export const FALLBACK_EVENT_DAYS: Record<string, ParishEventDay[]> = {
       day_title: '1º Dia do Tríduo • Noite Mariana & das Famílias',
       day_subtitle: 'Oração pela santificação dos lares e pelas vocações matrimoniais',
       liturgical_color: 'branco',
-      celebrant_name: 'Pe. Irineu Valmorbida (Pároco)',
+      celebrant_name: 'Pe. Irineu Claudino Sales (Pároco)',
       responsible_group: 'Liturgia: Pastoral Familiar e Encontro de Casais com Cristo (ECC)',
       gesture_of_charity: 'Doação de 1kg de arroz ou feijão para a Cáritas Diocesana',
       social_attractions: 'Barracas de pastéis, doces artesanais, caldo de cana e quermesse paroquial',
       order_index: 1,
       schedule_items: [
         { time: '18:30', title: 'Santo Terço Luminoso com os Homens', location: 'Presbitério da Catedral' },
-        { time: '19:30', title: 'Santa Missa Solene de Abertura', location: 'Catedral Diocesana', celebrant: 'Pe. Irineu Valmorbida' },
+        { time: '19:30', title: 'Santa Missa Solene de Abertura', location: 'Catedral Diocesana', celebrant: 'Pe. Irineu Claudino Sales' },
         { time: '20:45', title: 'Abertura das Barracas e Noite dos Caldos', location: 'Pátio Paroquial' }
       ]
     },
@@ -261,12 +165,9 @@ export function calculateEventCountdown(startDateStr: string, endDateStr?: strin
   }
 
   const now = new Date();
-  
-  // O início da festa às 00:00 do primeiro dia no fuso local
   const [startYear, startMonth, startDay] = startDateStr.split('-').map(Number);
   const startDateTime = new Date(startYear, startMonth - 1, startDay, 0, 0, 0);
 
-  // O fim da festa às 23:59:59 do último dia
   const endStr = endDateStr || startDateStr;
   const [endYear, endMonth, endDay] = endStr.split('-').map(Number);
   const endDateTime = new Date(endYear, endMonth - 1, endDay, 23, 59, 59);
@@ -275,7 +176,6 @@ export function calculateEventCountdown(startDateStr: string, endDateStr?: strin
   const diffToEnd = endDateTime.getTime() - now.getTime();
 
   if (diffToStart > 0) {
-    // Evento futuro
     const totalSecs = Math.floor(diffToStart / 1000);
     const days = Math.floor(totalSecs / (3600 * 24));
     const hours = Math.floor((totalSecs % (3600 * 24)) / 3600);
@@ -293,7 +193,6 @@ export function calculateEventCountdown(startDateStr: string, endDateStr?: strin
   }
 
   if (diffToEnd > 0) {
-    // Evento em andamento
     const totalSecs = Math.floor(diffToEnd / 1000);
     const days = Math.floor(totalSecs / (3600 * 24));
     const hours = Math.floor((totalSecs % (3600 * 24)) / 3600);
@@ -319,4 +218,3 @@ export function calculateEventCountdown(startDateStr: string, endDateStr?: strin
     label: 'Festa Concluída'
   };
 }
-

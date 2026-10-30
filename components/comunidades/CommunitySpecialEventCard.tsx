@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Sparkles, Calendar, ChevronRight, Share2, MapPin } from 'lucide-react';
 import { ParishSpecialEvent, Community } from '@/types';
@@ -16,9 +16,13 @@ export function CommunitySpecialEventCard({ community, event }: CommunitySpecial
   const dates = formatEventDateRange(event.start_date, event.end_date);
   const isCommunityHost = Boolean(event.community_id && event.community_id === community.id);
 
-  const eventUrl = typeof window !== 'undefined' 
-    ? `${window.location.origin}/programacao/${event.slug}` 
-    : `https://catedraldecolatina.org.br/programacao/${event.slug}`;
+  const canonicalUrl = `https://catedraldecolatina.org.br/programacao/${event.slug}`;
+  const [eventUrl, setEventUrl] = useState(canonicalUrl);
+
+  useEffect(() => {
+    setEventUrl(`${window.location.origin}/programacao/${event.slug}`);
+  }, [event.slug]);
+
   const whatsappShareUrl = `https://api.whatsapp.com/send?text=${generateWhatsAppShareText(event, eventUrl)}`;
 
   return (

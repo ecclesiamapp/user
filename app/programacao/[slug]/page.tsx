@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createClient } from '@/utils/supabase/server';
 import { ParishSpecialEvent, ParishEventDay, Community } from '@/types';
-import { FALLBACK_SPECIAL_EVENTS, FALLBACK_EVENT_DAYS } from '@/lib/events';
+import { FALLBACK_SPECIAL_EVENTS, FALLBACK_EVENT_DAYS, getEventTheme } from '@/lib/events';
 import { fallbackCommunities } from '@/lib/communities';
 
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
@@ -162,14 +162,21 @@ export default async function ParishSpecialEventPage({ params }: EventPageProps)
     days = FALLBACK_EVENT_DAYS[slug];
   }
 
-  // 5. Configurar rota e endereço de destino GPS
+  // 5. Configurar rota e endereço de destino GPS e paleta exclusiva da página
   const destinationAddress = community?.address || parish.address;
   const mapsUrl = `https://maps.google.com/?q=${encodeURIComponent(
     `${enrichedEvent.community_name}, ${destinationAddress}`
   )}`;
+  const eventTheme = getEventTheme(enrichedEvent);
 
   return (
-    <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex flex-col justify-between overflow-x-hidden selection:bg-[#FFA82A] selection:text-[#2D1A16]">
+    <div
+      className="min-h-screen flex flex-col justify-between overflow-x-hidden"
+      style={{
+        backgroundColor: eventTheme.bodyBg,
+        color: eventTheme.bodyTextPrimary,
+      }}
+    >
       {/* 1. Marquee Litúrgico Superior */}
       <MarqueeAvisos />
 
