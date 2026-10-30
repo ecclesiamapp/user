@@ -84,7 +84,7 @@ const TASK_METADATA = {
     files: [
       'app/admin/horarios/page.tsx'
     ],
-    objective: 'Refinar o gerenciamento de horários no /admin/horarios permitindo filtrar e cadastrar missas e celebrações da palavra específicas para cada uma das 12 capelas.'
+    objective: 'Refinar o gerenciamento de horários no /admin/horarios permitindo filtrar e cadastrar missas e celebrações da palavra específicas para cada uma das 12 comunidades (CEBs).'
   },
   'TASK-20': {
     phase: 'Fase 3 (2º Domingo do Advento)',
@@ -154,7 +154,7 @@ const TASK_METADATA = {
       'app/horarios/page.tsx',
       'components/horarios/LiturgicalScheduleView.tsx'
     ],
-    objective: 'Desenvolver a subpágina pública /horarios com grade interativa da Matriz e 12 CEBs com filtros por dia e modal de confissões.'
+    objective: 'Desenvolver a subpágina pública /horarios com grade interativa da Catedral Diocesana e 12 CEBs com filtros por dia e modal de confissões.'
   },
   'TASK-26B': {
     phase: 'Fase 4 (Natividade do Senhor)',
@@ -324,7 +324,7 @@ const TASK_METADATA = {
       'lib/communities.ts',
       'app/comunidades/[slug]/page.tsx'
     ],
-    objective: 'Definir o escopo completo das LPs das 12 CEBs: identidade da capela, lideranças do CPC, mural de avisos próprio, dízimo local, calendário de festas e SEO Schema.org.'
+    objective: 'Definir o escopo completo das LPs das 12 CEBs: identidade da comunidade, lideranças do CPC, mural de avisos próprio, dízimo local, calendário de festas e SEO Schema.org.'
   },
   'TASK-42': {
     phase: 'Fase 7 (Expansão das Comunidades, Gestão de Acessos & Secretaria)',
@@ -356,7 +356,7 @@ const TASK_METADATA = {
       'app/secretaria/page.tsx',
       'components/admin/secretaria/'
     ],
-    objective: 'Auditar funções da secretaria on-line e implementar módulo de Intenções de Santa Missa (com impressão A4 para o altar), solicitação de certidões e validações LGPD.'
+    objective: 'Auditar funções da secretaria on-line e implementar módulo de Intenções de Santa Missa (com Folha Litúrgica para o Púlpito A4), solicitação de certidões e validações LGPD.'
   },
   'TASK-45': {
     phase: 'Fase 8 (Grandes Festas & Programações Especiais)',

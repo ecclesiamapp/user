@@ -236,7 +236,7 @@ export const PARISH_PRIESTS_SUCCESSION: PastorSuccession[] = [
     role: 'Pároco e Cura Emérito da Catedral',
     period: '2017 – 2024',
     description:
-      'Conduziu a Catedral do Sagrado Coração de Jesus com zelo pastoral exemplar, dedicação ao culto divino e dinamização das pastorais urbanas e das comunidades de base.',
+      'Conduziu a Catedral do Sagrado Coração de Jesus com zelo pastoral exemplar, dedicação à Sagrada Liturgia e às Santas Missas e dinamização das pastorais urbanas e das comunidades de base.',
     isCurrent: false,
     inMemoriam: false,
   },
