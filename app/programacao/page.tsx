@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { ParishSpecialEvent } from '@/types';
-import { FALLBACK_SPECIAL_EVENTS, formatEventDateRange } from '@/lib/events';
+import { FALLBACK_SPECIAL_EVENTS, formatEventDateRange, getEventTheme } from '@/lib/events';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralHeader } from '@/components/layout/CathedralHeader';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
@@ -101,18 +101,22 @@ export default async function ProgramacoesIndexPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map((ev) => {
               const formattedDates = formatEventDateRange(ev.start_date, ev.end_date);
+              const evTheme = getEventTheme(ev);
 
               return (
                 <div
                   key={ev.id}
                   className="group rounded-3xl border border-[var(--dash-border)] bg-[var(--dash-surface)] hover:border-[#FFA82A]/50 transition-all shadow-md hover:shadow-xl overflow-hidden flex flex-col justify-between"
                 >
-                  <div className="relative h-48 w-full bg-zinc-900 overflow-hidden">
+                  <div
+                    className="relative aspect-[16/9] w-full overflow-hidden"
+                    style={{ backgroundColor: evTheme.pageBg }}
+                  >
                     {ev.banner_url ? (
                       <img
                         src={ev.banner_url}
                         alt={ev.title}
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover object-[50%_15%] group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                       />
                     ) : (
@@ -121,11 +125,23 @@ export default async function ProgramacoesIndexPage() {
                         <span className="text-xs text-[#A39E98] font-bold">Catedral de Colatina</span>
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: `linear-gradient(to top, rgba(${evTheme.pageBgRgb}, 0.85) 0%, rgba(${evTheme.pageBgRgb}, 0.25) 45%, transparent 100%)`,
+                      }}
+                    />
 
-                    <div className="absolute bottom-3 left-3 right-3 text-white">
-                      <div className="flex items-center gap-1.5 text-xs text-amber-200 font-semibold drop-shadow-xs">
-                        <Calendar className="w-3.5 h-3.5 text-[#FFCC36]" />
+                    <div className="absolute bottom-3 left-3 right-3">
+                      <div
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border backdrop-blur-md"
+                        style={{
+                          backgroundColor: `rgba(${evTheme.pageBgRgb}, 0.72)`,
+                          color: evTheme.secondary,
+                          borderColor: `${evTheme.secondary}55`,
+                        }}
+                      >
+                        <Calendar className="w-3.5 h-3.5" style={{ color: evTheme.secondary }} />
                         <span>{formattedDates}</span>
                       </div>
                     </div>
@@ -134,7 +150,7 @@ export default async function ProgramacoesIndexPage() {
                   <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                     <div className="space-y-2">
                       <div className="flex items-center gap-1 text-xs text-[var(--dash-text-muted)]">
-                        <MapPin className="w-3.5 h-3.5 text-[var(--primary)] shrink-0" />
+                        <MapPin className="w-3.5 h-3.5 shrink-0" style={{ color: evTheme.primary }} />
                         <span className="truncate">{ev.community_name || 'Catedral Sagrado Coração de Jesus'}</span>
                       </div>
 
@@ -151,10 +167,14 @@ export default async function ProgramacoesIndexPage() {
 
                     <Link
                       href={`/programacao/${ev.slug}`}
-                      className="w-full py-3 px-4 rounded-xl bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-bold text-xs transition-all shadow-sm flex items-center justify-center gap-2 min-h-[44px]"
+                      className="w-full py-3 px-4 rounded-xl font-extrabold text-xs transition-all hover:brightness-110 shadow-sm flex items-center justify-center gap-2 min-h-[44px]"
+                      style={{
+                        backgroundColor: evTheme.primary,
+                        color: evTheme.accent,
+                      }}
                     >
                       <span>Ver Programação Completa</span>
-                      <ArrowRight className="w-4 h-4 text-amber-200" />
+                      <ArrowRight className="w-4 h-4" style={{ color: evTheme.secondary }} />
                     </Link>
                   </div>
                 </div>

@@ -4,6 +4,8 @@
  * e [documentation]/planejamento/ESCOPO_HIERARQUIA_CEBS.md
  */
 
+export type ParishSubscriptionStatus = 'ativa' | 'implantacao' | 'suspensa';
+
 export interface Parish {
   id: string;
   name: string;
@@ -19,6 +21,9 @@ export interface Parish {
   pix_key: string;
   pix_key_type: 'cnpj' | 'email' | 'phone' | 'random';
   live_stream_url?: string;
+  custom_domain?: string | null;
+  subscription_status?: ParishSubscriptionStatus;
+  plan_tier?: string;
   created_at: string;
   updated_at?: string;
 }
@@ -487,11 +492,35 @@ export interface UserProfile {
   community_id?: string | null;
   status: UserStatus;
   allowed_modules: AllowedCommunityModule[] | string[];
+  access_code?: string | null;
   last_sign_in_at?: string | null;
   invitation_sent_at?: string | null;
   created_at?: string;
   updated_at?: string;
   community_name?: string | null;
+  parish_name?: string | null;
+}
+
+export type SecurityAuditEventType =
+  | 'login_success'
+  | 'login_failed'
+  | 'login_blocked_rate_limit'
+  | 'logout'
+  | 'access_request_submitted'
+  | 'tenant_switch'
+  | 'password_reset_requested';
+
+export interface SecurityAuditLog {
+  id: string;
+  parish_id?: string | null;
+  user_profile_id?: string | null;
+  email: string;
+  event_type: SecurityAuditEventType;
+  role?: string | null;
+  ip_hint?: string | null;
+  user_agent?: string | null;
+  metadata?: Record<string, unknown>;
+  created_at: string;
 }
 
 export interface CommunityActivityLog {

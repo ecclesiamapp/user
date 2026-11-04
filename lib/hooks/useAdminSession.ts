@@ -87,6 +87,9 @@ export function useAdminSession() {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('ecclesiam_admin_session');
       document.cookie = 'ecclesiam_admin_active=; path=/; max-age=0; SameSite=Lax';
+      document.cookie = 'ecclesiam_user_id=; path=/; max-age=0; SameSite=Lax';
+      document.cookie = 'ecclesiam_parish_id=; path=/; max-age=0; SameSite=Lax';
+      document.cookie = 'ecclesiam_user_role=; path=/; max-age=0; SameSite=Lax';
       setHasAdminSession(false);
       setAdminUser(null);
     }

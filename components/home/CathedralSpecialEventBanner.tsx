@@ -4,12 +4,12 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Calendar, ChevronRight, Share2, Sparkles, MapPin, FileDown } from 'lucide-react';
 import { ParishSpecialEvent } from '@/types';
-import { 
-  getEventTheme, 
-  formatEventDateRange, 
-  calculateEventCountdown, 
+import {
+  getEventTheme,
+  formatEventDateRange,
+  calculateEventCountdown,
   EventCountdownState,
-  generateWhatsAppShareText
+  generateWhatsAppShareText,
 } from '@/lib/events';
 
 interface CathedralSpecialEventBannerProps {
@@ -18,197 +18,255 @@ interface CathedralSpecialEventBannerProps {
 
 export function CathedralSpecialEventBanner({ event }: CathedralSpecialEventBannerProps) {
   const theme = getEventTheme(event);
-  const [countdown, setCountdown] = useState<EventCountdownState>(() =>
-    calculateEventCountdown(event.start_date, event.end_date)
-  );
+  const [countdown, setCountdown] = useState<EventCountdownState | null>(null);
+  const canonicalEventUrl = `https://catedraldecolatina.org.br/programacao/${event.slug}`;
+  const [shareEventUrl, setShareEventUrl] = useState(canonicalEventUrl);
 
   useEffect(() => {
-    // Atualiza a cada 1 segundo para mostrar a contagem em tempo real
-    const timer = setInterval(() => {
-      setCountdown(calculateEventCountdown(event.start_date, event.end_date));
-    }, 1000);
+    setShareEventUrl(`${window.location.origin}/programacao/${event.slug}`);
 
+    const update = () => {
+      setCountdown(calculateEventCountdown(event.start_date, event.end_date));
+    };
+
+    update();
+    const timer = setInterval(update, 1000);
     return () => clearInterval(timer);
-  }, [event.start_date, event.end_date]);
+  }, [event.start_date, event.end_date, event.slug]);
 
   const datesFormatted = formatEventDateRange(event.start_date, event.end_date);
-
-  const handleShareWhatsApp = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://catedraldecolatina.org.br';
-    const liveEventUrl = `${origin}/programacao/${event.slug}`;
-    const shareUrl = `https://api.whatsapp.com/send?text=${generateWhatsAppShareText(event, liveEventUrl)}`;
-    window.open(shareUrl, '_blank', 'noopener,noreferrer');
-  };
-
-  const canonicalEventUrl = `https://catedraldecolatina.org.br/programacao/${event.slug}`;
-  const defaultShareUrl = `https://api.whatsapp.com/send?text=${generateWhatsAppShareText(event, canonicalEventUrl)}`;
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${generateWhatsAppShareText(event, shareEventUrl)}`;
+  const bannerImage = event.banner_url || '/images/festas/copadroeira-nossa-senhora-das-gracas.webp';
 
   return (
-    <section 
+    <section
       aria-label="Destaque da Festividade Litúrgica"
       className="relative overflow-hidden rounded-3xl border shadow-xl transition-all duration-300"
       style={{
-        borderColor: `${theme.secondary}40`,
-        background: `linear-gradient(135deg, ${theme.primary}18 0%, rgba(18, 20, 26, 0.95) 45%, rgba(13, 15, 20, 0.98) 100%)`,
+        borderColor: `${theme.secondary}55`,
+        background: `linear-gradient(135deg, ${theme.pageBg} 0%, ${theme.surfaceBg} 52%, ${theme.primary}E6 100%)`,
+        color: theme.textPrimary,
       }}
     >
-      {/* Brilho e iluminação atmosférica litúrgica de fundo */}
-      <div 
-        className="pointer-events-none absolute -top-24 -right-24 w-80 h-80 rounded-full blur-3xl opacity-30"
+      {/* Iluminação atmosférica de fundo na paleta da festa */}
+      <div
+        className="pointer-events-none absolute -top-24 -right-24 w-80 h-80 rounded-full blur-3xl opacity-25"
         style={{ backgroundColor: theme.secondary }}
       />
-      <div 
-        className="pointer-events-none absolute -bottom-24 -left-24 w-72 h-72 rounded-full blur-3xl opacity-20"
+      <div
+        className="pointer-events-none absolute -bottom-24 -left-24 w-72 h-72 rounded-full blur-3xl opacity-30"
         style={{ backgroundColor: theme.primary }}
       />
 
-      <div className="relative z-10 p-6 sm:p-8 md:p-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-        {/* Lado Esquerdo: Identidade da Festa, Título, Tema e Local */}
-        <div className="space-y-4 max-w-2xl">
-          {/* Badge de Destaque com Cor da Festa */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-            <span 
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider border shadow-sm"
+      <div className="relative z-10 p-5 sm:p-8 lg:p-9 grid grid-cols-1 lg:grid-cols-12 gap-7 items-center">
+        {/* Coluna 1 (lg:5): Moldura Devocional 16:9 da Arte Oficial */}
+        <div className="lg:col-span-5">
+          <Link
+            href={`/programacao/${event.slug}`}
+            className="group relative block w-full aspect-[16/9] rounded-2xl overflow-hidden border shadow-2xl"
+            style={{
+              borderColor: `${theme.secondary}65`,
+              backgroundColor: theme.pageBg,
+            }}
+          >
+            <img
+              src={bannerImage}
+              alt={event.title}
+              className="w-full h-full object-cover object-[50%_15%] group-hover:scale-105 transition-transform duration-500 select-none"
+              loading="lazy"
+            />
+            <div
+              className="pointer-events-none absolute inset-0"
               style={{
-                backgroundColor: `${theme.primary}35`,
-                color: theme.accent === '#FFFFFF' ? '#F8FAFC' : theme.accent,
-                borderColor: `${theme.secondary}60`
+                background: `linear-gradient(to top, rgba(${theme.pageBgRgb}, 0.78) 0%, transparent 45%)`,
               }}
-            >
-              <span 
-                className="w-2 h-2 rounded-full animate-ping"
-                style={{ backgroundColor: theme.secondary }}
-              />
-              <Sparkles className="w-3.5 h-3.5" style={{ color: theme.secondary }} />
-              <span>Solenidade & Grande Festa</span>
-            </span>
-
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 text-zinc-300 text-[11px] sm:text-xs border border-white/10 font-medium">
-              <Calendar className="w-3.5 h-3.5 text-zinc-400" />
-              <span>{datesFormatted}</span>
-            </span>
-          </div>
-
-          {/* Título Principal Monumental */}
-          <div>
-            <h2 className="font-cinzel text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide uppercase leading-tight">
-              {event.title}
-            </h2>
-            {event.motto && (
-              <p className="text-xs sm:text-sm text-zinc-300/90 font-serif italic mt-1.5 line-clamp-2">
-                "{event.motto}"
-              </p>
-            )}
-          </div>
-
-          {/* Tema pastoral explicativo */}
-          {event.theme && (
-            <div className="flex items-start gap-2 text-xs sm:text-sm text-zinc-300 bg-[var(--dash-surface)]/5 border border-white/10 rounded-xl p-3 backdrop-blur-sm">
-              <span className="font-bold uppercase tracking-wider text-[11px] text-[#FFA82A] whitespace-nowrap">
-                Tema:
+            />
+            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2">
+              <span
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold border backdrop-blur-md"
+                style={{
+                  backgroundColor: `rgba(${theme.pageBgRgb}, 0.78)`,
+                  color: theme.secondary,
+                  borderColor: `${theme.secondary}55`,
+                }}
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                <span>{datesFormatted}</span>
               </span>
-              <p className="line-clamp-2 italic">
-                {event.theme}
-              </p>
-            </div>
-          )}
 
-          {/* Local de celebração */}
-          <div className="flex items-center gap-2 text-xs text-zinc-400">
-            <MapPin className="w-3.5 h-3.5 text-[#FFA82A] shrink-0" />
-            <span>{event.community_name || 'Catedral do Sagrado Coração de Jesus • Colatina/ES'}</span>
-          </div>
+              <span
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider"
+                style={{
+                  backgroundColor: theme.secondary,
+                  color: theme.ctaTextOnSecondary,
+                }}
+              >
+                <span>Ver Tríduo</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </span>
+            </div>
+          </Link>
         </div>
 
-        {/* Lado Direito: Caixa de Contagem Regressiva e Botões de Ação */}
-        <div className="flex flex-col items-center lg:items-end gap-6 shrink-0 w-full lg:w-auto">
-          {/* Módulo de Contagem Regressiva */}
-          <div className="w-full lg:w-auto bg-black/50 border border-white/10 rounded-2xl p-4 sm:p-5 backdrop-blur-md shadow-inner text-center">
-            <div className="flex items-center justify-center gap-1.5 mb-3 text-[11px] font-bold uppercase tracking-wider text-zinc-300">
-              <span 
-                className="w-1.5 h-1.5 rounded-full"
-                style={{ backgroundColor: theme.secondary }}
-              />
-              <span>{countdown.label}</span>
+        {/* Coluna 2 (lg:7): Identidade, Tema, Contagem Regressiva e CTAs */}
+        <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-extrabold uppercase tracking-wider border shadow-sm"
+                style={{
+                  backgroundColor: `${theme.primary}CC`,
+                  color: theme.accent,
+                  borderColor: `${theme.secondary}70`,
+                }}
+              >
+                <span
+                  className="w-2 h-2 rounded-full animate-ping"
+                  style={{ backgroundColor: theme.secondary }}
+                />
+                <Sparkles className="w-3.5 h-3.5" style={{ color: theme.secondary }} />
+                <span>Festa da Co-Padroeira • Destaque Paroquial</span>
+              </span>
+
+              {countdown && (
+                <span
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border"
+                  style={{
+                    backgroundColor: `rgba(${theme.pageBgRgb}, 0.65)`,
+                    color: theme.secondary,
+                    borderColor: `${theme.secondary}45`,
+                  }}
+                >
+                  <span>{countdown.label}</span>
+                </span>
+              )}
             </div>
 
-            {countdown.status !== 'ended' ? (
-              <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center" suppressHydrationWarning>
-                <div className="bg-[var(--dash-surface)]/5 border border-white/10 rounded-xl p-2 min-w-[58px] sm:min-w-[68px]">
-                  <span suppressHydrationWarning className="block font-cinzel text-xl sm:text-2xl font-bold text-white tracking-wider">
-                    {String(countdown.days).padStart(2, '0')}
-                  </span>
-                  <span className="text-[10px] uppercase font-bold text-zinc-400">Dias</span>
-                </div>
-                <div className="bg-[var(--dash-surface)]/5 border border-white/10 rounded-xl p-2 min-w-[58px] sm:min-w-[68px]">
-                  <span suppressHydrationWarning className="block font-cinzel text-xl sm:text-2xl font-bold text-white tracking-wider">
-                    {String(countdown.hours).padStart(2, '0')}
-                  </span>
-                  <span className="text-[10px] uppercase font-bold text-zinc-400">Horas</span>
-                </div>
-                <div className="bg-[var(--dash-surface)]/5 border border-white/10 rounded-xl p-2 min-w-[58px] sm:min-w-[68px]">
-                  <span suppressHydrationWarning className="block font-cinzel text-xl sm:text-2xl font-bold text-white tracking-wider">
-                    {String(countdown.minutes).padStart(2, '0')}
-                  </span>
-                  <span className="text-[10px] uppercase font-bold text-zinc-400">Min</span>
-                </div>
-                <div className="bg-[var(--dash-surface)]/5 border border-white/10 rounded-xl p-2 min-w-[58px] sm:min-w-[68px]">
-                  <span 
-                    suppressHydrationWarning
-                    className="block font-cinzel text-xl sm:text-2xl font-bold tracking-wider"
-                    style={{ color: theme.secondary }}
-                  >
-                    {String(countdown.seconds).padStart(2, '0')}
-                  </span>
-                  <span className="text-[10px] uppercase font-bold text-zinc-400">Seg</span>
-                </div>
-              </div>
-            ) : (
-              <div className="py-2 px-4 text-xs font-semibold text-zinc-300">
-                Esta festividade já foi celebrada com grande alegria e comunhão.
+            <div>
+              <h2
+                className="font-cinzel text-2xl sm:text-3xl font-extrabold tracking-wide uppercase leading-tight"
+                style={{ color: theme.textPrimary }}
+              >
+                {event.title}
+              </h2>
+              {event.motto && (
+                <p
+                  className="text-xs sm:text-sm font-serif italic mt-1"
+                  style={{ color: theme.secondary }}
+                >
+                  &ldquo;{event.motto}&rdquo;
+                </p>
+              )}
+            </div>
+
+            {event.theme && (
+              <div
+                className="flex items-start gap-2 text-xs sm:text-sm rounded-xl p-3 border backdrop-blur-sm"
+                style={{
+                  backgroundColor: `rgba(${theme.pageBgRgb}, 0.5)`,
+                  borderColor: `${theme.secondary}35`,
+                  color: theme.textSecondary,
+                }}
+              >
+                <span
+                  className="font-extrabold uppercase tracking-wider text-[11px] whitespace-nowrap"
+                  style={{ color: theme.secondary }}
+                >
+                  Tema:
+                </span>
+                <p className="line-clamp-2 italic">{event.theme}</p>
               </div>
             )}
+
+            <div className="flex items-center gap-2 text-xs" style={{ color: theme.textSecondary }}>
+              <MapPin className="w-3.5 h-3.5 shrink-0" style={{ color: theme.secondary }} />
+              <span>{event.community_name || 'Catedral do Sagrado Coração de Jesus • Colatina/ES'}</span>
+            </div>
           </div>
 
-          {/* Botões de Ação com Touch Target Confortável (min-h-[48px]) */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-            <Link
-              href={`/programacao/${event.slug}`}
-              className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider text-slate-950 flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.98] transition-all"
-              style={{
-                backgroundColor: theme.secondary,
-              }}
-            >
-              <span>Ver Programação Completa</span>
-              <ChevronRight className="w-4 h-4 text-slate-950" />
-            </Link>
+          {/* Barra Inferior: Contagem Regressiva Compacta + Botões */}
+          <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            {countdown && countdown.status !== 'ended' && (
+              <div className="grid grid-cols-4 gap-2 text-center shrink-0">
+                {[
+                  { value: countdown.days, label: 'Dias', highlight: false },
+                  { value: countdown.hours, label: 'Horas', highlight: false },
+                  { value: countdown.minutes, label: 'Min', highlight: false },
+                  { value: countdown.seconds, label: 'Seg', highlight: true },
+                ].map((unit) => (
+                  <div
+                    key={unit.label}
+                    className="rounded-xl px-2.5 py-1.5 min-w-[54px] border"
+                    style={{
+                      backgroundColor: `rgba(${theme.pageBgRgb}, 0.65)`,
+                      borderColor: unit.highlight ? `${theme.secondary}80` : theme.borderSubtle,
+                    }}
+                  >
+                    <span
+                      className="block font-cinzel text-base sm:text-lg font-bold leading-none"
+                      style={{ color: unit.highlight ? theme.secondary : theme.textPrimary }}
+                    >
+                      {String(unit.value).padStart(2, '0')}
+                    </span>
+                    <span
+                      className="block text-[9px] uppercase font-bold mt-0.5"
+                      style={{ color: theme.textMuted }}
+                    >
+                      {unit.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
 
-            <a
-              href={defaultShareUrl}
-              onClick={handleShareWhatsApp}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Compartilhar no WhatsApp"
-              className="w-full sm:w-auto min-h-[48px] px-4 py-3 rounded-xl bg-[var(--dash-surface)]/10 hover:bg-[var(--dash-surface)]/20 active:scale-[0.98] text-white border border-white/15 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
-            >
-              <Share2 className="w-4 h-4 text-emerald-400" />
-              <span>Convidar Família</span>
-            </a>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 flex-1 sm:justify-end">
+              <Link
+                href={`/programacao/${event.slug}`}
+                className="min-h-[46px] px-5 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:brightness-105 transition-all"
+                style={{
+                  backgroundColor: theme.secondary,
+                  color: theme.ctaTextOnSecondary,
+                }}
+              >
+                <span>Programação Completa</span>
+                <ChevronRight className="w-4 h-4" />
+              </Link>
 
-            {event.poster_pdf_url && (
               <a
-                href={event.poster_pdf_url}
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Baixar Cartaz Oficial em PDF"
-                className="w-full sm:w-auto min-h-[48px] px-3.5 py-3 rounded-xl bg-[var(--dash-surface)]/10 hover:bg-[var(--dash-surface)]/20 text-zinc-200 border border-white/15 text-xs font-medium flex items-center justify-center gap-1.5 transition-all"
-                title="Baixar Cartaz Oficial (PDF)"
+                aria-label="Compartilhar no WhatsApp"
+                className="min-h-[46px] px-4 py-2.5 rounded-xl border text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all hover:brightness-110"
+                style={{
+                  backgroundColor: `${theme.primary}D9`,
+                  color: theme.textPrimary,
+                  borderColor: `${theme.secondary}45`,
+                }}
               >
-                <FileDown className="w-4 h-4 text-amber-300" />
-                <span className="sm:hidden">Cartaz Oficial</span>
+                <Share2 className="w-4 h-4" style={{ color: theme.secondary }} />
+                <span>Convidar</span>
               </a>
-            )}
+
+              {event.poster_pdf_url && (
+                <a
+                  href={event.poster_pdf_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Baixar Cartaz Oficial em PDF"
+                  className="min-h-[46px] px-3.5 py-2.5 rounded-xl border text-xs font-medium flex items-center justify-center gap-1.5 transition-all"
+                  style={{
+                    backgroundColor: `rgba(${theme.pageBgRgb}, 0.65)`,
+                    color: theme.textPrimary,
+                    borderColor: theme.borderSubtle,
+                  }}
+                  title="Baixar Cartaz Oficial (PDF)"
+                >
+                  <FileDown className="w-4 h-4" style={{ color: theme.secondary }} />
+                  <span className="sm:hidden">Cartaz PDF</span>
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>

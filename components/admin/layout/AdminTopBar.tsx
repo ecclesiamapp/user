@@ -18,9 +18,11 @@ import {
   HeartHandshake, 
   Settings,
   ShieldCheck,
-  CalendarDays
+  CalendarDays,
+  LogOut
 } from 'lucide-react';
 import { Button } from '@/components/ui';
+import { useAdminCommunity } from '@/components/admin/context/AdminCommunityContext';
 
 import { LiturgicalSticker } from './LiturgicalSticker';
 import { AdminCommunitySwitcher } from './AdminCommunitySwitcher';
@@ -46,10 +48,11 @@ const ROUTE_TITLES: Record<string, { title: string; category: string; icon: Reac
 
 export function AdminTopBar({ onOpenMobileMenu }: AdminTopBarProps) {
   const pathname = usePathname();
+  const { activeParish, logout } = useAdminCommunity();
 
   const currentRoute = ROUTE_TITLES[pathname] || {
     title: 'Painel Administrativo',
-    category: 'Catedral Diocesana',
+    category: activeParish?.name || 'Gestão Paroquial',
     icon: Church,
   };
   const Icon = currentRoute.icon;
@@ -127,6 +130,17 @@ export function AdminTopBar({ onOpenMobileMenu }: AdminTopBarProps) {
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
           <span className="hidden sm:inline">Online</span>
         </div>
+
+        {/* Botão Rápido de Logout Seguro */}
+        <button
+          type="button"
+          onClick={logout}
+          title="Encerrar sessão e sair"
+          aria-label="Encerrar sessão"
+          className="p-2 rounded-xl border border-[var(--dash-border)] text-[var(--dash-text-muted)] hover:text-rose-500 hover:border-rose-500/30 hover:bg-rose-500/10 transition-colors min-h-[38px] min-w-[38px] flex items-center justify-center cursor-pointer"
+        >
+          <LogOut className="w-4 h-4" />
+        </button>
       </div>
     </header>
   );

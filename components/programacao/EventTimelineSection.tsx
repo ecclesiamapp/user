@@ -1,9 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Calendar, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Calendar, Sparkles, Clock } from 'lucide-react';
 import { ParishEventDay, ParishSpecialEvent } from '@/types';
-import { formatDayDisplay, getEventTheme } from '@/lib/events';
+import {
+  formatDayDisplay,
+  getEventTheme,
+  calculateEventCountdown,
+  EventCountdownState,
+} from '@/lib/events';
 import { EventDayDetailCard } from './EventDayDetailCard';
 
 interface EventTimelineSectionProps {
@@ -13,7 +18,29 @@ interface EventTimelineSectionProps {
 
 export function EventTimelineSection({ days, event }: EventTimelineSectionProps) {
   const [activeDayIndex, setActiveDayIndex] = useState(0);
+  const [countdown, setCountdown] = useState<EventCountdownState | null>(null);
   const eventTheme = getEventTheme(event);
+
+  useEffect(() => {
+    if (!event?.start_date) return;
+
+    const update = () => {
+      setCountdown(calculateEventCountdown(event.start_date, event.end_date));
+    };
+
+    update();
+    const timer = setInterval(update, 1000);
+    return () => clearInterval(timer);
+  }, [event?.start_date, event?.end_date]);
+
+  const isMarianFeast =
+    event?.event_type === 'copadroeira' || event?.color_preset === 'mariano';
+
+  const devotionalQuote = isMarianFeast
+    ? '“Ó Maria concebida sem pecado, rogai por nós que recorremos a vós.”'
+    : event?.motto
+    ? `“${event.motto}”`
+    : '“Onde dois ou três estiverem reunidos em meu nome, eu estou ali no meio deles.”';
 
   if (!days || days.length === 0) {
     return (
@@ -51,6 +78,93 @@ export function EventTimelineSection({ days, event }: EventTimelineSectionProps)
       }}
     >
       <div className="relative z-10 max-w-[1140px] mx-auto px-4 sm:px-6 space-y-8">
+        {/* Faixa Devocional & Contagem Regressiva de Transição sobre o Fundo Branco */}
+        {event && (
+          <div
+            className="rounded-3xl border p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-5"
+            style={{
+              borderColor: eventTheme.cardBorder,
+              background: `linear-gradient(135deg, ${eventTheme.cardSubtleBg} 0%, ${eventTheme.cardBg} 55%, ${eventTheme.cardHighlightBg} 100%)`,
+              boxShadow: `0 12px 32px -12px ${eventTheme.primary}15`,
+            }}
+          >
+            <div className="space-y-1.5 max-w-2xl">
+              <div className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-widest" style={{ color: eventTheme.accentOnLight }}>
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>
+                  {isMarianFeast
+                    ? 'Jaculatória & Devoção Mariana'
+                    : 'Preparação Espiritual & Comunhão'}
+                </span>
+              </div>
+              <p
+                className="font-cinzel text-sm sm:text-lg font-bold leading-snug"
+                style={{ color: eventTheme.bodyTextPrimary }}
+              >
+                {devotionalQuote}
+              </p>
+              <p className="text-xs leading-relaxed" style={{ color: eventTheme.bodyTextSecondary }}>
+                Participe em família do Santo Terço, do Sacramento da Confissão e das Santas Missas de cada dia da nossa programação solene.
+              </p>
+            </div>
+
+            {countdown && countdown.status !== 'ended' && (
+              <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-2.5 shrink-0">
+                <div
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border"
+                  style={{
+                    backgroundColor: eventTheme.cardHighlightBg,
+                    color: eventTheme.accentOnLight,
+                    borderColor: eventTheme.cardHighlightBorder,
+                  }}
+                >
+                  <Clock className="w-3 h-3" />
+                  <span>{countdown.label}</span>
+                </div>
+
+                <div className="grid grid-cols-4 gap-2 w-full sm:w-auto">
+                  {[
+                    { value: countdown.days, label: 'Dias', highlight: false },
+                    { value: countdown.hours, label: 'Horas', highlight: false },
+                    { value: countdown.minutes, label: 'Min', highlight: false },
+                    { value: countdown.seconds, label: 'Seg', highlight: true },
+                  ].map((unit) => (
+                    <div
+                      key={unit.label}
+                      className="rounded-xl px-2.5 py-1.5 text-center min-w-[54px] border"
+                      style={
+                        unit.highlight
+                          ? {
+                              backgroundColor: eventTheme.primary,
+                              borderColor: eventTheme.primary,
+                              color: eventTheme.secondary,
+                            }
+                          : {
+                              backgroundColor: eventTheme.cardBg,
+                              borderColor: eventTheme.cardBorder,
+                              color: eventTheme.bodyTextPrimary,
+                            }
+                      }
+                    >
+                      <span className="block font-cinzel text-base sm:text-lg font-extrabold leading-none">
+                        {String(unit.value).padStart(2, '0')}
+                      </span>
+                      <span
+                        className="block text-[9px] font-bold uppercase tracking-wider mt-0.5"
+                        style={{
+                          color: unit.highlight ? eventTheme.accent : eventTheme.bodyTextMuted,
+                        }}
+                      >
+                        {unit.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Cabeçalho da Seção sobre Fundo Branco */}
         <div className="text-center space-y-2">
           <div

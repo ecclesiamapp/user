@@ -3,18 +3,16 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { 
-  Church, 
-  Calendar, 
-  Newspaper, 
-  HeartHandshake, 
-  Settings, 
-  ExternalLink,
-  ShieldCheck, 
-  MapPin, 
-  User, 
-  BookOpen, 
-  FileText, 
+import {
+  Church,
+  Calendar,
+  Newspaper,
+  HeartHandshake,
+  Settings,
+  ShieldCheck,
+  MapPin,
+  BookOpen,
+  FileText,
   Image as ImageIcon,
   X,
   Sparkles,
@@ -22,11 +20,12 @@ import {
   Palette,
   Scroll,
   QrCode,
-  CalendarDays
+  CalendarDays,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAdminAppearance } from '@/components/admin/context/AdminAppearanceContext';
 import { useAdminCommunity } from '@/components/admin/context/AdminCommunityContext';
+import { AdminSidebarFooter } from './AdminSidebarFooter';
 
 interface NavGroup {
   category: string;
@@ -39,13 +38,10 @@ interface NavGroup {
   }[];
 }
 
-
 const NAV_GROUPS: NavGroup[] = [
   {
     category: 'Principal',
-    items: [
-      { href: '/admin', label: 'Visão Geral', icon: Church, exact: true },
-    ],
+    items: [{ href: '/admin', label: 'Visão Geral', icon: Church, exact: true }],
   },
   {
     category: 'Secretaria & Atendimento',
@@ -90,7 +86,6 @@ const NAV_GROUPS: NavGroup[] = [
   },
 ];
 
-
 interface AdminSidebarProps {
   mobileOpen: boolean;
   onCloseMobile: () => void;
@@ -99,38 +94,28 @@ interface AdminSidebarProps {
 export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
   const pathname = usePathname();
   const { liturgicalColoringEnabled, liturgy } = useAdminAppearance();
-  const { currentUser, isParishMaster, hasModulePermission, selectedCommunity } = useAdminCommunity();
+  const {
+    parishes,
+    activeParish,
+    setActiveParishId,
+    currentUser,
+    hasModulePermission,
+    selectedCommunity,
+    logout,
+  } = useAdminCommunity();
 
-  // Grupos de navegação adaptativos (RBAC por perfil canônico)
   const activeNavGroups = React.useMemo<NavGroup[]>(() => {
-    // 1. Se for Coordenador de CEB: visualização restrita à comunidade
     if (currentUser?.role === 'coordenador_ceb') {
       const cebItems: NavGroup['items'] = [
         { href: '/admin/comunidades', label: 'Minha Comunidade & LP', icon: MapPin, exact: true, badge: 'CEB' },
       ];
-
-      if (hasModulePermission('horarios')) {
-        cebItems.push({ href: '/admin/horarios', label: 'Horários de Missa', icon: Calendar });
-      }
-      if (hasModulePermission('avisos')) {
-        cebItems.push({ href: '/admin/conteudo', label: 'Avisos da Comunidade', icon: Newspaper });
-      }
-      if (hasModulePermission('galerias')) {
-        cebItems.push({ href: '/admin/galerias', label: 'Fotos & Galerias', icon: ImageIcon });
-      }
-      if (hasModulePermission('dizimo')) {
-        cebItems.push({ href: '/admin/dizimo', label: 'Pastoral do Dízimo', icon: HeartHandshake });
-      }
-
-      return [
-        {
-          category: selectedCommunity?.name || 'Painel da Comunidade',
-          items: cebItems,
-        },
-      ];
+      if (hasModulePermission('horarios')) cebItems.push({ href: '/admin/horarios', label: 'Horários de Missa', icon: Calendar });
+      if (hasModulePermission('avisos')) cebItems.push({ href: '/admin/conteudo', label: 'Avisos da Comunidade', icon: Newspaper });
+      if (hasModulePermission('galerias')) cebItems.push({ href: '/admin/galerias', label: 'Fotos & Galerias', icon: ImageIcon });
+      if (hasModulePermission('dizimo')) cebItems.push({ href: '/admin/dizimo', label: 'Pastoral do Dízimo', icon: HeartHandshake });
+      return [{ category: selectedCommunity?.name || 'Painel da Comunidade', items: cebItems }];
     }
 
-    // 2. Se for PASCOM: foco estrito em comunicação, fotos, mídias e marca (sem dízimo nem gestão de usuários)
     if (currentUser?.role === 'pascom') {
       return [
         {
@@ -150,7 +135,6 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
       ];
     }
 
-    // 3. Se for Secretaria Paroquial: visualiza tudo da paróquia exceto Gestão de Usuários (restrito ao Clero/Superadmin)
     if (currentUser?.role === 'secretaria') {
       return NAV_GROUPS.map((group) => ({
         ...group,
@@ -158,114 +142,75 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
       }));
     }
 
-    // 4. Pároco, Vigário ou Superadmin: acesso pleno irrestrito
     return NAV_GROUPS;
   }, [currentUser, hasModulePermission, selectedCommunity]);
 
-  // Iniciais do usuário ativo
-  const userInitials = React.useMemo(() => {
-    if (!currentUser?.name) return 'SP';
-    const parts = currentUser.name.trim().split(' ').filter(Boolean);
-    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-  }, [currentUser]);
-
-  // Rótulo amigável do cargo
-  const roleLabel = React.useMemo(() => {
-    if (!currentUser) return 'Secretária Paroquial';
-    switch (currentUser.role) {
-      case 'superadmin': return 'Superadmin (SaaS)';
-      case 'paroco': return 'Pároco';
-      case 'vigario': return 'Vigário Paroquial';
-      case 'secretaria': return 'Secretaria Paroquial';
-      case 'pascom': return 'PASCOM Catedral';
-      case 'coordenador_ceb': return 'Coordenador de CEB';
-      default: return 'Colaborador';
-    }
-  }, [currentUser]);
-
-
-  // Define a estilização do item ativo: litúrgico dinâmico ou bordeaux clássico
   const getActiveStyle = () => {
     if (!liturgicalColoringEnabled) {
       return {
-        container: 'bg-gradient-to-r from-[#8B1E22] to-[#6E161A] text-white font-bold border border-[#FFA82A]/40 shadow-md shadow-black/40',
+        container: 'bg-gradient-to-r from-[#8B1E22] to-[#6E161A] text-[#FAF6F0] font-bold border border-[#FFA82A]/40 shadow-md',
         icon: 'text-[#FFCC36]',
-        text: 'text-white font-bold',
+        text: 'text-[#FAF6F0] font-bold',
       };
     }
 
-    switch (liturgy.corLiturgica) {
-      case 'verde':
-        return {
-          container: 'bg-gradient-to-r from-emerald-700 to-emerald-900 text-white font-bold border border-emerald-400/50 shadow-md shadow-emerald-950/40',
-          icon: 'text-emerald-200',
-          text: 'text-white font-bold',
-        };
-      case 'roxo':
-        return {
-          container: 'bg-gradient-to-r from-purple-800 to-purple-950 text-white font-bold border border-purple-400/50 shadow-md shadow-purple-950/40',
-          icon: 'text-purple-200',
-          text: 'text-white font-bold',
-        };
-      case 'vermelho':
-        return {
-          container: 'bg-gradient-to-r from-rose-800 to-rose-950 text-white font-bold border border-rose-400/50 shadow-md shadow-rose-950/40',
-          icon: 'text-rose-200',
-          text: 'text-white font-bold',
-        };
-      case 'rosa':
-        return {
-          container: 'bg-gradient-to-r from-pink-700 to-pink-900 text-white font-bold border border-pink-400/50 shadow-md shadow-pink-950/40',
-          icon: 'text-pink-200',
-          text: 'text-white font-bold',
-        };
-      case 'branco':
-      default:
-        return {
-          container: 'bg-[#FFFFFF] text-slate-800 font-extrabold border-2 border-[#FFA82A] shadow-md shadow-[#FFA82A]/20 ring-1 ring-[#FFA82A]/30',
-          icon: 'text-[#FFA82A]',
-          text: 'text-slate-800 font-extrabold',
-        };
-    }
+    const colorMap: Record<string, { container: string; icon: string; text: string }> = {
+      verde: { container: 'bg-gradient-to-r from-emerald-700 to-emerald-900 text-[#FAF6F0] font-bold border border-emerald-400/50 shadow-md', icon: 'text-emerald-200', text: 'text-[#FAF6F0] font-bold' },
+      roxo: { container: 'bg-gradient-to-r from-purple-800 to-purple-950 text-[#FAF6F0] font-bold border border-purple-400/50 shadow-md', icon: 'text-purple-200', text: 'text-[#FAF6F0] font-bold' },
+      vermelho: { container: 'bg-gradient-to-r from-rose-800 to-rose-950 text-[#FAF6F0] font-bold border border-rose-400/50 shadow-md', icon: 'text-rose-200', text: 'text-[#FAF6F0] font-bold' },
+      rosa: { container: 'bg-gradient-to-r from-pink-700 to-pink-900 text-[#FAF6F0] font-bold border border-pink-400/50 shadow-md', icon: 'text-pink-200', text: 'text-[#FAF6F0] font-bold' },
+    };
+
+    return (
+      colorMap[liturgy.corLiturgica] || {
+        container: 'bg-[#FFFFFF] text-slate-800 font-extrabold border-2 border-[#FFA82A] shadow-md',
+        icon: 'text-[#FFA82A]',
+        text: 'text-slate-800 font-extrabold',
+      }
+    );
   };
 
   const activeStyle = getActiveStyle();
+  const parishDisplayTitle = activeParish?.name || 'Painel Paroquial';
 
   const sidebarContent = (
     <div className="h-full flex flex-col justify-between overflow-y-auto bg-[#16181B] text-[#EAE3D9] select-none">
-      {/* Topo: Identidade Visual da Catedral (Estilo St. Patrick's Cathedral) */}
       <div>
         <div className="p-4 sm:p-5 border-b border-[#262A30] flex items-center justify-between bg-[#131417]">
           <Link href="/admin" className="flex items-center gap-3 group text-decoration-none overflow-hidden">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8B1E22] via-[#5E1417] to-[#2D1A16] border border-[#C8A463]/50 flex items-center justify-center text-[#FFCC36] shadow-md shadow-black/50 group-hover:border-[#FFCC36] transition-colors shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8B1E22] via-[#5E1417] to-[#2D1A16] border border-[#C8A463]/50 flex items-center justify-center text-[#FFCC36] shadow-md group-hover:border-[#FFCC36] transition-colors shrink-0">
               <span className="font-serif text-xl font-bold leading-none select-none">✝</span>
             </div>
             <div className="overflow-hidden">
-              <h2 className="text-sm font-bold truncate text-white tracking-wide group-hover:text-[#FFCC36] transition-colors font-display">
-                Catedral de Colatina
+              <h2
+                title={parishDisplayTitle}
+                className="text-sm font-bold truncate text-[#FAF6F0] tracking-wide group-hover:text-[#FFCC36] transition-colors font-display"
+              >
+                {parishDisplayTitle}
               </h2>
-              <div className="flex items-center gap-1.5 text-[11px] text-[#A39E98] max-w-[170px]">
+              <div className="flex items-center gap-1.5 text-[11px] text-[#A39E98] max-w-[175px]">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                 <span className="text-[#C8A463] font-medium truncate">
-                  {selectedCommunity ? selectedCommunity.name : (currentUser?.role === 'pascom' ? 'Painel da PASCOM' : 'Painel da Secretaria')}
+                  {selectedCommunity
+                    ? selectedCommunity.name
+                    : currentUser?.role === 'pascom'
+                    ? 'Painel da PASCOM'
+                    : 'Painel da Paróquia'}
                 </span>
               </div>
             </div>
           </Link>
 
-          {/* Botão fechar (apenas no mobile) */}
           <button
             type="button"
             onClick={onCloseMobile}
-            className="md:hidden p-2 rounded-xl text-[#7E838B] hover:text-white hover:bg-[var(--dash-surface)]/10 transition-colors"
+            className="md:hidden p-2 rounded-xl text-[#7E838B] hover:text-[#FAF6F0] hover:bg-[var(--dash-surface)]/10 transition-colors"
             aria-label="Fechar menu"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Navegação por Categorias com Alto Contraste */}
         <nav className="p-3 space-y-4 text-xs font-medium">
           {activeNavGroups.map((group) => (
             <div key={group.category} className="space-y-1">
@@ -275,11 +220,8 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
 
               <div className="space-y-0.5">
                 {group.items.map((item) => {
-                  const isActive = item.exact
-                    ? pathname === item.href
-                    : pathname.startsWith(item.href);
+                  const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href);
                   const Icon = item.icon;
-
                   return (
                     <Link
                       key={item.href}
@@ -287,19 +229,13 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
                       onClick={onCloseMobile}
                       className={cn(
                         'flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all min-h-[42px] group',
-                        isActive
-                          ? activeStyle.container
-                          : 'text-[#D2CBC1] hover:text-white hover:bg-[var(--dash-surface)]/10'
+                        isActive ? activeStyle.container : 'text-[#D2CBC1] hover:text-[#FAF6F0] hover:bg-[var(--dash-surface)]/10'
                       )}
                     >
                       <div className="flex items-center gap-2.5">
-                        <Icon className={cn(
-                          'w-4 h-4 shrink-0 transition-colors',
-                          isActive ? activeStyle.icon : 'text-[#9E988F] group-hover:text-[#FFCC36]'
-                        )} />
+                        <Icon className={cn('w-4 h-4 shrink-0 transition-colors', isActive ? activeStyle.icon : 'text-[#9E988F] group-hover:text-[#FFCC36]')} />
                         <span className={cn('text-xs', isActive && activeStyle.text ? activeStyle.text : '')}>{item.label}</span>
                       </div>
-
                       {item.badge && !isActive && (
                         <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-[#FFA82A]/20 text-[#FFCC36] border border-[#FFA82A]/30">
                           {item.badge}
@@ -314,62 +250,26 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
         </nav>
       </div>
 
-      {/* Rodapé: Atalho Portal do Fiel + Perfil Ativo (RBAC) */}
-      <div className="p-3 border-t border-[#262A30] space-y-2 bg-[#131417]">
-        <Link
-          href="/"
-          target="_blank"
-          className="flex items-center justify-between w-full px-3.5 py-2.5 rounded-xl bg-[var(--dash-surface)]/5 hover:bg-[var(--dash-surface)]/10 text-xs font-semibold text-[#EAE3D9] hover:text-white border border-white/10 hover:border-[#C8A463]/40 transition-all group"
-        >
-          <div className="flex items-center gap-2">
-            <Church className="w-3.5 h-3.5 text-[#FFCC36]" />
-            <span>Ver Portal do Fiel</span>
-          </div>
-          <ExternalLink className="w-3.5 h-3.5 text-[#7E838B] group-hover:text-white transition-colors" />
-        </Link>
-
-        <Link
-          href="/admin/usuarios"
-          title="Ver gestão de usuários e simular perfis"
-          className="px-3.5 py-2.5 rounded-xl bg-[#1A1C20] border border-white/5 hover:border-[#FFA82A]/30 transition-all flex items-center justify-between gap-2.5 group cursor-pointer"
-        >
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-7 h-7 rounded-lg bg-[#8B1E22] text-[#FFCC36] flex items-center justify-center font-bold text-xs shrink-0 border border-[#C8A463]/30 shadow-xs">
-              {userInitials}
-            </div>
-            <div className="overflow-hidden">
-              <p className="text-xs font-bold text-white truncate group-hover:text-[#FFA82A] transition-colors">
-                {currentUser?.name || 'Administrador'}
-              </p>
-              <p className="text-[10px] text-[#A39E98] truncate">
-                {roleLabel} • {selectedCommunity?.name ? selectedCommunity.name.replace('Comunidade ', '') : 'Matriz'}
-              </p>
-            </div>
-          </div>
-          <ShieldCheck className="w-3.5 h-3.5 text-[#C8A463] shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" />
-        </Link>
-      </div>
-
+      <AdminSidebarFooter
+        currentUser={currentUser}
+        selectedCommunity={selectedCommunity}
+        parishes={parishes}
+        activeParish={activeParish}
+        onSelectParish={setActiveParishId}
+        onLogout={logout}
+      />
     </div>
   );
 
   return (
     <>
-      {/* 1. Sidebar Fixa no Desktop (sticky top-0 h-screen com fundo nobre escuro) */}
-      <aside className="hidden md:flex flex-col w-64 lg:w-72 h-screen sticky top-0 shrink-0 bg-[#16181B] border-r border-[#262A30] z-40 shadow-xl shadow-black/20">
+      <aside className="hidden md:flex flex-col w-64 lg:w-72 h-screen sticky top-0 shrink-0 bg-[#16181B] border-r border-[#262A30] z-40 shadow-xl">
         {sidebarContent}
       </aside>
 
-      {/* 2. Gaveta Lateral Móvel no Mobile */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 md:hidden animate-fade-in">
-          {/* Backdrop Escuro Translúcido */}
-          <div
-            className="fixed inset-0 bg-black/75 backdrop-blur-xs transition-opacity"
-            onClick={onCloseMobile}
-          />
-
-          {/* Conteúdo da Gaveta */}
+          <div className="fixed inset-0 bg-[#07090E]/80 backdrop-blur-xs transition-opacity" onClick={onCloseMobile} />
           <div className="fixed inset-y-0 left-0 w-4/5 max-w-xs bg-[#16181B] border-r border-[#262A30] shadow-2xl flex flex-col z-50">
             {sidebarContent}
           </div>

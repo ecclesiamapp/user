@@ -31,10 +31,10 @@ export function UserInviteModal({
     `Coordenador da ${communityName || 'Comunidade'}`;
 
   const cleanPhone = (user.phone || '').replace(/\D/g, '');
-  const appOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://catedraldecolatina.org.br';
-  const loginUrl = `${appOrigin}/admin`;
+  const loginUrl = 'https://ecclesiamapp.com.br/login';
+  const initialCode = user.access_code || 'Ecclesiam@2026';
 
-  const inviteMessage = `✝️ Paz e Bem, ${user.name}!\n\nVocê foi cadastrado(a) como *${roleText}* no sistema de gestão da *Catedral de Colatina*.\n\n🌐 *Painel Administrativo:*\n${loginUrl}\n\n📧 *Seu E-mail de Acesso:*\n${user.email}\n\nQualquer dúvida, entre em contato com a Secretaria Paroquial. Deus abençoe sua missão pastoral!`;
+  const inviteMessage = `✝️ Paz e Bem, ${user.name}!\n\nSua credencial como *${roleText}* foi habilitada no painel administrativo da paróquia.\n\n🔐 *Portal de Acesso:*\n${loginUrl}\n\n📧 *E-mail Cadastrado:*\n${user.email}\n\n🔑 *Senha Inicial de Acesso:*\n${initialCode}\n\nQualquer dúvida, entre em contato com a Secretaria Paroquial. Deus abençoe sua missão pastoral!`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(inviteMessage);

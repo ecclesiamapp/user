@@ -221,6 +221,7 @@ export default async function ParishSpecialEventPage({ params }: EventPageProps)
         dioceseName={parish.diocese}
         address={parish.address}
         whatsappNumber={parish.whatsapp_number}
+        themeOverride={exclusiveMenuTheme}
       />
     </div>
   );
