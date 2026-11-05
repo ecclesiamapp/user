@@ -23,7 +23,10 @@ export function EcclesiamLoginModeTabs({
       {mode !== 'reset' && (
         <div
           className="grid grid-cols-2 gap-1.5 p-1 rounded-2xl border"
-          style={{ backgroundColor: '#090D16', borderColor: 'rgba(148, 163, 184, 0.14)' }}
+          style={{
+            backgroundColor: '#F5EFE7',
+            borderColor: '#E8DFD3',
+          }}
         >
           {[
             { key: 'password' as AuthMode, label: 'Com Senha', icon: Lock },
@@ -36,18 +39,21 @@ export function EcclesiamLoginModeTabs({
                 key={tab.key}
                 type="button"
                 onClick={() => onSelectMode(tab.key)}
-                className="py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 min-h-[40px] cursor-pointer"
+                className="py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 min-h-[42px] cursor-pointer"
                 style={
                   active
                     ? {
-                        backgroundColor: '#1E293B',
-                        color: '#E5C158',
-                        border: '1px solid rgba(200, 164, 99, 0.35)',
+                        backgroundColor: '#8B1E22',
+                        color: '#FCF7F1',
+                        boxShadow: '0 4px 12px -2px rgba(139, 30, 34, 0.28)',
                       }
-                    : { color: '#94A3B8' }
+                    : { color: '#514D4B' }
                 }
               >
-                <Icon className="w-3.5 h-3.5" />
+                <Icon
+                  className="w-3.5 h-3.5"
+                  style={{ color: active ? '#FFCC36' : '#86898C' }}
+                />
                 <span>{tab.label}</span>
               </button>
             );
@@ -57,11 +63,11 @@ export function EcclesiamLoginModeTabs({
 
       {errorMsg && (
         <div
-          className="p-3.5 rounded-2xl border flex items-start gap-2.5 text-xs leading-relaxed"
+          className="p-3.5 rounded-2xl border flex items-start gap-2.5 text-xs leading-relaxed font-medium"
           style={{
-            backgroundColor: 'rgba(244, 63, 94, 0.12)',
-            borderColor: 'rgba(244, 63, 94, 0.35)',
-            color: '#FDA4AF',
+            backgroundColor: 'rgba(139, 30, 34, 0.08)',
+            borderColor: 'rgba(139, 30, 34, 0.28)',
+            color: '#8B1E22',
           }}
         >
           <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
@@ -71,11 +77,11 @@ export function EcclesiamLoginModeTabs({
 
       {successMsg && (
         <div
-          className="p-3.5 rounded-2xl border flex items-start gap-2.5 text-xs leading-relaxed"
+          className="p-3.5 rounded-2xl border flex items-start gap-2.5 text-xs leading-relaxed font-medium"
           style={{
-            backgroundColor: 'rgba(16, 185, 129, 0.12)',
-            borderColor: 'rgba(16, 185, 129, 0.35)',
-            color: '#6EE7B7',
+            backgroundColor: 'rgba(53, 107, 88, 0.1)',
+            borderColor: 'rgba(53, 107, 88, 0.3)',
+            color: '#285445',
           }}
         >
           <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
@@ -85,4 +91,3 @@ export function EcclesiamLoginModeTabs({
     </>
   );
 }
-

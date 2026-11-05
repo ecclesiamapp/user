@@ -136,3 +136,16 @@
 - [x] **TASK-47:** Landing Page Pública da Festa (`/programacao/[slug]`): hero monumental, linha do tempo interativa por abas com swipe, rota GPS e download do cartaz oficial.
 - [x] **TASK-48:** Integração de Banners & Divulgação: banner de contagem regressiva na Home, destaque na LP da CEB correspondente e alerta em `/horarios`.
 
+---
+
+## 🔐 FASE 9: Portal de Login SaaS (`ecclesiamapp.com.br`) & Sistema de Segurança Multi-Tenant
+* **Data Limite:** Novembro de 2026 (Fundação SaaS Multi-Paróquia & Governança de Acessos)
+* **Objetivo:** Estruturar a porta de entrada neutra para paróquias clientes em `ecclesiamapp.com.br` (`/login`), proteção server-side de rotas (`/admin`), isolamento por `parish_id`, seletor Master Superadmin, trava anti-brute-force e trilha de auditoria LGPD (`security_audit_logs`).
+
+### Tarefas Técnicas & Entregas:
+- [x] **TASK-49:** Infraestrutura de Login SaaS (`/login`), Roteamento Multi-Domínio (`proxy.ts`), Isolamento Multi-Tenant (`parish_id`), Seletor Superadmin e Tabela `security_audit_logs`.
+- [x] **TASK-50:** Auditoria Visual, Segurança e Refinamento da Página de Login SaaS (`ecclesiamapp.com.br` / `/login`): inspeção visual humana detalhada do layout Split-Screen, validação de fluxos de autenticação (Senha, Link Mágico, Recuperação e Solicitação de Credencial) e ajustes finos.
+- [x] **TASK-51:** Hub SaaS Master do Superadmin (`/admin/superadmin`): gestão multi-tenant de paróquias e domínios, Kill-Switch ético de assinatura (`ativa`, `implantacao`, `suspensa`), Wizard 1-Click de provisionamento de nova paróquia (Paróquia + Comunidade Sede + Credencial do Pároco), suporte rápido de senhas (`access_code`) e monitoramento da trilha `security_audit_logs`.
+
+
+

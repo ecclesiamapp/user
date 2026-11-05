@@ -1,45 +1,58 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { EcclesiamBrandShowcase } from '@/components/auth/EcclesiamBrandShowcase';
 import { EcclesiamLoginFormCard } from '@/components/auth/EcclesiamLoginFormCard';
 
 export const metadata: Metadata = {
-  title: 'Ecclesiam • Portal de Acesso das Paróquias',
+  title: 'Ecclesiam App • Portal de Acesso das Paróquias',
   description:
-    'Porta de entrada oficial das paróquias clientes do Ecclesiam App. Acesse o dashboard administrativo da sua paróquia com seu e-mail credenciado.',
+    'Porta de entrada oficial das paróquias clientes do Ecclesiam App. Acesse o painel administrativo da sua paróquia com seu e-mail credenciado.',
 };
 
 export default function EcclesiamSaasLoginPage() {
   return (
     <div
-      className="min-h-screen w-full flex flex-col lg:flex-row overflow-x-hidden"
+      className="min-h-screen w-full flex flex-col justify-between overflow-x-hidden relative"
       style={{
-        backgroundColor: '#07090E',
-        color: '#F8FAFC',
+        backgroundColor: '#F5EFE7',
+        color: '#2D1A16',
+        backgroundImage:
+          'radial-gradient(ellipse at 50% 0%, rgba(139, 30, 34, 0.07) 0%, rgba(255, 168, 42, 0.05) 42%, rgba(245, 239, 231, 1) 80%)',
       }}
     >
-      {/* Coluna Esquerda: Vitrine Institucional da Marca Ecclesiam SaaS */}
-      <EcclesiamBrandShowcase />
-
-      {/* Coluna Direita: Autenticação Multi-Paróquia */}
-      <main
-        className="flex-1 flex flex-col justify-center items-center p-4 sm:p-8 xl:p-12 relative"
+      {/* Faixa Superior Litúrgica Dourada & Vinho Sagrado */}
+      <div
+        className="w-full h-1.5"
         style={{
-          background:
-            'radial-gradient(ellipse at 50% 0%, rgba(30, 41, 59, 0.45) 0%, #07090E 70%)',
+          background: 'linear-gradient(90deg, #8B1E22 0%, #FFA82A 50%, #8B1E22 100%)',
         }}
-      >
+      />
+
+      {/* Container Central Limpo: Logo + Card de Acesso */}
+      <main className="flex-1 flex flex-col justify-center items-center px-4 py-8 sm:py-12">
         <Suspense
           fallback={
-            <div className="text-xs text-center py-12" style={{ color: '#94A3B8' }}>
-              Carregando módulo de segurança Ecclesiam...
+            <div className="text-xs text-center py-12 font-semibold" style={{ color: '#514D4B' }}>
+              Carregando portal de acesso Ecclesiam App...
             </div>
           }
         >
           <EcclesiamLoginFormCard />
         </Suspense>
       </main>
+
+      {/* Rodapé Minimalista */}
+      <footer
+        className="w-full py-4 px-4 text-center border-t text-[11px]"
+        style={{
+          borderColor: '#E8DFD3',
+          backgroundColor: 'rgba(238, 227, 212, 0.45)',
+          color: '#514D4B',
+        }}
+      >
+        <span>
+          Ecclesiam App • Plataforma de Governança & Comunicação Paroquial • Ambiente Seguro TLS
+        </span>
+      </footer>
     </div>
   );
 }
-

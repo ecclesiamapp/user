@@ -144,6 +144,10 @@
 
 ### Tarefas Técnicas & Entregas:
 - [x] **TASK-49:** Infraestrutura de Login SaaS (`/login`), Roteamento Multi-Domínio (`proxy.ts`), Isolamento Multi-Tenant (`parish_id`), Seletor Superadmin e Tabela `security_audit_logs`.
-- [ ] **TASK-50:** Auditoria Visual, Segurança e Refinamento da Página de Login SaaS (`ecclesiamapp.com.br` / `/login`): inspeção visual humana detalhada do layout Split-Screen, validação de fluxos de autenticação (Senha, Link Mágico, Recuperação e Solicitação de Credencial) e ajustes finos.
+- [x] **TASK-50:** Auditoria Visual, Segurança e Refinamento da Página de Login SaaS (`ecclesiamapp.com.br` / `/login`): inspeção visual humana detalhada do layout Split-Screen, validação de fluxos de autenticação (Senha, Link Mágico, Recuperação e Solicitação de Credencial) e ajustes finos.
+- [x] **TASK-51:** Hub SaaS Master do Superadmin (`/admin/superadmin`): gestão multi-tenant de paróquias e domínios, Kill-Switch ético de assinatura (`ativa`, `implantacao`, `suspensa`), Wizard 1-Click de provisionamento de nova paróquia (Paróquia + Comunidade Sede + Credencial do Pároco), suporte rápido de senhas (`access_code`) e monitoramento da trilha `security_audit_logs`.
+- [ ] **TASK-52:** Auditoria Visual, Funcional e de Segurança do Hub SaaS Master do Superadmin (`/admin/superadmin`): inspeção humana detalhada das abas de Paróquias/Assinaturas, Wizard 1-Click de Provisionamento, Suporte de Senhas/Credenciais e Trilha de Auditoria LGPD (`security_audit_logs`).
+
+
 
 

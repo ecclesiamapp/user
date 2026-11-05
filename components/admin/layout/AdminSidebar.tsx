@@ -21,6 +21,7 @@ import {
   Scroll,
   QrCode,
   CalendarDays,
+  Building2,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAdminAppearance } from '@/components/admin/context/AdminAppearanceContext';
@@ -140,6 +141,23 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
         ...group,
         items: group.items.filter((item) => item.href !== '/admin/usuarios'),
       }));
+    }
+
+    if (currentUser?.role === 'superadmin') {
+      return [
+        {
+          category: 'Governança SaaS',
+          items: [
+            {
+              href: '/admin/superadmin',
+              label: 'Hub SaaS Master',
+              icon: Building2,
+              badge: 'Master',
+            },
+          ],
+        },
+        ...NAV_GROUPS,
+      ];
     }
 
     return NAV_GROUPS;

@@ -21,9 +21,9 @@ interface EcclesiamAccessRequestFieldsProps {
 }
 
 const inputStyle: React.CSSProperties = {
-  backgroundColor: '#0B101B',
-  borderColor: 'rgba(148, 163, 184, 0.25)',
-  color: '#F8FAFC',
+  backgroundColor: '#FCF7F1',
+  borderColor: '#E8DFD3',
+  color: '#2D1A16',
 };
 
 export function EcclesiamAccessRequestFields({
@@ -45,7 +45,7 @@ export function EcclesiamAccessRequestFields({
     <>
       {parishes.length > 1 && (
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold block" style={{ color: '#E2E8F0' }}>
+          <label className="text-xs font-bold block" style={{ color: '#2D1A16' }}>
             Paróquia Vinculada
           </label>
           <select
@@ -65,7 +65,7 @@ export function EcclesiamAccessRequestFields({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold block" style={{ color: '#E2E8F0' }}>
+          <label className="text-xs font-bold block" style={{ color: '#2D1A16' }}>
             Nome Completo *
           </label>
           <input
@@ -74,13 +74,13 @@ export function EcclesiamAccessRequestFields({
             value={name}
             onChange={(e) => onChangeName(e.target.value)}
             placeholder="Ex: Maria do Carmo"
-            className="w-full rounded-xl border px-3.5 py-2.5 text-xs min-h-[44px] focus:outline-none"
+            className="w-full rounded-xl border px-3.5 py-2.5 text-xs min-h-[44px] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/25"
             style={inputStyle}
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold block" style={{ color: '#E2E8F0' }}>
+          <label className="text-xs font-bold block" style={{ color: '#2D1A16' }}>
             WhatsApp de Contato *
           </label>
           <input
@@ -89,14 +89,14 @@ export function EcclesiamAccessRequestFields({
             value={phone}
             onChange={(e) => onChangePhone(e.target.value)}
             placeholder="(27) 99999-0000"
-            className="w-full rounded-xl border px-3.5 py-2.5 text-xs min-h-[44px] focus:outline-none"
+            className="w-full rounded-xl border px-3.5 py-2.5 text-xs min-h-[44px] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/25"
             style={inputStyle}
           />
         </div>
       </div>
 
       <div className="space-y-1.5">
-        <label className="text-xs font-semibold block" style={{ color: '#E2E8F0' }}>
+        <label className="text-xs font-bold block" style={{ color: '#2D1A16' }}>
           E-mail de Acesso *
         </label>
         <input
@@ -105,14 +105,14 @@ export function EcclesiamAccessRequestFields({
           value={email}
           onChange={(e) => onChangeEmail(e.target.value)}
           placeholder="seu.email@paroquia.org.br"
-          className="w-full rounded-xl border px-3.5 py-2.5 text-xs min-h-[44px] focus:outline-none"
+          className="w-full rounded-xl border px-3.5 py-2.5 text-xs min-h-[44px] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/25"
           style={inputStyle}
         />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold block" style={{ color: '#E2E8F0' }}>
+          <label className="text-xs font-bold block" style={{ color: '#2D1A16' }}>
             Função / Pastoral *
           </label>
           <select
@@ -129,7 +129,7 @@ export function EcclesiamAccessRequestFields({
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold block" style={{ color: '#E2E8F0' }}>
+          <label className="text-xs font-bold block" style={{ color: '#2D1A16' }}>
             Comunidade / Setor (Opcional)
           </label>
           <input
@@ -137,21 +137,21 @@ export function EcclesiamAccessRequestFields({
             value={communityHint}
             onChange={(e) => onChangeCommunityHint(e.target.value)}
             placeholder="Ex: Comunidade São José"
-            className="w-full rounded-xl border px-3.5 py-2.5 text-xs min-h-[44px] focus:outline-none"
+            className="w-full rounded-xl border px-3.5 py-2.5 text-xs min-h-[44px] focus:outline-none focus:ring-2 focus:ring-[#8B1E22]/25"
             style={inputStyle}
           />
         </div>
       </div>
 
       <div
-        className="p-3 rounded-xl border flex items-center gap-2 text-[11px]"
+        className="p-3 rounded-xl border flex items-center gap-2 text-[11px] font-medium"
         style={{
-          backgroundColor: 'rgba(200, 164, 99, 0.08)',
-          borderColor: 'rgba(200, 164, 99, 0.25)',
-          color: '#CBD5E1',
+          backgroundColor: '#F5EFE7',
+          borderColor: '#E8DFD3',
+          color: '#514D4B',
         }}
       >
-        <ShieldCheck className="w-4 h-4 shrink-0" style={{ color: '#E5C158' }} />
+        <ShieldCheck className="w-4 h-4 shrink-0" style={{ color: '#8B1E22' }} />
         <span>
           Por segurança, nenhuma conta possui acesso automático antes da validação da paróquia.
         </span>
@@ -159,4 +159,3 @@ export function EcclesiamAccessRequestFields({
     </>
   );
 }
-

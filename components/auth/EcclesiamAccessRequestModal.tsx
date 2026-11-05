@@ -118,37 +118,40 @@ export function EcclesiamAccessRequestModal({
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md animate-in fade-in duration-200"
-      style={{ backgroundColor: 'rgba(5, 8, 15, 0.82)' }}
+      style={{ backgroundColor: 'rgba(45, 26, 22, 0.65)' }}
     >
       <div
         className="w-full max-w-lg rounded-3xl border shadow-2xl overflow-hidden"
         style={{
-          backgroundColor: '#0F1523',
-          borderColor: 'rgba(200, 164, 99, 0.35)',
-          color: '#F8FAFC',
+          backgroundColor: '#FFFFFF',
+          borderColor: '#E8DFD3',
+          color: '#2D1A16',
         }}
       >
         <div
           className="px-6 py-4 border-b flex items-center justify-between"
-          style={{ backgroundColor: '#0B101B', borderColor: 'rgba(148, 163, 184, 0.15)' }}
+          style={{
+            background: 'linear-gradient(135deg, #2D1A16 0%, #5E1417 55%, #8B1E22 100%)',
+            borderColor: 'rgba(200, 164, 99, 0.35)',
+          }}
         >
           <div className="flex items-center gap-2.5">
             <div
               className="w-9 h-9 rounded-xl border flex items-center justify-center"
               style={{
-                backgroundColor: 'rgba(200, 164, 99, 0.14)',
-                borderColor: 'rgba(200, 164, 99, 0.4)',
-                color: '#E5C158',
+                backgroundColor: 'rgba(255, 204, 54, 0.16)',
+                borderColor: 'rgba(255, 204, 54, 0.45)',
+                color: '#FFCC36',
               }}
             >
               <UserPlus className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm sm:text-base font-bold" style={{ color: '#FAF6F0' }}>
-                Solicitar Credencial de Colaborador
+              <h3 className="text-sm sm:text-base font-bold" style={{ color: '#FCF7F1' }}>
+                Cadastro de Credencial Pastoral
               </h3>
-              <p className="text-[11px]" style={{ color: '#94A3B8' }}>
-                Seu pedido será encaminhado para aprovação da administração da sua paróquia
+              <p className="text-[11px]" style={{ color: '#EEE3D4' }}>
+                Solicitação enviada diretamente para aprovação da sua paróquia
               </p>
             </div>
           </div>
@@ -157,7 +160,7 @@ export function EcclesiamAccessRequestModal({
             type="button"
             onClick={handleResetAndClose}
             className="p-2 rounded-xl transition-opacity hover:opacity-80 min-h-[40px] min-w-[40px] flex items-center justify-center cursor-pointer"
-            style={{ color: '#94A3B8' }}
+            style={{ color: '#FCF7F1' }}
             aria-label="Fechar modal"
           >
             <X className="w-5 h-5" />
@@ -169,26 +172,29 @@ export function EcclesiamAccessRequestModal({
             <div
               className="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center border"
               style={{
-                backgroundColor: 'rgba(16, 185, 129, 0.12)',
-                borderColor: 'rgba(16, 185, 129, 0.35)',
-                color: '#34D399',
+                backgroundColor: 'rgba(53, 107, 88, 0.12)',
+                borderColor: 'rgba(53, 107, 88, 0.35)',
+                color: '#356B58',
               }}
             >
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <div className="space-y-1.5">
-              <h4 className="font-cinzel text-lg font-bold" style={{ color: '#FAF6F0' }}>
+              <h4 className="font-cinzel text-lg font-bold" style={{ color: '#2D1A16' }}>
                 Solicitação Registrada com Sucesso!
               </h4>
-              <p className="text-xs sm:text-sm leading-relaxed" style={{ color: '#CBD5E1' }}>
+              <p className="text-xs sm:text-sm leading-relaxed" style={{ color: '#514D4B' }}>
                 Seus dados foram enviados para a fila de aprovação da sua paróquia. Assim que autorizada sua credencial, você poderá acessar o painel com seu e-mail.
               </p>
             </div>
             <button
               type="button"
               onClick={handleResetAndClose}
-              className="w-full py-3 px-5 rounded-xl font-bold text-xs uppercase tracking-wider min-h-[46px] cursor-pointer transition-all hover:brightness-105"
-              style={{ backgroundColor: '#C8A463', color: '#0B0F17' }}
+              className="w-full py-3 px-5 rounded-xl font-extrabold text-xs uppercase tracking-wider min-h-[46px] cursor-pointer transition-all hover:brightness-105 shadow-md"
+              style={{
+                background: 'linear-gradient(90deg, #FFA82A 0%, #FFCC36 50%, #FFA82A 100%)',
+                color: '#2D1A16',
+              }}
             >
               Voltar para o Login
             </button>
@@ -197,11 +203,11 @@ export function EcclesiamAccessRequestModal({
           <form onSubmit={handleSubmit} className="p-6 space-y-4">
             {errorMsg && (
               <div
-                className="p-3.5 rounded-xl border flex items-start gap-2.5 text-xs"
+                className="p-3.5 rounded-xl border flex items-start gap-2.5 text-xs font-medium"
                 style={{
-                  backgroundColor: 'rgba(244, 63, 94, 0.12)',
-                  borderColor: 'rgba(244, 63, 94, 0.35)',
-                  color: '#FDA4AF',
+                  backgroundColor: 'rgba(139, 30, 34, 0.08)',
+                  borderColor: 'rgba(139, 30, 34, 0.28)',
+                  color: '#8B1E22',
                 }}
               >
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
@@ -229,19 +235,26 @@ export function EcclesiamAccessRequestModal({
               <button
                 type="button"
                 onClick={handleResetAndClose}
-                className="px-4 py-2.5 rounded-xl border text-xs font-semibold min-h-[44px] cursor-pointer"
-                style={{ borderColor: 'rgba(148, 163, 184, 0.25)', color: '#CBD5E1' }}
+                className="px-4 py-2.5 rounded-xl border text-xs font-bold min-h-[44px] cursor-pointer"
+                style={{
+                  backgroundColor: '#F5EFE7',
+                  borderColor: '#E8DFD3',
+                  color: '#514D4B',
+                }}
               >
                 Cancelar
               </button>
               <button
                 type="submit"
                 disabled={submitting}
-                className="px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider min-h-[44px] flex items-center justify-center gap-2 cursor-pointer transition-all hover:brightness-105 disabled:opacity-50"
-                style={{ backgroundColor: '#C8A463', color: '#0B0F17' }}
+                className="px-5 py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider min-h-[44px] flex items-center justify-center gap-2 cursor-pointer transition-all hover:brightness-105 disabled:opacity-50 shadow-sm"
+                style={{
+                  background: 'linear-gradient(90deg, #FFA82A 0%, #FFCC36 50%, #FFA82A 100%)',
+                  color: '#2D1A16',
+                }}
               >
                 {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus className="w-4 h-4" />}
-                <span>Enviar Solicitação</span>
+                <span>Enviar Cadastro</span>
               </button>
             </div>
           </form>

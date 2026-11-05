@@ -34,6 +34,7 @@ interface AdminTopBarProps {
 
 const ROUTE_TITLES: Record<string, { title: string; category: string; icon: React.ElementType }> = {
   '/admin': { title: 'Visão Geral', category: 'Painel Geral', icon: Church },
+  '/admin/superadmin': { title: 'Hub SaaS Master', category: 'Governança Multi-Paróquia', icon: ShieldCheck },
   '/admin/secretaria': { title: 'Secretaria & Inscrições', category: 'Atendimento Pastoral', icon: Inbox },
   '/admin/programacao': { title: 'Festas & Solenidades', category: 'Liturgia', icon: CalendarDays },
   '/admin/horarios': { title: 'Horários de Missa', category: 'Liturgia', icon: Calendar },
