@@ -56,6 +56,15 @@ export function ProvisionParishModal({
   const [adminRole, setAdminRole] = useState<'paroco' | 'secretaria'>('paroco');
   const [initialAccessCode, setInitialAccessCode] = useState('Ecclesiam@2026');
 
+  const generateRandomCode = () => {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+    let result = 'Ecl@';
+    for (let i = 0; i < 5; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    setInitialAccessCode(result);
+  };
+
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [provisionedDone, setProvisionedDone] = useState(false);
@@ -381,9 +390,19 @@ export function ProvisionParishModal({
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[var(--dash-text-primary)] block mb-1">
-                    Senha Inicial (`access_code`)
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-xs font-bold text-[var(--dash-text-primary)]">
+                      Senha Inicial (`access_code`)
+                    </label>
+                    <button
+                      type="button"
+                      onClick={generateRandomCode}
+                      className="text-[10px] text-[var(--primary)] hover:underline inline-flex items-center gap-1 font-bold cursor-pointer"
+                    >
+                      <Sparkles className="w-3 h-3" />
+                      <span>Gerar Aleatória</span>
+                    </button>
+                  </div>
                   <input
                     type="text"
                     required

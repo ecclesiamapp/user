@@ -22,6 +22,7 @@ import {
 import { Button, Card, Badge } from '@/components/ui';
 import { AdminRoleGuard } from '@/components/admin/auth/AdminRoleGuard';
 import { useAdminCommunity } from '@/components/admin/context/AdminCommunityContext';
+import { recordSecurityAudit } from '@/lib/security/authSecurity';
 import {
   ParishesTenantTab,
   ProvisionParishModal,
@@ -217,6 +218,21 @@ export default function SuperadminHubPage() {
         .eq('id', userId);
 
       if (error) throw error;
+
+      if (updates.access_code) {
+        const targetUser = allUsers.find((u) => u.id === userId);
+        if (targetUser) {
+          await recordSecurityAudit({
+            email: targetUser.email,
+            eventType: 'password_reset_requested',
+            parishId: targetUser.parish_id,
+            userProfileId: targetUser.id,
+            role: targetUser.role,
+            metadata: { updated_by: currentUser?.email || 'superadmin' },
+          });
+        }
+      }
+
       showToast('Credencial atualizada com sucesso!');
       await fetchSuperadminData();
       await refreshGlobalContext();
@@ -382,9 +398,17 @@ export default function SuperadminHubPage() {
             activeParishId={activeParish?.id || 'c0000000-0000-0000-0000-000000000001'}
             userCountsByParish={userCountsByParish}
             communityCountsByParish={communityCountsByParish}
-            onSelectActiveParish={(pid) => {
+            onSelectActiveParish={async (pid) => {
               setActiveParishId(pid);
               showToast('Contexto do painel alterado para a paróquia selecionada!');
+              await recordSecurityAudit({
+                email: currentUser?.email || 'admin@ecclesiamapp.com.br',
+                eventType: 'tenant_switch',
+                parishId: pid,
+                role: 'superadmin',
+                metadata: { switched_at: new Date().toISOString() },
+              });
+              await fetchSuperadminData();
             }}
             onUpdateParish={handleUpdateParish}
             onOpenProvisionModal={() => setProvisionOpen(true)}

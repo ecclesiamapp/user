@@ -2,11 +2,18 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Sparkles, X, Maximize2, Bot } from 'lucide-react';
 import { AdminAiChatView } from './AdminAiChatView';
 
 export function AdminAiFloatingDrawer() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  // Não poluir o Hub SaaS Master do Superadmin com a IA paroquial local
+  if (pathname?.startsWith('/admin/superadmin')) {
+    return null;
+  }
 
   return (
     <>

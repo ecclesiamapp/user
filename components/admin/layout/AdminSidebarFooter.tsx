@@ -85,9 +85,11 @@ export function AdminSidebarFooter({
       >
         <div className="flex items-center gap-2">
           <Church className="w-3.5 h-3.5 text-[#FFCC36]" />
-          <span>Ver Portal do Fiel</span>
+          <span className="truncate">
+            {isSuperadmin ? `Portal da Paróquia (${activeParish?.name?.split(' ')[0] || 'Ativa'})` : 'Ver Portal do Fiel'}
+          </span>
         </div>
-        <ExternalLink className="w-3.5 h-3.5 text-[#7E838B] group-hover:text-[#FAF6F0] transition-colors" />
+        <ExternalLink className="w-3.5 h-3.5 text-[#7E838B] group-hover:text-[#FAF6F0] transition-colors shrink-0" />
       </Link>
 
       {/* Card do Usuário Autenticado + Botão de Logout */}

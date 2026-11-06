@@ -10,6 +10,10 @@ import {
   Search,
   Lock,
   Building2,
+  Eye,
+  EyeOff,
+  Copy,
+  Check,
 } from 'lucide-react';
 import { Parish, UserProfile, UserStatus } from '@/types';
 import { Button, Card, Badge } from '@/components/ui';
@@ -45,6 +49,18 @@ export function CredentialsSupportTab({
   const [newAccessCode, setNewAccessCode] = useState('');
   const [masterNewPassword, setMasterNewPassword] = useState('');
   const [savingMaster, setSavingMaster] = useState(false);
+  const [visibleCodes, setVisibleCodes] = useState<Record<string, boolean>>({});
+  const [copiedUserId, setCopiedUserId] = useState<string | null>(null);
+
+  const toggleCodeVisibility = (userId: string) => {
+    setVisibleCodes((prev) => ({ ...prev, [userId]: !prev[userId] }));
+  };
+
+  const handleCopyCode = (userId: string, code: string) => {
+    navigator.clipboard.writeText(code);
+    setCopiedUserId(userId);
+    setTimeout(() => setCopiedUserId(null), 2500);
+  };
 
   const parishNameMap = useMemo(() => {
     const map: Record<string, string> = {};
@@ -74,6 +90,10 @@ export function CredentialsSupportTab({
   const handleSaveMasterPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentUser?.id || !masterNewPassword.trim()) return;
+    if (masterNewPassword.trim().length < 8) {
+      alert('A Senha Master do Superadmin deve ter no mínimo 8 caracteres para proteção em produção.');
+      return;
+    }
     setSavingMaster(true);
     const ok = await onUpdateUserCredential(currentUser.id, {
       access_code: masterNewPassword.trim(),
@@ -202,24 +222,48 @@ export function CredentialsSupportTab({
                     <Building2 className="w-3.5 h-3.5 text-[var(--primary)]" />
                     {parishLabel}
                   </span>
-                  <span>
-                    Senha atual:{' '}
+                  <span className="inline-flex items-center gap-1.5">
+                    <span>Senha atual:</span>
                     <code className="px-1.5 py-0.5 rounded bg-[var(--dash-surface-secondary)] text-[var(--dash-text-primary)] font-mono">
-                      {u.access_code || 'Ecclesiam@2026'}
+                      {visibleCodes[u.id] ? u.access_code || 'Ecclesiam@2026' : '••••••••'}
                     </code>
+                    <button
+                      type="button"
+                      onClick={() => toggleCodeVisibility(u.id)}
+                      className="p-1 rounded text-[var(--dash-text-muted)] hover:text-[var(--dash-text-primary)] cursor-pointer"
+                      title={visibleCodes[u.id] ? 'Ocultar senha' : 'Ver senha'}
+                    >
+                      {visibleCodes[u.id] ? (
+                        <EyeOff className="w-3.5 h-3.5" />
+                      ) : (
+                        <Eye className="w-3.5 h-3.5" />
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyCode(u.id, u.access_code || 'Ecclesiam@2026')}
+                      className="p-1 rounded text-[var(--dash-text-muted)] hover:text-[var(--dash-text-primary)] cursor-pointer"
+                      title="Copiar senha"
+                    >
+                      {copiedUserId === u.id ? (
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5" />
+                      )}
+                    </button>
                   </span>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 flex-wrap shrink-0">
                 {isEditingCode ? (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <input
                       type="text"
                       value={newAccessCode}
                       onChange={(e) => setNewAccessCode(e.target.value)}
                       placeholder="Nova senha..."
-                      className="rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-elevated)] px-3 py-1.5 text-xs min-h-[38px] font-mono w-40"
+                      className="rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-elevated)] px-3 py-1.5 text-xs min-h-[38px] font-mono w-full sm:w-44"
                     />
                     <Button
                       size="sm"

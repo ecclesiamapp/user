@@ -50,12 +50,19 @@ const ROUTE_TITLES: Record<string, { title: string; category: string; icon: Reac
 export function AdminTopBar({ onOpenMobileMenu }: AdminTopBarProps) {
   const pathname = usePathname();
   const { activeParish, logout } = useAdminCommunity();
+  const isSuperadminRoute = pathname.startsWith('/admin/superadmin');
 
-  const currentRoute = ROUTE_TITLES[pathname] || {
-    title: 'Painel Administrativo',
-    category: activeParish?.name || 'Gestão Paroquial',
-    icon: Church,
-  };
+  const currentRoute = isSuperadminRoute
+    ? {
+        title: 'Hub SaaS Master (Superadmin)',
+        category: 'Ecclesiam SaaS • Governança Multi-Tenant',
+        icon: ShieldCheck,
+      }
+    : ROUTE_TITLES[pathname] || {
+        title: 'Painel Administrativo',
+        category: activeParish?.name || 'Gestão Paroquial',
+        icon: Church,
+      };
   const Icon = currentRoute.icon;
 
   return (
@@ -88,43 +95,69 @@ export function AdminTopBar({ onOpenMobileMenu }: AdminTopBarProps) {
 
       {/* Lado Direito: Ações Rápidas & Multi-Comunidades Tenant Switcher */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Seletor de Contexto Multi-Comunidades */}
-        <AdminCommunitySwitcher />
+        {isSuperadminRoute ? (
+          <>
+            {/* Atalho para alternar para a visão paroquial da paróquia ativa */}
+            <Link href="/admin">
+              <Button
+                size="sm"
+                variant="outline"
+                className="text-xs font-bold rounded-xl flex items-center gap-1.5 border-[var(--dash-border)] hover:bg-[var(--dash-surface-secondary)] text-[var(--dash-text-primary)]"
+              >
+                <Church className="w-3.5 h-3.5 text-[var(--primary)]" />
+                <span className="hidden md:inline">Abrir Painel da Paróquia:</span>
+                <span className="truncate max-w-[140px] font-bold text-[var(--primary)]">
+                  {activeParish?.name || 'Catedral'}
+                </span>
+              </Button>
+            </Link>
 
-        {/* Sticker Litúrgico Solene */}
-        <LiturgicalSticker />
+            {/* Badge de Governança Global */}
+            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-bold text-emerald-600">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>SaaS Master</span>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Seletor de Contexto Multi-Comunidades */}
+            <AdminCommunitySwitcher />
 
+            {/* Sticker Litúrgico Solene */}
+            <LiturgicalSticker />
 
-        {/* Atalho para Simular Agendamento do Fiel */}
-        <Link
-          href="/secretaria/agendamentos"
-          target="_blank"
-          className="hidden lg:flex"
-        >
-          <Button
-            size="sm"
-            variant="outline"
-            className="text-xs font-semibold rounded-xl flex items-center gap-1.5 border-[var(--dash-border)]"
-          >
-            <Plus className="w-3.5 h-3.5 text-[var(--primary)]" />
-            <span>Novo Agendamento</span>
-          </Button>
-        </Link>
+            {/* Atalho para Simular Agendamento do Fiel */}
+            <Link
+              href="/secretaria/agendamentos"
+              target="_blank"
+              className="hidden lg:flex"
+            >
+              <Button
+                size="sm"
+                variant="outline"
+                className="text-xs font-semibold rounded-xl flex items-center gap-1.5 border-[var(--dash-border)]"
+              >
+                <Plus className="w-3.5 h-3.5 text-[var(--primary)]" />
+                <span>Novo Agendamento</span>
+              </Button>
+            </Link>
 
-        {/* Ver Portal do Fiel */}
-        <Link
-          href="/"
-          target="_blank"
-          className="hidden sm:flex"
-        >
-          <Button
-            size="sm"
-            className="text-xs font-semibold rounded-xl bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white flex items-center gap-1.5"
-          >
-            <span>Portal do Fiel</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </Button>
-        </Link>
+            {/* Ver Portal do Fiel */}
+            <Link
+              href="/"
+              target="_blank"
+              className="hidden sm:flex"
+            >
+              <Button
+                size="sm"
+                className="text-xs font-semibold rounded-xl bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white flex items-center gap-1.5"
+              >
+                <span>Portal do Fiel</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Button>
+            </Link>
+          </>
+        )}
 
         {/* Status de Conexão */}
         <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-600">
