@@ -9,6 +9,7 @@ import {
   Calendar,
   Church,
   User,
+  Users,
   FileText,
   MessageCircle,
   Sparkles,
@@ -154,6 +155,7 @@ export function CathedralMobileDrawer({
               </span>
               <ul className="space-y-1">
                 {[
+                  { href: '/meu-espaco', icon: User, label: 'Meu Espaço Paroquial' },
                   { href: '/agenda-liturgica', icon: Calendar, label: 'Agenda Litúrgica' },
                   { href: '/comunidades', icon: Church, label: '12 Comunidades (CEBs)' },
                   { href: '/historia', icon: BookOpen, label: 'Nossa História & Catedral' },
@@ -182,6 +184,7 @@ export function CathedralMobileDrawer({
               <ul className="space-y-1">
                 {[
                   { href: '/secretaria', icon: User, label: 'Sacramentos & Atendimento' },
+                  { href: '/movimentos', icon: Users, label: 'Movimentos (ECC, EAC, EJC)' },
                   { href: '/historia#parocos', icon: Sparkles, label: 'O Pároco (Pe. Irineu)' },
                   { href: '/noticias', icon: FileText, label: 'Notícias & Avisos' },
                 ].map((item) => {

@@ -40,24 +40,24 @@
 
 ## 3. 📱 Os 4 Módulos Centrais do "Meu Espaço Paroquial"
 
-### 3.1 Carteirinha Digital do Dizimista & Histórico de Partilha
-* **Número de Dizimista:** Identificador único do fiel na secretaria paroquial.
-* **Carteirinha Digital:** Cartão visual elegante com brasão da Catedral, nome do fiel e data de cadastro.
-* **Histórico de Contribuições:** Lista transparente de doações e dízimos confirmados via PIX.
-* **Dízimo com 1 Clique:** Botão direto que gera o QR Code PIX já associado ao CPF/Identificador do fiel.
+### 3.1 Vínculo Pastoral «Sou do Sagrado» & Transparência
+* **Dimensão Bíblica & Catequética:** Acolhimento do paroquiano na caminhada de partilha e oração comunitária.
+* **Transparência Paroquial:** Visualização dos projetos, reformas e obras de caridade mantidos pela comunidade.
+* **Chave PIX Oficial:** Atalho seguro para a chave PIX oficial da Mitra Diocesana de Colatina.
+* **Delimitação Canônica Mandatória (THEOS):** O Ecclesiam App não faz captação de dízimo cadastrado, nem controle financeiro ou contábil de carnês/extratos (função exclusiva do ERP THEOS).
 
 ### 3.2 Meus Agendamentos de Confissões e Atendimentos
-* **Painel de Atendimentos:** Visualização clara das confissões e direções espirituais marcadas com os padres (Pe. Irineu, Pe. Deivid, Pe. Ernandes).
+* **Painel de Atendimentos:** Visualização clara das confissões e direções espirituais marcadas com os 4 padres da Catedral (Pe. Irineu, Pe. Adilson, Pe. Deivid, Pe. Ernandes).
 * **Status em Tempo Real:** `Pendente de Aprovação`, `Confirmado` ou `Realizado`.
-* **Lembrete Automático:** Notificação com data, local (Secretaria da Catedral) e botão para cancelar com antecedência.
+* **Lembrete Automático:** Notificação com data, local (Secretaria da Catedral ou Centro Pastoral) e botão para cancelar com antecedência.
 
 ### 3.3 Minha Comunidade (CEB Favorita)
-* **Vínculo Pastoral:** O fiel escolhe a sua comunidade habitual (ex: Matriz, Comunidade Perpétuo Socorro, Santa Luzia, etc.).
-* **Feed Exclusivo:** O painel prioriza os horários de missas, tríduos e avisos daquela CEB específica.
+* **Vínculo Pastoral:** O fiel escolhe a sua comunidade habitual entre as 14 CEBs da Catedral.
+* **Feed Exclusivo:** O painel prioriza os horários de Santas Missas, Celebrações da Palavra e avisos daquela CEB específica.
 
-### 3.4 Pedidos de Intenções de Santa Missa
-* **Formulário Rápido de Intenção:** O fiel escolhe o motivo (Saúde dos Enfermos, Sufrágio de Falecidos, Ação de Graças, Aniversário) e a data da missa desejada.
-* **Envio para o Livro do Altar:** As intenções aprovadas são impressas ou visualizadas diretamente pelos padres e ministros antes da celebração.
+### 3.4 Minhas Intenções de Santa Missa (Púlpito A4)
+* **Acompanhamento de Intenções:** Visualização dos pedidos cadastrados sob o protocolo do fiel (Pela Alma de, Saúde dos Enfermos, Ação de Graças).
+* **Folha Litúrgica para o Púlpito (A4):** As intenções são organizadas para a proclamação no Ambão/Púlpito antes da celebração da Santa Missa, com respeito à opção de «Sigilo no Púlpito».
 
 ---
 
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS public.mass_intentions (
     type TEXT NOT NULL DEFAULT 'falecimento' CHECK (type IN ('falecimento', 'saude', 'acao_de_gracas', 'aniversario', 'outros')),
     mass_date DATE NOT NULL,
     mass_time TIME,
-    status TEXT NOT NULL DEFAULT 'pendente' CHECK (status IN ('pendente', 'aprovada', 'lida_no_altar')),
+    status TEXT NOT NULL DEFAULT 'pendente' CHECK (status IN ('pendente', 'aprovada', 'proclamada_pulpito')),
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 ```

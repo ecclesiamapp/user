@@ -6,6 +6,7 @@ import {
   Menu,
   Heart,
   User,
+  Users,
   Sparkles,
   BookOpen,
   ChevronDown,
@@ -139,6 +140,14 @@ export function CathedralHeader({
               Secretaria
             </Link>
 
+            <Link
+              href="/meu-espaco"
+              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 flex items-center gap-1 text-[#FFCC36]"
+            >
+              <User className="w-3.5 h-3.5" />
+              <span>Meu Espaço</span>
+            </Link>
+
             {/* Dropdown Institucional: A Catedral */}
             <div
               className="relative"
@@ -184,6 +193,7 @@ export function CathedralHeader({
                   {[
                     { href: '/historia', icon: BookOpen, title: 'História & Fé', sub: 'Linha do tempo centenária' },
                     { href: '/historia#parocos', icon: User, title: 'Pároco & Bispos', sub: 'Pe. Irineu e sucessão pastoral' },
+                    { href: '/movimentos', icon: Users, title: 'Movimentos (ECC, EAC, EJC)', sub: 'Famílias, jovens e adolescentes' },
                     { href: '/historia#patrimonio', icon: Sparkles, title: 'Patrimônio Sacro', sub: 'Vitrais Casa Conrado e Sinos' },
                     { href: '/dizimo', icon: Heart, title: 'Dízimo & Ofertas', sub: 'Sou do Sagrado benfeitores' },
                   ].map((item) => {

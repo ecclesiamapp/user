@@ -11,28 +11,31 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
 
 ## 🚀 PARTE I — BACKLOG ATIVO PARA IMPLEMENTAÇÃO FUTURA (PÓS-FASE 8)
 
-### 📌 1. `[MainAdmin]` — Console Global do Proprietário / SaaS (`/superadmin`)
+### 📌 1. `[MainAdmin]` — Console Global do Proprietário / SaaS (`/admin/superadmin`)
 
-* **Status:** ⏳ **Pendente (Backlog Pós-Go-Live da Catedral)**
-* **⏱️ Tempo Estimado de Execução:** `~1h30 a 2h` (dividido em 3 entregas modulares de `~35 min`).
-* **Rota Prevista:** `/superadmin` (no mesmo projeto Next.js, com isolamento estrito de middleware e RBAC `superadmin`).
-* **Escopo Funcional:**
+* **Status:** ✅ **100% Concluído & Homologado (Fase 9 / TASK-49 a TASK-52)**
+* **Rota Ativa:** `/admin/superadmin` e portal de entrada `/login`
+* **Escopo Funcional Entregue:**
   * Gestão de Tenants (todas as paróquias clientes da plataforma Ecclesiam).
-  * Provisionamento e onboarding automatizado de novas paróquias (geração de slugs, identidade visual inicial e mapeamento de domínios customizados).
-  * Gestão de planos, assinaturas e status de faturamento SaaS da plataforma.
+  * Provisionamento e onboarding automatizado 1-Click de novas paróquias (geração de slugs, identidade visual inicial e mapeamento de domínios customizados).
+  * Gestão de planos, assinaturas e status de faturamento SaaS da plataforma com Kill-Switch ético (`ativa`, `implantacao`, `suspensa`).
+  * Trilha de auditoria LGPD e segurança anti-brute-force (`security_audit_logs`).
   * Métricas agregadas de saúde de infraestrutura, volume de atendimentos pastorais e engajamento das comunidades (respeitando a neutralidade financeira perante o Theòs).
 
 ---
 
 ### 📌 2. Módulo Dedicado de Movimentos Paroquiais (ECC, EAC e EJC)
 
-* **Status:** ⏳ **Pendente (Backlog Estrutural Pastoral)**
-* **⏱️ Tempo Estimado de Execução:** `~1h30 a 2h` (Modelagem Supabase `~30 min` + Mini-sites públicos `~40 min` + Painel Admin `~40 min`).
+* **Status:** ✅ **100% Concluído & Homologado**
+* **Rotas Ativas:** `/movimentos`, `/movimentos/[slug]`, `/admin/movimentos`
 * **Movimentos Contemplados:**
   * **ECC** (Encontro de Casais com Cristo)
   * **EAC** (Encontro de Adolescentes com Cristo)
   * **EJC** (Encontro de Jovens com Cristo)
-* **Escopo no Portal Público (`/movimentos/[slug]`):**
+* **Entregas Técnicas Entregues:**
+  * **Passo 1 (Modelagem & RLS):** Migração [`supabase/migrations/20261107_create_parish_movements.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261107_create_parish_movements.sql), tabelas `parish_movements`, `parish_movement_events`, `parish_movement_registrations` e bucket `movement_assets` com RLS estrito e carga canônica da Catedral.
+  * **Passo 2 (Portal Público & Transparência LGPD em 2 Etapas):** Hub [`app/movimentos/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/movimentos/page.tsx), mini-sites [`app/movimentos/[slug]/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/movimentos/%5Bslug%5D/page.tsx), stepper de conformidade jurídica [`MovementLegalTermsStep.tsx`](file:///c:/Users/Start/ecclesiam-app/components/movements/MovementLegalTermsStep.tsx) (4 cards com bases legais da LGPD Art. 11/14 e ECA Digital) integrado ao modal [`MovementRegistrationModal.tsx`](file:///c:/Users/Start/ecclesiam-app/components/movements/MovementRegistrationModal.tsx).
+  * **Passo 3 (Painel Administrativo & Menu):** Painel [`app/admin/movimentos/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/admin/movimentos/page.tsx) com abas de Fila de Fichas/Triagem ([`MovementRegistrationsTab.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/movements/MovementRegistrationsTab.tsx)), Gestão de Encontros com 1-Click Toggle ([`MovementEventsTab.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/movements/MovementEventsTab.tsx)), Edição de Dados ([`MovementInfoTab.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/movements/MovementInfoTab.tsx)) e item oficial na [`AdminSidebar.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/layout/AdminSidebar.tsx).
   * Identificação, brasão/identidade, carisma espiritual e patrono de cada movimento.
   * Equipe Dirigente atual (Casal Coordenador / Jovens Coordenadores e Diretor Espiritual) com contato WhatsApp.
   * Calendário anual condensado (Encontros de 1ª, 2ª e 3ª etapas, pós-encontros, círculos e Santas Missas de entrega).
@@ -45,9 +48,13 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
 
 ### 📌 3. Área Privada do Fiel ("Meu Espaço Paroquial" — `/meu-espaco`)
 
-* **Status:** ⏳ **Pendente (Backlog Fase 2027)**
+* **Status:** ✅ **100% Concluído & Homologado**
+* **Rotas Ativas:** `/meu-espaco` e banner integrado na Home (`/`)
 * **Documento Detalhado:** [`ESCOPO_AREA_DO_FIEL.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/ESCOPO_AREA_DO_FIEL.md)
-* **⏱️ Tempo Estimado de Execução:** `~2h` (dividido em 3 etapas de `~40 min`).
+* **Entregas Técnicas Entregues:**
+  * **Etapa 1 (Arquitetura, Acesso & Hub Bento Grid):** Rota `/meu-espaco`, acesso Passwordless WhatsApp/Protocolo sem senhas, Bento Grid com as 14 CEBs, agendamentos com os 4 sacerdotes, intenções Púlpito A4 e PIX Theòs.
+  * **Etapa 2 (Ações Interativas, Cancelamento & Comprovante Digital):** Cancelamento prévio de agendamentos para liberação fraterna de vagas na agenda dos sacerdotes, e modal de comprovante litúrgico [`IntentionReceiptModal.tsx`](file:///c:/Users/Start/ecclesiam-app/components/meu-espaco/IntentionReceiptModal.tsx) com atalho de compartilhamento no WhatsApp para a família e impressão em PDF da intenção para o Púlpito A4.
+  * **Etapa 3 (Sincronização & Destaque na Home):** Banner monumental e acolhedor [`MeuEspacoHomeBanner.tsx`](file:///c:/Users/Start/ecclesiam-app/components/home/MeuEspacoHomeBanner.tsx) integrado na página inicial, sincronização reativa de sessão cross-tab e conformidade estrita com a LGPD e o THEOS.
 * **Escopo Funcional (Alinhado à Diretriz Canônica Theòs):**
   1. **Autenticação sem Senha (Passwordless):** Acesso simples via Código OTP de 6 dígitos ou Magic Link (ideal para fiéis idosos).
   2. **Meus Agendamentos & Protocolos da Secretaria:** Acompanhamento em tempo real de confissões/atendimentos com os 4 sacerdotes, solicitações de certidões e protocolos unificados de **Intenções de Missa (Púlpito A4)**.

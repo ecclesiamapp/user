@@ -22,6 +22,7 @@ import {
   QrCode,
   CalendarDays,
   Building2,
+  Users,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAdminAppearance } from '@/components/admin/context/AdminAppearanceContext';
@@ -57,6 +58,7 @@ const NAV_GROUPS: NavGroup[] = [
       { href: '/admin/horarios', label: 'Horários de Missa', icon: Calendar },
       { href: '/admin/comunidades', label: '12 Comunidades (CEBs)', icon: MapPin },
       { href: '/admin/folhetos', label: 'Folhetos Litúrgicos', icon: FileText },
+      { href: '/admin/movimentos', label: 'Movimentos (ECC/EAC/EJC)', icon: Users, badge: 'Novo' },
     ],
   },
   {
@@ -123,6 +125,7 @@ export function AdminSidebar({ mobileOpen, onCloseMobile }: AdminSidebarProps) {
           category: 'Comunicação & PASCOM',
           items: [
             { href: '/admin', label: 'Visão Geral', icon: Church, exact: true },
+            { href: '/admin/movimentos', label: 'Movimentos (ECC/EAC/EJC)', icon: Users },
             { href: '/admin/conteudo', label: 'Avisos & Notícias', icon: Newspaper },
             { href: '/admin/programacao', label: 'Festas & Solenidades', icon: CalendarDays, badge: 'Festas' },
             { href: '/admin/galerias', label: 'Galerias & Fotos', icon: ImageIcon },

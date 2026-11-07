@@ -27,6 +27,7 @@ import { CathedralHeroPortal } from '@/components/home/CathedralHeroPortal';
 import { CathedralSpecialEventBanner } from '@/components/home/CathedralSpecialEventBanner';
 import { SacramentsGrid } from '@/components/home/SacramentsGrid';
 import { PastorSpotlight } from '@/components/home/PastorSpotlight';
+import { MeuEspacoHomeBanner } from '@/components/home/MeuEspacoHomeBanner';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
 
 export default async function ParishPublicPortalPage() {
@@ -119,6 +120,11 @@ export default async function ParishPublicPortalPage() {
 
         {/* 4.1 Módulo Litúrgico Especial: Solenidade de Natal & Fim de Ano */}
         <YearEndLiturgySection />
+
+        {/* 4.2 Portal do Paroquiano: Meu Espaço Paroquial */}
+        <div id="meu-espaco" className="w-full">
+          <MeuEspacoHomeBanner />
+        </div>
 
         {/* 5. Central de Sacramentos & Secretaria (4 Cards com Ícones) */}
         <SacramentsGrid whatsappNumber={parish.whatsapp_number} />
