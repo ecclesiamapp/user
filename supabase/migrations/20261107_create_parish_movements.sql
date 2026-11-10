@@ -121,7 +121,7 @@ USING (is_active = true);
 DROP POLICY IF EXISTS "Gestao de movimentos paroquiais por administradores" ON public.parish_movements;
 CREATE POLICY "Gestao de movimentos paroquiais por administradores"
 ON public.parish_movements FOR ALL
-TO anon, authenticated
+TO authenticated
 USING (parish_id IS NOT NULL)
 WITH CHECK (parish_id IS NOT NULL);
 
@@ -135,7 +135,7 @@ USING (status != 'cancelado');
 DROP POLICY IF EXISTS "Gestao de eventos de movimentos por administradores" ON public.parish_movement_events;
 CREATE POLICY "Gestao de eventos de movimentos por administradores"
 ON public.parish_movement_events FOR ALL
-TO anon, authenticated
+TO authenticated
 USING (parish_id IS NOT NULL)
 WITH CHECK (parish_id IS NOT NULL);
 
@@ -149,7 +149,7 @@ WITH CHECK (lgpd_consent = true AND parish_id IS NOT NULL);
 DROP POLICY IF EXISTS "Gestao e visualizacao restrita de fichas por administradores" ON public.parish_movement_registrations;
 CREATE POLICY "Gestao e visualizacao restrita de fichas por administradores"
 ON public.parish_movement_registrations FOR ALL
-TO anon, authenticated
+TO authenticated
 USING (parish_id IS NOT NULL)
 WITH CHECK (parish_id IS NOT NULL);
 
@@ -167,13 +167,13 @@ USING (bucket_id = 'movement_assets');
 DROP POLICY IF EXISTS "Upload de midias dos movimentos por administradores" ON storage.objects;
 CREATE POLICY "Upload de midias dos movimentos por administradores"
 ON storage.objects FOR INSERT
-TO anon, authenticated
+TO authenticated
 WITH CHECK (bucket_id = 'movement_assets');
 
 DROP POLICY IF EXISTS "Edicao e delecao de midias dos movimentos por administradores" ON storage.objects;
 CREATE POLICY "Edicao e delecao de midias dos movimentos por administradores"
 ON storage.objects FOR ALL
-TO anon, authenticated
+TO authenticated
 USING (bucket_id = 'movement_assets');
 
 -- 10. Carga Inicial de Dados Canônicos para a Catedral de Colatina

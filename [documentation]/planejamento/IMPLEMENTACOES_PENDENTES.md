@@ -74,9 +74,15 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
 
 ### 📌 5. Blindagem Final de RLS Pré-Go-Live & Apontamento DNS (`TASK-12`)
 
-* **Status:** ⏳ **Pré-Lançamento Oficial (Novembro de 2026)**
-* **⏱️ Tempo Estimado de Execução:**
-  * Hardening de RLS (transição de políticas `anon` de homologação para `authenticated` + RBAC estrito por `parish_id`): `~30 a 45 minutos`.
+* **Status:** 🛡️ **Hardening de RLS e Auditoria de Segurança 100% Concluídos** | ⏳ **Apontamento DNS Pré-Go-Live**
+* **Entregas de Segurança Concluídas:**
+  * **Auditoria Multi-Agente:** Convocação do Squad de 5 especialistas (`security-reviewer`, `architect`, `critic`, `executor`, `verifier`).
+  * **Revogação de Permissões Anônimas:** Eliminação de mutação anônima (`ALL`, `UPDATE`, `DELETE`) em todas as tabelas mestras da paróquia e restrição estrita aos roles `authenticated` e `service_role`.
+  * **Blindagem LGPD:** Proteção de dados de fiéis em `mass_intentions`, `certificate_requests`, `tithe_registrations` e `parish_movement_registrations` (fiel tem permissão apenas de `INSERT` com consentimento; consultas ocorrem via RPCs seguras).
+  * **RPCs Blindadas para a Área do Fiel:** Implementação de `lookup_parishioner_intentions`, `lookup_parishioner_appointments` e `cancel_parishioner_appointment` com validação de telefone/protocolo e `SET search_path = ''`.
+  * **Resolução de Avisos Supabase Linter:** Blindagem de `search_path` nas funções `get_booked_appointment_slots` e `increment_booklet_downloads`.
+  * **Script SQL de Migração Oficial:** [`supabase/migrations/20261109_security_rls_hardening.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261109_security_rls_hardening.sql).
+* **Item Restante para o Lançamento Definitivo:**
   * Apontamento DNS & Escudo Cloudflare (`catedraldecolatina.org.br` — Proxy Nuvem Laranja + SSL Full Strict): `~25 minutos` *(aguardando credenciais DNS da paróquia)*.
 
 ---

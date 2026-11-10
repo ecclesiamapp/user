@@ -74,6 +74,21 @@ export async function fetchParishionerAppointments(
     const supabase = createClient();
     const cleanPhone = phone.replace(/\D/g, '');
 
+    // 1. Tentar via RPC Segura (RLS Hardening)
+    const { data: rpcData, error: rpcError } = await supabase.rpc(
+      'lookup_parishioner_appointments',
+      {
+        p_parish_id: CATEDRAL_PARISH_ID,
+        p_phone: cleanPhone,
+        p_protocol: protocol || null,
+      }
+    );
+
+    if (!rpcError && rpcData) {
+      return rpcData as PastoralAppointment[];
+    }
+
+    // 2. Fallback de compatibilidade direta
     let query = supabase
       .from('pastoral_appointments')
       .select('*, clergy:clergy_id(*), community:community_id(*)')
@@ -109,6 +124,21 @@ export async function fetchParishionerIntentions(
     const supabase = createClient();
     const cleanPhone = phone.replace(/\D/g, '');
 
+    // 1. Tentar via RPC Segura (RLS Hardening)
+    const { data: rpcData, error: rpcError } = await supabase.rpc(
+      'lookup_parishioner_intentions',
+      {
+        p_parish_id: CATEDRAL_PARISH_ID,
+        p_phone: cleanPhone,
+        p_protocol: protocol || null,
+      }
+    );
+
+    if (!rpcError && rpcData) {
+      return rpcData as MassIntention[];
+    }
+
+    // 2. Fallback de compatibilidade direta
     let query = supabase
       .from('mass_intentions')
       .select('*')
@@ -137,10 +167,28 @@ export async function fetchParishionerIntentions(
  * Cancela previamente um agendamento pastoral com o sacerdote
  */
 export async function cancelParishionerAppointment(
-  appointmentId: string
+  appointmentId: string,
+  parishionerPhone?: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
     const supabase = createClient();
+
+    // 1. Tentar via RPC Segura com validação de telefone
+    if (parishionerPhone) {
+      const { data: rpcData, error: rpcError } = await supabase.rpc(
+        'cancel_parishioner_appointment',
+        {
+          p_appointment_id: appointmentId,
+          p_phone: parishionerPhone,
+        }
+      );
+
+      if (!rpcError && rpcData === true) {
+        return { success: true };
+      }
+    }
+
+    // 2. Fallback direto
     const { error } = await supabase
       .from('pastoral_appointments')
       .update({ status: 'cancelado', updated_at: new Date().toISOString() })

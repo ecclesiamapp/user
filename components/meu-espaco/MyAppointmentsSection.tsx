@@ -15,7 +15,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { PastoralAppointment } from '@/types';
-import { cancelParishionerAppointment } from '@/lib/parishioner-auth';
+import { cancelParishionerAppointment, getStoredParishionerSession } from '@/lib/parishioner-auth';
 
 interface MyAppointmentsSectionProps {
   appointments: PastoralAppointment[];
@@ -33,7 +33,8 @@ export function MyAppointmentsSection({
   const handleCancel = async (id: string) => {
     setCancellingId(id);
     try {
-      const res = await cancelParishionerAppointment(id);
+      const session = getStoredParishionerSession();
+      const res = await cancelParishionerAppointment(id, session?.phone);
       if (res.success) {
         setFeedback('Agendamento cancelado com sucesso. A vaga foi liberada na agenda do sacerdote.');
         setConfirmId(null);
