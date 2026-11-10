@@ -114,10 +114,10 @@ export function CathedralHeader({
         }}
         className="sticky top-0 z-40 w-full backdrop-blur-md border-b transition-all select-none"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-3">
+        <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 h-20 flex items-center justify-between lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-4">
           
-          {/* 1. Identidade e Brasão da Catedral */}
-          <Link href="/" onClick={closeAllMenus} className="flex items-center gap-2.5 sm:gap-3 group text-decoration-none shrink-0">
+          {/* 1. Identidade e Brasão da Catedral (Coluna Esquerda: 1fr alinhado à esquerda) */}
+          <Link href="/" onClick={closeAllMenus} className="flex items-center gap-2.5 sm:gap-3 group text-decoration-none shrink-0 lg:justify-self-start">
             <div
               style={{
                 background: 'var(--hdr-emblem-bg)',
@@ -128,24 +128,20 @@ export function CathedralHeader({
             >
               <span className="font-serif text-xl sm:text-2xl font-bold leading-none select-none">✝</span>
             </div>
-            <div className="shrink-0">
-              <span className="block font-cinzel text-xs sm:text-sm xl:text-base font-bold tracking-[0.03em] xl:tracking-[0.04em] text-[#FAF6F0] uppercase leading-tight group-hover:text-[var(--hdr-accent)] transition-colors whitespace-nowrap">
-                <span className="hidden 2xl:inline">{parishName}</span>
-                <span className="2xl:hidden">Catedral de Colatina</span>
+            <div className="shrink-0 flex flex-col justify-center">
+              <span className="block font-cinzel text-xs sm:text-sm xl:text-base font-bold tracking-[0.04em] text-[#FAF6F0] uppercase leading-tight group-hover:text-[var(--hdr-accent)] transition-colors whitespace-nowrap">
+                Catedral
               </span>
-              <span
-                style={{ color: 'var(--hdr-gold-muted)' }}
-                className="hidden 2xl:block text-[10px] xl:text-[11px] font-medium tracking-wide whitespace-nowrap"
-              >
-                Paróquia Sagrado Coração de Jesus • {dioceseName}
+              <span className="block font-serif italic text-[11px] sm:text-xs text-[#FFCC36] tracking-wide leading-tight mt-0.5 whitespace-nowrap">
+                Sagrado Coração de Jesus
               </span>
             </div>
           </Link>
 
-          {/* 2. Menu Central Desktop: 3 SUBMENUS INTELIGENTES + MEU ESPAÇO */}
+          {/* 2. Menu Central Desktop: 3 SUBMENUS INTELIGENTES + MEU ESPAÇO (Coluna Central 100% Centralizada a 50%) */}
           <nav
             style={{ color: 'var(--hdr-nav-text)' }}
-            className="hidden lg:flex items-center gap-2 xl:gap-4 text-xs font-bold tracking-[0.04em] uppercase font-sans"
+            className="hidden lg:flex items-center justify-center lg:justify-self-center gap-2 xl:gap-4 text-xs font-bold tracking-[0.04em] uppercase font-sans"
           >
             {/* SUBMENU 1: Liturgia */}
             <div
@@ -341,8 +337,8 @@ export function CathedralHeader({
             </Link>
           </nav>
 
-          {/* 3. Ações Rápidas à Direita: ThemeToggle + Ao Vivo + Sou do Sagrado + Admin */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* 3. Ações Rápidas à Direita (Coluna Direita 1fr) */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0 lg:justify-self-end">
             {/* ☀️ / 🌙 Alternador de Tema Claro / Escuro (40x40px Fixo e Visível) */}
             <ThemeToggle />
 
