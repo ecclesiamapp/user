@@ -15,6 +15,7 @@ import { createClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
 import { CommunitiesDirectory } from '@/components/comunidades/CommunitiesDirectory';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { fallbackCommunitiesList } from '@/lib/communities';
 import { fallbackSchedules } from '@/lib/schedules';
 import { Parish, Community, MassSchedule } from '@/types';
@@ -110,9 +111,9 @@ export default async function ComunidadesPage() {
             <span>Voltar ao Portal da Catedral</span>
           </Link>
 
-          <div className="flex items-center gap-2 text-xs text-[#C8A463] font-serif font-bold uppercase tracking-wider">
-            <span>✝</span>
-            <span className="hidden sm:inline">12 Comunidades Eclesiais de Base • CEBs</span>
+          <div className="flex items-center gap-3 text-xs text-[#C8A463] font-serif font-bold uppercase tracking-wider">
+            <span className="hidden sm:inline">✝ 12 Comunidades Eclesiais de Base • CEBs</span>
+            <ThemeToggle />
           </div>
         </div>
       </header>

@@ -16,6 +16,7 @@ import { createClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
 import { NewsFilters } from '@/components/noticias/NewsFilters';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { getAllNews, getFeaturedNews, NewsArticle } from '@/lib/news';
 import { Parish, Announcement } from '@/types';
 
@@ -115,9 +116,9 @@ export default async function CathedralNewsPage() {
             <span>Voltar ao Portal da Catedral</span>
           </Link>
 
-          <div className="flex items-center gap-2 text-xs text-[#C8A463] font-serif font-bold uppercase tracking-wider">
-            <span>✝</span>
-            <span className="hidden sm:inline">Comunicação Oficial • PASCOM</span>
+          <div className="flex items-center gap-3 text-xs text-[#C8A463] font-serif font-bold uppercase tracking-wider">
+            <span className="hidden sm:inline">✝ Comunicação Oficial • PASCOM</span>
+            <ThemeToggle />
           </div>
         </div>
       </header>

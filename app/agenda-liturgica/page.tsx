@@ -7,6 +7,7 @@ import { createClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { LiturgicalScheduleView } from '@/components/horarios/LiturgicalScheduleView';
 import { SpecialEventLiturgicalAlert } from '@/components/horarios/SpecialEventLiturgicalAlert';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { fallbackSchedules } from '@/lib/schedules';
 import { FALLBACK_SPECIAL_EVENTS } from '@/lib/events';
 import { MassSchedule, ParishSpecialEvent } from '@/types';
@@ -81,9 +82,12 @@ export default async function AgendaLiturgicaPage() {
             <span>Voltar ao Portal</span>
           </Link>
 
-          <span className="text-[11px] font-bold text-[#8B1E22] dark:text-[#FFA82A] uppercase tracking-wider bg-[#8B1E22]/10 px-3 py-1 rounded-full border border-[#8B1E22]/20">
-            Catedral Diocesana
-          </span>
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] font-bold text-[#8B1E22] dark:text-[#FFA82A] uppercase tracking-wider bg-[#8B1E22]/10 px-3 py-1 rounded-full border border-[#8B1E22]/20">
+              Catedral Diocesana
+            </span>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 

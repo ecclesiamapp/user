@@ -15,8 +15,11 @@ import {
   Sparkles,
   BookOpen,
   ShieldCheck,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { ResolvedEventTheme } from '@/lib/events';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 interface CathedralMobileDrawerProps {
   isOpen: boolean;
@@ -118,32 +121,39 @@ export function CathedralMobileDrawer({
             </Link>
           )}
 
-          {/* Seletor de Acessibilidade */}
+          {/* Seletor de Acessibilidade & Tema */}
           <div
             style={{ backgroundColor: surfaceBg, borderColor: borderCol }}
-            className="rounded-xl p-3 border flex items-center justify-between text-xs"
+            className="rounded-xl p-3 border space-y-3 text-xs"
           >
-            <span className="text-[#CBD5E1] font-medium">Tamanho da Letra:</span>
-            <div className="flex items-center gap-1.5">
-              {(['sm', 'md', 'lg'] as const).map((lvl, idx) => {
-                const label = idx === 0 ? 'A-' : idx === 1 ? 'A' : 'A+';
-                const active = fontSizeLevel === lvl;
-                return (
-                  <button
-                    key={lvl}
-                    type="button"
-                    onClick={() => onFontSizeChange(lvl)}
-                    style={
-                      active
-                        ? { backgroundColor: goldMuted, color: ctaText }
-                        : { backgroundColor: drawerBg, color: '#94A3B8' }
-                    }
-                    className="px-2.5 py-1 rounded-lg font-bold cursor-pointer"
-                  >
-                    {label}
-                  </button>
-                );
-              })}
+            <div className="flex items-center justify-between">
+              <span className="text-[#CBD5E1] font-medium">Tamanho da Letra:</span>
+              <div className="flex items-center gap-1.5">
+                {(['sm', 'md', 'lg'] as const).map((lvl, idx) => {
+                  const label = idx === 0 ? 'A-' : idx === 1 ? 'A' : 'A+';
+                  const active = fontSizeLevel === lvl;
+                  return (
+                    <button
+                      key={lvl}
+                      type="button"
+                      onClick={() => onFontSizeChange(lvl)}
+                      style={
+                        active
+                          ? { backgroundColor: goldMuted, color: ctaText }
+                          : { backgroundColor: drawerBg, color: '#94A3B8' }
+                      }
+                      className="px-2.5 py-1 rounded-lg font-bold cursor-pointer"
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-2 border-t border-white/10">
+              <span className="text-[#CBD5E1] font-medium">Tema Visual:</span>
+              <ThemeToggle variant="segmented" />
             </div>
           </div>
 

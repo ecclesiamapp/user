@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ShieldCheck, Home } from 'lucide-react';
 import { useAdminSession } from '@/lib/hooks/useAdminSession';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 interface SubpageNavHeaderProps {
   portalBackText?: string;
@@ -53,13 +54,16 @@ export function SubpageNavHeader({
         )}
       </div>
 
-      {/* Lado Direito: Selo Oficial */}
-      {badgeText && (
-        <span className="inline-flex items-center gap-1.5 text-amber-400/90 font-medium text-[11px] sm:text-xs">
-          <ShieldCheck className="w-3.5 h-3.5" />
-          <span>{badgeText}</span>
-        </span>
-      )}
+      {/* Lado Direito: Selo Oficial & Alternador de Tema */}
+      <div className="flex items-center gap-3">
+        {badgeText && (
+          <span className="inline-flex items-center gap-1.5 text-amber-400/90 font-medium text-[11px] sm:text-xs">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>{badgeText}</span>
+          </span>
+        )}
+        <ThemeToggle />
+      </div>
     </div>
   );
 }

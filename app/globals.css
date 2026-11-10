@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #FFFFFF;
   --foreground: #2D1A16;
@@ -33,6 +35,25 @@
   
   --whatsapp: #25D366;
   --live: #D32F2F;
+}
+
+/* Modo Escuro Solene Oficial (Ecclesiam Dark Theme) */
+.dark {
+  --background: #0E1012;
+  --foreground: #FAF6F0;
+
+  --dash-bg: #121417;                   /* Fundo escuro solene */
+  --dash-surface: #1B1E22;              /* Cartões escuros com contraste nítido */
+  --dash-surface-secondary: #22262B;    /* Fundo secundário elevado */
+  --dash-surface-elevated: #282E36;     /* Superfície marfim escuro */
+
+  --dash-text-primary: #FAF6F0;         /* Branco marfim sacro */
+  --dash-text-secondary: #CBD5E1;       /* Cinza claro legível */
+  --dash-text-muted: #94A3B8;           /* Texto atenuado */
+  --dash-text-light: #FCF7F1;
+
+  --dash-border: #2E353F;               /* Borda discreta escura */
+  --dash-border-subtle: #22272E;
 }
 
 @theme inline {

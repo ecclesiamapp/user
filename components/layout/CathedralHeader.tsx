@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { useAdminSession } from '@/lib/hooks/useAdminSession';
 import { ResolvedEventTheme } from '@/lib/events';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { CathedralMobileDrawer } from './CathedralMobileDrawer';
 
 interface CathedralHeaderProps {
@@ -275,6 +276,9 @@ export function CathedralHeader({
               <Sparkles className="w-3.5 h-3.5 shrink-0" />
               <span className="whitespace-nowrap">Sou do Sagrado</span>
             </Link>
+
+            {/* Alternador de Tema Claro / Escuro */}
+            <ThemeToggle />
 
             <button
               onClick={() => setMobileMenuOpen(true)}

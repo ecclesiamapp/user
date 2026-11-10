@@ -90,7 +90,7 @@ export default async function ParishPublicPortalPage() {
   const recentAnnouncements = OFFICIAL_NEWS_DATA.slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-[#F5EFE7] text-[#2D1A16] flex flex-col justify-between selection:bg-[#FFA82A] selection:text-[#2D1A16]">
+    <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex flex-col justify-between selection:bg-[#FFA82A] selection:text-[#2D1A16] transition-colors duration-200">
       {/* 1. Marquee Litúrgico Fino no Topo Absoluto (Vermelho Sagrado Coração #8B1E22) */}
       <MarqueeAvisos />
 

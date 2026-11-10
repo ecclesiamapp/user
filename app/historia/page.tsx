@@ -6,6 +6,7 @@ import { ArrowLeft, Church, Heart, Calendar, Sparkles } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { ApostolicSuccessionTimeline } from '@/components/historia/ApostolicSuccessionTimeline';
 import { BishopsAndPastorsGallery } from '@/components/historia/BishopsAndPastorsGallery';
 import { HistoryHeritageGallery } from '@/components/historia/HistoryHeritageGallery';
@@ -173,9 +174,9 @@ export default async function CathedralHistoryPage() {
             <span>Voltar ao Portal da Catedral</span>
           </Link>
 
-          <div className="flex items-center gap-2 text-xs text-[#C8A463] font-serif font-bold uppercase tracking-wider">
-            <span>✝</span>
-            <span className="hidden sm:inline">Igreja-Mãe da Diocese de Colatina</span>
+          <div className="flex items-center gap-3 text-xs text-[#C8A463] font-serif font-bold uppercase tracking-wider">
+            <span className="hidden sm:inline">✝ Igreja-Mãe da Diocese de Colatina</span>
+            <ThemeToggle />
           </div>
         </div>
       </header>

@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { Card, Badge, Button } from '@/components/ui';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { Clergy, Parish } from '@/types';
 
 export default async function SecretariaInstitucionalPage() {
@@ -130,8 +131,9 @@ export default async function SecretariaInstitucionalPage() {
             <span>Voltar ao Portal</span>
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <Badge variant="matriz">Catedral Diocesana</Badge>
+            <ThemeToggle />
           </div>
         </div>
       </header>

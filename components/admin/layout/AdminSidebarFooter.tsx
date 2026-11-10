@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Church, ExternalLink, ShieldCheck, LogOut, Building2 } from 'lucide-react';
 import { Parish, UserProfile, Community } from '@/types';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 interface AdminSidebarFooterProps {
   currentUser: UserProfile | null;
@@ -91,6 +92,12 @@ export function AdminSidebarFooter({
         </div>
         <ExternalLink className="w-3.5 h-3.5 text-[#7E838B] group-hover:text-[#FAF6F0] transition-colors shrink-0" />
       </Link>
+
+      {/* Alternador de Tema Visual do Painel */}
+      <div className="flex items-center justify-between px-3 py-1.5 rounded-xl bg-[#1A1C20] border border-[#262A30] text-xs">
+        <span className="text-[#A39E98] text-[11px] font-medium">Tema Visual:</span>
+        <ThemeToggle variant="segmented" />
+      </div>
 
       {/* Card do Usuário Autenticado + Botão de Logout */}
       <div className="px-3 py-2.5 rounded-xl bg-[#1A1C20] border border-[#262A30] flex items-center justify-between gap-2">

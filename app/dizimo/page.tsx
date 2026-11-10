@@ -11,6 +11,7 @@ import { DizimoPixDynamic } from '@/components/dizimo/DizimoPixDynamic';
 import { DizimoRegistrationForm } from '@/components/dizimo/DizimoRegistrationForm';
 import { DizimoTransparency } from '@/components/dizimo/DizimoTransparency';
 import { DizimoFaq } from '@/components/dizimo/DizimoFaq';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { Parish, Community, TitheTransparencyItem, TitheFaq } from '@/types';
 import { fallbackCommunitiesList } from '@/lib/communities';
 
@@ -101,10 +102,13 @@ export default async function DizimoPage() {
             <span>Voltar ao Portal</span>
           </Link>
 
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#8B1E22] dark:text-[#FFA82A] uppercase tracking-wider bg-[#8B1E22]/10 px-3 py-1 rounded-full border border-[#8B1E22]/20">
-            <HeartHandshake className="w-3.5 h-3.5" />
-            <span>Sou do Sagrado</span>
-          </span>
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#8B1E22] dark:text-[#FFA82A] uppercase tracking-wider bg-[#8B1E22]/10 px-3 py-1 rounded-full border border-[#8B1E22]/20">
+              <HeartHandshake className="w-3.5 h-3.5" />
+              <span>Sou do Sagrado</span>
+            </span>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
