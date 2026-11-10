@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Menu,
@@ -14,7 +14,6 @@ import {
   Calendar,
   Church,
   FileText,
-  Radio,
 } from 'lucide-react';
 import { useAdminSession } from '@/lib/hooks/useAdminSession';
 import { ResolvedEventTheme } from '@/lib/events';
@@ -37,11 +36,39 @@ export function CathedralHeader({
   themeOverride,
 }: CathedralHeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [liturgiaMenuOpen, setLiturgiaMenuOpen] = useState(false);
-  const [secretariaMenuOpen, setSecretariaMenuOpen] = useState(false);
-  const [cathedralMenuOpen, setCathedralMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<'liturgia' | 'secretaria' | 'cathedral' | null>(null);
   const [fontSizeLevel, setFontSizeLevel] = useState<'sm' | 'md' | 'lg'>('md');
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { hasAdminSession } = useAdminSession();
+
+  // Limpa timer ao desmontar
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    };
+  }, []);
+
+  const handleOpenMenu = (menu: 'liturgia' | 'secretaria' | 'cathedral') => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    setActiveMenu(menu);
+  };
+
+  const handleCloseMenu = () => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = setTimeout(() => {
+      setActiveMenu(null);
+    }, 140);
+  };
+
+  const handleToggleMenu = (menu: 'liturgia' | 'secretaria' | 'cathedral') => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    setActiveMenu((prev) => (prev === menu ? null : menu));
+  };
+
+  const closeAllMenus = () => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    setActiveMenu(null);
+  };
 
   const handleFontSizeChange = (level: 'sm' | 'md' | 'lg') => {
     setFontSizeLevel(level);
@@ -51,12 +78,6 @@ export function CathedralHeader({
       else if (level === 'md') root.style.fontSize = '16px';
       else if (level === 'lg') root.style.fontSize = '18px';
     }
-  };
-
-  const closeAllMenus = () => {
-    setLiturgiaMenuOpen(false);
-    setSecretariaMenuOpen(false);
-    setCathedralMenuOpen(false);
   };
 
   const t = themeOverride;
@@ -114,65 +135,72 @@ export function CathedralHeader({
         }}
         className="sticky top-0 z-40 w-full backdrop-blur-md border-b transition-all select-none"
       >
-        <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 h-20 flex items-center justify-between lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-4">
+        {/* CONTAINER COM A MÉTRICA EXATA DO SITE: max-w-[1240px] mx-auto px-3 sm:px-4 xl:px-6 */}
+        <div className="max-w-[1240px] mx-auto px-3 sm:px-4 xl:px-6 h-20 relative flex items-center justify-between">
           
-          {/* 1. Identidade e Brasão da Catedral (Coluna Esquerda: 1fr alinhado à esquerda) */}
-          <Link href="/" onClick={closeAllMenus} className="flex items-center gap-2.5 sm:gap-3 group text-decoration-none shrink-0 lg:justify-self-start">
+          {/* 1. Identidade e Brasão da Catedral (Alinhado rigorosamente à margem esquerda dos 1240px) */}
+          <Link
+            href="/"
+            onClick={closeAllMenus}
+            className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 group text-decoration-none shrink-0 z-20"
+          >
             <div
               style={{
                 background: 'var(--hdr-emblem-bg)',
                 borderColor: 'var(--hdr-emblem-border)',
                 color: 'var(--hdr-accent)',
               }}
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border flex items-center justify-center shadow-md shadow-black/40 group-hover:brightness-110 transition-all shrink-0"
+              className="w-8 h-8 sm:w-9 sm:h-9 xl:w-10 xl:h-10 rounded-xl border flex items-center justify-center shadow-md shadow-black/40 group-hover:brightness-110 transition-all shrink-0"
             >
-              <span className="font-serif text-xl sm:text-2xl font-bold leading-none select-none">✝</span>
+              <span className="font-serif text-base sm:text-lg xl:text-xl font-bold leading-none select-none">✝</span>
             </div>
             <div className="shrink-0 flex flex-col justify-center">
-              <span className="block font-cinzel text-xs sm:text-sm xl:text-base font-bold tracking-[0.04em] text-[#FAF6F0] uppercase leading-tight group-hover:text-[var(--hdr-accent)] transition-colors whitespace-nowrap">
+              <span className="block font-cinzel text-xs sm:text-sm font-bold tracking-[0.03em] xl:tracking-[0.04em] text-[#FAF6F0] uppercase leading-tight group-hover:text-[var(--hdr-accent)] transition-colors whitespace-nowrap">
                 Catedral
               </span>
-              <span className="block font-serif italic text-[11px] sm:text-xs text-[#FFCC36] tracking-wide leading-tight mt-0.5 whitespace-nowrap">
+              <span className="block font-serif italic text-[10px] sm:text-[11px] xl:text-xs text-[#FFCC36] tracking-wide leading-tight mt-0.5 whitespace-nowrap">
                 Sagrado Coração de Jesus
               </span>
             </div>
           </Link>
 
-          {/* 2. Menu Central Desktop: 3 SUBMENUS INTELIGENTES + MEU ESPAÇO (Coluna Central 100% Centralizada a 50%) */}
+          {/* 2. Menu Central: 3 SUBMENUS INTELIGENTES + MEU ESPAÇO RIGOROSAMENTE CENTRALIZADO (MÉTRICA 1240PX) */}
           <nav
             style={{ color: 'var(--hdr-nav-text)' }}
-            className="hidden lg:flex items-center justify-center lg:justify-self-center gap-2 xl:gap-4 text-xs font-bold tracking-[0.04em] uppercase font-sans"
+            className="hidden lg:flex items-center gap-0.5 xl:gap-2 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[11px] xl:text-xs font-bold tracking-tight xl:tracking-[0.02em] uppercase font-sans z-30"
           >
             {/* SUBMENU 1: Liturgia */}
             <div
               className="relative"
-              onMouseEnter={() => {
-                setLiturgiaMenuOpen(true);
-                setSecretariaMenuOpen(false);
-                setCathedralMenuOpen(false);
-              }}
-              onMouseLeave={() => setLiturgiaMenuOpen(false)}
+              onMouseEnter={() => handleOpenMenu('liturgia')}
+              onMouseLeave={handleCloseMenu}
             >
               <button
                 type="button"
-                onClick={() => setLiturgiaMenuOpen(!liturgiaMenuOpen)}
-                className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 px-2 flex items-center gap-1 cursor-pointer uppercase text-xs font-bold"
-                aria-expanded={liturgiaMenuOpen}
+                onClick={() => handleToggleMenu('liturgia')}
+                className={`whitespace-nowrap transition-all py-1 px-1.5 xl:py-2 xl:px-2.5 rounded-lg flex items-center gap-1 cursor-pointer uppercase text-[11px] xl:text-xs font-bold ${
+                  activeMenu === 'liturgia'
+                    ? 'text-[var(--hdr-accent)] bg-[var(--dash-surface)]/10'
+                    : 'hover:text-[var(--hdr-accent)] hover:bg-[var(--dash-surface)]/5'
+                }`}
+                aria-expanded={activeMenu === 'liturgia'}
               >
                 <span>Liturgia</span>
                 <ChevronDown
-                  style={{ color: liturgiaMenuOpen ? 'var(--hdr-accent)' : 'var(--hdr-gold-muted)' }}
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${liturgiaMenuOpen ? 'rotate-180' : ''}`}
+                  style={{ color: activeMenu === 'liturgia' ? 'var(--hdr-accent)' : 'var(--hdr-gold-muted)' }}
+                  className={`w-3 h-3 xl:w-3.5 xl:h-3.5 transition-transform duration-200 ${activeMenu === 'liturgia' ? 'rotate-180' : ''}`}
                 />
               </button>
 
-              {liturgiaMenuOpen && (
+              {activeMenu === 'liturgia' && (
                 <div
+                  onMouseEnter={() => handleOpenMenu('liturgia')}
+                  onMouseLeave={handleCloseMenu}
                   style={{
                     backgroundColor: 'var(--hdr-dropdown-bg)',
                     borderColor: 'var(--hdr-border)',
                   }}
-                  className="absolute top-full left-0 mt-1 w-72 rounded-2xl backdrop-blur-xl border shadow-2xl shadow-black/80 p-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                  className="absolute top-full left-0 mt-2 w-72 rounded-2xl backdrop-blur-xl border shadow-2xl shadow-black/80 p-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150 before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']"
                 >
                   <div style={{ borderColor: 'var(--hdr-border)' }} className="px-3 py-2 border-b mb-1">
                     <span style={{ color: 'var(--hdr-gold-muted)' }} className="text-[10px] uppercase tracking-wider font-bold block">
@@ -204,36 +232,38 @@ export function CathedralHeader({
               )}
             </div>
 
-            {/* SUBMENU 2: Secretaria & Pastorais */}
+            {/* SUBMENU 2: Secretaria */}
             <div
               className="relative"
-              onMouseEnter={() => {
-                setSecretariaMenuOpen(true);
-                setLiturgiaMenuOpen(false);
-                setCathedralMenuOpen(false);
-              }}
-              onMouseLeave={() => setSecretariaMenuOpen(false)}
+              onMouseEnter={() => handleOpenMenu('secretaria')}
+              onMouseLeave={handleCloseMenu}
             >
               <button
                 type="button"
-                onClick={() => setSecretariaMenuOpen(!secretariaMenuOpen)}
-                className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 px-2.5 flex items-center gap-1 cursor-pointer uppercase text-xs font-bold"
-                aria-expanded={secretariaMenuOpen}
+                onClick={() => handleToggleMenu('secretaria')}
+                className={`whitespace-nowrap transition-all py-1 px-1.5 xl:py-2 xl:px-2.5 rounded-lg flex items-center gap-1 cursor-pointer uppercase text-[11px] xl:text-xs font-bold ${
+                  activeMenu === 'secretaria'
+                    ? 'text-[var(--hdr-accent)] bg-[var(--dash-surface)]/10'
+                    : 'hover:text-[var(--hdr-accent)] hover:bg-[var(--dash-surface)]/5'
+                }`}
+                aria-expanded={activeMenu === 'secretaria'}
               >
                 <span>Secretaria</span>
                 <ChevronDown
-                  style={{ color: secretariaMenuOpen ? 'var(--hdr-accent)' : 'var(--hdr-gold-muted)' }}
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${secretariaMenuOpen ? 'rotate-180' : ''}`}
+                  style={{ color: activeMenu === 'secretaria' ? 'var(--hdr-accent)' : 'var(--hdr-gold-muted)' }}
+                  className={`w-3 h-3 xl:w-3.5 xl:h-3.5 transition-transform duration-200 ${activeMenu === 'secretaria' ? 'rotate-180' : ''}`}
                 />
               </button>
 
-              {secretariaMenuOpen && (
+              {activeMenu === 'secretaria' && (
                 <div
+                  onMouseEnter={() => handleOpenMenu('secretaria')}
+                  onMouseLeave={handleCloseMenu}
                   style={{
                     backgroundColor: 'var(--hdr-dropdown-bg)',
                     borderColor: 'var(--hdr-border)',
                   }}
-                  className="absolute top-full left-0 mt-1 w-72 rounded-2xl backdrop-blur-xl border shadow-2xl shadow-black/80 p-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-2xl backdrop-blur-xl border shadow-2xl shadow-black/80 p-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150 before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']"
                 >
                   <div style={{ borderColor: 'var(--hdr-border)' }} className="px-3 py-2 border-b mb-1">
                     <span style={{ color: 'var(--hdr-gold-muted)' }} className="text-[10px] uppercase tracking-wider font-bold block">
@@ -268,33 +298,35 @@ export function CathedralHeader({
             {/* SUBMENU 3: A Catedral */}
             <div
               className="relative"
-              onMouseEnter={() => {
-                setCathedralMenuOpen(true);
-                setLiturgiaMenuOpen(false);
-                setSecretariaMenuOpen(false);
-              }}
-              onMouseLeave={() => setCathedralMenuOpen(false)}
+              onMouseEnter={() => handleOpenMenu('cathedral')}
+              onMouseLeave={handleCloseMenu}
             >
               <button
                 type="button"
-                onClick={() => setCathedralMenuOpen(!cathedralMenuOpen)}
-                className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 px-2.5 flex items-center gap-1 cursor-pointer uppercase text-xs font-bold"
-                aria-expanded={cathedralMenuOpen}
+                onClick={() => handleToggleMenu('cathedral')}
+                className={`whitespace-nowrap transition-all py-1 px-1.5 xl:py-2 xl:px-2.5 rounded-lg flex items-center gap-1 cursor-pointer uppercase text-[11px] xl:text-xs font-bold ${
+                  activeMenu === 'cathedral'
+                    ? 'text-[var(--hdr-accent)] bg-[var(--dash-surface)]/10'
+                    : 'hover:text-[var(--hdr-accent)] hover:bg-[var(--dash-surface)]/5'
+                }`}
+                aria-expanded={activeMenu === 'cathedral'}
               >
                 <span>A Catedral</span>
                 <ChevronDown
-                  style={{ color: cathedralMenuOpen ? 'var(--hdr-accent)' : 'var(--hdr-gold-muted)' }}
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${cathedralMenuOpen ? 'rotate-180' : ''}`}
+                  style={{ color: activeMenu === 'cathedral' ? 'var(--hdr-accent)' : 'var(--hdr-gold-muted)' }}
+                  className={`w-3 h-3 xl:w-3.5 xl:h-3.5 transition-transform duration-200 ${activeMenu === 'cathedral' ? 'rotate-180' : ''}`}
                 />
               </button>
 
-              {cathedralMenuOpen && (
+              {activeMenu === 'cathedral' && (
                 <div
+                  onMouseEnter={() => handleOpenMenu('cathedral')}
+                  onMouseLeave={handleCloseMenu}
                   style={{
                     backgroundColor: 'var(--hdr-dropdown-bg)',
                     borderColor: 'var(--hdr-border)',
                   }}
-                  className="absolute top-full left-0 mt-1 w-72 rounded-2xl backdrop-blur-xl border shadow-2xl shadow-black/80 p-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                  className="absolute top-full right-0 mt-2 w-72 rounded-2xl backdrop-blur-xl border shadow-2xl shadow-black/80 p-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150 before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']"
                 >
                   <div style={{ borderColor: 'var(--hdr-border)' }} className="px-3 py-2 border-b mb-1">
                     <span style={{ color: 'var(--hdr-gold-muted)' }} className="text-[10px] uppercase tracking-wider font-bold block">
@@ -326,22 +358,19 @@ export function CathedralHeader({
               )}
             </div>
 
-            {/* LINK DESTAQUE: Meu Espaço */}
+            {/* ITEM DESTAQUE: Meu Espaço com respiro e sem colisão */}
             <Link
               href="/meu-espaco"
               onClick={closeAllMenus}
-              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 px-2.5 flex items-center gap-1.5 text-[#FFCC36]"
+              className="whitespace-nowrap hover:text-[var(--hdr-accent)] hover:bg-[var(--dash-surface)]/5 transition-all py-1 px-1.5 xl:py-2 xl:px-2.5 rounded-lg flex items-center gap-1 text-[#FFCC36] text-[11px] xl:text-xs font-bold"
             >
-              <User className="w-3.5 h-3.5 shrink-0" />
+              <User className="w-3 h-3 xl:w-3.5 xl:h-3.5 shrink-0" />
               <span>Meu Espaço</span>
             </Link>
           </nav>
 
-          {/* 3. Ações Rápidas à Direita (Coluna Direita 1fr) */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0 lg:justify-self-end">
-            {/* ☀️ / 🌙 Alternador de Tema Claro / Escuro (40x40px Fixo e Visível) */}
-            <ThemeToggle />
-
+          {/* 3. Ações à Direita (Alinhadas rigorosamente à margem direita dos 1240px) */}
+          <div className="flex items-center gap-1 sm:gap-1.5 xl:gap-2.5 shrink-0 z-20">
             {/* Botão Missa Ao Vivo */}
             <button
               onClick={onOpenLiveVideo}
@@ -350,7 +379,7 @@ export function CathedralHeader({
                 backgroundColor: 'var(--hdr-live-bg)',
                 borderColor: 'var(--hdr-live-border)',
               }}
-              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl hover:brightness-115 border text-[#FAF6F0] text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[40px]"
+              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1 sm:gap-1.5 px-2 xl:px-3 py-1.5 xl:py-2 rounded-xl hover:brightness-115 border text-[#FAF6F0] text-[11px] xl:text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[36px] xl:min-h-[38px]"
               title="Assistir Transmissão Oficial ao Vivo"
             >
               <span className="relative flex h-2 w-2 shrink-0">
@@ -366,7 +395,7 @@ export function CathedralHeader({
               <span className="whitespace-nowrap">Ao Vivo</span>
             </button>
 
-            {/* Painel Admin (quando logado) */}
+            {/* Painel Admin (quando logado) - Ícone discreto em telas compactas e texto completo em telas 2xl */}
             {hasAdminSession && (
               <Link
                 href="/admin"
@@ -375,15 +404,15 @@ export function CathedralHeader({
                   borderColor: 'var(--hdr-admin-border)',
                   color: 'var(--hdr-admin-text)',
                 }}
-                className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl hover:brightness-115 border text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[40px]"
+                className="whitespace-nowrap shrink-0 inline-flex items-center justify-center gap-1 px-2 xl:px-3 py-1.5 xl:py-2 rounded-xl hover:brightness-115 border text-[11px] xl:text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[36px] xl:min-h-[38px]"
                 title="Voltar ao Painel Administrativo"
               >
                 <ShieldCheck className="w-4 h-4 shrink-0" />
-                <span>Admin</span>
+                <span className="hidden 2xl:inline">Admin</span>
               </Link>
             )}
 
-            {/* CTA Sou do Sagrado */}
+            {/* CTA Sou do Sagrado / Dízimo - Dízimo em telas compactas e Sou do Sagrado em telas 2xl */}
             <Link
               href="/dizimo"
               onClick={closeAllMenus}
@@ -391,14 +420,17 @@ export function CathedralHeader({
                 background: 'var(--hdr-cta-bg)',
                 color: 'var(--hdr-cta-text)',
               }}
-              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl hover:brightness-105 text-xs font-extrabold uppercase tracking-wider font-sans transition-all shadow-md cursor-pointer min-h-[40px]"
+              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1 sm:gap-1.5 px-2.5 xl:px-4 py-1.5 xl:py-2 rounded-xl hover:brightness-105 text-[11px] xl:text-xs font-extrabold uppercase tracking-wider font-sans transition-all shadow-md cursor-pointer min-h-[36px] xl:min-h-[38px]"
             >
               <Sparkles className="w-3.5 h-3.5 shrink-0" />
-              <span className="hidden sm:inline whitespace-nowrap">Sou do Sagrado</span>
-              <span className="sm:hidden whitespace-nowrap">Dízimo</span>
+              <span className="hidden 2xl:inline whitespace-nowrap">Sou do Sagrado</span>
+              <span className="2xl:hidden whitespace-nowrap">Dízimo</span>
             </Link>
 
-            {/* Botão Menu Hamburger para Telas Pequenas */}
+            {/* ☀️ / 🌙 Alternador de Tema: Posicionado à Extrema Direita com Total Isolamento e Destaque */}
+            <ThemeToggle />
+
+            {/* Botão Menu Hamburger para Mobile */}
             <button
               onClick={() => setMobileMenuOpen(true)}
               type="button"
