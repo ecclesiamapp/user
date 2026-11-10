@@ -21,8 +21,8 @@ import { ImageUploaderField, ImagePreset } from '@/components/admin/shared/Image
 const CLERGY_PRESETS: ImagePreset[] = [
   { label: 'Pe. Irineu (Pároco)', url: '/images/pastores/pe-irineu-claudino-sales.webp' },
   { label: 'Dom Lauro (Bispo)', url: '/images/pastores/dom-lauro-versiani.webp' },
-  { label: 'Pe. Deivid (Vigário)', url: '/images/pastores/Deivid.jpg' },
-  { label: 'Pe. Ernandes (Vigário)', url: '/images/pastores/Ernandes.jpg' },
+  { label: 'Pe. Deivid (Vigário)', url: '/images/pastores/pe-deivid-pereira.webp' },
+  { label: 'Pe. Ernandes (Vigário)', url: '/images/pastores/pe-ernandes-fantin.webp' },
 ];
 
 interface MessageFormModalProps {
