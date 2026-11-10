@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Crown, Sparkles, User, Award, ShieldCheck, Heart } from 'lucide-react';
+import { Crown, Sparkles, User, Award, ShieldCheck, Heart, Maximize2 } from 'lucide-react';
 import { BISHOPS_SUCCESSION, PARISH_PRIESTS_SUCCESSION, BishopSuccession, PastorSuccession } from '@/lib/history';
+import { BishopDetailModal } from './BishopDetailModal';
+import { CathedralCurrentClergyGrid } from './CathedralCurrentClergyGrid';
 
 interface BishopsAndPastorsGalleryProps {
   initialBishops?: BishopSuccession[];
@@ -11,6 +13,7 @@ interface BishopsAndPastorsGalleryProps {
 
 export function BishopsAndPastorsGallery({ initialBishops, initialPastors }: BishopsAndPastorsGalleryProps) {
   const [activeTab, setActiveTab] = useState<'bishops' | 'pastors'>('bishops');
+  const [selectedBishop, setSelectedBishop] = useState<BishopSuccession | null>(null);
 
   const bishopsList = initialBishops && initialBishops.length > 0
     ? initialBishops
@@ -65,7 +68,7 @@ export function BishopsAndPastorsGallery({ initialBishops, initialPastors }: Bis
         </div>
       </div>
 
-      {/* Conteúdo Aba 1: Bispos Diocesanos com Fotos Oficiais */}
+      {/* Conteúdo Aba 1: Bispos Diocesanos com Retratos Oficiais em 4:5 */}
       {activeTab === 'bishops' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in duration-200">
           {bishopsList.map((bishop) => (
@@ -94,22 +97,32 @@ export function BishopsAndPastorsGallery({ initialBishops, initialPastors }: Bis
               </div>
 
               <div className="space-y-4">
-                {/* Linha com Foto Oficial e Identificação */}
-                <div className="flex items-start gap-4">
+                {/* Linha com Retrato Canônico 4:5 e Identificação */}
+                <div className="flex items-start gap-4 sm:gap-5">
                   {bishop.imageUrl ? (
-                    <div className="relative shrink-0">
-                      <img
-                        src={bishop.imageUrl}
-                        alt={bishop.name}
-                        loading="lazy"
-                        className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl object-cover object-top border-2 border-[#C8A463]/50 shadow-md bg-stone-900"
-                      />
+                    <button
+                      type="button"
+                      onClick={() => setSelectedBishop(bishop)}
+                      className="relative shrink-0 group cursor-pointer focus:outline-none"
+                      title="Clique para ver o retrato e detalhes oficiais"
+                    >
+                      <div className="w-24 sm:w-28 aspect-[4/5] rounded-xl overflow-hidden border-2 border-[#C8A463]/50 shadow-md bg-stone-900 relative">
+                        <img
+                          src={bishop.imageUrl}
+                          alt={bishop.name}
+                          loading="lazy"
+                          className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                          <Maximize2 className="w-4 h-4 drop-shadow-md" />
+                        </div>
+                      </div>
                       <div className="absolute -bottom-1 -right-1 p-1 rounded-md bg-[#8B1E22] text-[#FFCC36] shadow-xs">
                         <Crown className="w-3 h-3" />
                       </div>
-                    </div>
+                    </button>
                   ) : (
-                    <div className="w-16 h-20 sm:w-20 sm:h-24 rounded-xl bg-gradient-to-br from-[#8B1E22] to-[#2D1A16] border border-[#C8A463]/40 flex items-center justify-center text-[#FFCC36] shadow-xs shrink-0">
+                    <div className="w-24 sm:w-28 aspect-[4/5] rounded-xl bg-gradient-to-br from-[#8B1E22] to-[#2D1A16] border border-[#C8A463]/40 flex items-center justify-center text-[#FFCC36] shadow-xs shrink-0">
                       <Crown className="w-8 h-8" />
                     </div>
                   )}
@@ -173,9 +186,9 @@ export function BishopsAndPastorsGallery({ initialBishops, initialPastors }: Bis
         </div>
       )}
 
-      {/* Conteúdo Aba 2: Censo Histórico de Párocos da Catedral */}
+      {/* Conteúdo Aba 2: Censo Histórico de Párocos da Catedral & Clero Ativo */}
       {activeTab === 'pastors' && (
-        <div className="space-y-6 animate-in fade-in duration-200">
+        <div className="space-y-8 animate-in fade-in duration-200">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {pastorsList.map((pastor) => (
               <div
@@ -207,20 +220,23 @@ export function BishopsAndPastorsGallery({ initialBishops, initialPastors }: Bis
                     </div>
                   </div>
 
-                  {/* Linha com Foto (se houver) e Títulos */}
+                  {/* Linha com Foto 4:5 (se houver) e Títulos */}
                   <div className="flex items-start gap-4">
                     {pastor.imageUrl ? (
-                      <div className="relative shrink-0">
+                      <div className="w-20 sm:w-24 aspect-[4/5] rounded-xl overflow-hidden border-2 border-[#C8A463]/50 shadow-md bg-stone-900 shrink-0 relative">
                         <img
                           src={pastor.imageUrl}
                           alt={pastor.name}
                           loading="lazy"
-                          className="w-16 h-20 sm:w-20 sm:h-24 rounded-xl object-cover object-top border-2 border-[#C8A463]/50 shadow-md bg-stone-900"
+                          className="w-full h-full object-cover object-top"
                         />
                       </div>
                     ) : (
-                      <div className="w-12 h-14 sm:w-14 sm:h-16 rounded-xl bg-gradient-to-br from-[#8B1E22]/20 to-[#2D1A16]/20 border border-[var(--dash-border)] flex items-center justify-center text-[#8B1E22] dark:text-[#FFA82A] shrink-0">
-                        <User className="w-6 h-6" />
+                      <div className="w-20 sm:w-24 aspect-[4/5] rounded-xl bg-gradient-to-br from-[#8B1E22]/20 to-[#2D1A16]/20 border border-[var(--dash-border)] flex flex-col items-center justify-center text-[#8B1E22] dark:text-[#FFA82A] shrink-0 p-2 text-center">
+                        <User className="w-6 h-6 mb-1 opacity-70" />
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-[var(--dash-text-muted)]">
+                          Catedral
+                        </span>
                       </div>
                     )}
 
@@ -255,17 +271,16 @@ export function BishopsAndPastorsGallery({ initialBishops, initialPastors }: Bis
             ))}
           </div>
 
-          {/* Destaque para o Clero Paroquial Atual */}
-          <div className="bg-[var(--dash-surface)] rounded-2xl border border-[var(--dash-border)] p-6 text-center space-y-3">
-            <h4 className="font-cinzel text-base font-bold text-[var(--dash-text-primary)] uppercase tracking-wide">
-              Clero em Atividade na Catedral
-            </h4>
-            <p className="text-xs sm:text-sm text-[var(--dash-text-secondary)] max-w-xl mx-auto leading-relaxed">
-              Sob a liderança do Pároco Pe. Irineu Claudino Sales, a paróquia conta com o auxílio solene dos vigários paroquiais Padre Adilson Ramos de Melo, Padre Deivid José Langa Lopes e Padre Ernandes Samuel Fantin.
-            </p>
-          </div>
+          {/* Grid Nobre do Clero Paroquial em Atividade */}
+          <CathedralCurrentClergyGrid />
         </div>
       )}
+
+      {/* Modal de Detalhamento Solene do Bispo */}
+      <BishopDetailModal
+        bishop={selectedBishop}
+        onClose={() => setSelectedBishop(null)}
+      />
     </section>
   );
 }

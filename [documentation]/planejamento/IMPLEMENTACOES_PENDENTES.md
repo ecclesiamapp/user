@@ -63,12 +63,15 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
 
 ---
 
-### 📌 4. Curadoria Externa em Estúdio/Alta Resolução dos Retratos dos Bispos Diocesanos
+### 📌 4. Curadoria dos Retratos dos Bispos Diocesanos & Galeria do Clero da Catedral
 
-* **Status:** ⏳ **Aguardando Acervo Oficial da PASCOM / Chancelaria Diocesana**
-* **⏱️ Tempo Estimado de Execução:** `~30 minutos` (após recebimento dos arquivos originais da Cúria).
-* **Arquivos Envolvidos:** `public/images/pastores/*.webp`, [`BishopsAndPastorsGallery.tsx`](file:///c:/Users/Start/ecclesiam-app/components/historia/BishopsAndPastorsGallery.tsx) e tabela `public.parish_pastors_succession`.
-* **Objetivo:** Substituir os retratos atuais (já funcionais em `.webp`) pelos retratos canônicos de estúdio em alta definição fornecidos pela Chancelaria Diocesana para Dom Geraldo Lyrio Rocha (✝ 2023), Dom Décio Sossai Zandonade, Dom Joaquim Wladimir Lopes Dias e Dom Lauro Sérgio Versiani Barbosa, com padronização 4:5 (`<= 70KB`).
+* **Status:** ✅ **100% Concluído & Homologado**
+* **Rotas Ativas:** `/historia` (aba "Bispos" e aba "Párocos")
+* **Entregas Técnicas Entregues:**
+  * **Padronização Canônica 4:5:** Retratos dos 4 bispos diocesanos (Dom Geraldo, Dom Décio, Dom Wladimir e Dom Lauro) perfeitamente ajustados na proporção 4:5 (`600x750`) com compressão WebP de alta fidelidade (`<= 55KB`).
+  * **Modal Solene de Ampliação:** Subcomponente [`BishopDetailModal.tsx`](file:///c:/Users/Start/ecclesiam-app/components/historia/BishopDetailModal.tsx) com visualização solene do retrato, lema episcopal oficial em latim e tradução, resumo histórico e marcos notáveis na Diocese de Colatina.
+  * **Grid Nobre do Clero em Atividade:** Subcomponente [`CathedralCurrentClergyGrid.tsx`](file:///c:/Users/Start/ecclesiam-app/components/historia/CathedralCurrentClergyGrid.tsx) apresentando os 4 sacerdotes da Catedral (Pe. Irineu Claudino Sales, Pe. Adilson Ramos de Melo, Pe. Deivid José Langa Lopes e Pe. Ernandes Samuel Fantin) com datas canônicas de ordenação presbiteral e retratos otimizados em 4:5 (`pe-deivid-pereira.webp` de 21KB e `pe-ernandes-fantin.webp` de 67KB).
+  * **Refatoração Anti-Monólito:** Galeria [`BishopsAndPastorsGallery.tsx`](file:///c:/Users/Start/ecclesiam-app/components/historia/BishopsAndPastorsGallery.tsx) mantida leve e modular (260 linhas).
 
 ---
 
