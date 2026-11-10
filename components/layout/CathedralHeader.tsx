@@ -82,9 +82,9 @@ export function CathedralHeader({
         }}
         className="sticky top-0 z-40 w-full backdrop-blur-md border-b transition-all"
       >
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
+        <div className="max-w-[1400px] mx-auto px-3 sm:px-6 h-20 flex items-center justify-between gap-2 xl:gap-4">
           {/* 1. Identidade e Brasão da Catedral */}
-          <Link href="/" className="flex items-center gap-3 group text-decoration-none shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group text-decoration-none shrink-0">
             <div
               style={{
                 background: 'var(--hdr-emblem-bg)',
@@ -95,13 +95,14 @@ export function CathedralHeader({
             >
               <span className="font-serif text-xl sm:text-2xl font-bold leading-none select-none">✝</span>
             </div>
-            <div className="shrink-0">
-              <span className="block font-cinzel text-sm sm:text-base xl:text-lg font-bold tracking-[0.04em] text-[#FAF6F0] uppercase leading-tight group-hover:text-[var(--hdr-accent)] transition-colors whitespace-nowrap">
-                {parishName}
+            <div className="shrink-0 max-w-[180px] sm:max-w-none">
+              <span className="block font-cinzel text-xs sm:text-base xl:text-lg font-bold tracking-[0.03em] xl:tracking-[0.04em] text-[#FAF6F0] uppercase leading-tight group-hover:text-[var(--hdr-accent)] transition-colors truncate sm:whitespace-nowrap">
+                <span className="xl:hidden">Catedral de Colatina</span>
+                <span className="hidden xl:inline">{parishName}</span>
               </span>
               <span
                 style={{ color: 'var(--hdr-gold-muted)' }}
-                className="hidden sm:block text-[10px] xl:text-[11px] font-medium tracking-wide whitespace-nowrap"
+                className="hidden 2xl:block text-[10px] xl:text-[11px] font-medium tracking-wide whitespace-nowrap"
               >
                 Paróquia Sagrado Coração de Jesus • {dioceseName}
               </span>
@@ -111,41 +112,41 @@ export function CathedralHeader({
           {/* 2. Menu Central Desktop */}
           <nav
             style={{ color: 'var(--hdr-nav-text)' }}
-            className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-bold tracking-[0.05em] uppercase font-sans"
+            className="hidden lg:flex items-center gap-1.5 xl:gap-4 text-[11px] xl:text-xs font-bold tracking-[0.03em] uppercase font-sans shrink min-w-0"
           >
             <Link
               href="/agenda-liturgica"
-              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2"
+              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 px-1"
             >
-              Horários & Missas
+              Missas
             </Link>
 
             <Link
               href="/comunidades"
-              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2"
+              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 px-1"
             >
               Comunidades
             </Link>
 
             <Link
               href="/noticias"
-              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2"
+              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 px-1"
             >
               Notícias
             </Link>
 
             <Link
               href="/secretaria"
-              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2"
+              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 px-1"
             >
               Secretaria
             </Link>
 
             <Link
               href="/meu-espaco"
-              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 flex items-center gap-1 text-[#FFCC36]"
+              className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 px-1 flex items-center gap-1 text-[#FFCC36]"
             >
-              <User className="w-3.5 h-3.5" />
+              <User className="w-3.5 h-3.5 shrink-0" />
               <span>Meu Espaço</span>
             </Link>
 
@@ -158,7 +159,7 @@ export function CathedralHeader({
               <button
                 onClick={() => setCathedralMenuOpen(!cathedralMenuOpen)}
                 type="button"
-                className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 flex items-center gap-1 cursor-pointer uppercase text-xs font-bold"
+                className="whitespace-nowrap hover:text-[var(--hdr-accent)] transition-colors py-2 px-1 flex items-center gap-1 cursor-pointer uppercase text-[11px] xl:text-xs font-bold"
                 aria-expanded={cathedralMenuOpen}
               >
                 <span>A Catedral</span>
@@ -222,8 +223,11 @@ export function CathedralHeader({
             </div>
           </nav>
 
-          {/* 3. Ações Rápidas à Direita */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* 3. Ações Rápidas à Direita com ThemeToggle em Primeiro Plano */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* ☀️ / 🌙 Alternador de Tema Claro / Escuro: Fixo e Imediatamente Visível */}
+            <ThemeToggle className="shrink-0" />
+
             <button
               onClick={onOpenLiveVideo}
               type="button"
@@ -231,7 +235,7 @@ export function CathedralHeader({
                 backgroundColor: 'var(--hdr-live-bg)',
                 borderColor: 'var(--hdr-live-border)',
               }}
-              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl hover:brightness-115 border text-[#FAF6F0] text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[40px]"
+              className="whitespace-nowrap shrink-0 hidden sm:inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl hover:brightness-115 border text-[#FAF6F0] text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[40px]"
               title="Assistir Transmissão ao Vivo Oficial"
             >
               <span className="relative flex h-2 w-2 shrink-0">
@@ -257,11 +261,11 @@ export function CathedralHeader({
                   borderColor: 'var(--hdr-admin-border)',
                   color: 'var(--hdr-admin-text)',
                 }}
-                className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl hover:brightness-115 border text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[40px]"
+                className="whitespace-nowrap shrink-0 hidden xl:inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl hover:brightness-115 border text-xs font-bold uppercase tracking-wider font-sans transition-all shadow-sm cursor-pointer min-h-[40px]"
                 title="Voltar ao Painel Administrativo"
               >
                 <ShieldCheck className="w-4 h-4 shrink-0" />
-                <span className="hidden xl:inline">Painel </span>Admin
+                <span>Admin</span>
               </Link>
             )}
 
@@ -271,14 +275,12 @@ export function CathedralHeader({
                 background: 'var(--hdr-cta-bg)',
                 color: 'var(--hdr-cta-text)',
               }}
-              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl hover:brightness-105 text-xs font-extrabold uppercase tracking-wider font-sans transition-all shadow-md cursor-pointer min-h-[40px]"
+              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-xl hover:brightness-105 text-xs font-extrabold uppercase tracking-wider font-sans transition-all shadow-md cursor-pointer min-h-[40px]"
             >
               <Sparkles className="w-3.5 h-3.5 shrink-0" />
-              <span className="whitespace-nowrap">Sou do Sagrado</span>
+              <span className="hidden sm:inline whitespace-nowrap">Sou do Sagrado</span>
+              <span className="sm:hidden whitespace-nowrap">Dízimo</span>
             </Link>
-
-            {/* Alternador de Tema Claro / Escuro */}
-            <ThemeToggle />
 
             <button
               onClick={() => setMobileMenuOpen(true)}

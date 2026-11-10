@@ -108,28 +108,33 @@ export function ThemeToggle({
     );
   }
 
-  // Variante Padrão Button: Botão de ação compacto para o Header
+  // Variante Padrão Button: Botão de ação com alto contraste e texto claro
   return (
     <button
       type="button"
       onClick={toggleTheme}
-      className={`shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl border flex items-center justify-center transition-all cursor-pointer relative group ${
+      className={`shrink-0 inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl border font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-sm min-h-[40px] group ${
         isDark
-          ? 'bg-amber-500/15 border-amber-500/40 text-amber-300 hover:bg-amber-500/25 hover:border-amber-400 shadow-sm shadow-amber-500/10'
-          : 'bg-[var(--dash-surface)]/10 border-white/15 text-amber-200 hover:bg-[var(--dash-surface)]/20 hover:text-[#FFA82A] shadow-sm'
+          ? 'bg-amber-500/25 border-amber-400 text-amber-300 hover:bg-amber-500/35 hover:scale-105 ring-1 ring-amber-400/50 shadow-amber-500/20'
+          : 'bg-[var(--dash-surface)]/10 dark:bg-[var(--dash-surface)]/10 border-white/25 text-amber-200 hover:bg-[var(--dash-surface)]/20 hover:text-[#FFA82A]'
       } ${className}`}
-      title={isDark ? 'Modo Escuro Ativo • Clique para deixar Claro' : 'Modo Claro Ativo • Clique para deixar Escuro'}
-      aria-label={isDark ? 'Modo Escuro Ativo • Clique para deixar Claro' : 'Modo Claro Ativo • Clique para deixar Escuro'}
+      title={isDark ? 'Modo Escuro Ativo • Clique para deixar no Tema Claro' : 'Modo Claro Ativo • Clique para deixar no Tema Escuro'}
+      aria-label={isDark ? 'Modo Escuro Ativo • Clique para deixar no Tema Claro' : 'Modo Claro Ativo • Clique para deixar no Tema Escuro'}
     >
       {isDark ? (
-        <Sun className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-amber-300 group-hover:rotate-45 group-hover:scale-110 transition-transform duration-300" />
+        <>
+          <Sun className="w-4 h-4 text-amber-300 group-hover:rotate-45 transition-transform duration-300 shrink-0" />
+          <span className="text-amber-200 font-extrabold text-[11px] whitespace-nowrap">
+            Claro
+          </span>
+        </>
       ) : (
-        <Moon className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-amber-200 group-hover:-rotate-12 group-hover:scale-110 transition-transform duration-300" />
-      )}
-      {showLabel && (
-        <span className="sr-only">
-          {isDark ? 'Alternar para Tema Claro' : 'Alternar para Tema Escuro'}
-        </span>
+        <>
+          <Moon className="w-4 h-4 text-amber-200 group-hover:-rotate-12 transition-transform duration-300 shrink-0" />
+          <span className="text-white/90 font-extrabold text-[11px] whitespace-nowrap">
+            Escuro
+          </span>
+        </>
       )}
     </button>
   );

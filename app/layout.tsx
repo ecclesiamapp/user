@@ -65,7 +65,7 @@ export default async function RootLayout({
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={`${plusJakartaSans.variable} ${cormorantGaramond.variable} ${cinzel.variable} ${suezOne.variable} font-sans h-full antialiased`}
+      className={`${plusJakartaSans.variable} ${cormorantGaramond.variable} ${cinzel.variable} ${suezOne.variable} font-sans h-full antialiased overflow-x-hidden`}
     >
       <head>
         <script
@@ -108,7 +108,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans overflow-x-hidden">
         <ThemeProvider>
           <ExtensionErrorSuppressor />
           {children}
