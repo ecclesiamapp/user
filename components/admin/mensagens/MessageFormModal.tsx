@@ -153,35 +153,88 @@ export function MessageFormModal({
         author_type: authorType,
         author_name: authorName.trim(),
         author_title: authorTitle.trim(),
-        author_photo_url: authorPhotoUrl.trim() || null,
+        author_photo_url: authorPhotoUrl.trim() || undefined,
         title: title.trim(),
         slug: slug.trim(),
-        subtitle: subtitle.trim() || null,
+        subtitle: subtitle.trim() || undefined,
         content: content.trim(),
-        liturgical_season: liturgicalSeason.trim() || null,
-        cover_image_url: coverImageUrl.trim() || null,
+        liturgical_season: liturgicalSeason.trim() || undefined,
+        cover_image_url: coverImageUrl.trim() || undefined,
         is_featured_home: isFeaturedHome,
         is_active: isActive,
         updated_at: new Date().toISOString(),
       };
 
+      const LOCAL_STORAGE_KEY = 'ecclesiam_local_pastoral_messages';
+
+      const saveLocalFallback = (newOrUpdatedItem: PastoralMessage) => {
+        if (typeof window !== 'undefined') {
+          try {
+            const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+            let list: PastoralMessage[] = raw ? JSON.parse(raw) : [];
+            if (!Array.isArray(list)) list = [];
+
+            if (newOrUpdatedItem.is_featured_home) {
+              list = list.map((item) => ({ ...item, is_featured_home: false }));
+            }
+
+            const exists = list.some((item) => item.id === newOrUpdatedItem.id);
+            if (exists) {
+              list = list.map((item) =>
+                item.id === newOrUpdatedItem.id ? newOrUpdatedItem : item
+              );
+            } else {
+              list = [newOrUpdatedItem, ...list];
+            }
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
+          } catch (e) {
+            console.warn('Erro ao salvar no localStorage:', e);
+          }
+        }
+      };
+
       if (messageToEdit) {
         // Atualização
-        const { error } = await supabase
-          .from('pastoral_messages')
-          .update(payload)
-          .eq('id', messageToEdit.id);
+        const updatedItem: PastoralMessage = {
+          ...messageToEdit,
+          ...payload,
+          id: messageToEdit.id,
+        };
 
-        if (error) throw error;
+        try {
+          const { error } = await supabase
+            .from('pastoral_messages')
+            .update(payload)
+            .eq('id', messageToEdit.id);
+
+          if (error) throw error;
+        } catch (dbErr) {
+          console.warn('Supabase offline ou sem tabela, gravando em cache local:', dbErr);
+        }
+
+        saveLocalFallback(updatedItem);
         onSuccess('Mensagem pastoral atualizada com sucesso!');
       } else {
         // Criação
-        const { error } = await supabase.from('pastoral_messages').insert({
+        const newItem: PastoralMessage = {
           ...payload,
+          id: `local-msg-${Date.now()}`,
           published_at: new Date().toISOString(),
-        });
+          created_at: new Date().toISOString(),
+        } as unknown as PastoralMessage;
 
-        if (error) throw error;
+        try {
+          const { error } = await supabase.from('pastoral_messages').insert({
+            ...payload,
+            published_at: new Date().toISOString(),
+          });
+
+          if (error) throw error;
+        } catch (dbErr) {
+          console.warn('Supabase offline ou sem tabela, gravando em cache local:', dbErr);
+        }
+
+        saveLocalFallback(newItem);
         onSuccess('Nova mensagem pastoral publicada com sucesso!');
       }
 

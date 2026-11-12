@@ -136,7 +136,7 @@ export function CathedralHeader({
         className="sticky top-0 z-40 w-full backdrop-blur-md border-b transition-all select-none"
       >
         {/* CONTAINER COM A MÉTRICA EXATA DO SITE: max-w-[1240px] mx-auto px-3 sm:px-4 xl:px-6 */}
-        <div className="max-w-[1240px] mx-auto px-3 sm:px-4 xl:px-6 h-20 relative flex items-center justify-between">
+        <div className="max-w-[1240px] mx-auto px-3 sm:px-4 xl:px-6 h-20 flex items-center justify-between gap-2 xl:gap-4 relative">
           
           {/* 1. Identidade e Brasão da Catedral (Alinhado rigorosamente à margem esquerda dos 1240px) */}
           <Link
@@ -164,10 +164,10 @@ export function CathedralHeader({
             </div>
           </Link>
 
-          {/* 2. Menu Central: 3 SUBMENUS INTELIGENTES + MEU ESPAÇO RIGOROSAMENTE CENTRALIZADO (MÉTRICA 1240PX) */}
+          {/* 2. Menu Central: FLUXO FLEXBOX CENTRALIZADO SEM NENHUMA COLISÃO FÍSICA (MÉTRICA 1240PX) */}
           <nav
             style={{ color: 'var(--hdr-nav-text)' }}
-            className="hidden lg:flex items-center gap-0.5 xl:gap-2 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[11px] xl:text-xs font-bold tracking-tight xl:tracking-[0.02em] uppercase font-sans z-30"
+            className="hidden lg:flex items-center justify-center gap-1 xl:gap-2.5 flex-1 min-w-0 text-[11px] xl:text-xs font-bold tracking-tight xl:tracking-[0.02em] uppercase font-sans z-30"
           >
             {/* SUBMENU 1: Liturgia */}
             <div
