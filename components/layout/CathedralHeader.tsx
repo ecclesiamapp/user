@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useAdminSession } from '@/lib/hooks/useAdminSession';
 import { ResolvedEventTheme } from '@/lib/events';
+import { isPhaseActive } from '@/lib/release-config';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { CathedralMobileDrawer } from './CathedralMobileDrawer';
 
@@ -105,17 +106,21 @@ export function CathedralHeader({
     '--hdr-cta-text': t ? t.ctaTextOnSecondary : '#2D1A16',
   } as React.CSSProperties;
 
-  // Itens dos 3 Submenus Estruturados
+  // Itens dos 3 Submenus Estruturados com Filtro do Lançamento Escalonado
   const LITURGIA_ITEMS = [
     { href: '/agenda-liturgica', icon: Calendar, title: 'Agenda Litúrgica & Missas', sub: 'Horários da Catedral, adorações e confissões' },
-    { href: '/comunidades', icon: Church, title: '12 Comunidades (CEBs)', sub: 'Localização GPS, padroeiros e celebrações' },
+    ...(isPhaseActive(2)
+      ? [{ href: '/comunidades', icon: Church, title: '12 Comunidades (CEBs)', sub: 'Localização GPS, padroeiros e celebrações' }]
+      : []),
     { href: '/#folhetos', icon: FileText, title: 'Folhetos das Santas Missas', sub: 'Download oficial («Sou do Sagrado Missa»)' },
   ];
 
   const SECRETARIA_ITEMS = [
     { href: '/secretaria', icon: Church, title: 'Sacramentos & Atendimento', sub: 'Batismos, matrimônios, certidões e agendamentos' },
     { href: '/noticias', icon: FileText, title: 'Notícias & Avisos Oficiais', sub: 'Comunicados semanais da PASCOM Catedral' },
-    { href: '/movimentos', icon: Users, title: 'Movimentos (ECC, EAC, EJC)', sub: 'Famílias, adolescentes e jovens da paróquia' },
+    ...(isPhaseActive(3)
+      ? [{ href: '/movimentos', icon: Users, title: 'Movimentos (ECC, EAC, EJC)', sub: 'Famílias, adolescentes e jovens da paróquia' }]
+      : []),
   ];
 
   const CATEDRAL_ITEMS = [
@@ -358,15 +363,17 @@ export function CathedralHeader({
               )}
             </div>
 
-            {/* ITEM DESTAQUE: Meu Espaço com respiro e sem colisão */}
-            <Link
-              href="/meu-espaco"
-              onClick={closeAllMenus}
-              className="whitespace-nowrap hover:text-[var(--hdr-accent)] hover:bg-[var(--dash-surface)]/5 transition-all py-1 px-1.5 xl:py-2 xl:px-2.5 rounded-lg flex items-center gap-1 text-[#FFCC36] text-[11px] xl:text-xs font-bold"
-            >
-              <User className="w-3 h-3 xl:w-3.5 xl:h-3.5 shrink-0" />
-              <span>Meu Espaço</span>
-            </Link>
+            {/* ITEM DESTAQUE: Meu Espaço (Liberado na Fase 2 - Janeiro 2027) */}
+            {isPhaseActive(2) && (
+              <Link
+                href="/meu-espaco"
+                onClick={closeAllMenus}
+                className="whitespace-nowrap hover:text-[var(--hdr-accent)] hover:bg-[var(--dash-surface)]/5 transition-all py-1 px-1.5 xl:py-2 xl:px-2.5 rounded-lg flex items-center gap-1 text-[#FFCC36] text-[11px] xl:text-xs font-bold"
+              >
+                <User className="w-3 h-3 xl:w-3.5 xl:h-3.5 shrink-0" />
+                <span>Meu Espaço</span>
+              </Link>
+            )}
           </nav>
 
           {/* 3. Ações à Direita (Alinhadas rigorosamente à margem direita dos 1240px) */}

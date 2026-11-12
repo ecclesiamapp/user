@@ -19,6 +19,7 @@ import {
   Moon,
 } from 'lucide-react';
 import { ResolvedEventTheme } from '@/lib/events';
+import { isPhaseActive } from '@/lib/release-config';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 interface CathedralMobileDrawerProps {
@@ -165,9 +166,13 @@ export function CathedralMobileDrawer({
               </span>
               <ul className="space-y-1">
                 {[
-                  { href: '/meu-espaco', icon: User, label: 'Meu Espaço Paroquial' },
+                  ...(isPhaseActive(2)
+                    ? [{ href: '/meu-espaco', icon: User, label: 'Meu Espaço Paroquial' }]
+                    : []),
                   { href: '/agenda-liturgica', icon: Calendar, label: 'Agenda Litúrgica' },
-                  { href: '/comunidades', icon: Church, label: '12 Comunidades (CEBs)' },
+                  ...(isPhaseActive(2)
+                    ? [{ href: '/comunidades', icon: Church, label: '12 Comunidades (CEBs)' }]
+                    : []),
                   { href: '/historia', icon: BookOpen, label: 'Nossa História & Catedral' },
                 ].map((item) => {
                   const Icon = item.icon;
@@ -193,8 +198,10 @@ export function CathedralMobileDrawer({
               </span>
               <ul className="space-y-1">
                 {[
-                  { href: '/secretaria', icon: User, label: 'Sacramentos & Atendimento' },
-                  { href: '/movimentos', icon: Users, label: 'Movimentos (ECC, EAC, EJC)' },
+                  { href: '/secretaria', icon: User, label: 'Secretaria & Atendimento' },
+                  ...(isPhaseActive(3)
+                    ? [{ href: '/movimentos', icon: Users, label: 'Movimentos (ECC, EAC, EJC)' }]
+                    : []),
                   { href: '/historia#parocos', icon: Sparkles, label: 'O Pároco (Pe. Irineu)' },
                   { href: '/noticias', icon: FileText, label: 'Notícias & Avisos' },
                 ].map((item) => {
