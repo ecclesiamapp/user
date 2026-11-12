@@ -14,3 +14,4 @@ export const CURRENT_RELEASE_PHASE: 1 | 2 | 3 = 1;
 export function isPhaseActive(minPhase: 1 | 2 | 3): boolean {
   return CURRENT_RELEASE_PHASE >= minPhase;
 }
+
