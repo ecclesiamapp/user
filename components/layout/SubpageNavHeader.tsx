@@ -35,7 +35,7 @@ export function SubpageNavHeader({
       <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
         <Link 
           href={portalBackHref} 
-          className="inline-flex items-center gap-1.5 text-white/80 hover:text-[#FFCC36] transition-colors cursor-pointer py-1 font-medium"
+          className="inline-flex items-center gap-1.5 text-white/80 hover:text-[#FFCC36] transition-colors cursor-pointer py-1 font-medium min-h-[44px]"
         >
           <ArrowLeft className="w-3.5 h-3.5 text-[#C8A463]" />
           <span>{portalBackText}</span>

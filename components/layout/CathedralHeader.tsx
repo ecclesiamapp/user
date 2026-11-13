@@ -442,7 +442,7 @@ export function CathedralHeader({
               onClick={() => setMobileMenuOpen(true)}
               type="button"
               style={{ color: 'var(--hdr-nav-text)' }}
-              className="lg:hidden p-2 rounded-xl hover:text-[var(--hdr-accent)] hover:bg-[var(--dash-surface)]/10 transition-colors cursor-pointer"
+              className="lg:hidden p-2 rounded-xl hover:text-[var(--hdr-accent)] hover:bg-[var(--dash-surface)]/10 transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Abrir menu"
             >
               <Menu className="w-6 h-6" />

@@ -97,7 +97,8 @@ export function CathedralMobileDrawer({
             <button
               onClick={onClose}
               type="button"
-              className="p-1.5 rounded-lg text-[#94A3B8] hover:text-[#FAF6F0] hover:bg-[var(--dash-surface)]/10"
+              className="p-2 rounded-xl text-[#94A3B8] hover:text-[#FAF6F0] hover:bg-[var(--dash-surface)]/10 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer transition-colors"
+              aria-label="Fechar menu"
             >
               <X className="w-5 h-5" />
             </button>
@@ -181,9 +182,9 @@ export function CathedralMobileDrawer({
                       <Link
                         href={item.href}
                         onClick={onClose}
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#F4F3EF] hover:opacity-90 transition-opacity text-sm font-medium"
+                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[#F4F3EF] hover:opacity-90 transition-opacity text-sm font-medium min-h-[44px]"
                       >
-                        <Icon className="w-4 h-4" style={{ color: goldMuted }} />
+                        <Icon className="w-4 h-4 shrink-0" style={{ color: goldMuted }} />
                         <span>{item.label}</span>
                       </Link>
                     </li>
@@ -211,9 +212,9 @@ export function CathedralMobileDrawer({
                       <Link
                         href={item.href}
                         onClick={onClose}
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#F4F3EF] hover:opacity-90 transition-opacity text-sm font-medium"
+                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[#F4F3EF] hover:opacity-90 transition-opacity text-sm font-medium min-h-[44px]"
                       >
-                        <Icon className="w-4 h-4" style={{ color: goldMuted }} />
+                        <Icon className="w-4 h-4 shrink-0" style={{ color: goldMuted }} />
                         <span>{item.label}</span>
                       </Link>
                     </li>

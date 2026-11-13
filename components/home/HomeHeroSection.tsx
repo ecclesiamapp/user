@@ -208,7 +208,7 @@ export function HomeHeroSection({
 
             <a
               href="#secretaria"
-              className="inline-flex items-center gap-1 text-xs font-bold text-[#03637A] dark:text-[#FFCC36] hover:text-[#FFA82A] transition-colors pt-2"
+              className="inline-flex items-center gap-1 text-xs font-bold text-[#03637A] dark:text-[#FFCC36] hover:text-[#FFA82A] transition-colors pt-2 min-h-[44px]"
             >
               <span>Pedir certidão ou agendamento</span>
               <ChevronRight className="w-3.5 h-3.5" />
