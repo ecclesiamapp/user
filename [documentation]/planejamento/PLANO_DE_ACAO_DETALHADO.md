@@ -148,6 +148,18 @@
 - [x] **TASK-51:** Hub SaaS Master do Superadmin (`/admin/superadmin`): gestão multi-tenant de paróquias e domínios, Kill-Switch ético de assinatura (`ativa`, `implantacao`, `suspensa`), Wizard 1-Click de provisionamento de nova paróquia (Paróquia + Comunidade Sede + Credencial do Pároco), suporte rápido de senhas (`access_code`) e monitoramento da trilha `security_audit_logs`.
 - [x] **TASK-52:** Auditoria Visual, Funcional e de Segurança do Hub SaaS Master do Superadmin (`/admin/superadmin`): inspeção humana detalhada das abas de Paróquias/Assinaturas, Wizard 1-Click de Provisionamento, Suporte de Senhas/Credenciais e Trilha de Auditoria LGPD (`security_audit_logs`).
 
+---
+
+## 🛡️ FASE 10: Bloqueadores Técnicos de Go-Live & Hardening de Produção
+* **Data Limite:** Pré-Go Live Público Definitivo & Pré-Escala Multi-Paróquia (Bloqueador Obrigatório)
+* **Objetivo:** Fechar lacunas críticas de engenharia de software identificadas na auditoria técnica de 12/11/2026 antes de expor dados reais de fiéis em produção ou comercializar o SaaS para outras paróquias.
+* **Documento de Especificação Técnica:** [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/IMPLEMENTACOES_PENDENTES.md)
+
+### Tarefas Técnicas & Bloqueadores:
+- [ ] **TASK-53:** [BLOQUEADOR GO-LIVE 1] Blindagem Real de Autenticação (`proxy.ts` com validação server-side Supabase Auth, remoção de senha/código fallback client-side em `authSecurity.ts`, proteção JWT + RBAC em todas as rotas `/api/admin/**` e `/api/upload`).
+- [ ] **TASK-54:** [BLOQUEADOR GO-LIVE 2] Patch Crítico de Segurança (`next >= 16.4.6` via `npm audit`), remoção do fallback enganoso em disco local (`public/uploads`) na Vercel, alertas explícitos quando Supabase falhar no lugar de `localStorage` silencioso, correção de ESLint e inclusão do `npm run lint` na esteira.
+- [ ] **TASK-55:** [BLOQUEADOR GO-LIVE 3] Performance RLS (consolidar 20 políticas `multiple_permissive_policies` e indexar 2 FKs pendentes), suíte mínima de testes automatizados dos fluxos críticos + upgrade obrigatório para Supabase Pro e Vercel Pro antes do ciclo multi-paróquia.
+
 
 
 

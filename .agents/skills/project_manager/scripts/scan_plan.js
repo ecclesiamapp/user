@@ -398,6 +398,41 @@ const TASK_METADATA = {
     ],
     objective: 'Integrar banners de contagem regressiva na Home da Catedral, alertas no topo de /horarios e destaque da festa no mini-site da CEB.'
   },
+  'TASK-53': {
+    phase: 'Fase 10 (Bloqueadores Técnicos de Go-Live & Hardening de Produção)',
+    category: 'Segurança Crítica, Auth & APIs',
+    estimated_time: '45 a 60 minutos',
+    files: [
+      'proxy.ts',
+      'lib/security/authSecurity.ts',
+      'app/api/admin/ai-assistant/route.ts',
+      'app/api/admin/ai/sync-database/route.ts',
+      'app/api/admin/brand/extract/route.ts',
+      'app/api/upload/route.ts'
+    ],
+    objective: 'Substituir cookie forjável por validação real de sessão Supabase Auth no servidor (proxy.ts e todas as rotas /api/admin/** e /api/upload), removendo senha fallback client-side.'
+  },
+  'TASK-54': {
+    phase: 'Fase 10 (Bloqueadores Técnicos de Go-Live & Hardening de Produção)',
+    category: 'Dependências, Resiliência & Lint',
+    estimated_time: '20 a 30 minutos',
+    files: [
+      'package.json',
+      'app/api/upload/route.ts',
+      'app/admin/mensagens/page.tsx'
+    ],
+    objective: 'Atualizar next (>= 16.4.6) para corrigir vulnerabilidade crítica, remover fallback de disco local na Vercel em /api/upload, avisar falhas de persistência remota e corrigir ESLint.'
+  },
+  'TASK-55': {
+    phase: 'Fase 10 (Bloqueadores Técnicos de Go-Live & Hardening de Produção)',
+    category: 'Performance Banco, Testes & Infraestrutura Pro',
+    estimated_time: '45 a 60 minutos',
+    files: [
+      'supabase/migrations/',
+      '[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md'
+    ],
+    objective: 'Consolidar 20 políticas RLS duplicadas e indexar 2 FKs no Supabase, criar testes mínimos dos fluxos críticos e preparar upgrade Supabase Pro + Vercel Pro pré-SaaS.'
+  },
 };
 
 function parsePlan(content) {

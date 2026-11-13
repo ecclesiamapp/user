@@ -2,7 +2,7 @@
 
 > **Documento Oficial de Governança de Escopo e Evolução (SSOT)**  
 > **Status:** Atualizado e Auditado pelo Gerente de Projeto  
-> **Última Atualização:** 29 de Outubro de 2026  
+> **Última Atualização:** 12 de Novembro de 2026  
 > **Referência:** Alinhado com [`PLANO_DE_ACAO_DETALHADO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PLANO_DE_ACAO_DETALHADO.md) e [`DIRETRIZ_PASTORAL_E_FINANCEIRA_DIZIMO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/DIRETRIZ_PASTORAL_E_FINANCEIRA_DIZIMO.md)
 
 Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-Fase 8 / Ciclo 2027)** dos itens que **já foram 100% implementados e homologados** ao longo das Fases 1 a 8 da Catedral do Sagrado Coração de Jesus.
@@ -87,6 +87,45 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
   * **Script SQL de Migração Oficial:** [`supabase/migrations/20261109_security_rls_hardening.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261109_security_rls_hardening.sql).
 * **Item Restante para o Lançamento Definitivo:**
   * Apontamento DNS & Escudo Cloudflare (`catedraldecolatina.org.br` — Proxy Nuvem Laranja + SSL Full Strict): `~25 minutos` *(aguardando credenciais DNS da paróquia)*.
+
+---
+
+### 🚨 6. Bloqueadores Técnicos de Go-Live (Hardening de Engenharia & Produção — Fase 10)
+
+* **Status:** 🔴 **Bloqueadores Obrigatórios Antes de Produção Pública / Multi-Tenant SaaS**
+* **Origem:** Auditoria técnica de engenharia de software realizada em 12/11/2026.
+
+#### 🔒 Bloqueador 1 (`TASK-53`): Blindagem Real de Autenticação & APIs Administrativas
+* **⏱️ Tempo Estimado:** ~45 a 60 minutos
+* **Diagnóstico Técnico:**
+  * [`proxy.ts`](file:///c:/Users/Start/ecclesiam-app/proxy.ts) protege `/admin/*` validando apenas o cookie simples `ecclesiam_admin_active=true` gravado via `document.cookie` em [`lib/security/authSecurity.ts`](file:///c:/Users/Start/ecclesiam-app/lib/security/authSecurity.ts) (forjável pelo console do navegador, sem `HttpOnly` nem JWT server-side).
+  * [`lib/security/authSecurity.ts`](file:///c:/Users/Start/ecclesiam-app/lib/security/authSecurity.ts) possui fallback de senha fixa (`'Ecclesiam@2026'`) / `access_code` verificado no cliente e rate-limit local apenas em `localStorage`.
+  * Rotas [`app/api/admin/ai-assistant/route.ts`](file:///c:/Users/Start/ecclesiam-app/app/api/admin/ai-assistant/route.ts), [`app/api/admin/ai/sync-database/route.ts`](file:///c:/Users/Start/ecclesiam-app/app/api/admin/ai/sync-database/route.ts), [`app/api/admin/brand/extract/route.ts`](file:///c:/Users/Start/ecclesiam-app/app/api/admin/brand/extract/route.ts) e [`app/api/upload/route.ts`](file:///c:/Users/Start/ecclesiam-app/app/api/upload/route.ts) não verificam sessão autenticada (`supabase.auth.getUser()`) nem papel (`role`) antes de executar com `SUPABASE_SERVICE_ROLE_KEY`.
+* **Critério de Conclusão:**
+  * Validar sessão real do Supabase Auth no servidor (`proxy.ts` + helper server-side para todas as rotas `/api/admin/**` e `/api/upload`).
+  * Eliminar validação de senha/código em texto plano no front-end e mover bloqueio de tentativas abusivas para o back-end/Auth.
+
+#### 📦 Bloqueador 2 (`TASK-54`): Patch Crítico de Dependência (`Next.js`), Upload Real & Lint
+* **⏱️ Tempo Estimado:** ~20 a 30 minutos
+* **Diagnóstico Técnico:**
+  * `npm audit` reporta **1 vulnerabilidade crítica** no `next@16.3.6` (correção disponível em `next@16.4.6+`).
+  * [`app/api/upload/route.ts`](file:///c:/Users/Start/ecclesiam-app/app/api/upload/route.ts) faz fallback gravando arquivos em disco local (`public/uploads/`) se o Supabase Storage falhar — comportamento que quebra/perde arquivos no runtime serverless da Vercel.
+  * Telas administrativas como [`app/admin/mensagens/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/admin/mensagens/page.tsx) fazem fallback silencioso para `localStorage`, podendo induzir o operador a achar que publicou conteúdo para os fiéis quando só salvou localmente; além de erro ESLint pendente (`react-hooks/set-state-in-effect`).
+* **Critério de Conclusão:**
+  * Atualizar `next` para `>= 16.4.6` e confirmar `npm audit` sem vulnerabilidades críticas.
+  * Desativar fallback em disco local em produção em `/api/upload` e exibir alerta explícito quando a gravação remota no Supabase falhar.
+  * Corrigir erros de `eslint` e integrar `npm run lint` na verificação pré-deploy.
+
+#### 🧪 Bloqueador 3 (`TASK-55`): Performance RLS, Testes Críticos & Saída da Stack Gratuita
+* **⏱️ Tempo Estimado:** ~45 a 60 minutos (código/SQL) + upgrade de infraestrutura no Go-Live comercial
+* **Diagnóstico Técnico:**
+  * Supabase Advisors de `ecclesiamapp` apontam **20 alertas** de `multiple_permissive_policies` (políticas duplicadas de `SELECT` em 10 tabelas) e **2 FKs sem índice** (`parish_knowledge_documents.uploaded_by` e `security_audit_logs.user_profile_id`).
+  * Projeto possui **0 testes automatizados** (`*.test.*` / `*.spec.*`) cobrindo os 309 arquivos TS/TSX.
+  * Stack gratuita atual apresenta risco operacional em produção comercial: pausa automática de 7 dias no Supabase Free, ausência de backups PITR e restrições comerciais/timeout na Vercel Hobby.
+* **Critério de Conclusão:**
+  * Migration SQL consolidando políticas RLS redundantes e criando índices faltantes.
+  * Suíte automatizada mínima (E2E/Integração) validando bloqueio `/admin`, Intenções/Agendamentos e isolamento entre `parish_id`.
+  * Upgrade obrigatório para **Supabase Pro (US$ 25/mês)** e **Vercel Pro (US$ 20/mês)** no momento da ativação comercial multi-paróquia.
 
 ---
 
