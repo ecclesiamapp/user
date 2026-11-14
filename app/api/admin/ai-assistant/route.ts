@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/utils/supabase/admin";
+import { requireAuthenticatedAdmin } from "@/lib/security/serverAuth";
 import { generateEmbedding } from "@/lib/ai/embeddings";
 import {
   generateParishAssistantResponse,
@@ -14,6 +15,9 @@ export const dynamic = "force-dynamic";
  * Retorna as informações do motor de IA ativo e modelos configurados.
  */
 export async function GET() {
+  const auth = await requireAuthenticatedAdmin();
+  if (!auth.ok) return auth.response;
+
   const hasKey = Boolean(
     process.env.GEMINI_API_KEY ||
       process.env.GOOGLE_AI_API_KEY ||
@@ -37,7 +41,6 @@ export async function GET() {
  */
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createAdminClient();
     const body = await request.json();
 
     const {
@@ -54,6 +57,13 @@ export async function POST(request: NextRequest) {
       similarity_threshold?: number;
     };
 
+    const auth = await requireAuthenticatedAdmin({
+      requestedParishId: parish_id ?? null,
+    });
+    if (!auth.ok) return auth.response;
+
+    const supabase = createAdminClient();
+
     if (!message || typeof message !== "string" || !message.trim()) {
       return NextResponse.json(
         { error: "A mensagem do usuário é obrigatória." },
@@ -61,12 +71,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 1. Identificar a Paróquia
+    // 1. Identificar a Paróquia respeitando isolamento multi-tenant
+    const effectiveParishId = auth.parishId;
     let parishQuery = supabase.from("parishes").select("id, name, slug");
-    if (parish_id) {
-      parishQuery = parishQuery.eq("id", parish_id);
-    } else {
+    if (effectiveParishId) {
+      parishQuery = parishQuery.eq("id", effectiveParishId);
+    } else if (auth.role === "superadmin") {
       parishQuery = parishQuery.limit(1);
+    } else {
+      return NextResponse.json(
+        { error: "Paróquia vinculada não identificada." },
+        { status: 403 }
+      );
     }
 
     const { data: parishes, error: parishError } = await parishQuery;
@@ -120,7 +136,7 @@ export async function POST(request: NextRequest) {
     const errorMsg = err instanceof Error ? err.message : "Erro desconhecido";
     console.error("[AI Assistant Route Error]:", errorMsg);
     return NextResponse.json(
-      { error: `Falha ao processar consulta da IA: ${errorMsg}` },
+      { error: "Falha interna ao processar consulta da IA." },
       { status: 500 }
     );
   }

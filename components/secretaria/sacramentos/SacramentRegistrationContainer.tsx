@@ -14,6 +14,8 @@ import { Card, Button, Input, Select } from '@/components/ui';
 import { createClient } from '@/utils/supabase/client';
 import { Loader2, Send, User, Phone, Mail, HelpCircle, AlertCircle, ShieldCheck } from 'lucide-react';
 import { maskPhone } from '@/lib/utils';
+import { readSessionDraft, writeSessionDraft, clearSessionDraft } from '@/lib/hooks/useSessionDraft';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface SacramentRegistrationContainerProps {
   parish: Parish;
@@ -105,8 +107,68 @@ export function SacramentRegistrationContainer({
     notes: '',
   });
 
+  const [draftReady, setDraftReady] = useState<boolean>(false);
+  const draftKey = `ecclesiam_draft_sacrament_${parish.id}`;
+
+  // Restaurar rascunho em sessionStorage (LGPD: expira ao fechar navegador)
+  useEffect(() => {
+    const draft = readSessionDraft<{
+      selectedType?: SacramentType;
+      applicantName?: string;
+      applicantPhone?: string;
+      applicantEmail?: string;
+      applicantRole?: ApplicantRole;
+      baptismData?: typeof baptismData;
+      catechesisData?: typeof catechesisData;
+      marriageData?: typeof marriageData;
+      pregnantData?: typeof pregnantData;
+    }>(draftKey);
+
+    if (draft) {
+      if (draft.selectedType) setSelectedType(draft.selectedType);
+      if (draft.applicantName) setApplicantName(draft.applicantName);
+      if (draft.applicantPhone) setApplicantPhone(draft.applicantPhone);
+      if (draft.applicantEmail) setApplicantEmail(draft.applicantEmail);
+      if (draft.applicantRole) setApplicantRole(draft.applicantRole);
+      if (draft.baptismData) setBaptismData(draft.baptismData);
+      if (draft.catechesisData) setCatechesisData(draft.catechesisData);
+      if (draft.marriageData) setMarriageData(draft.marriageData);
+      if (draft.pregnantData) setPregnantData(draft.pregnantData);
+    }
+    setDraftReady(true);
+  }, [draftKey]);
+
+  useEffect(() => {
+    if (!draftReady || protocol) return;
+    writeSessionDraft(draftKey, {
+      selectedType,
+      applicantName,
+      applicantPhone,
+      applicantEmail,
+      applicantRole,
+      baptismData,
+      catechesisData,
+      marriageData,
+      pregnantData,
+    });
+  }, [
+    draftReady,
+    protocol,
+    draftKey,
+    selectedType,
+    applicantName,
+    applicantPhone,
+    applicantEmail,
+    applicantRole,
+    baptismData,
+    catechesisData,
+    marriageData,
+    pregnantData,
+  ]);
+
   // Reset para nova inscrição
   const handleNewRegistration = () => {
+    clearSessionDraft(draftKey);
     setProtocol(null);
     setApplicantName('');
     setApplicantPhone('');
@@ -291,10 +353,16 @@ export function SacramentRegistrationContainer({
         // Envio assíncrono não impede o sucesso
       }
 
+      clearSessionDraft(draftKey);
       setProtocol(generatedProtocol);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Erro ao registrar inscrição sacramental:', err);
-      setErrorMessage(err.message || 'Ocorreu um erro ao gravar sua inscrição. Tente novamente.');
+      setErrorMessage(
+        toFriendlyErrorMessage(
+          err,
+          'Ocorreu um erro ao gravar sua inscrição. Tente novamente.'
+        )
+      );
     } finally {
       setIsSubmitting(false);
     }

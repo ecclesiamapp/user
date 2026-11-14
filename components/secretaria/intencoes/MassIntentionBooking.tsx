@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Heart, 
   Sparkles, 
@@ -18,11 +18,12 @@ import {
   Check
 } from 'lucide-react';
 import { Card, Button, Input, Badge } from '@/components/ui';
-import { Parish, Community, MassIntentionType, MassIntention } from '@/types';
-import { createClient } from '@/utils/supabase/client';
+import { Parish, Community, MassIntentionType } from '@/types';
 import { maskPhone } from '@/lib/utils';
 import { MassIntentionSuccessCard, IntentionCategorySummary } from './MassIntentionSuccessCard';
 import { CategoryNamesBox } from './CategoryNamesBox';
+import { generateIdempotencyKey } from '@/lib/security/idempotency';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface MassIntentionBookingProps {
   parish: Parish;
@@ -44,8 +45,8 @@ const DEFAULT_MASS_HOURS = ['07:00', '09:00', '18:00', '19:30'];
 const MAX_SUBMISSIONS_PER_CELEBRATION = 3;
 
 export function MassIntentionBooking({ parish, communities }: MassIntentionBookingProps) {
-  const supabase = createClient();
   const todayStr = new Date().toISOString().split('T')[0];
+  const idempotencyKeyRef = useRef<string>(generateIdempotencyKey('int'));
 
   // Seção 1: Celebração
   const [communityId, setCommunityId] = useState<string>('');
@@ -148,28 +149,8 @@ export function MassIntentionBooking({ parish, communities }: MassIntentionBooki
     setIsSubmitting(true);
 
     try {
-      // 4. Regra de Limite de Envios por Solicitante na mesma celebração
-      if (cleanPhone) {
-        const { data: existingRows } = await supabase
-          .from('mass_intentions')
-          .select('protocol_code')
-          .eq('parish_id', parish.id)
-          .eq('celebration_date', celebrationDate)
-          .eq('celebration_time', celebrationTime)
-          .eq('contact_phone', contactPhone.trim())
-          .neq('status', 'cancelada');
-
-        const distinctProtocols = new Set(existingRows?.map((r) => r.protocol_code).filter(Boolean)).size;
-
-        if (distinctProtocols >= MAX_SUBMISSIONS_PER_CELEBRATION) {
-          setErrorMessage(
-            `Limite atingido: Você já possui ${distinctProtocols} solicitações registradas para esta mesma celebração (${celebrationTime}h). Para garantir a inclusão harmônica de toda a comunidade no altar, o limite é de ${MAX_SUBMISSIONS_PER_CELEBRATION} envios por celebração. Caso necessite de intenções adicionais, procure a secretaria paroquial.`
-          );
-          setIsSubmitting(false);
-          return;
-        }
-      } else {
-        // Validação no navegador (localStorage) para solicitações anônimas
+      // 4. Regra local complementar para solicitações anônimas sem telefone
+      if (!cleanPhone) {
         try {
           const storageKey = `intentions_limit_${celebrationDate}_${celebrationTime}`;
           const currentCount = parseInt(localStorage.getItem(storageKey) || '0', 10);
@@ -190,33 +171,38 @@ export function MassIntentionBooking({ parish, communities }: MassIntentionBooki
         ? 'Anônimo'
         : offeredBy.trim() || 'Fiel da Comunidade';
 
-      // 6. Geração de Protocolo Unificado compartilhado
-      const randomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
-      const protocolNumber = `INT-2026-${randomCode}`;
+      // 6. Envio idempotente validado no servidor
+      const response = await fetch('/api/secretaria/intentions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          parish_id: parish.id,
+          community_id: communityId || null,
+          celebration_date: celebrationDate,
+          celebration_time: celebrationTime,
+          entries: activeEntries,
+          offered_by: resolvedOfferedBy,
+          contact_phone: contactPhone.trim() || null,
+          contact_email: contactEmail.trim() || null,
+          is_anonymous: isAnonymous,
+          notes: notes.trim() || null,
+          idempotency_key: idempotencyKeyRef.current,
+        }),
+      });
 
-      // 7. Inserção em batch para cada categoria preenchida
-      const batchPayload = activeEntries.map((entry) => ({
-        parish_id: parish.id,
-        community_id: communityId || null,
-        celebration_date: celebrationDate,
-        celebration_time: celebrationTime,
-        intention_type: entry.type,
-        intention_for: entry.names.join(', '),
-        offered_by: resolvedOfferedBy,
-        contact_phone: contactPhone.trim() || null,
-        contact_email: contactEmail.trim() || null,
-        is_anonymous: isAnonymous,
-        protocol: protocolNumber,
-        protocol_code: protocolNumber,
-        notes: notes.trim() || null,
-        status: 'pendente',
-      }));
+      const data = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        protocol?: string;
+        error?: string;
+      } | null;
 
-      const { error: insertError } = await supabase
-        .from('mass_intentions')
-        .insert(batchPayload);
+      if (!response.ok || !data?.ok || !data.protocol) {
+        throw new Error(
+          data?.error || 'Ocorreu um erro ao enviar suas intenções. Tente novamente.'
+        );
+      }
 
-      if (insertError) throw insertError;
+      const protocolNumber = data.protocol;
 
       // Atualiza contador local
       try {
@@ -227,7 +213,7 @@ export function MassIntentionBooking({ parish, communities }: MassIntentionBooki
         // Ignora
       }
 
-      // 8. Prepara resumo para tela de sucesso
+      // 7. Prepara resumo para tela de sucesso e rotaciona chave de idempotência
       const categoriesSummary: IntentionCategorySummary[] = activeEntries.map((entry) => {
         const info = INTENTION_TYPES.find((t) => t.id === entry.type);
         return {
@@ -238,6 +224,7 @@ export function MassIntentionBooking({ parish, communities }: MassIntentionBooki
         };
       });
 
+      idempotencyKeyRef.current = generateIdempotencyKey('int');
       setSubmittedData({
         protocol: protocolNumber,
         celebrationDate,
@@ -250,9 +237,13 @@ export function MassIntentionBooking({ parish, communities }: MassIntentionBooki
         notes: notes.trim() || null,
       });
     } catch (err: unknown) {
-      const errorObj = err as Error;
       console.error('Erro ao enviar intenções:', err);
-      setErrorMessage(errorObj.message || 'Ocorreu um erro ao enviar suas intenções. Tente novamente.');
+      setErrorMessage(
+        toFriendlyErrorMessage(
+          err,
+          'Ocorreu um erro ao enviar suas intenções. Tente novamente.'
+        )
+      );
     } finally {
       setIsSubmitting(false);
     }

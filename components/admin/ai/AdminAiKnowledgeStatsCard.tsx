@@ -13,6 +13,7 @@ import {
   Sparkles,
   AlertCircle
 } from 'lucide-react';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface KnowledgeStats {
   total_embeddings: number;
@@ -69,7 +70,7 @@ export function AdminAiKnowledgeStatsCard({ onSyncSuccess }: { onSyncSuccess?: (
         throw new Error(data.error || 'Falha ao sincronizar banco.');
       }
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Erro na sincronização';
+      const msg = toFriendlyErrorMessage(err, 'Erro na sincronização com a base de conhecimento.');
       setFeedback({ type: 'error', message: msg });
     } finally {
       setSyncing(false);

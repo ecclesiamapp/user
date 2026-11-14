@@ -17,6 +17,7 @@ import {
 import { createClient } from '@/utils/supabase/client';
 import { PastoralMessage } from '@/types';
 import { ImageUploaderField, ImagePreset } from '@/components/admin/shared/ImageUploaderField';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 const CLERGY_PRESETS: ImagePreset[] = [
   { label: 'Pe. Irineu (Pároco)', url: '/images/pastores/pe-irineu-claudino-sales.webp' },
@@ -56,6 +57,22 @@ export function MessageFormModal({
   const [saving, setSaving] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
+  const resetForm = () => {
+    setAuthorType('paroco');
+    setAuthorName('Padre Irineu Claudino Sales');
+    setAuthorTitle('Pároco e Cura da Catedral');
+    setAuthorPhotoUrl('/images/pastores/pe-irineu-claudino-sales.webp');
+    setTitle('');
+    setSlug('');
+    setSubtitle('');
+    setContent('');
+    setLiturgicalSeason('Tempo Comum');
+    setCoverImageUrl('');
+    setIsFeaturedHome(false);
+    setIsActive(true);
+    setErrorMsg(null);
+  };
+
   // Preenchimento de dados ao abrir ou alternar edição
   useEffect(() => {
     if (messageToEdit) {
@@ -75,22 +92,6 @@ export function MessageFormModal({
       resetForm();
     }
   }, [messageToEdit, isOpen]);
-
-  const resetForm = () => {
-    setAuthorType('paroco');
-    setAuthorName('Padre Irineu Claudino Sales');
-    setAuthorTitle('Pároco e Cura da Catedral');
-    setAuthorPhotoUrl('/images/pastores/pe-irineu-claudino-sales.webp');
-    setTitle('');
-    setSlug('');
-    setSubtitle('');
-    setContent('');
-    setLiturgicalSeason('Tempo Comum');
-    setCoverImageUrl('');
-    setIsFeaturedHome(false);
-    setIsActive(true);
-    setErrorMsg(null);
-  };
 
   // Sugestão automática de dados padrão ao mudar o tipo de autor
   const handleAuthorTypeChange = (type: 'paroco' | 'bispo' | 'vigario') => {
@@ -142,10 +143,12 @@ export function MessageFormModal({
 
       // Regra de Ouro da Home: se esta mensagem for marcada como destaque, desmarcar as outras
       if (isFeaturedHome) {
-        await supabase
+        const { error: resetFeaturedErr } = await supabase
           .from('pastoral_messages')
           .update({ is_featured_home: false })
           .eq('parish_id', parishId);
+
+        if (resetFeaturedErr) throw resetFeaturedErr;
       }
 
       const payload = {
@@ -165,84 +168,33 @@ export function MessageFormModal({
         updated_at: new Date().toISOString(),
       };
 
-      const LOCAL_STORAGE_KEY = 'ecclesiam_local_pastoral_messages';
-
-      const saveLocalFallback = (newOrUpdatedItem: PastoralMessage) => {
-        if (typeof window !== 'undefined') {
-          try {
-            const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
-            let list: PastoralMessage[] = raw ? JSON.parse(raw) : [];
-            if (!Array.isArray(list)) list = [];
-
-            if (newOrUpdatedItem.is_featured_home) {
-              list = list.map((item) => ({ ...item, is_featured_home: false }));
-            }
-
-            const exists = list.some((item) => item.id === newOrUpdatedItem.id);
-            if (exists) {
-              list = list.map((item) =>
-                item.id === newOrUpdatedItem.id ? newOrUpdatedItem : item
-              );
-            } else {
-              list = [newOrUpdatedItem, ...list];
-            }
-            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
-          } catch (e) {
-            console.warn('Erro ao salvar no localStorage:', e);
-          }
-        }
-      };
-
       if (messageToEdit) {
-        // Atualização
-        const updatedItem: PastoralMessage = {
-          ...messageToEdit,
-          ...payload,
-          id: messageToEdit.id,
-        };
+        const { error } = await supabase
+          .from('pastoral_messages')
+          .update(payload)
+          .eq('id', messageToEdit.id);
 
-        try {
-          const { error } = await supabase
-            .from('pastoral_messages')
-            .update(payload)
-            .eq('id', messageToEdit.id);
-
-          if (error) throw error;
-        } catch (dbErr) {
-          console.warn('Supabase offline ou sem tabela, gravando em cache local:', dbErr);
-        }
-
-        saveLocalFallback(updatedItem);
-        onSuccess('Mensagem pastoral atualizada com sucesso!');
+        if (error) throw error;
+        onSuccess('Mensagem pastoral atualizada no Supabase com sucesso!');
       } else {
-        // Criação
-        const newItem: PastoralMessage = {
+        const { error } = await supabase.from('pastoral_messages').insert({
           ...payload,
-          id: `local-msg-${Date.now()}`,
           published_at: new Date().toISOString(),
-          created_at: new Date().toISOString(),
-        } as unknown as PastoralMessage;
+        });
 
-        try {
-          const { error } = await supabase.from('pastoral_messages').insert({
-            ...payload,
-            published_at: new Date().toISOString(),
-          });
-
-          if (error) throw error;
-        } catch (dbErr) {
-          console.warn('Supabase offline ou sem tabela, gravando em cache local:', dbErr);
-        }
-
-        saveLocalFallback(newItem);
-        onSuccess('Nova mensagem pastoral publicada com sucesso!');
+        if (error) throw error;
+        onSuccess('Nova mensagem pastoral publicada no Supabase com sucesso!');
       }
 
       onClose();
     } catch (err: unknown) {
-      const error = err as { message?: string };
       console.error('Erro ao salvar mensagem pastoral:', err);
-      setErrorMsg(error?.message || 'Erro ao comunicar com o banco de dados.');
+      setErrorMsg(
+        toFriendlyErrorMessage(
+          err,
+          'Não foi possível salvar a mensagem. Verifique sua sessão administrativa e conexão.'
+        )
+      );
     } finally {
       setSaving(false);
     }

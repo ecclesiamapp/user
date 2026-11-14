@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/utils/supabase/client';
+import type { UserProfile } from '@/types';
 
 export interface AdminSessionData {
   active: boolean;
@@ -21,50 +22,56 @@ export function useAdminSession() {
     if (typeof window === 'undefined') return;
 
     try {
-      // 1. Verificar localStorage de sessão do painel administrativo
-      const localData = localStorage.getItem('ecclesiam_admin_session');
-      if (localData) {
-        try {
-          const parsed = JSON.parse(localData) as AdminSessionData;
-          if (parsed && parsed.active) {
-            setHasAdminSession(true);
-            setAdminUser(parsed);
-            setIsLoading(false);
-            return;
-          }
-        } catch {
-          // ignore parsing error
+      // Verifica sessão oficial no servidor via JWT HttpOnly (@supabase/ssr getUser)
+      const res = await fetch('/api/auth/session', { cache: 'no-store' });
+      if (res.ok) {
+        const data = (await res.json()) as {
+          authenticated?: boolean;
+          profile?: UserProfile | null;
+        };
+
+        if (data.authenticated && data.profile) {
+          setHasAdminSession(true);
+          setAdminUser({
+            active: true,
+            id: data.profile.id,
+            name: data.profile.name,
+            role: data.profile.role,
+            community_id: data.profile.community_id ?? null,
+          });
+          setIsLoading(false);
+          return;
         }
       }
 
-      // 2. Verificar cookie ecclesiam_admin_active
-      if (document.cookie.includes('ecclesiam_admin_active=true')) {
-        setHasAdminSession(true);
-        setAdminUser({ active: true, name: 'Administrador Paroquial', role: 'admin' });
-        setIsLoading(false);
-        return;
-      }
-
-      // 3. Verificar Supabase Auth Session
+      // Fallback direto com Supabase getUser() (nunca getSession ou cookie forjável)
       const supabase = createClient();
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
         setHasAdminSession(true);
         setAdminUser({
           active: true,
-          id: session.user.id,
-          name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || 'Usuário Paroquial',
-          role: session.user.user_metadata?.role || 'secretaria',
+          id: user.id,
+          name:
+            (user.user_metadata?.name as string | undefined) ||
+            user.email?.split('@')[0] ||
+            'Usuário Paroquial',
+          role: (user.app_metadata?.role as string | undefined) || 'secretaria',
         });
         setIsLoading(false);
         return;
       }
 
+      localStorage.removeItem('ecclesiam_admin_session');
       setHasAdminSession(false);
       setAdminUser(null);
     } catch (err) {
       console.warn('Erro ao verificar sessão administrativa:', err);
       setHasAdminSession(false);
+      setAdminUser(null);
     } finally {
       setIsLoading(false);
     }
@@ -85,6 +92,7 @@ export function useAdminSession() {
 
   const clearAdminSession = useCallback(() => {
     if (typeof window !== 'undefined') {
+      fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
       localStorage.removeItem('ecclesiam_admin_session');
       document.cookie = 'ecclesiam_admin_active=; path=/; max-age=0; SameSite=Lax';
       document.cookie = 'ecclesiam_user_id=; path=/; max-age=0; SameSite=Lax';
@@ -99,7 +107,7 @@ export function useAdminSession() {
     hasAdminSession,
     adminUser,
     isLoading,
-    clearAdminSession,
     refreshSession: checkSession,
+    clearAdminSession,
   };
 }

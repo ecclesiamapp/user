@@ -25,14 +25,27 @@ interface CertificateDetailModalProps {
   onUpdate: (updated: CertificateRequest) => void;
 }
 
-export function CertificateDetailModal({
+export function CertificateDetailModal(props: CertificateDetailModalProps) {
+  if (!props.isOpen || !props.request) return null;
+  return (
+    <CertificateDetailModalContent
+      key={props.request.id}
+      request={props.request}
+      onClose={props.onClose}
+      onUpdate={props.onUpdate}
+    />
+  );
+}
+
+function CertificateDetailModalContent({
   request,
-  isOpen,
   onClose,
   onUpdate,
-}: CertificateDetailModalProps) {
-  if (!isOpen || !request) return null;
-
+}: {
+  request: CertificateRequest;
+  onClose: () => void;
+  onUpdate: (updated: CertificateRequest) => void;
+}) {
   const supabase = createClient();
 
   const [status, setStatus] = useState<CertificateStatus>(request.status);

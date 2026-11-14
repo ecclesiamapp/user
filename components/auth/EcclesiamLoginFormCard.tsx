@@ -13,12 +13,11 @@ import {
   ShieldCheck,
   Clock,
 } from 'lucide-react';
-import { createClient } from '@/utils/supabase/client';
 import {
   authenticateEcclesiamUser,
   getRateLimitState,
-  recordSecurityAudit,
 } from '@/lib/security/authSecurity';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 import { EcclesiamAccessRequestModal } from './EcclesiamAccessRequestModal';
 import { EcclesiamLoginModeTabs, AuthMode } from './EcclesiamLoginModeTabs';
 
@@ -87,8 +86,10 @@ export function EcclesiamLoginFormCard() {
       );
       router.push(nextPath);
       router.refresh();
-    } catch (err: any) {
-      setErrorMsg(err?.message || 'Erro de comunicação com o servidor de segurança.');
+    } catch (err: unknown) {
+      setErrorMsg(
+        toFriendlyErrorMessage(err, 'Erro de comunicação com o servidor de segurança.')
+      );
       setLoading(false);
     }
   };
@@ -106,52 +107,36 @@ export function EcclesiamLoginFormCard() {
 
     setLoading(true);
     try {
-      const supabase = createClient();
-      const origin =
-        typeof window !== 'undefined' ? window.location.origin : 'https://ecclesiamapp.com.br';
-
-      if (mode === 'reset') {
-        await supabase.auth.resetPasswordForEmail(cleanEmail, { redirectTo: `${origin}/login` });
-        await recordSecurityAudit({ email: cleanEmail, eventType: 'password_reset_requested' });
-        setSuccessMsg('Se o e-mail estiver ativo em nossa base, as instruções foram enviadas.');
-        setLoading(false);
-        return;
-      }
-
-      const { data: profile } = await supabase
-        .from('user_profiles')
-        .select('id, status')
-        .ilike('email', cleanEmail)
-        .maybeSingle();
-
-      if (!profile) {
-        setErrorMsg('Este e-mail não consta na base de paróquias credenciadas.');
-        setLoading(false);
-        return;
-      }
-
-      if (profile.status !== 'ativo') {
-        setErrorMsg(
-          profile.status === 'pendente'
-            ? 'Sua credencial ainda aguarda aprovação da administração paroquial.'
-            : 'Esta credencial encontra-se suspensa.'
-        );
-        setLoading(false);
-        return;
-      }
-
-      const { error } = await supabase.auth.signInWithOtp({
-        email: cleanEmail,
-        options: { emailRedirectTo: `${origin}/admin` },
+      const res = await fetch('/api/auth/magic-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: cleanEmail,
+          mode: mode === 'reset' ? 'reset' : 'magic',
+        }),
       });
 
-      if (error) {
-        setErrorMsg('Utilize a aba "Com Senha" para acessar imediatamente com sua credencial.');
+      const data = (await res.json().catch(() => null)) as {
+        ok?: boolean;
+        message?: string;
+        error?: string;
+      } | null;
+
+      if (!res.ok || !data?.ok) {
+        setErrorMsg(
+          data?.error ||
+            'Não foi possível processar a solicitação. Utilize a aba "Com Senha" ou contate o administrador.'
+        );
       } else {
-        setSuccessMsg('Link de acesso seguro enviado! Verifique sua caixa de entrada.');
+        setSuccessMsg(
+          data.message ||
+            'Solicitação processada! Verifique sua caixa de entrada (e spam).'
+        );
       }
-    } catch (err: any) {
-      setErrorMsg(err?.message || 'Não foi possível processar a solicitação.');
+    } catch (err: unknown) {
+      setErrorMsg(
+        toFriendlyErrorMessage(err, 'Não foi possível processar a solicitação.')
+      );
     } finally {
       setLoading(false);
     }

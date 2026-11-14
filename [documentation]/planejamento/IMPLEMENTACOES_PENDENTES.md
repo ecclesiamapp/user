@@ -96,50 +96,41 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
 * **Origem:** Auditoria técnica de engenharia de software realizada em 12/11/2026.
 
 #### 🔒 Bloqueador 1 (`TASK-53`): Blindagem Real de Autenticação & APIs Administrativas
-* **⏱️ Tempo Estimado:** ~45 a 60 minutos
-* **Diagnóstico Técnico:**
-  * [`proxy.ts`](file:///c:/Users/Start/ecclesiam-app/proxy.ts) protege `/admin/*` validando apenas o cookie simples `ecclesiam_admin_active=true` gravado via `document.cookie` em [`lib/security/authSecurity.ts`](file:///c:/Users/Start/ecclesiam-app/lib/security/authSecurity.ts) (forjável pelo console do navegador, sem `HttpOnly` nem JWT server-side).
-  * [`lib/security/authSecurity.ts`](file:///c:/Users/Start/ecclesiam-app/lib/security/authSecurity.ts) possui fallback de senha fixa (`'Ecclesiam@2026'`) / `access_code` verificado no cliente e rate-limit local apenas em `localStorage`.
-  * Rotas [`app/api/admin/ai-assistant/route.ts`](file:///c:/Users/Start/ecclesiam-app/app/api/admin/ai-assistant/route.ts), [`app/api/admin/ai/sync-database/route.ts`](file:///c:/Users/Start/ecclesiam-app/app/api/admin/ai/sync-database/route.ts), [`app/api/admin/brand/extract/route.ts`](file:///c:/Users/Start/ecclesiam-app/app/api/admin/brand/extract/route.ts) e [`app/api/upload/route.ts`](file:///c:/Users/Start/ecclesiam-app/app/api/upload/route.ts) não verificam sessão autenticada (`supabase.auth.getUser()`) nem papel (`role`) antes de executar com `SUPABASE_SERVICE_ROLE_KEY`.
-* **Critério de Conclusão:**
-  * Validar sessão real do Supabase Auth no servidor (`proxy.ts` + helper server-side para todas as rotas `/api/admin/**` e `/api/upload`).
-  * Eliminar validação de senha/código em texto plano no front-end e mover bloqueio de tentativas abusivas para o back-end/Auth.
+* **Status:** ✅ **Código & Migração SQL Entregues** *(pendente apenas configurar `SUPABASE_SERVICE_ROLE_KEY` no `.env.local`/Vercel e executar [`20261114_task53_auth_rls_lockdown.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task53_auth_rls_lockdown.sql))*
 
 #### 📦 Bloqueador 2 (`TASK-54`): Patch Crítico de Dependência (`Next.js`), Upload Real & Lint
-* **⏱️ Tempo Estimado:** ~20 a 30 minutos
-* **Diagnóstico Técnico:**
-  * `npm audit` reporta **1 vulnerabilidade crítica** no `next@16.3.6` (correção disponível em `next@16.4.6+`).
-  * [`app/api/upload/route.ts`](file:///c:/Users/Start/ecclesiam-app/app/api/upload/route.ts) faz fallback gravando arquivos em disco local (`public/uploads/`) se o Supabase Storage falhar — comportamento que quebra/perde arquivos no runtime serverless da Vercel.
-  * Telas administrativas como [`app/admin/mensagens/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/admin/mensagens/page.tsx) fazem fallback silencioso para `localStorage`, podendo induzir o operador a achar que publicou conteúdo para os fiéis quando só salvou localmente; além de erro ESLint pendente (`react-hooks/set-state-in-effect`).
-* **Critério de Conclusão:**
-  * Atualizar `next` para `>= 16.4.6` e confirmar `npm audit` sem vulnerabilidades críticas.
-  * Desativar fallback em disco local em produção em `/api/upload` e exibir alerta explícito quando a gravação remota no Supabase falhar.
-  * Corrigir erros de `eslint` e integrar `npm run lint` na verificação pré-deploy.
+* **Status:** ✅ **Concluído (`next@16.4.6`, `0` vulnerabilidades de produção, `0` erros ESLint e `/api/upload` exclusivamente em Storage)**
 
 #### 🧪 Bloqueador 3 (`TASK-55`): Performance RLS, Testes Críticos & Saída da Stack Gratuita
-* **⏱️ Tempo Estimado:** ~45 a 60 minutos (código/SQL) + upgrade de infraestrutura no Go-Live comercial
-* **Diagnóstico Técnico:**
-  * Supabase Advisors de `ecclesiamapp` apontam **20 alertas** de `multiple_permissive_policies` (políticas duplicadas de `SELECT` em 10 tabelas) e **2 FKs sem índice** (`parish_knowledge_documents.uploaded_by` e `security_audit_logs.user_profile_id`).
-  * Projeto possui **0 testes automatizados** (`*.test.*` / `*.spec.*`) cobrindo os 309 arquivos TS/TSX.
-  * Stack gratuita atual apresenta risco operacional em produção comercial: pausa automática de 7 dias no Supabase Free, ausência de backups PITR e restrições comerciais/timeout na Vercel Hobby.
-* **Critério de Conclusão:**
-  * Migration SQL consolidando políticas RLS redundantes e criando índices faltantes.
-  * Suíte automatizada mínima (E2E/Integração) validando bloqueio `/admin`, Intenções/Agendamentos e isolamento entre `parish_id`.
-  * Upgrade obrigatório para **Supabase Pro (US$ 25/mês)** e **Vercel Pro (US$ 20/mês)** no momento da ativação comercial multi-paróquia.
+* **Status:** ✅ **SQL & Suíte de Testes Entregues** *(aguardando apenas upgrade de assinatura Pro no momento da ativação comercial multi-paróquia)*
+* **Entregas Realizadas (`TASK-55`):**
+  * **Consolidação RLS & Índices ([`20261114_task55_rls_performance_and_indexes.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task55_rls_performance_and_indexes.sql)):** Criação dos 2 índices pendentes de Foreign Key (`parish_knowledge_documents.uploaded_by` e `security_audit_logs.user_profile_id`) e unificação das 20 políticas redundantes de `SELECT` (`multiple_permissive_policies`) separando leitura (`SELECT`) de escrita (`INSERT`/`UPDATE`/`DELETE`) com otimização `(SELECT ...)`.
+  * **Suíte Mínima Automatizada (`npm test`):** Testes em `tests/` cobrindo bloqueio do `proxy.ts` em `/admin`, `/api/admin/**` e `/api/upload` (inclusive contra falsificação do cookie legado), rate limiter server-side, validação anti-auto-elevação de privilégio em `/api/auth/request-access`, exigência de `SUPABASE_SERVICE_ROLE_KEY` e contratos de `/api/notifications` e `/api/dizimo/register`.
+* **Checklist Obrigatório de Saída da Stack Gratuita (Ativação Comercial Multi-Paróquia):**
+  1. **Supabase Pro (`US$ 25/mês`):**
+     * Elimina pausa automática por inatividade de 7 dias.
+     * Habilita **Daily Backups + Point-in-Time Recovery (PITR)** para dados sacramentais e pastorais (LGPD).
+     * Eleva cotas de egress/bandwidth, Storage e conexões simultâneas em horários de pico (Santa Missa dominical e festas do padroeiro).
+  2. **Vercel Pro (`US$ 20/mês`):**
+     * Licença comercial exigida pelos Termos de Serviço da Vercel para operação SaaS paga multi-paróquia.
+     * Amplia timeout de Serverless Functions (essencial para rotas de IA `/api/admin/brand/extract` e `/api/admin/ai/sync-database`), logs persistentes e proteção de equipe.
+  3. **Aplicação Sequencial das Migrações no Banco Vivo:**
+     * Configurar `SUPABASE_SERVICE_ROLE_KEY` no `.env.local` e na Vercel.
+     * Executar `supabase/migrations/20261114_task53_auth_rls_lockdown.sql` seguido de `supabase/migrations/20261114_task55_rls_performance_and_indexes.sql`.
 
 ---
 
 ### ✨ 7. Polimento UX, Acessibilidade & Resiliência Mobile (Fase 11)
 
-* **Status:** 🟡 **Planejado (Pós-Bloqueadores da Fase 10)**
+* **Status:** 🔄 **Em Andamento — 1/3 Concluídas (`TASK-56` ✅)**
 * **Origem:** Entrevista arquitetural (`/grill-me`) sobre o guia *Polish* (Lincoln Devine) em 14/11/2026, filtrada para o contexto Web/Next.js + PWA da Catedral (>85% mobile, fiéis idosos, 3G/4G).
 
-#### 📝 `TASK-56`: Resiliência de Formulários, Idempotência & Erros Amigáveis
+#### ✅ `TASK-56`: Resiliência de Formulários, Idempotência & Erros Amigáveis (CONCLUÍDA em 14/11/2026)
 * **⏱️ Tempo Estimado:** ~35 a 45 minutos
 * **Escopo Fechado:**
-  * Rascunho automático em `sessionStorage` (apaga ao fechar o navegador, protegendo dados de terceiros/menores em celulares compartilhados — LGPD/ECA Digital) nos formulários [`PastoralAppointmentBooking.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/PastoralAppointmentBooking.tsx), [`CertificateRequestForm.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/certidoes/CertificateRequestForm.tsx), [`SacramentRegistrationContainer.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/sacramentos/SacramentRegistrationContainer.tsx) e [`MovementRegistrationModal.tsx`](file:///c:/Users/Start/ecclesiam-app/components/movements/MovementRegistrationModal.tsx).
-  * Tradutor central de mensagens de erro amigáveis substituindo exposição crua de `err?.message` / `error.message` nos `13` arquivos de Admin, Login e Upload.
-  * Envio e validação de `idempotency_key` no servidor para evitar duplicidade de Intenções de Missa ou Agendamentos em conexões 3G instáveis.
+  * ✅ Rascunho automático em `sessionStorage` via [`useSessionDraft.ts`](file:///c:/Users/Start/ecclesiam-app/lib/hooks/useSessionDraft.ts) (expira em 4h e apaga ao fechar o navegador, protegendo dados em celulares compartilhados — LGPD/ECA Digital) nos formulários [`PastoralAppointmentBooking.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/PastoralAppointmentBooking.tsx), [`CertificateRequestForm.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/certidoes/CertificateRequestForm.tsx), [`SacramentRegistrationContainer.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/sacramentos/SacramentRegistrationContainer.tsx) e [`MovementRegistrationModal.tsx`](file:///c:/Users/Start/ecclesiam-app/components/movements/MovementRegistrationModal.tsx).
+  * ✅ Tradutor central [`friendlyError.ts`](file:///c:/Users/Start/ecclesiam-app/lib/security/friendlyError.ts) substituindo exposição crua de `err?.message` / `error.message` nos arquivos de Admin, Login, Upload e Secretaria.
+  * ✅ Envio e validação de `idempotency_key` no servidor ([`idempotency.ts`](file:///c:/Users/Start/ecclesiam-app/lib/security/idempotency.ts), [`/api/secretaria/appointments`](file:///c:/Users/Start/ecclesiam-app/app/api/secretaria/appointments/route.ts), [`/api/secretaria/intentions`](file:///c:/Users/Start/ecclesiam-app/app/api/secretaria/intentions/route.ts)) e migração SQL [`20261114_task56_idempotency_keys.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task56_idempotency_keys.sql) para evitar duplicidade em conexões 3G/4G instáveis.
 
 #### 📲 `TASK-57`: PWA Offline Leve (`public/sw.js`) para Leitura Pública
 * **⏱️ Tempo Estimado:** ~30 a 40 minutos
@@ -153,6 +144,20 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
   * Criar 3–4 templates compartilhados de Skeleton (`loading.tsx`) para rotas dinâmicas públicas (eliminando sensação de congelamento durante navegação SSR).
   * Persistir o seletor `A- / A / A+` de [`CathedralHeader.tsx`](file:///c:/Users/Start/ecclesiam-app/components/layout/CathedralHeader.tsx) de forma versionada no `localStorage`, adotando escala relativa (`%`) para respeitar a configuração de fonte do sistema operacional do celular do fiel.
   * Trocar emojis pictóricos em elementos de UI (nos `11` arquivos identificados) por ícones `lucide-react` (preservando o símbolo sagrado `✝` no brasão e textos pastorais) e adicionar feedback tátil leve via CSS (`:active scale`) em [`app/globals.css`](file:///c:/Users/Start/ecclesiam-app/app/globals.css).
+
+---
+
+### 👀 8. Auditorias Visuais Humanas Pendentes (Homologação em Navegador)
+
+* **Status:** 🟡 **Pendente (Adiada pelo Dev para Sessão Posterior — 14/11/2026)**
+* **Nota Operacional:** Caso a porta `3000` esteja ocupada localmente por outro projeto, subir com `npm run dev -- -p 3001`.
+* **Checklist Pendente:**
+  - [ ] **`/secretaria/agendamentos`** (`TASK-56`): Validar preenchimento parcial + `F5` (`sessionStorage`), isolamento ao fechar/abrir aba, envio duplo em *Slow 3G* com mesma `idempotency_key` e diagrama mobile em `375px`.
+  - [ ] **`/secretaria/certidoes`** (`TASK-56`): Validar rascunho em `sessionStorage`, obrigatoriedade de reaceite manual do checkbox LGPD e layout em `375px`.
+  - [ ] **`/secretaria/sacramentos`** (`TASK-56`): Validar alternância entre sacramentos, rascunho em `sessionStorage` e mensagens de erro amigáveis.
+  - [ ] **`/secretaria/intencoes`** (`TASK-56`): Validar envio em lote com `idempotency_key` via `/api/secretaria/intentions` e simulação de rede instável.
+  - [ ] **Modal de Movimentos (`/movimentos/[slug]`)** (`TASK-56`): Validar `MovementRegistrationModal` (rascunho em `sessionStorage` sem pular etapa 1 de termos LGPD).
+  - [ ] **Fluxo Auth/Upload (`/login` e `/admin/*`)** (`TASK-53`, `TASK-54`, `TASK-56`): Validar redirecionamento server-side no `proxy.ts` após configurar `SUPABASE_SERVICE_ROLE_KEY` + usuários reais em `auth.users` e mensagens amigáveis em falhas de login/upload.
 
 ---
 

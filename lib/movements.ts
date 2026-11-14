@@ -4,6 +4,7 @@ import {
   ParishMovementEvent,
   ParishMovementRegistration,
 } from '@/types/movements';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -312,13 +313,21 @@ export async function submitMovementRegistration(
       ]);
 
     if (error) {
-      return { success: false, error: error.message };
+      return {
+        success: false,
+        error: toFriendlyErrorMessage(
+          error,
+          'Não foi possível registrar sua ficha no momento. Tente novamente.'
+        ),
+      };
     }
 
     return { success: true };
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : 'Erro inesperado';
-    return { success: false, error: msg };
+    return {
+      success: false,
+      error: toFriendlyErrorMessage(err, 'Erro inesperado ao enviar sua ficha.'),
+    };
   }
 }
 

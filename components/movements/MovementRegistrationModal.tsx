@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   X,
   CheckCircle2,
@@ -19,6 +19,8 @@ import { ParishMovement, ParishMovementEvent } from '@/types/movements';
 import { fallbackCommunities } from '@/lib/communities';
 import { submitMovementRegistration } from '@/lib/movements';
 import { MovementLegalTermsStep } from './MovementLegalTermsStep';
+import { readSessionDraft, writeSessionDraft, clearSessionDraft } from '@/lib/hooks/useSessionDraft';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface MovementRegistrationModalProps {
   isOpen: boolean;
@@ -55,6 +57,75 @@ export function MovementRegistrationModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [draftReady, setDraftReady] = useState(false);
+  const draftKey = `ecclesiam_draft_movement_${movement.id}`;
+
+  useEffect(() => {
+    const draft = readSessionDraft<{
+      eventId?: string;
+      applicantName?: string;
+      birthDate?: string;
+      phone?: string;
+      email?: string;
+      address?: string;
+      neighborhood?: string;
+      communityId?: string;
+      spouseOrGuardianName?: string;
+      spouseOrGuardianPhone?: string;
+      maritalStatus?: string;
+      notes?: string;
+    }>(draftKey);
+
+    if (draft) {
+      if (draft.eventId) setEventId(draft.eventId);
+      if (draft.applicantName) setApplicantName(draft.applicantName);
+      if (draft.birthDate) setBirthDate(draft.birthDate);
+      if (draft.phone) setPhone(draft.phone);
+      if (draft.email) setEmail(draft.email);
+      if (draft.address) setAddress(draft.address);
+      if (draft.neighborhood) setNeighborhood(draft.neighborhood);
+      if (draft.communityId) setCommunityId(draft.communityId);
+      if (draft.spouseOrGuardianName) setSpouseOrGuardianName(draft.spouseOrGuardianName);
+      if (draft.spouseOrGuardianPhone) setSpouseOrGuardianPhone(draft.spouseOrGuardianPhone);
+      if (draft.maritalStatus) setMaritalStatus(draft.maritalStatus);
+      if (draft.notes) setNotes(draft.notes);
+    }
+    setDraftReady(true);
+  }, [draftKey]);
+
+  useEffect(() => {
+    if (!draftReady || isSuccess) return;
+    writeSessionDraft(draftKey, {
+      eventId,
+      applicantName,
+      birthDate,
+      phone,
+      email,
+      address,
+      neighborhood,
+      communityId,
+      spouseOrGuardianName,
+      spouseOrGuardianPhone,
+      maritalStatus,
+      notes,
+    });
+  }, [
+    draftReady,
+    isSuccess,
+    draftKey,
+    eventId,
+    applicantName,
+    birthDate,
+    phone,
+    email,
+    address,
+    neighborhood,
+    communityId,
+    spouseOrGuardianName,
+    spouseOrGuardianPhone,
+    maritalStatus,
+    notes,
+  ]);
 
   if (!isOpen) return null;
 
@@ -109,13 +180,20 @@ export function MovementRegistrationModal({
       });
 
       if (!res.success) {
-        setErrorMessage(res.error || 'Ocorreu um erro ao enviar sua ficha. Tente novamente.');
+        setErrorMessage(
+          toFriendlyErrorMessage(
+            res.error,
+            'Ocorreu um erro ao enviar sua ficha. Tente novamente.'
+          )
+        );
       } else {
+        clearSessionDraft(draftKey);
         setIsSuccess(true);
       }
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Erro na comunicação';
-      setErrorMessage(msg);
+      setErrorMessage(
+        toFriendlyErrorMessage(err, 'Erro na comunicação com o servidor. Tente novamente.')
+      );
     } finally {
       setIsSubmitting(false);
     }

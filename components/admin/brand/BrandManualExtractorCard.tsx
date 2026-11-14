@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { UploadCloud, FileText, Sparkles, CheckCircle2, AlertCircle, Loader2, Download, ExternalLink } from 'lucide-react';
 import { ExtractedBrandData } from '@/lib/ai/brand-extractor';
 import { BrandIdentity, CATEDRAL_PARISH_ID } from '@/lib/brand';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface BrandManualExtractorCardProps {
   currentManualUrl?: string;
@@ -66,9 +67,11 @@ export function BrandManualExtractorCard({
       } else {
         throw new Error(data?.error || 'A extração não retornou dados estruturados.');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('[Manual Extraction Error]:', err);
-      setError(err?.message || 'Erro inesperado ao processar manual.');
+      setError(
+        toFriendlyErrorMessage(err, 'Erro inesperado ao processar o manual da marca.')
+      );
     } finally {
       setIsProcessing(false);
       setProcessingStep('');

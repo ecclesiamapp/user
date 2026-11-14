@@ -38,6 +38,15 @@ interface ProvisionParishModalProps {
   }>;
 }
 
+function buildStrongInitialCode(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+  let result = 'Ecl@';
+  for (let i = 0; i < 8; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
 export function ProvisionParishModal({
   isOpen,
   onClose,
@@ -54,15 +63,10 @@ export function ProvisionParishModal({
   const [adminName, setAdminName] = useState('');
   const [adminEmail, setAdminEmail] = useState('');
   const [adminRole, setAdminRole] = useState<'paroco' | 'secretaria'>('paroco');
-  const [initialAccessCode, setInitialAccessCode] = useState('Ecclesiam@2026');
+  const [initialAccessCode, setInitialAccessCode] = useState(() => buildStrongInitialCode());
 
   const generateRandomCode = () => {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
-    let result = 'Ecl@';
-    for (let i = 0; i < 5; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    setInitialAccessCode(result);
+    setInitialAccessCode(buildStrongInitialCode());
   };
 
   const [submitting, setSubmitting] = useState(false);
@@ -81,6 +85,12 @@ export function ProvisionParishModal({
       return;
     }
 
+    const normalizedInitialCode = initialAccessCode.trim();
+    if (!normalizedInitialCode || normalizedInitialCode.length < 8) {
+      setErrorMsg('Defina ou gere uma senha inicial com pelo menos 8 caracteres.');
+      return;
+    }
+
     setSubmitting(true);
     const res = await onProvision({
       name: name.trim(),
@@ -94,7 +104,7 @@ export function ProvisionParishModal({
       adminName: adminName.trim(),
       adminEmail: adminEmail.trim().toLowerCase(),
       adminRole,
-      initialAccessCode: initialAccessCode.trim() || 'Ecclesiam@2026',
+      initialAccessCode: normalizedInitialCode,
     });
     setSubmitting(false);
 

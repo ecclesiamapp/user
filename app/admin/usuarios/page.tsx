@@ -26,6 +26,7 @@ import {
 } from '@/components/admin/usuarios';
 import { AdminRoleGuard } from '@/components/admin/auth/AdminRoleGuard';
 import { useAdminCommunity } from '@/components/admin/context/AdminCommunityContext';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 type TabKey = 'active' | 'pending' | 'activity';
 
@@ -118,9 +119,12 @@ export default function UsuariosAdminPage() {
       await fetchData();
       await refreshContext();
       return true;
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Erro ao salvar usuário:', err);
-      showFeedback(err.message || 'Erro ao salvar usuário.', 'error');
+      showFeedback(
+        toFriendlyErrorMessage(err, 'Erro ao salvar usuário.'),
+        'error'
+      );
       return false;
     }
   };

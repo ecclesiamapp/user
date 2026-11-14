@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import { Upload, X, Loader2, Image as ImageIcon, Link2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import { Button } from '@/components/ui';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface CommunityFacadeUploaderProps {
   value: string;
@@ -60,7 +61,7 @@ export function CommunityFacadeUploader({
         });
 
       if (uploadError) {
-        throw new Error(uploadError.message);
+        throw uploadError;
       }
 
       const { data: publicData } = supabase.storage
@@ -73,8 +74,9 @@ export function CommunityFacadeUploader({
         throw new Error('Não foi possível obter o endereço público da foto.');
       }
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Falha ao realizar upload da imagem.';
-      setErrorMsg(msg);
+      setErrorMsg(
+        toFriendlyErrorMessage(err, 'Falha ao realizar upload da imagem.')
+      );
     } finally {
       setUploading(false);
     }

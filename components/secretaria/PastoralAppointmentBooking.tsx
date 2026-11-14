@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Heart, 
   Sparkles, 
@@ -21,6 +21,9 @@ import { Card, Button, Input, Select, Badge } from '@/components/ui';
 import { Clergy, Parish, Community, AppointmentType } from '@/types';
 import { createClient } from '@/utils/supabase/client';
 import { AppointmentSuccessCard } from './AppointmentSuccessCard';
+import { readSessionDraft, writeSessionDraft, clearSessionDraft } from '@/lib/hooks/useSessionDraft';
+import { generateIdempotencyKey } from '@/lib/security/idempotency';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface PastoralAppointmentBookingProps {
   parish: Parish;
@@ -105,12 +108,78 @@ export function PastoralAppointmentBooking({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successProtocol, setSuccessProtocol] = useState<string | null>(null);
+  const [draftReady, setDraftReady] = useState<boolean>(false);
+  const idempotencyKeyRef = useRef<string>(generateIdempotencyKey('ag'));
+  const draftKey = `ecclesiam_draft_appointment_${parish.id}`;
+
+  // Restaurar rascunho seguro em sessionStorage (apaga ao fechar o navegador — LGPD)
+  useEffect(() => {
+    const draft = readSessionDraft<{
+      step?: number;
+      selectedType?: AppointmentType;
+      selectedClergyId?: string | null;
+      selectedDate?: string;
+      selectedTime?: string;
+      parishionerName?: string;
+      parishionerPhone?: string;
+      parishionerEmail?: string;
+      selectedCommunityId?: string;
+      notes?: string;
+    }>(draftKey);
+
+    if (draft) {
+      if (draft.selectedType) setSelectedType(draft.selectedType);
+      if (draft.selectedClergyId !== undefined) setSelectedClergyId(draft.selectedClergyId);
+      if (draft.selectedDate) setSelectedDate(draft.selectedDate);
+      if (draft.selectedTime) setSelectedTime(draft.selectedTime);
+      if (draft.parishionerName) setParishionerName(draft.parishionerName);
+      if (draft.parishionerPhone) setParishionerPhone(draft.parishionerPhone);
+      if (draft.parishionerEmail) setParishionerEmail(draft.parishionerEmail);
+      if (draft.selectedCommunityId) setSelectedCommunityId(draft.selectedCommunityId);
+      if (draft.notes) setNotes(draft.notes);
+      if (typeof draft.step === 'number' && draft.step >= 1 && draft.step <= 4) {
+        setStep(draft.step);
+      }
+    }
+    setDraftReady(true);
+  }, [draftKey]);
+
+  // Persistir rascunho em sessionStorage enquanto preenche
+  useEffect(() => {
+    if (!draftReady || successProtocol) return;
+    writeSessionDraft(draftKey, {
+      step,
+      selectedType,
+      selectedClergyId,
+      selectedDate,
+      selectedTime,
+      parishionerName,
+      parishionerPhone,
+      parishionerEmail,
+      selectedCommunityId,
+      notes,
+    });
+  }, [
+    draftReady,
+    successProtocol,
+    draftKey,
+    step,
+    selectedType,
+    selectedClergyId,
+    selectedDate,
+    selectedTime,
+    parishionerName,
+    parishionerPhone,
+    parishionerEmail,
+    selectedCommunityId,
+    notes,
+  ]);
 
   // Geração dos próximos 12 dias úteis (Segunda a Sábado)
   const availableDates = React.useMemo(() => {
     const dates: { dateStr: string; label: string; weekday: string }[] = [];
     const today = new Date();
-    let current = new Date(today);
+    const current = new Date(today);
     current.setDate(current.getDate() + 1); // A partir de amanhã
 
     while (dates.length < 10) {
@@ -208,63 +277,60 @@ export function PastoralAppointmentBooking({
     setErrorMessage(null);
 
     try {
-      const generatedProtocol = `AG-${new Date().getFullYear().toString().slice(-2)}${String(
-        Math.floor(1000 + Math.random() * 9000)
-      )}`;
-
-      const { error } = await supabase.from('pastoral_appointments').insert({
-        parish_id: parish.id,
-        clergy_id: selectedClergyId || null,
-        community_id: selectedCommunityId || null,
-        parishioner_name: parishionerName.trim(),
-        parishioner_phone: parishionerPhone.trim(),
-        parishioner_email: parishionerEmail.trim() || null,
-        community_name: selectedCommunity?.name || null,
-        appointment_type: selectedType,
-        appointment_date: selectedDate,
-        appointment_time: selectedTime,
-        duration_minutes: selectedTypeObj?.durationMinutes || 30,
-        status: 'pendente',
-        notes: notes.trim() ? `[Protocolo: ${generatedProtocol}] ${notes.trim()}` : `[Protocolo: ${generatedProtocol}]`,
+      const response = await fetch('/api/secretaria/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          parish_id: parish.id,
+          clergy_id: selectedClergyId || null,
+          community_id: selectedCommunityId || null,
+          parishioner_name: parishionerName.trim(),
+          parishioner_phone: parishionerPhone.trim(),
+          parishioner_email: parishionerEmail.trim() || null,
+          community_name: selectedCommunity?.name || null,
+          appointment_type: selectedType,
+          appointment_date: selectedDate,
+          appointment_time: selectedTime,
+          duration_minutes: selectedTypeObj?.durationMinutes || 30,
+          notes: notes.trim() || null,
+          appointment_type_label: selectedTypeObj?.title || 'Atendimento Pastoral',
+          priest_name: selectedPriest?.name || 'Qualquer Sacerdote Disponível',
+          idempotency_key: idempotencyKeyRef.current,
+        }),
       });
 
-      if (error) throw error;
+      const data = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        protocol?: string;
+        error?: string;
+      } | null;
 
-      // Disparo de Notificação Transacional (Resend & Secretaria)
-      try {
-        fetch('/api/notifications', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            type: 'appointment',
-            protocol: generatedProtocol,
-            parishionerName: parishionerName.trim(),
-            parishionerPhone: parishionerPhone.trim(),
-            parishionerEmail: parishionerEmail.trim() || undefined,
-            appointmentTypeLabel: selectedTypeObj?.title || 'Atendimento Pastoral',
-            priestName: selectedPriest?.name || 'Qualquer Sacerdote Disponível',
-            formattedDate: selectedDate.split('-').reverse().join('/'),
-            time: selectedTime,
-            communityName: selectedCommunity?.name || 'Catedral Diocesana',
-            notes: notes.trim() || undefined,
-          }),
-        }).catch((notifErr) => {
-          console.warn('Alerta silencioso de notificação:', notifErr);
-        });
-      } catch (e) {
-        // Envio assíncrono não impede o sucesso do agendamento
+      if (!response.ok || !data?.ok || !data.protocol) {
+        throw new Error(
+          data?.error ||
+            'Não foi possível gravar o agendamento no momento. Tente novamente ou contate a secretaria.'
+        );
       }
 
-      setSuccessProtocol(generatedProtocol);
-    } catch (err: any) {
+      clearSessionDraft(draftKey);
+      idempotencyKeyRef.current = generateIdempotencyKey('ag');
+      setSuccessProtocol(data.protocol);
+    } catch (err: unknown) {
       console.error('Erro ao registrar agendamento:', err);
-      setErrorMessage('Não foi possível gravar o agendamento no momento. Tente novamente ou contate a secretaria.');
+      setErrorMessage(
+        toFriendlyErrorMessage(
+          err,
+          'Não foi possível gravar o agendamento no momento. Tente novamente ou contate a secretaria.'
+        )
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleReset = () => {
+    clearSessionDraft(draftKey);
+    idempotencyKeyRef.current = generateIdempotencyKey('ag');
     setSuccessProtocol(null);
     setStep(1);
     setSelectedTime('');

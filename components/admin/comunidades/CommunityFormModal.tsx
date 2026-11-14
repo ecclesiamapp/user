@@ -16,6 +16,7 @@ import {
 import { createClient } from '@/utils/supabase/client';
 import { Community, CommunityLeader, CommunityNotice, CommunityPastoralGroup } from '@/types';
 import { Button } from '@/components/ui';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 import { CommunityGeneralTab } from './CommunityGeneralTab';
 import { CommunityCpcTab } from './CommunityCpcTab';
@@ -215,8 +216,7 @@ export function CommunityFormModal({
 
       onClose();
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Falha ao salvar comunidade';
-      setErrorMsg(msg);
+      setErrorMsg(toFriendlyErrorMessage(err, 'Falha ao salvar comunidade.'));
     } finally {
       setSaving(false);
     }

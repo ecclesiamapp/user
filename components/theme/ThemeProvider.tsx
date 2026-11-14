@@ -30,6 +30,19 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<ThemeMode>('light');
   const [mounted, setMounted] = useState(false);
 
+  const applyTheme = (mode: ThemeMode) => {
+    if (typeof document === 'undefined') return;
+    const root = document.documentElement;
+    if (mode === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.remove('dark');
+      root.classList.add('light');
+    }
+    root.setAttribute('data-theme', mode);
+  };
+
   useEffect(() => {
     setMounted(true);
     try {
@@ -49,19 +62,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       applyTheme('light');
     }
   }, []);
-
-  const applyTheme = (mode: ThemeMode) => {
-    if (typeof document === 'undefined') return;
-    const root = document.documentElement;
-    if (mode === 'dark') {
-      root.classList.add('dark');
-      root.classList.remove('light');
-    } else {
-      root.classList.remove('dark');
-      root.classList.add('light');
-    }
-    root.setAttribute('data-theme', mode);
-  };
 
   const setTheme = (mode: ThemeMode) => {
     setThemeState(mode);

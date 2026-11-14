@@ -76,21 +76,46 @@ export function AdminCommunityProvider({ children }: { children: React.ReactNode
         }
       }
 
-      const [{ data: parishesData }, { data: commsData }, { data: usersData }] = await Promise.all([
-        supabase.from('parishes').select('*').order('name'),
-        supabase.from('communities').select('*').order('is_headquarters', { ascending: false }).order('name'),
-        supabase.from('user_profiles').select('*').order('role').order('name'),
-      ]);
+      const [sessionRes, { data: parishesData }, { data: commsData }, { data: usersData }] =
+        await Promise.all([
+          fetch('/api/auth/session', { cache: 'no-store' }).catch(() => null),
+          supabase.from('parishes').select('*').order('name'),
+          supabase
+            .from('communities')
+            .select('*')
+            .order('is_headquarters', { ascending: false })
+            .order('name'),
+          supabase.from('user_profiles').select('*').order('role').order('name'),
+        ]);
+
+      let serverProfile: UserProfile | null = null;
+      if (sessionRes && sessionRes.ok) {
+        const sessionJson = (await sessionRes.json().catch(() => null)) as {
+          authenticated?: boolean;
+          profile?: UserProfile | null;
+        } | null;
+        if (sessionJson?.authenticated && sessionJson.profile) {
+          serverProfile = sessionJson.profile;
+        }
+      }
 
       const loadedParishes = (parishesData as Parish[]) || [];
       setParishes(loadedParishes);
       if (commsData) setAllCommunities(commsData as Community[]);
 
-      if (usersData && usersData.length > 0) {
-        const profiles = usersData as UserProfile[];
+      const profiles: UserProfile[] =
+        usersData && usersData.length > 0
+          ? (usersData as UserProfile[])
+          : serverProfile
+          ? [serverProfile]
+          : [];
+
+      if (profiles.length > 0) {
         setAllUsers(profiles);
 
         const sessionUser =
+          (serverProfile && profiles.find((u) => u.id === serverProfile?.id)) ||
+          serverProfile ||
           (sessionPayload?.id && profiles.find((u) => u.id === sessionPayload?.id)) ||
           (sessionPayload?.email &&
             profiles.find((u) => u.email.toLowerCase() === sessionPayload?.email.toLowerCase())) ||
@@ -101,6 +126,7 @@ export function AdminCommunityProvider({ children }: { children: React.ReactNode
         setCurrentUser((prev) => (prev ? profiles.find((u) => u.id === prev.id) || prev : sessionUser));
 
         const resolvedParishId =
+          serverProfile?.parish_id ||
           sessionPayload?.parish_id ||
           sessionUser.parish_id ||
           loadedParishes[0]?.id ||

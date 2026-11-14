@@ -5,6 +5,7 @@ import { Upload, FileText, AlertCircle, Sparkles } from 'lucide-react';
 import { Modal, Input, Select, Button } from '@/components/ui';
 import { createClient } from '@/utils/supabase/client';
 import { LiturgicalBooklet } from '@/types';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface BookletFormModalProps {
   isOpen: boolean;
@@ -13,6 +14,11 @@ interface BookletFormModalProps {
 }
 
 const CATEDRAL_PARISH_ID = 'c0000000-0000-0000-0000-000000000001';
+
+function buildBookletStoragePath(parishId: string, originalName: string): string {
+  const sanitizedFileName = originalName.replace(/[^a-zA-Z0-9.-]/g, '_');
+  return `${parishId}/${Date.now()}_${sanitizedFileName}`;
+}
 
 export function BookletFormModal({ isOpen, onClose, onSuccess }: BookletFormModalProps) {
   const [title, setTitle] = useState('');
@@ -54,9 +60,7 @@ export function BookletFormModal({ isOpen, onClose, onSuccess }: BookletFormModa
 
     try {
       const supabase = createClient();
-      const timestamp = Date.now();
-      const sanitizedFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-      const storagePath = `${CATEDRAL_PARISH_ID}/${timestamp}_${sanitizedFileName}`;
+      const storagePath = buildBookletStoragePath(CATEDRAL_PARISH_ID, file.name);
 
       // 1. Upload do PDF para o Supabase Storage (bucket booklets)
       const { error: uploadError } = await supabase.storage
@@ -96,7 +100,7 @@ export function BookletFormModal({ isOpen, onClose, onSuccess }: BookletFormModa
 
       if (insertError) {
         console.error('Erro ao salvar no banco:', insertError);
-        throw new Error(`Falha ao registrar folheto: ${insertError.message}`);
+        throw insertError;
       }
 
       // Sucesso
@@ -104,8 +108,9 @@ export function BookletFormModal({ isOpen, onClose, onSuccess }: BookletFormModa
       resetForm();
       onClose();
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Erro inesperado durante a operação.';
-      setErrorMsg(message);
+      setErrorMsg(
+        toFriendlyErrorMessage(err, 'Erro inesperado ao registrar o folheto.')
+      );
     } finally {
       setIsUploading(false);
     }

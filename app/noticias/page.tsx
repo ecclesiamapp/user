@@ -78,11 +78,13 @@ export default async function CathedralNewsPage() {
             ? 'Notícia'
             : 'Aviso da Semana',
         imageUrl: a.image_url || '/images/historia/catedral-interior.jpg',
-        publishedAt: new Date(a.published_at || a.created_at || Date.now()).toLocaleDateString('pt-BR', {
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric',
-        }),
+        publishedAt: (a.published_at || a.created_at)
+          ? new Date(a.published_at || a.created_at).toLocaleDateString('pt-BR', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+            })
+          : 'Recente',
         authorName: a.author_name || 'PASCOM Catedral',
         authorRole: 'Pastoral da Comunicação',
         isUrgent: !!a.is_urgent,

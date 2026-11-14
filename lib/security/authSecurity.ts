@@ -3,8 +3,6 @@ import { Parish, SecurityAuditEventType, UserProfile } from '@/types';
 
 const RATE_LIMIT_KEY = 'ecclesiam_auth_rate_limit';
 export const ADMIN_SESSION_STORAGE_KEY = 'ecclesiam_admin_session';
-const MAX_ATTEMPTS = 5;
-const LOCKOUT_MS = 3 * 60 * 1000; // 3 minutos
 
 export interface RateLimitState {
   attempts: number;
@@ -24,6 +22,10 @@ export interface AuthenticatedSessionPayload {
   updatedAt: number;
 }
 
+/**
+ * Lê apenas o contador visual de bloqueio retornado pelo servidor (para countdown na UI).
+ * A aplicação real do rate-limit ocorre estritamente no servidor (/api/auth/login).
+ */
 export function getRateLimitState(): RateLimitState {
   if (typeof window === 'undefined') {
     return { attempts: 0, lockedUntil: null };
@@ -42,20 +44,17 @@ export function getRateLimitState(): RateLimitState {
   }
 }
 
-export function registerFailedAttempt(): RateLimitState {
-  if (typeof window === 'undefined') {
-    return { attempts: 1, lockedUntil: null };
-  }
-  const current = getRateLimitState();
-  const nextAttempts = current.attempts + 1;
-  const lockedUntil = nextAttempts >= MAX_ATTEMPTS ? Date.now() + LOCKOUT_MS : null;
-  const nextState: RateLimitState = { attempts: nextAttempts, lockedUntil };
+function setUiLockoutFromServer(retryAfterSeconds?: number): void {
+  if (typeof window === 'undefined' || !retryAfterSeconds) return;
   try {
+    const nextState: RateLimitState = {
+      attempts: 5,
+      lockedUntil: Date.now() + retryAfterSeconds * 1000,
+    };
     localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(nextState));
   } catch {
     // ignore storage quota errors
   }
-  return nextState;
 }
 
 export function clearRateLimit(): void {
@@ -95,10 +94,15 @@ export async function recordSecurityAudit(params: {
   }
 }
 
+/**
+ * Atualiza apenas o cache visual não-autoritativo em localStorage.
+ * A autorização real de rotas e APIs é validada no servidor via JWT HttpOnly do Supabase Auth.
+ */
 export function establishAdminSession(user: UserProfile, parish?: Parish | null): void {
   if (typeof window === 'undefined') return;
 
-  const parishId = user.parish_id || parish?.id || 'c0000000-0000-0000-0000-000000000001';
+  const parishId =
+    parish?.id || user.parish_id || 'c0000000-0000-0000-0000-000000000001';
   const payload: AuthenticatedSessionPayload = {
     active: true,
     id: user.id,
@@ -106,21 +110,15 @@ export function establishAdminSession(user: UserProfile, parish?: Parish | null)
     email: user.email,
     role: user.role,
     parish_id: parishId,
-    parish_name: parish?.name || user.parish_name || undefined,
+    parish_name: parish?.name || user.parish_name || 'Catedral Diocesana',
     community_id: user.community_id || null,
-    is_simulating: false,
     updatedAt: Date.now(),
   };
 
   try {
     localStorage.setItem(ADMIN_SESSION_STORAGE_KEY, JSON.stringify(payload));
-    const maxAge = 60 * 60 * 12; // 12 horas
-    document.cookie = `ecclesiam_admin_active=true; path=/; max-age=${maxAge}; SameSite=Lax`;
-    document.cookie = `ecclesiam_user_id=${encodeURIComponent(user.id)}; path=/; max-age=${maxAge}; SameSite=Lax`;
-    document.cookie = `ecclesiam_parish_id=${encodeURIComponent(parishId)}; path=/; max-age=${maxAge}; SameSite=Lax`;
-    document.cookie = `ecclesiam_user_role=${encodeURIComponent(user.role)}; path=/; max-age=${maxAge}; SameSite=Lax`;
-  } catch (err) {
-    console.warn('Erro ao gravar sessão administrativa:', err);
+  } catch {
+    // ignore storage errors
   }
 }
 
@@ -128,21 +126,9 @@ export async function destroyAdminSession(): Promise<void> {
   if (typeof window === 'undefined') return;
 
   try {
-    const raw = localStorage.getItem(ADMIN_SESSION_STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw) as AuthenticatedSessionPayload;
-      if (parsed?.email) {
-        await recordSecurityAudit({
-          email: parsed.email,
-          eventType: 'logout',
-          parishId: parsed.parish_id,
-          userProfileId: parsed.id,
-          role: parsed.role,
-        });
-      }
-    }
+    await fetch('/api/auth/logout', { method: 'POST' });
   } catch {
-    // ignore
+    // fallback para signOut local
   }
 
   try {
@@ -152,7 +138,14 @@ export async function destroyAdminSession(): Promise<void> {
     // ignore
   }
 
-  localStorage.removeItem(ADMIN_SESSION_STORAGE_KEY);
+  try {
+    localStorage.removeItem(ADMIN_SESSION_STORAGE_KEY);
+    localStorage.removeItem(RATE_LIMIT_KEY);
+  } catch {
+    // ignore
+  }
+
+  // Limpeza defensiva de eventuais cookies legados
   document.cookie = 'ecclesiam_admin_active=; path=/; max-age=0; SameSite=Lax';
   document.cookie = 'ecclesiam_user_id=; path=/; max-age=0; SameSite=Lax';
   document.cookie = 'ecclesiam_parish_id=; path=/; max-age=0; SameSite=Lax';
@@ -172,164 +165,48 @@ export async function authenticateEcclesiamUser(
   password: string
 ): Promise<AuthResult> {
   const email = rawEmail.trim().toLowerCase();
-  const rateState = getRateLimitState();
 
-  if (rateState.lockedUntil && Date.now() < rateState.lockedUntil) {
-    const remainingSecs = Math.ceil((rateState.lockedUntil - Date.now()) / 1000);
-    await recordSecurityAudit({
-      email,
-      eventType: 'login_blocked_rate_limit',
-      metadata: { remainingSecs },
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
     });
-    return {
-      success: false,
-      rateLimited: true,
-      error: `Muitas tentativas consecutivas. Por segurança, aguarde ${remainingSecs}s antes de tentar novamente.`,
-    };
-  }
 
-  const supabase = createClient();
+    const data = (await res.json().catch(() => null)) as {
+      ok?: boolean;
+      error?: string;
+      lockedOut?: boolean;
+      retryAfterSeconds?: number;
+      profile?: UserProfile;
+      parish?: Parish | null;
+    } | null;
 
-  // 1. Buscar o perfil cadastrado em user_profiles pelo e-mail
-  const { data: profileData, error: profileErr } = await supabase
-    .from('user_profiles')
-    .select('*')
-    .ilike('email', email)
-    .maybeSingle();
-
-  if (profileErr || !profileData) {
-    registerFailedAttempt();
-    await recordSecurityAudit({
-      email,
-      eventType: 'login_failed',
-      metadata: { reason: 'email_not_found' },
-    });
-    return {
-      success: false,
-      error: 'E-mail ou senha inválidos, ou credencial não habilitada no Ecclesiam App.',
-    };
-  }
-
-  const profile = profileData as UserProfile;
-
-  // 2. Verificar status do colaborador
-  if (profile.status === 'pendente') {
-    await recordSecurityAudit({
-      email,
-      eventType: 'login_failed',
-      parishId: profile.parish_id,
-      userProfileId: profile.id,
-      role: profile.role,
-      metadata: { reason: 'status_pendente' },
-    });
-    return {
-      success: false,
-      error:
-        'Sua solicitação de credencial pastoral já foi recebida e aguarda aprovação do Pároco ou Secretaria.',
-    };
-  }
-
-  if (profile.status === 'bloqueado') {
-    await recordSecurityAudit({
-      email,
-      eventType: 'login_failed',
-      parishId: profile.parish_id,
-      userProfileId: profile.id,
-      role: profile.role,
-      metadata: { reason: 'status_bloqueado' },
-    });
-    return {
-      success: false,
-      error: 'Esta credencial encontra-se suspensa ou desativada pela administração da paróquia.',
-    };
-  }
-
-  // 3. Buscar a paróquia vinculada ao usuário
-  const targetParishId = profile.parish_id || 'c0000000-0000-0000-0000-000000000001';
-  const { data: parishData } = await supabase
-    .from('parishes')
-    .select('*')
-    .eq('id', targetParishId)
-    .maybeSingle();
-
-  const parish = (parishData as Parish | null) || null;
-
-  if (parish?.subscription_status === 'suspensa' && profile.role !== 'superadmin') {
-    await recordSecurityAudit({
-      email,
-      eventType: 'login_failed',
-      parishId: targetParishId,
-      userProfileId: profile.id,
-      role: profile.role,
-      metadata: { reason: 'parish_suspended' },
-    });
-    return {
-      success: false,
-      error:
-        'O contrato desta paróquia encontra-se temporariamente suspenso. Entre em contato com o suporte comercial do Ecclesiam App.',
-    };
-  }
-
-  // 4. Validar senha no Supabase Auth OU código de acesso gerenciado (access_code)
-  let passwordValid = false;
-
-  const { data: authData, error: authErr } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (!authErr && authData?.session) {
-    passwordValid = true;
-  } else {
-    const expectedCode = profile.access_code || 'Ecclesiam@2026';
-    if (password === expectedCode) {
-      passwordValid = true;
+    if (!res.ok || !data?.ok || !data.profile) {
+      if (data?.lockedOut && data.retryAfterSeconds) {
+        setUiLockoutFromServer(data.retryAfterSeconds);
+      }
+      return {
+        success: false,
+        rateLimited: Boolean(data?.lockedOut),
+        error:
+          data?.error ||
+          'E-mail ou senha inválidos, ou credencial não habilitada no Ecclesiam App.',
+      };
     }
-  }
 
-  if (!passwordValid) {
-    const updatedLimit = registerFailedAttempt();
-    await recordSecurityAudit({
-      email,
-      eventType: 'login_failed',
-      parishId: targetParishId,
-      userProfileId: profile.id,
-      role: profile.role,
-      metadata: { reason: 'invalid_password', attempts: updatedLimit.attempts },
-    });
-    const remaining = Math.max(0, MAX_ATTEMPTS - updatedLimit.attempts);
+    clearRateLimit();
+    establishAdminSession(data.profile, data.parish);
+
+    return {
+      success: true,
+      user: data.profile,
+      parish: data.parish ?? null,
+    };
+  } catch {
     return {
       success: false,
-      error:
-        remaining > 0
-          ? `Senha incorreta. Você possui mais ${remaining} ${remaining === 1 ? 'tentativa' : 'tentativas'} antes do bloqueio temporário.`
-          : 'Muitas tentativas incorretas. Acesso bloqueado temporariamente por 3 minutos.',
+      error: 'Erro de comunicação com o servidor de autenticação.',
     };
   }
-
-  // 5. Sucesso: limpar rate-limit, atualizar last_sign_in_at, gravar auditoria e sessão
-  clearRateLimit();
-
-  await supabase
-    .from('user_profiles')
-    .update({ last_sign_in_at: new Date().toISOString() })
-    .eq('id', profile.id);
-
-  establishAdminSession(profile, parish);
-
-  await recordSecurityAudit({
-    email,
-    eventType: 'login_success',
-    parishId: targetParishId,
-    userProfileId: profile.id,
-    role: profile.role,
-    metadata: { parish_name: parish?.name || 'SaaS Global' },
-  });
-
-  return {
-    success: true,
-    user: profile,
-    parish,
-  };
 }
-

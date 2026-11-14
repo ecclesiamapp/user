@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Loader2, Newspaper, AlertCircle, Sparkles } from 'lucide-react';
 import { Announcement } from '@/types';
 import { ImageUploaderField, ImagePreset } from '@/components/admin/shared/ImageUploaderField';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 const ANNOUNCEMENT_PHOTO_PRESETS: ImagePreset[] = [
   { label: 'Interior da Catedral', url: '/images/historia/catedral-interior.jpg' },
@@ -70,9 +71,9 @@ export function AnnouncementModal({
         is_urgent: isUrgent,
       });
       onClose();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Erro ao salvar aviso:', err);
-      setError(err?.message || 'Falha ao salvar aviso.');
+      setError(toFriendlyErrorMessage(err, 'Falha ao salvar aviso.'));
     } finally {
       setLoading(false);
     }

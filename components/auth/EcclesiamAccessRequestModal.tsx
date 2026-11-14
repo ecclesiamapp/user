@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { X, UserPlus, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import { Parish, UserRole } from '@/types';
-import { recordSecurityAudit } from '@/lib/security/authSecurity';
 import { EcclesiamAccessRequestFields } from './EcclesiamAccessRequestFields';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface EcclesiamAccessRequestModalProps {
   isOpen: boolean;
@@ -57,49 +57,39 @@ export function EcclesiamAccessRequestModal({
 
     setSubmitting(true);
     try {
-      const supabase = createClient();
       const cleanEmail = email.trim().toLowerCase();
       const targetParishId =
         selectedParishId || parishes[0]?.id || 'c0000000-0000-0000-0000-000000000001';
-      const displayName = communityHint.trim()
-        ? `${name.trim()} (${communityHint.trim()})`
-        : name.trim();
 
-      const { error } = await supabase.from('user_profiles').insert([
-        {
+      const res = await fetch('/api/auth/request-access', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           parish_id: targetParishId,
-          name: displayName,
+          name: name.trim(),
           email: cleanEmail,
           phone: phone.trim() || null,
           role,
-          status: 'pendente',
-          allowed_modules:
-            role === 'pascom'
-              ? ['lp_geral', 'avisos', 'pastorais', 'galerias']
-              : ['lp_geral', 'cpc', 'avisos', 'pastorais', 'horarios'],
-        },
-      ]);
+          communityHint: communityHint.trim() || null,
+        }),
+      });
 
-      if (error) {
-        setErrorMsg(
-          error.code === '23505'
-            ? 'Este e-mail já possui cadastro ou solicitação registrada. Aguarde a aprovação ou faça login.'
-            : error.message || 'Não foi possível registrar a solicitação.'
-        );
+      const data = (await res.json().catch(() => null)) as {
+        ok?: boolean;
+        error?: string;
+      } | null;
+
+      if (!res.ok || !data?.ok) {
+        setErrorMsg(data?.error || 'Não foi possível registrar a solicitação.');
         setSubmitting(false);
         return;
       }
 
-      await recordSecurityAudit({
-        email: cleanEmail,
-        eventType: 'access_request_submitted',
-        parishId: targetParishId,
-        role,
-        metadata: { name: displayName, phone },
-      });
       setSuccess(true);
-    } catch (err: any) {
-      setErrorMsg(err?.message || 'Erro inesperado ao enviar solicitação.');
+    } catch (err: unknown) {
+      setErrorMsg(
+        toFriendlyErrorMessage(err, 'Erro inesperado ao enviar solicitação.')
+      );
     } finally {
       setSubmitting(false);
     }

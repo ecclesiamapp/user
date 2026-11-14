@@ -4,7 +4,7 @@ import {
   sendSacramentRegistrationEmail,
   sendSecretaryNotificationEmail,
   sendTitheRegistrationEmail,
-  BaseEmailResult,
+  type BaseEmailResult,
 } from '@/utils/resend';
 
 export async function POST(req: NextRequest) {

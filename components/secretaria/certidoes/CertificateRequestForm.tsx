@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   FileText, 
   Send, 
@@ -23,6 +23,8 @@ import { Card, Button, Input, Badge } from '@/components/ui';
 import { Parish, CertificateType, CertificateRequest } from '@/types';
 import { createClient } from '@/utils/supabase/client';
 import { maskPhone } from '@/lib/utils';
+import { readSessionDraft, writeSessionDraft, clearSessionDraft } from '@/lib/hooks/useSessionDraft';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface CertificateRequestFormProps {
   parish: Parish;
@@ -66,6 +68,95 @@ export function CertificateRequestForm({ parish }: CertificateRequestFormProps) 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [protocolGenerated, setProtocolGenerated] = useState<string | null>(null);
   const [copiedProtocol, setCopiedProtocol] = useState<boolean>(false);
+  const [draftReady, setDraftReady] = useState<boolean>(false);
+  const draftKey = `ecclesiam_draft_certificate_${parish.id}`;
+
+  useEffect(() => {
+    const draft = readSessionDraft<{
+      certType?: CertificateType;
+      holderName?: string;
+      holderBirthDate?: string;
+      parentsNames?: string;
+      godparentsNames?: string;
+      approximateYear?: string;
+      communityName?: string;
+      bookNumber?: string;
+      pageNumber?: string;
+      entryNumber?: string;
+      purpose?: string;
+      applicantName?: string;
+      applicantPhone?: string;
+      applicantEmail?: string;
+      applicantRelation?: 'proprio' | 'pai_mae' | 'conjuge' | 'responsavel' | 'outro';
+      deliveryPreference?: 'retirada_presencial' | 'email_digital' | 'whatsapp';
+      notes?: string;
+    }>(draftKey);
+
+    if (draft) {
+      if (draft.certType) setCertType(draft.certType);
+      if (draft.holderName) setHolderName(draft.holderName);
+      if (draft.holderBirthDate) setHolderBirthDate(draft.holderBirthDate);
+      if (draft.parentsNames) setParentsNames(draft.parentsNames);
+      if (draft.godparentsNames) setGodparentsNames(draft.godparentsNames);
+      if (draft.approximateYear) setApproximateYear(draft.approximateYear);
+      if (draft.communityName) setCommunityName(draft.communityName);
+      if (draft.bookNumber) setBookNumber(draft.bookNumber);
+      if (draft.pageNumber) setPageNumber(draft.pageNumber);
+      if (draft.entryNumber) setEntryNumber(draft.entryNumber);
+      if (draft.purpose) setPurpose(draft.purpose);
+      if (draft.applicantName) setApplicantName(draft.applicantName);
+      if (draft.applicantPhone) setApplicantPhone(draft.applicantPhone);
+      if (draft.applicantEmail) setApplicantEmail(draft.applicantEmail);
+      if (draft.applicantRelation) setApplicantRelation(draft.applicantRelation);
+      if (draft.deliveryPreference) setDeliveryPreference(draft.deliveryPreference);
+      if (draft.notes) setNotes(draft.notes);
+    }
+    setDraftReady(true);
+  }, [draftKey]);
+
+  useEffect(() => {
+    if (!draftReady || protocolGenerated) return;
+    writeSessionDraft(draftKey, {
+      certType,
+      holderName,
+      holderBirthDate,
+      parentsNames,
+      godparentsNames,
+      approximateYear,
+      communityName,
+      bookNumber,
+      pageNumber,
+      entryNumber,
+      purpose,
+      applicantName,
+      applicantPhone,
+      applicantEmail,
+      applicantRelation,
+      deliveryPreference,
+      notes,
+    });
+  }, [
+    draftReady,
+    protocolGenerated,
+    draftKey,
+    certType,
+    holderName,
+    holderBirthDate,
+    parentsNames,
+    godparentsNames,
+    approximateYear,
+    communityName,
+    bookNumber,
+    pageNumber,
+    entryNumber,
+    purpose,
+    applicantName,
+    applicantPhone,
+    applicantEmail,
+    applicantRelation,
+    deliveryPreference,
+    notes,
+  ]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,11 +217,13 @@ export function CertificateRequestForm({ parish }: CertificateRequestFormProps) 
       if (error) throw error;
 
       const code = `CERT-2026-${(data?.id || 'NOVO').slice(0, 6).toUpperCase()}`;
+      clearSessionDraft(draftKey);
       setProtocolGenerated(code);
     } catch (err: unknown) {
-      const errorObj = err as Error;
       console.error('Erro ao solicitar certidão:', err);
-      setErrorMessage(errorObj.message || 'Erro ao registrar solicitação. Tente novamente.');
+      setErrorMessage(
+        toFriendlyErrorMessage(err, 'Erro ao registrar solicitação. Tente novamente.')
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -160,6 +253,7 @@ export function CertificateRequestForm({ parish }: CertificateRequestFormProps) 
   };
 
   const handleReset = () => {
+    clearSessionDraft(draftKey);
     setProtocolGenerated(null);
     setHolderName('');
     setParentsNames('');

@@ -1,44 +1,135 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-import { 
-  extractBrandFromManualBuffer, 
+import {
+  extractBrandFromManualBuffer,
   convertExtractionToBrandIdentity,
-  ExtractedBrandData 
+  ExtractedBrandData,
 } from '@/lib/ai/brand-extractor';
-import { CATEDRAL_PARISH_ID } from '@/lib/brand';
+import { requireAuthenticatedAdmin } from '@/lib/security/serverAuth';
+import { createAdminClient } from '@/utils/supabase/admin';
+import type { UserRole } from '@/types';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-function getSupabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-  return createClient(url, serviceKey);
+const BRAND_ALLOWED_ROLES: UserRole[] = [
+  'superadmin',
+  'paroco',
+  'secretaria',
+  'pascom',
+];
+
+const MAX_REMOTE_ASSET_BYTES = 25 * 1024 * 1024; // 25 MB
+
+function isPrivateOrBlockedHostname(hostname: string): boolean {
+  const lower = hostname.toLowerCase().replace(/^\[|\]$/g, '');
+  if (
+    lower === 'localhost' ||
+    lower === '0.0.0.0' ||
+    lower === '::1' ||
+    lower.endsWith('.local') ||
+    lower.endsWith('.internal') ||
+    lower.endsWith('.localhost')
+  ) {
+    return true;
+  }
+
+  // Bloqueia IPs IPv4 privados / loopback / link-local / cloud metadata (169.254.x.x)
+  const ipv4Match = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(lower);
+  if (ipv4Match) {
+    const [a, b] = [Number(ipv4Match[1]), Number(ipv4Match[2])];
+    if (
+      a === 10 ||
+      a === 127 ||
+      a === 0 ||
+      (a === 169 && b === 254) ||
+      (a === 172 && b >= 16 && b <= 31) ||
+      (a === 192 && b === 168) ||
+      (a === 100 && b >= 64 && b <= 127)
+    ) {
+      return true;
+    }
+  }
+
+  // Bloqueia prefixos IPv6 locais
+  if (
+    lower.startsWith('fe80:') ||
+    lower.startsWith('fc00:') ||
+    lower.startsWith('fd')
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+function validateSafeRemoteUrl(rawUrl: string): URL | null {
+  try {
+    const parsed = new URL(rawUrl);
+    if (parsed.protocol !== 'https:') return null;
+    if (isPrivateOrBlockedHostname(parsed.hostname)) return null;
+
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    if (supabaseUrl) {
+      const supabaseHost = new URL(supabaseUrl).hostname;
+      if (parsed.hostname === supabaseHost) {
+        return parsed;
+      }
+    }
+
+    return parsed;
+  } catch {
+    return null;
+  }
 }
 
 /**
  * POST /api/admin/brand/extract
- * 
- * Endpoint para ingestão e extração inteligente de manuais de marca (PDF ou imagem)
+ *
+ * Endpoint autenticado para ingestão e extração inteligente de manuais de marca (PDF ou imagem)
  * via Google Gemini 2.5 Flash Multimodal.
  */
 export async function POST(req: NextRequest) {
   try {
+    const auth = await requireAuthenticatedAdmin({
+      allowedRoles: BRAND_ALLOWED_ROLES,
+    });
+    if (!auth.ok) return auth.response;
+
     const contentType = req.headers.get('content-type') || '';
     let buffer: Buffer | null = null;
     let mimeType = 'application/pdf';
     let filename = 'manual_marca.pdf';
-    let parishId = CATEDRAL_PARISH_ID;
+    let parishId = auth.parishId || '';
     let uploadedFileUrl = '';
 
-    const supabase = getSupabaseAdmin();
+    const supabase = createAdminClient();
 
     // 1. Processamento via Multipart FormData (Upload de arquivo direto)
     if (contentType.includes('multipart/form-data')) {
       const formData = await req.formData();
       const file = (formData.get('file') || formData.get('manual_file')) as File | null;
-      const paramParishId = formData.get('parish_id') as string | null;
-      if (paramParishId) parishId = paramParishId;
+      const paramParishId = (formData.get('parish_id') as string | null)?.trim() || null;
+
+      if (paramParishId) {
+        if (
+          auth.role !== 'superadmin' &&
+          auth.parishId &&
+          paramParishId !== auth.parishId
+        ) {
+          return NextResponse.json(
+            { error: 'Acesso negado para paróquia de outro locatário.' },
+            { status: 403 }
+          );
+        }
+        parishId = paramParishId;
+      }
+
+      if (!parishId) {
+        return NextResponse.json(
+          { error: 'Paróquia de destino não identificada.' },
+          { status: 400 }
+        );
+      }
 
       if (!file) {
         return NextResponse.json(
@@ -82,22 +173,70 @@ export async function POST(req: NextRequest) {
       } catch (uploadErr) {
         console.warn('[Brand Extract Route] Erro no upload para storage:', uploadErr);
       }
-    } 
-    // 2. Processamento via JSON (Base64 ou URL remota)
+    }
+    // 2. Processamento via JSON (Base64 ou URL remota validada contra SSRF)
     else if (contentType.includes('application/json')) {
       const body = await req.json();
-      if (body.parishId) parishId = body.parishId;
+      const requestedParishId =
+        typeof body.parishId === 'string' ? body.parishId.trim() : '';
+
+      if (requestedParishId) {
+        if (
+          auth.role !== 'superadmin' &&
+          auth.parishId &&
+          requestedParishId !== auth.parishId
+        ) {
+          return NextResponse.json(
+            { error: 'Acesso negado para paróquia de outro locatário.' },
+            { status: 403 }
+          );
+        }
+        parishId = requestedParishId;
+      }
+
+      if (!parishId) {
+        return NextResponse.json(
+          { error: 'Paróquia de destino não identificada.' },
+          { status: 400 }
+        );
+      }
 
       if (body.fileUrl) {
-        uploadedFileUrl = body.fileUrl;
-        const response = await fetch(body.fileUrl);
+        const safeUrl = validateSafeRemoteUrl(String(body.fileUrl));
+        if (!safeUrl) {
+          return NextResponse.json(
+            {
+              error:
+                'URL de arquivo inválida ou bloqueada pela política de segurança (apenas HTTPS público permitido).',
+            },
+            { status: 400 }
+          );
+        }
+
+        uploadedFileUrl = safeUrl.toString();
+        const response = await fetch(safeUrl.toString(), {
+          redirect: 'error',
+        });
         if (!response.ok) {
           return NextResponse.json(
             { error: `Não foi possível baixar o arquivo da URL fornecida (${response.status}).` },
             { status: 400 }
           );
         }
+        const contentLen = Number(response.headers.get('content-length') || 0);
+        if (contentLen > MAX_REMOTE_ASSET_BYTES) {
+          return NextResponse.json(
+            { error: 'O arquivo remoto excede o limite de 25 MB.' },
+            { status: 413 }
+          );
+        }
         const arrayBuf = await response.arrayBuffer();
+        if (arrayBuf.byteLength > MAX_REMOTE_ASSET_BYTES) {
+          return NextResponse.json(
+            { error: 'O arquivo remoto excede o limite de 25 MB.' },
+            { status: 413 }
+          );
+        }
         buffer = Buffer.from(arrayBuf);
         mimeType = response.headers.get('content-type') || 'application/pdf';
         filename = body.filename || 'manual_marca.pdf';
@@ -163,12 +302,12 @@ export async function POST(req: NextRequest) {
       summary: extractedData.summary,
       confidence_score: extractedData.confidence_score,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('[Brand Extract API Error]:', error);
     return NextResponse.json(
       {
         success: false,
-        error: error?.message || 'Falha ao processar e extrair identidade do manual.',
+        error: 'Falha interna ao processar e extrair identidade do manual.',
       },
       { status: 500 }
     );

@@ -17,6 +17,7 @@ import { createClient } from '@/utils/supabase/client';
 import { Community, Gallery } from '@/types';
 import { Button, Input, Select } from '@/components/ui';
 import { ImageUploaderField } from '@/components/admin/shared/ImageUploaderField';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface GalleryFormModalProps {
   isOpen: boolean;
@@ -137,8 +138,7 @@ export function GalleryFormModal({
         setPhotosText(combined.join('\n'));
       }
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Falha no upload';
-      setErrorMsg('Aviso de upload: ' + msg);
+      setErrorMsg(toFriendlyErrorMessage(err, 'Falha ao enviar as fotos do álbum.'));
     } finally {
       setUploading(false);
       e.target.value = '';
@@ -193,8 +193,7 @@ export function GalleryFormModal({
 
       onClose();
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Falha ao salvar álbum';
-      setErrorMsg(msg);
+      setErrorMsg(toFriendlyErrorMessage(err, 'Falha ao salvar álbum. Tente novamente.'));
     } finally {
       setSaving(false);
     }

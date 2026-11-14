@@ -55,7 +55,10 @@ export function AdminAppearanceProvider({ children }: { children: React.ReactNod
   const pathname = usePathname();
   const prevPathnameRef = useRef<string | null>(null);
   const isSimulatingRef = useRef<boolean>(false);
-  isSimulatingRef.current = isSimulating;
+
+  useEffect(() => {
+    isSimulatingRef.current = isSimulating;
+  }, [isSimulating]);
 
   // 1. Carregar preferência salva no LocalStorage
   useEffect(() => {

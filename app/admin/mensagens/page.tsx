@@ -19,7 +19,6 @@ import { MessageCard } from '@/components/admin/mensagens/MessageCard';
 import { MessageFormModal } from '@/components/admin/mensagens/MessageFormModal';
 
 const CATEDRAL_PARISH_ID = 'c0000000-0000-0000-0000-000000000001';
-const LOCAL_STORAGE_KEY = 'ecclesiam_local_pastoral_messages';
 
 export default function AdminMensagensPage() {
   const [messages, setMessages] = useState<PastoralMessage[]>([]);
@@ -43,31 +42,25 @@ export default function AdminMensagensPage() {
         .eq('parish_id', CATEDRAL_PARISH_ID)
         .order('published_at', { ascending: false });
 
-      if (!error && data && data.length > 0) {
+      if (error) {
+        setErrorMsg(
+          `Não foi possível sincronizar mensagens com o Supabase (${error.message}). Exibindo textos canônicos de referência — edições remotas estão bloqueadas.`
+        );
+        setMessages(OFFICIAL_CHRISTMAS_MESSAGES);
+        return;
+      }
+
+      if (data && data.length > 0) {
         setMessages(data as PastoralMessage[]);
         return;
       }
 
-      // Fallback 1: LocalStorage com mensagens salvas pelo usuário
-      if (typeof window !== 'undefined') {
-        const local = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (local) {
-          try {
-            const parsed = JSON.parse(local);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              setMessages(parsed);
-              return;
-            }
-          } catch {
-            // ignore parsing error
-          }
-        }
-      }
-
-      // Fallback 2: Mensagens canônicas oficiais (Dom Lauro e Pe. Irineu)
       setMessages(OFFICIAL_CHRISTMAS_MESSAGES);
     } catch (err) {
-      console.warn('Falha na API, adotando mensagens canônicas locais:', err);
+      console.error('Falha ao carregar mensagens do Supabase:', err);
+      setErrorMsg(
+        'Falha de conexão com o banco de dados Supabase. Exibindo textos canônicos de referência.'
+      );
       setMessages(OFFICIAL_CHRISTMAS_MESSAGES);
     } finally {
       setLoading(false);
@@ -93,51 +86,40 @@ export default function AdminMensagensPage() {
     setIsModalOpen(true);
   };
 
-  const syncToLocalStorage = (updated: PastoralMessage[]) => {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-      } catch (err) {
-        console.warn('Erro ao sincronizar com localStorage:', err);
-      }
-    }
-  };
-
   const handleSetFeatured = async (id: string) => {
     try {
       setActionLoadingId(id);
+      setErrorMsg(null);
       const supabase = createClient();
 
-      // 1. Tentar atualizar no Supabase (se online)
-      try {
-        await supabase
-          .from('pastoral_messages')
-          .update({ is_featured_home: false })
-          .eq('parish_id', CATEDRAL_PARISH_ID);
+      const { error: resetErr } = await supabase
+        .from('pastoral_messages')
+        .update({ is_featured_home: false })
+        .eq('parish_id', CATEDRAL_PARISH_ID);
 
-        await supabase
-          .from('pastoral_messages')
-          .update({ is_featured_home: true, is_active: true })
-          .eq('id', id);
-      } catch (dbErr) {
-        console.warn('Supabase offline ou sem tabela, aplicando no cache local:', dbErr);
-      }
+      if (resetErr) throw resetErr;
 
-      setMessages((prev) => {
-        const next = prev.map((m) => ({
+      const { error: featureErr } = await supabase
+        .from('pastoral_messages')
+        .update({ is_featured_home: true, is_active: true })
+        .eq('id', id);
+
+      if (featureErr) throw featureErr;
+
+      setMessages((prev) =>
+        prev.map((m) => ({
           ...m,
           is_featured_home: m.id === id,
           is_active: m.id === id ? true : m.is_active,
-        }));
-        syncToLocalStorage(next);
-        return next;
-      });
+        }))
+      );
 
       const target = messages.find((m) => m.id === id);
       showFeedback(`"${target?.title}" agora é o destaque oficial na Home!`);
-    } catch (err) {
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Erro ao atualizar no banco.';
       console.error('Erro ao definir mensagem em destaque:', err);
-      showFeedback('Erro ao definir destaque na Home.');
+      setErrorMsg(`Falha ao salvar destaque no Supabase: ${msg}. Nenhuma alteração foi publicada.`);
     } finally {
       setActionLoadingId(null);
     }
@@ -146,28 +128,26 @@ export default function AdminMensagensPage() {
   const handleToggleActive = async (id: string, currentStatus: boolean) => {
     try {
       setActionLoadingId(id);
+      setErrorMsg(null);
       const supabase = createClient();
       const newStatus = !currentStatus;
 
-      try {
-        await supabase
-          .from('pastoral_messages')
-          .update({ is_active: newStatus })
-          .eq('id', id);
-      } catch (dbErr) {
-        console.warn('Supabase offline ou sem tabela, aplicando no cache local:', dbErr);
-      }
+      const { error } = await supabase
+        .from('pastoral_messages')
+        .update({ is_active: newStatus })
+        .eq('id', id);
 
-      setMessages((prev) => {
-        const next = prev.map((m) => (m.id === id ? { ...m, is_active: newStatus } : m));
-        syncToLocalStorage(next);
-        return next;
-      });
+      if (error) throw error;
+
+      setMessages((prev) =>
+        prev.map((m) => (m.id === id ? { ...m, is_active: newStatus } : m))
+      );
 
       showFeedback(newStatus ? 'Mensagem publicada no portal!' : 'Mensagem salva como rascunho.');
-    } catch (err) {
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Erro ao atualizar no banco.';
       console.error('Erro ao alternar status da mensagem:', err);
-      showFeedback('Erro ao alterar status.');
+      setErrorMsg(`Falha ao alterar status no Supabase: ${msg}.`);
     } finally {
       setActionLoadingId(null);
     }
@@ -183,24 +163,18 @@ export default function AdminMensagensPage() {
 
     try {
       setActionLoadingId(id);
+      setErrorMsg(null);
       const supabase = createClient();
 
-      try {
-        await supabase.from('pastoral_messages').delete().eq('id', id);
-      } catch (dbErr) {
-        console.warn('Supabase offline ou sem tabela, aplicando no cache local:', dbErr);
-      }
+      const { error } = await supabase.from('pastoral_messages').delete().eq('id', id);
+      if (error) throw error;
 
-      setMessages((prev) => {
-        const next = prev.filter((m) => m.id !== id);
-        syncToLocalStorage(next);
-        return next;
-      });
-
+      setMessages((prev) => prev.filter((m) => m.id !== id));
       showFeedback('Mensagem removida com sucesso!');
-    } catch (err) {
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Erro ao excluir no banco.';
       console.error('Erro ao deletar mensagem:', err);
-      showFeedback('Erro ao excluir mensagem.');
+      setErrorMsg(`Falha ao excluir mensagem no Supabase: ${msg}.`);
     } finally {
       setActionLoadingId(null);
     }

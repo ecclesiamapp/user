@@ -32,7 +32,7 @@ export function UserInviteModal({
 
   const cleanPhone = (user.phone || '').replace(/\D/g, '');
   const loginUrl = 'https://ecclesiamapp.com.br/login';
-  const initialCode = user.access_code || 'Ecclesiam@2026';
+  const initialCode = user.access_code || '(Definida pelo usuário / Redefinir no painel)';
 
   const inviteMessage = `✝️ Paz e Bem, ${user.name}!\n\nSua credencial como *${roleText}* foi habilitada no painel administrativo da paróquia.\n\n🔐 *Portal de Acesso:*\n${loginUrl}\n\n📧 *E-mail Cadastrado:*\n${user.email}\n\n🔑 *Senha Inicial de Acesso:*\n${initialCode}\n\nQualquer dúvida, entre em contato com a Secretaria Paroquial. Deus abençoe sua missão pastoral!`;
 

@@ -1,12 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/utils/supabase/admin";
+import { requireAuthenticatedAdmin } from "@/lib/security/serverAuth";
 import {
   generateBatchEmbeddings,
   knowledgeFormatters,
   TextChunk,
 } from "@/lib/ai/embeddings";
+import type { UserRole } from "@/types";
 
 export const dynamic = "force-dynamic";
+
+const SYNC_ALLOWED_ROLES: UserRole[] = [
+  "superadmin",
+  "paroco",
+  "vigario",
+  "secretaria",
+];
 
 /**
  * GET /api/admin/ai/sync-database
@@ -14,16 +23,29 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createAdminClient();
     const { searchParams } = new URL(request.url);
-    const parishId = searchParams.get("parish_id");
+    const requestedParishId = searchParams.get("parish_id");
 
-    // Identifica a paróquia alvo
+    const auth = await requireAuthenticatedAdmin({
+      allowedRoles: SYNC_ALLOWED_ROLES,
+      requestedParishId,
+    });
+    if (!auth.ok) return auth.response;
+
+    const supabase = createAdminClient();
+    const targetParishId = auth.parishId;
+
+    // Identifica a paróquia alvo respeitando isolamento multi-tenant
     let parishQuery = supabase.from("parishes").select("id, name, slug");
-    if (parishId) {
-      parishQuery = parishQuery.eq("id", parishId);
-    } else {
+    if (targetParishId) {
+      parishQuery = parishQuery.eq("id", targetParishId);
+    } else if (auth.role === "superadmin") {
       parishQuery = parishQuery.limit(1);
+    } else {
+      return NextResponse.json(
+        { error: "Paróquia vinculada não identificada." },
+        { status: 403 }
+      );
     }
 
     const { data: parishes, error: parishError } = await parishQuery;
@@ -85,8 +107,9 @@ export async function GET(request: NextRequest) {
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Erro desconhecido";
+    console.error("[AI Sync Status Error]:", message);
     return NextResponse.json(
-      { error: `Falha ao consultar status de indexação: ${message}` },
+      { error: "Falha interna ao consultar status de indexação." },
       { status: 500 }
     );
   }
@@ -100,7 +123,6 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createAdminClient();
     let body: { parish_id?: string } = {};
     try {
       body = await request.json();
@@ -108,12 +130,26 @@ export async function POST(request: NextRequest) {
       // Body vazio: utiliza paróquia padrão
     }
 
-    // 1. Identificar a Paróquia
+    const auth = await requireAuthenticatedAdmin({
+      allowedRoles: SYNC_ALLOWED_ROLES,
+      requestedParishId: body.parish_id ?? null,
+    });
+    if (!auth.ok) return auth.response;
+
+    const supabase = createAdminClient();
+    const targetParishId = auth.parishId;
+
+    // 1. Identificar a Paróquia respeitando isolamento multi-tenant
     let parishQuery = supabase.from("parishes").select("*");
-    if (body.parish_id) {
-      parishQuery = parishQuery.eq("id", body.parish_id);
-    } else {
+    if (targetParishId) {
+      parishQuery = parishQuery.eq("id", targetParishId);
+    } else if (auth.role === "superadmin") {
       parishQuery = parishQuery.limit(1);
+    } else {
+      return NextResponse.json(
+        { error: "Paróquia vinculada não identificada." },
+        { status: 403 }
+      );
     }
 
     const { data: parishes, error: parishError } = await parishQuery;
@@ -263,7 +299,7 @@ export async function POST(request: NextRequest) {
     const message = err instanceof Error ? err.message : "Erro desconhecido";
     console.error("[AI Sync Database Handler Error]:", message);
     return NextResponse.json(
-      { error: `Falha na sincronização vetorial: ${message}` },
+      { error: "Falha interna na sincronização vetorial." },
       { status: 500 }
     );
   }

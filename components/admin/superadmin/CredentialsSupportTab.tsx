@@ -225,7 +225,7 @@ export function CredentialsSupportTab({
                   <span className="inline-flex items-center gap-1.5">
                     <span>Senha atual:</span>
                     <code className="px-1.5 py-0.5 rounded bg-[var(--dash-surface-secondary)] text-[var(--dash-text-primary)] font-mono">
-                      {visibleCodes[u.id] ? u.access_code || 'Ecclesiam@2026' : '••••••••'}
+                      {visibleCodes[u.id] ? u.access_code || 'Não definida (redefinir)' : '••••••••'}
                     </code>
                     <button
                       type="button"
@@ -239,18 +239,20 @@ export function CredentialsSupportTab({
                         <Eye className="w-3.5 h-3.5" />
                       )}
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => handleCopyCode(u.id, u.access_code || 'Ecclesiam@2026')}
-                      className="p-1 rounded text-[var(--dash-text-muted)] hover:text-[var(--dash-text-primary)] cursor-pointer"
-                      title="Copiar senha"
-                    >
-                      {copiedUserId === u.id ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      ) : (
-                        <Copy className="w-3.5 h-3.5" />
-                      )}
-                    </button>
+                    {u.access_code && (
+                      <button
+                        type="button"
+                        onClick={() => handleCopyCode(u.id, u.access_code!)}
+                        className="p-1 rounded text-[var(--dash-text-muted)] hover:text-[var(--dash-text-primary)] cursor-pointer"
+                        title="Copiar senha"
+                      >
+                        {copiedUserId === u.id ? (
+                          <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        ) : (
+                          <Copy className="w-3.5 h-3.5" />
+                        )}
+                      </button>
+                    )}
                   </span>
                 </div>
               </div>
@@ -288,7 +290,7 @@ export function CredentialsSupportTab({
                       variant="outline"
                       onClick={() => {
                         setEditingCodeUserId(u.id);
-                        setNewAccessCode(u.access_code || 'Ecclesiam@2026');
+                        setNewAccessCode(u.access_code || '');
                       }}
                       className="rounded-xl text-xs font-bold min-h-[38px] flex items-center gap-1.5"
                     >

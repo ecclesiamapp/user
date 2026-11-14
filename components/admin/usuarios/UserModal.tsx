@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { X, ShieldCheck, User, Mail, Phone, MapPin, CheckSquare, Square, Loader2 } from 'lucide-react';
 import { UserProfile, UserRole, UserStatus, AllowedCommunityModule, Community } from '@/types';
 import { Button, Input } from '@/components/ui';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface UserModalProps {
   isOpen: boolean;
@@ -108,8 +109,8 @@ export function UserModal({
       } else {
         setErrorMsg('Erro ao salvar usuário no banco de dados.');
       }
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Erro inesperado.');
+    } catch (err: unknown) {
+      setErrorMsg(toFriendlyErrorMessage(err, 'Erro inesperado ao salvar usuário.'));
     } finally {
       setSaving(false);
     }

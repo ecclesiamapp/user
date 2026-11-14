@@ -14,6 +14,7 @@ import {
   BookOpen,
   HelpCircle 
 } from 'lucide-react';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 export interface ChatMessageItem {
   id: string;
@@ -22,6 +23,10 @@ export interface ChatMessageItem {
   sources?: { title: string; source_type: string; similarity: number }[];
   suggested_draft?: string | null;
   timestamp: string;
+}
+
+function nextChatId(prefix: string): string {
+  return `${prefix}-${Date.now()}`;
 }
 
 interface AdminAiChatViewProps {
@@ -65,7 +70,7 @@ export function AdminAiChatView({ initialPrompt, compact = false }: AdminAiChatV
     if (!text || loading) return;
 
     const userMessage: ChatMessageItem = {
-      id: `user-${Date.now()}`,
+      id: nextChatId('user'),
       role: 'user',
       content: text,
       timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
@@ -96,7 +101,7 @@ export function AdminAiChatView({ initialPrompt, compact = false }: AdminAiChatV
 
       if (data.success) {
         const assistantMessage: ChatMessageItem = {
-          id: `bot-${Date.now()}`,
+          id: nextChatId('bot'),
           role: 'model',
           content: data.answer,
           sources: data.sources || [],
@@ -108,9 +113,9 @@ export function AdminAiChatView({ initialPrompt, compact = false }: AdminAiChatV
         throw new Error(data.error || 'Erro ao processar consulta.');
       }
     } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : 'Falha na requisição';
+      const errorMsg = toFriendlyErrorMessage(err, 'Falha na requisição.');
       const errorMessage: ChatMessageItem = {
-        id: `err-${Date.now()}`,
+        id: nextChatId('err'),
         role: 'model',
         content: `Desculpe, ocorreu uma instabilidade ao consultar a IA: ${errorMsg}. Por favor, tente novamente.`,
         timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),

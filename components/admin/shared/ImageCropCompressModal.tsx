@@ -15,6 +15,11 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { getCroppedImg, compressImage, CompressionResult } from '@/lib/image-utils';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
+
+function buildCompressedImageName(): string {
+  return `foto-${Date.now()}.webp`;
+}
 
 interface ImageCropCompressModalProps {
   isOpen: boolean;
@@ -81,7 +86,7 @@ export function ImageCropCompressModal({
       if (!croppedBlob) throw new Error('Falha ao recortar a imagem.');
 
       // 2. Compactar para WebP com metadados de economia
-      const fileName = `foto-${Date.now()}.webp`;
+      const fileName = buildCompressedImageName();
       const result = await compressImage(croppedBlob, fileName, 0.5, 1200);
       setCompressionStats(result);
 
@@ -103,9 +108,11 @@ export function ImageCropCompressModal({
 
       onUploadSuccess(data.publicUrl);
       resetAndClose();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Erro no upload e compressão:', err);
-      setError(err?.message || 'Falha ao processar e enviar a imagem.');
+      setError(
+        toFriendlyErrorMessage(err, 'Falha ao processar e enviar a imagem.')
+      );
     } finally {
       setIsProcessing(false);
     }

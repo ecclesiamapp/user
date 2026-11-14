@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { X, Scroll, Send, Loader2, MapPin } from 'lucide-react';
 import { Community } from '@/types';
 import { Button, Input } from '@/components/ui';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 
 interface PastoralNoteModalProps {
   isOpen: boolean;
@@ -56,8 +57,8 @@ export function PastoralNoteModal({
       } else {
         setErrorMsg('Erro ao registrar a nota pastoral no banco.');
       }
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Erro inesperado.');
+    } catch (err: unknown) {
+      setErrorMsg(toFriendlyErrorMessage(err, 'Erro inesperado ao registrar nota pastoral.'));
     } finally {
       setSending(false);
     }

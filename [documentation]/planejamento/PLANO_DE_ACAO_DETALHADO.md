@@ -156,9 +156,9 @@
 * **Documento de Especificação Técnica:** [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/IMPLEMENTACOES_PENDENTES.md)
 
 ### Tarefas Técnicas & Bloqueadores:
-- [ ] **TASK-53:** [BLOQUEADOR GO-LIVE 1] Blindagem Real de Autenticação (`proxy.ts` com validação server-side Supabase Auth, remoção de senha/código fallback client-side em `authSecurity.ts`, proteção JWT + RBAC em todas as rotas `/api/admin/**` e `/api/upload`).
-- [ ] **TASK-54:** [BLOQUEADOR GO-LIVE 2] Patch Crítico de Segurança (`next >= 16.4.6` via `npm audit`), remoção do fallback enganoso em disco local (`public/uploads`) na Vercel, alertas explícitos quando Supabase falhar no lugar de `localStorage` silencioso, correção de ESLint e inclusão do `npm run lint` na esteira.
-- [ ] **TASK-55:** [BLOQUEADOR GO-LIVE 3] Performance RLS (consolidar 20 políticas `multiple_permissive_policies` e indexar 2 FKs pendentes), suíte mínima de testes automatizados dos fluxos críticos + upgrade obrigatório para Supabase Pro e Vercel Pro antes do ciclo multi-paróquia.
+- [x] **TASK-53:** [BLOQUEADOR GO-LIVE 1] Blindagem Real de Autenticação (`proxy.ts` com validação server-side Supabase Auth, remoção de senha/código fallback client-side em `authSecurity.ts`, proteção JWT + RBAC em todas as rotas `/api/admin/**` e `/api/upload`).
+- [x] **TASK-54:** [BLOQUEADOR GO-LIVE 2] Patch Crítico de Segurança (`next >= 16.4.6` via `npm audit`), remoção do fallback enganoso em disco local (`public/uploads`) na Vercel, alertas explícitos quando Supabase falhar no lugar de `localStorage` silencioso, correção de ESLint e inclusão do `npm run lint` na esteira.
+- [x] **TASK-55:** [BLOQUEADOR GO-LIVE 3] Performance RLS (consolidar 20 políticas `multiple_permissive_policies` e indexar 2 FKs pendentes), suíte mínima de testes automatizados dos fluxos críticos + upgrade obrigatório para Supabase Pro e Vercel Pro antes do ciclo multi-paróquia.
 
 ---
 
@@ -168,7 +168,7 @@
 * **Documento de Especificação Técnica:** [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/IMPLEMENTACOES_PENDENTES.md)
 
 ### Tarefas Técnicas & Entregas:
-- [ ] **TASK-56:** Resiliência de Formulários (`sessionStorage` seguro para LGPD em `PastoralAppointmentBooking`, `CertificateRequestForm`, `SacramentRegistrationContainer` e `MovementRegistrationModal`), tradutor central de erros amigáveis (13 arquivos Admin/Login/Upload) e chave de idempotência em Intenções/Agendamentos.
+- [x] **TASK-56:** Resiliência de Formulários (`sessionStorage` seguro para LGPD em `PastoralAppointmentBooking`, `CertificateRequestForm`, `SacramentRegistrationContainer` e `MovementRegistrationModal`), tradutor central de erros amigáveis (13 arquivos Admin/Login/Upload) e chave de idempotência em Intenções/Agendamentos.
 - [ ] **TASK-57:** PWA Offline Leve (`public/sw.js` com estratégia *stale-while-revalidate* restrita à leitura pública: Home, Agenda Litúrgica, Comunidades, História e Folhetos; bloqueando `/admin`, `/login`, `/meu-espaco` e `/api/admin`).
 - [ ] **TASK-58:** Skeletons de Rota (`loading.tsx` em 3–4 layouts públicos), persistência versionada do controle `A- / A / A+` em `%` (`CathedralHeader.tsx`), troca de emojis pictóricos de UI por ícones `lucide-react` (11 arquivos) e feedback tátil leve em CSS (`:active scale`).
 

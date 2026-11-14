@@ -27,13 +27,30 @@ interface RegistrationDetailModalProps {
   onUpdated: (updated: SacramentalRegistration) => void;
 }
 
-export function RegistrationDetailModal({
+export function RegistrationDetailModal(props: RegistrationDetailModalProps) {
+  if (!props.registration) return null;
+  return (
+    <RegistrationDetailModalContent
+      key={props.registration.id}
+      registration={props.registration}
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+      onUpdated={props.onUpdated}
+    />
+  );
+}
+
+function RegistrationDetailModalContent({
   registration,
   isOpen,
   onClose,
   onUpdated,
-}: RegistrationDetailModalProps) {
-  if (!registration) return null;
+}: {
+  registration: SacramentalRegistration;
+  isOpen: boolean;
+  onClose: () => void;
+  onUpdated: (updated: SacramentalRegistration) => void;
+}) {
 
   const [status, setStatus] = useState<RegistrationStatus>(registration.status);
   const [internalNotes, setInternalNotes] = useState<string>(registration.internal_notes || '');

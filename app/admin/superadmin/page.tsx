@@ -23,6 +23,7 @@ import { Button, Card, Badge } from '@/components/ui';
 import { AdminRoleGuard } from '@/components/admin/auth/AdminRoleGuard';
 import { useAdminCommunity } from '@/components/admin/context/AdminCommunityContext';
 import { recordSecurityAudit } from '@/lib/security/authSecurity';
+import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
 import {
   ParishesTenantTab,
   ProvisionParishModal,
@@ -114,8 +115,11 @@ export default function SuperadminHubPage() {
       showToast('Configurações da paróquia atualizadas com sucesso!');
       await refreshGlobalContext();
       return true;
-    } catch (err: any) {
-      showToast(err?.message || 'Erro ao atualizar paróquia.', 'error');
+    } catch (err: unknown) {
+      showToast(
+        toFriendlyErrorMessage(err, 'Erro ao atualizar paróquia.'),
+        'error'
+      );
       return false;
     }
   };
@@ -199,10 +203,10 @@ export default function SuperadminHubPage() {
       await fetchSuperadminData();
       showToast(`Paróquia ${input.name} provisionada com sucesso!`);
       return { success: true, parishId: newParish.id };
-    } catch (err: any) {
+    } catch (err: unknown) {
       return {
         success: false,
-        error: err?.message || 'Erro inesperado ao provisionar paróquia.',
+        error: toFriendlyErrorMessage(err, 'Erro inesperado ao provisionar paróquia.'),
       };
     }
   };
@@ -237,8 +241,11 @@ export default function SuperadminHubPage() {
       await fetchSuperadminData();
       await refreshGlobalContext();
       return true;
-    } catch (err: any) {
-      showToast(err?.message || 'Erro ao atualizar credencial.', 'error');
+    } catch (err: unknown) {
+      showToast(
+        toFriendlyErrorMessage(err, 'Erro ao atualizar credencial.'),
+        'error'
+      );
       return false;
     }
   };

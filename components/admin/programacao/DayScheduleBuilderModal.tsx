@@ -55,6 +55,42 @@ export function DayScheduleBuilderModal({
 
   const supabase = createClient();
 
+  const initFirstDay = () => {
+    const initialDate = event?.start_date || new Date().toISOString().split('T')[0];
+    setDayDate(initialDate);
+    setDayTitle('1º Dia • Abertura Solene');
+    setDaySubtitle('');
+    setLiturgicalColor('branco');
+    setCelebrantName('Pe. Irineu Valmorbida (Pároco)');
+    setResponsibleGroup('');
+    setGestureOfCharity('');
+    setSocialAttractions('');
+    setScheduleItems([
+      {
+        time: '19:30',
+        title: 'Santa Missa Solene de Abertura',
+        location: 'Catedral Diocesana',
+        celebrant: 'Pe. Irineu Valmorbida',
+      },
+    ]);
+    setSelectedDayIndex(0);
+  };
+
+  const selectDay = (day: ParishEventDay, index: number) => {
+    setSelectedDayIndex(index);
+    setDayDate(day.event_date);
+    setDayTitle(day.day_title);
+    setDaySubtitle(day.day_subtitle || '');
+    setLiturgicalColor(day.liturgical_color || 'branco');
+    setCelebrantName(day.celebrant_name || '');
+    setResponsibleGroup(day.responsible_group || '');
+    setGestureOfCharity(day.gesture_of_charity || '');
+    setSocialAttractions(day.social_attractions || '');
+    setScheduleItems(Array.isArray(day.schedule_items) ? day.schedule_items : []);
+    setErrorMsg(null);
+    setSuccessMsg(null);
+  };
+
   // Carregar os dias existentes do Supabase ao abrir
   useEffect(() => {
     if (!isOpen || !event) return;
@@ -92,42 +128,6 @@ export function DayScheduleBuilderModal({
 
     loadDays();
   }, [isOpen, event]);
-
-  const initFirstDay = () => {
-    const initialDate = event?.start_date || new Date().toISOString().split('T')[0];
-    setDayDate(initialDate);
-    setDayTitle('1º Dia • Abertura Solene');
-    setDaySubtitle('');
-    setLiturgicalColor('branco');
-    setCelebrantName('Pe. Irineu Valmorbida (Pároco)');
-    setResponsibleGroup('');
-    setGestureOfCharity('');
-    setSocialAttractions('');
-    setScheduleItems([
-      {
-        time: '19:30',
-        title: 'Santa Missa Solene de Abertura',
-        location: 'Catedral Diocesana',
-        celebrant: 'Pe. Irineu Valmorbida',
-      },
-    ]);
-    setSelectedDayIndex(0);
-  };
-
-  const selectDay = (day: ParishEventDay, index: number) => {
-    setSelectedDayIndex(index);
-    setDayDate(day.event_date);
-    setDayTitle(day.day_title);
-    setDaySubtitle(day.day_subtitle || '');
-    setLiturgicalColor(day.liturgical_color || 'branco');
-    setCelebrantName(day.celebrant_name || '');
-    setResponsibleGroup(day.responsible_group || '');
-    setGestureOfCharity(day.gesture_of_charity || '');
-    setSocialAttractions(day.social_attractions || '');
-    setScheduleItems(Array.isArray(day.schedule_items) ? day.schedule_items : []);
-    setErrorMsg(null);
-    setSuccessMsg(null);
-  };
 
   const handleAddNewDay = () => {
     // Calcular a próxima data (+1 dia em relação ao último cadastrado)

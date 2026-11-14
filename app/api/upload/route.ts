@@ -1,17 +1,46 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createClient } from '@/utils/supabase/server';
-import fs from 'fs/promises';
-import path from 'path';
+import { createAdminClient, hasServiceRoleKey } from '@/utils/supabase/admin';
+import { requireAuthenticatedAdmin } from '@/lib/security/serverAuth';
 
 export const dynamic = 'force-dynamic';
 
+const ALLOWED_BUCKETS = new Set([
+  'parish-media',
+  'booklets',
+  'galleries',
+  'brand_assets',
+  'event_assets',
+  'movement_assets',
+]);
+
+function sanitizeFolder(rawFolder: string | null): string {
+  if (!rawFolder) return 'geral';
+  const cleaned = rawFolder
+    .replace(/\.\.+/g, '')
+    .replace(/[^a-zA-Z0-9/_-]/g, '-')
+    .replace(/^\/+|\/+$/g, '')
+    .replace(/\/+/g, '/');
+  return cleaned || 'geral';
+}
+
 export async function POST(req: NextRequest) {
   try {
+    const auth = await requireAuthenticatedAdmin();
+    if (!auth.ok) return auth.response;
+
     const formData = await req.formData();
     const file = formData.get('file') as File | null;
-    const folder = (formData.get('folder') as string) || 'geral';
-    const bucket = (formData.get('bucket') as string) || 'parish-media';
+    const folder = sanitizeFolder(formData.get('folder') as string | null);
+    const bucket = ((formData.get('bucket') as string) || 'parish-media').trim();
+
+    if (!ALLOWED_BUCKETS.has(bucket)) {
+      return NextResponse.json(
+        { error: 'Bucket de armazenamento não permitido.' },
+        { status: 400 }
+      );
+    }
 
     if (!file) {
       return NextResponse.json({ error: 'Nenhum arquivo enviado.' }, { status: 400 });
@@ -25,65 +54,53 @@ export async function POST(req: NextRequest) {
     const fileName = `${timestamp}-${cleanFileName}`;
     const storagePath = `${folder}/${fileName}`;
 
-    // 1. Tentar upload no Supabase Storage
-    try {
-      const cookieStore = await cookies();
-      const supabase = createClient(cookieStore);
+    const cookieStore = await cookies();
+    const supabase = hasServiceRoleKey()
+      ? createAdminClient()
+      : createClient(cookieStore);
 
-      const arrayBuffer = await file.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from(bucket)
-        .upload(storagePath, buffer, {
-          contentType: file.type || 'image/webp',
-          upsert: true,
-        });
-
-      if (!uploadError && uploadData) {
-        const { data: publicUrlData } = supabase.storage
-          .from(bucket)
-          .getPublicUrl(storagePath);
-
-        if (publicUrlData?.publicUrl) {
-          return NextResponse.json({
-            success: true,
-            publicUrl: publicUrlData.publicUrl,
-            source: 'supabase',
-          });
-        }
-      } else {
-        console.warn('Supabase storage upload aviso:', uploadError?.message);
-      }
-    } catch (storageErr) {
-      console.warn('Tentando fallback local devido a erro no Supabase Storage:', storageErr);
-    }
-
-    // 2. Fallback de alta disponibilidade: Salvar localmente em public/uploads/
-    try {
-      const uploadsDir = path.join(process.cwd(), 'public', 'uploads', folder);
-      await fs.mkdir(uploadsDir, { recursive: true });
-
-      const filePath = path.join(uploadsDir, fileName);
-      const arrayBuffer = await file.arrayBuffer();
-      await fs.writeFile(filePath, Buffer.from(arrayBuffer));
-
-      const localPublicUrl = `/uploads/${folder}/${fileName}`;
-
-      return NextResponse.json({
-        success: true,
-        publicUrl: localPublicUrl,
-        source: 'local',
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from(bucket)
+      .upload(storagePath, buffer, {
+        contentType: file.type || 'image/webp',
+        upsert: true,
       });
-    } catch (fsErr: any) {
-      console.error('Erro no fallback local de upload:', fsErr);
+
+    if (uploadError || !uploadData) {
+      console.error('[api/upload] Erro no Supabase Storage:', uploadError?.message);
       return NextResponse.json(
-        { error: 'Falha ao salvar a imagem localmente ou na nuvem.' },
-        { status: 500 }
+        {
+          error:
+            'Falha ao enviar imagem para o Supabase Storage. Verifique permissões do bucket ou configuração de armazenamento.',
+        },
+        { status: 502 }
       );
     }
-  } catch (err: any) {
+
+    const { data: publicUrlData } = supabase.storage
+      .from(bucket)
+      .getPublicUrl(storagePath);
+
+    if (!publicUrlData?.publicUrl) {
+      return NextResponse.json(
+        { error: 'Upload concluído sem URL pública gerada pelo Storage.' },
+        { status: 502 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      publicUrl: publicUrlData.publicUrl,
+      source: 'supabase',
+    });
+  } catch (err: unknown) {
     console.error('Erro inesperado no endpoint de upload:', err);
-    return NextResponse.json({ error: err?.message || 'Erro interno.' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Erro interno ao processar o envio do arquivo.' },
+      { status: 500 }
+    );
   }
 }
