@@ -433,6 +433,43 @@ const TASK_METADATA = {
     ],
     objective: 'Consolidar 20 políticas RLS duplicadas e indexar 2 FKs no Supabase, criar testes mínimos dos fluxos críticos e preparar upgrade Supabase Pro + Vercel Pro pré-SaaS.'
   },
+  'TASK-56': {
+    phase: 'Fase 11 (Polimento UX, Acessibilidade & Resiliência Mobile)',
+    category: 'UX Mobile, Formulários & Resiliência',
+    estimated_time: '35 a 45 minutos',
+    files: [
+      'components/secretaria/PastoralAppointmentBooking.tsx',
+      'components/secretaria/certidoes/CertificateRequestForm.tsx',
+      'components/secretaria/sacramentos/SacramentRegistrationContainer.tsx',
+      'components/movements/MovementRegistrationModal.tsx',
+      'components/auth/EcclesiamLoginFormCard.tsx'
+    ],
+    objective: 'Salvar rascunhos seguros em sessionStorage (apaga ao fechar o navegador), centralizar tradutor de erros amigáveis nos 13 arquivos Admin/Login/Upload e enviar idempotency_key em Intenções/Agendamentos.'
+  },
+  'TASK-57': {
+    phase: 'Fase 11 (Polimento UX, Acessibilidade & Resiliência Mobile)',
+    category: 'PWA & Cache Offline Seguro',
+    estimated_time: '30 a 40 minutos',
+    files: [
+      'public/sw.js',
+      'app/manifest.ts',
+      'app/layout.tsx'
+    ],
+    objective: 'Implementar Service Worker leve (stale-while-revalidate) apenas para rotas/dados públicos somente leitura, bloqueando expressamente /admin, /login, /meu-espaco e /api/admin.'
+  },
+  'TASK-58': {
+    phase: 'Fase 11 (Polimento UX, Acessibilidade & Resiliência Mobile)',
+    category: 'Skeletons, Acessibilidade & Acabamento Visual',
+    estimated_time: '35 a 45 minutos',
+    files: [
+      'components/layout/CathedralHeader.tsx',
+      'app/globals.css',
+      'app/agenda-liturgica/',
+      'app/comunidades/[slug]/',
+      'app/noticias/'
+    ],
+    objective: 'Adicionar 3-4 skeletons loading.tsx nas rotas dinâmicas públicas, persistir A-/A/A+ em escala relativa (%) no localStorage, substituir emojis pictóricos de UI por Lucide (11 arquivos) e aplicar feedback tátil :active em CSS.'
+  },
 };
 
 function parsePlan(content) {

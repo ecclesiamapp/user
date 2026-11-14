@@ -2,7 +2,7 @@
 
 > **Documento Oficial de Governança de Escopo e Evolução (SSOT)**  
 > **Status:** Atualizado e Auditado pelo Gerente de Projeto  
-> **Última Atualização:** 12 de Novembro de 2026  
+> **Última Atualização:** 14 de Novembro de 2026  
 > **Referência:** Alinhado com [`PLANO_DE_ACAO_DETALHADO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PLANO_DE_ACAO_DETALHADO.md) e [`DIRETRIZ_PASTORAL_E_FINANCEIRA_DIZIMO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/DIRETRIZ_PASTORAL_E_FINANCEIRA_DIZIMO.md)
 
 Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-Fase 8 / Ciclo 2027)** dos itens que **já foram 100% implementados e homologados** ao longo das Fases 1 a 8 da Catedral do Sagrado Coração de Jesus.
@@ -126,6 +126,33 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
   * Migration SQL consolidando políticas RLS redundantes e criando índices faltantes.
   * Suíte automatizada mínima (E2E/Integração) validando bloqueio `/admin`, Intenções/Agendamentos e isolamento entre `parish_id`.
   * Upgrade obrigatório para **Supabase Pro (US$ 25/mês)** e **Vercel Pro (US$ 20/mês)** no momento da ativação comercial multi-paróquia.
+
+---
+
+### ✨ 7. Polimento UX, Acessibilidade & Resiliência Mobile (Fase 11)
+
+* **Status:** 🟡 **Planejado (Pós-Bloqueadores da Fase 10)**
+* **Origem:** Entrevista arquitetural (`/grill-me`) sobre o guia *Polish* (Lincoln Devine) em 14/11/2026, filtrada para o contexto Web/Next.js + PWA da Catedral (>85% mobile, fiéis idosos, 3G/4G).
+
+#### 📝 `TASK-56`: Resiliência de Formulários, Idempotência & Erros Amigáveis
+* **⏱️ Tempo Estimado:** ~35 a 45 minutos
+* **Escopo Fechado:**
+  * Rascunho automático em `sessionStorage` (apaga ao fechar o navegador, protegendo dados de terceiros/menores em celulares compartilhados — LGPD/ECA Digital) nos formulários [`PastoralAppointmentBooking.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/PastoralAppointmentBooking.tsx), [`CertificateRequestForm.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/certidoes/CertificateRequestForm.tsx), [`SacramentRegistrationContainer.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/sacramentos/SacramentRegistrationContainer.tsx) e [`MovementRegistrationModal.tsx`](file:///c:/Users/Start/ecclesiam-app/components/movements/MovementRegistrationModal.tsx).
+  * Tradutor central de mensagens de erro amigáveis substituindo exposição crua de `err?.message` / `error.message` nos `13` arquivos de Admin, Login e Upload.
+  * Envio e validação de `idempotency_key` no servidor para evitar duplicidade de Intenções de Missa ou Agendamentos em conexões 3G instáveis.
+
+#### 📲 `TASK-57`: PWA Offline Leve (`public/sw.js`) para Leitura Pública
+* **⏱️ Tempo Estimado:** ~30 a 40 minutos
+* **Escopo Fechado:**
+  * Registrar Service Worker minimalista (`public/sw.js` vinculado ao [`app/manifest.ts`](file:///c:/Users/Start/ecclesiam-app/app/manifest.ts)) com estratégia *stale-while-revalidate* restrita às rotas e dados **públicos somente leitura** (`/`, `/agenda-liturgica`, `/comunidades`, `/historia` e folhetos).
+  * Bloqueio explícito de cache para `/admin`, `/login`, `/meu-espaco` e `/api/admin` para evitar exibição de dados pessoais ou sessões antigas em aparelhos compartilhados.
+
+#### 🎨 `TASK-58`: Skeletons (`loading.tsx`), Escala Tipográfica Persistida & Micro-Interações
+* **⏱️ Tempo Estimado:** ~35 a 45 minutos
+* **Escopo Fechado:**
+  * Criar 3–4 templates compartilhados de Skeleton (`loading.tsx`) para rotas dinâmicas públicas (eliminando sensação de congelamento durante navegação SSR).
+  * Persistir o seletor `A- / A / A+` de [`CathedralHeader.tsx`](file:///c:/Users/Start/ecclesiam-app/components/layout/CathedralHeader.tsx) de forma versionada no `localStorage`, adotando escala relativa (`%`) para respeitar a configuração de fonte do sistema operacional do celular do fiel.
+  * Trocar emojis pictóricos em elementos de UI (nos `11` arquivos identificados) por ícones `lucide-react` (preservando o símbolo sagrado `✝` no brasão e textos pastorais) e adicionar feedback tátil leve via CSS (`:active scale`) em [`app/globals.css`](file:///c:/Users/Start/ecclesiam-app/app/globals.css).
 
 ---
 
