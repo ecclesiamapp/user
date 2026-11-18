@@ -2,7 +2,7 @@
 
 > **Documento Oficial de Governança de Escopo e Evolução (SSOT)**  
 > **Status:** Atualizado e Auditado pelo Gerente de Projeto  
-> **Última Atualização:** 14 de Novembro de 2026  
+> **Última Atualização:** 18 de Novembro de 2026  
 > **Referência:** Alinhado com [`PLANO_DE_ACAO_DETALHADO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PLANO_DE_ACAO_DETALHADO.md) e [`DIRETRIZ_PASTORAL_E_FINANCEIRA_DIZIMO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/DIRETRIZ_PASTORAL_E_FINANCEIRA_DIZIMO.md)
 
 Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-Fase 8 / Ciclo 2027)** dos itens que **já foram 100% implementados e homologados** ao longo das Fases 1 a 8 da Catedral do Sagrado Coração de Jesus.
@@ -96,16 +96,33 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
 * **Origem:** Auditoria técnica de engenharia de software realizada em 12/11/2026.
 
 #### 🔒 Bloqueador 1 (`TASK-53`): Blindagem Real de Autenticação & APIs Administrativas
-* **Status:** ✅ **Código & Migração SQL Entregues** *(pendente apenas configurar `SUPABASE_SERVICE_ROLE_KEY` no `.env.local`/Vercel e executar [`20261114_task53_auth_rls_lockdown.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task53_auth_rls_lockdown.sql))*
+* **Status:** 🟡 **Código & Migração SQL Entregues — Execução no Banco Vivo Adiada pelo Dev (`18/11/2026`)**
+* **Motivo do Adiamento:** `SUPABASE_SERVICE_ROLE_KEY` ainda não foi configurada em `.env.local` nem na Vercel (`prj_Bd5SkrB5C4hpTOtSqSnAxK21SjyZ`), e `auth.users` possui `0` usuários enquanto `public.user_profiles` possui `8` administradores legados. Executar `20261114_task53_auth_rls_lockdown.sql` antes da chave causaria **lockout imediato** em `/login` e `/admin`.
 
 #### 📦 Bloqueador 2 (`TASK-54`): Patch Crítico de Dependência (`Next.js`), Upload Real & Lint
 * **Status:** ✅ **Concluído (`next@16.4.6`, `0` vulnerabilidades de produção, `0` erros ESLint e `/api/upload` exclusivamente em Storage)**
 
 #### 🧪 Bloqueador 3 (`TASK-55`): Performance RLS, Testes Críticos & Saída da Stack Gratuita
-* **Status:** ✅ **SQL & Suíte de Testes Entregues** *(aguardando apenas upgrade de assinatura Pro no momento da ativação comercial multi-paróquia)*
+* **Status:** ✅ **SQL & Suíte de Testes Entregues** *(aguardando configuração de `SUPABASE_SERVICE_ROLE_KEY` + upgrade de assinatura Pro na ativação comercial)*
 * **Entregas Realizadas (`TASK-55`):**
   * **Consolidação RLS & Índices ([`20261114_task55_rls_performance_and_indexes.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task55_rls_performance_and_indexes.sql)):** Criação dos 2 índices pendentes de Foreign Key (`parish_knowledge_documents.uploaded_by` e `security_audit_logs.user_profile_id`) e unificação das 20 políticas redundantes de `SELECT` (`multiple_permissive_policies`) separando leitura (`SELECT`) de escrita (`INSERT`/`UPDATE`/`DELETE`) com otimização `(SELECT ...)`.
   * **Suíte Mínima Automatizada (`npm test`):** Testes em `tests/` cobrindo bloqueio do `proxy.ts` em `/admin`, `/api/admin/**` e `/api/upload` (inclusive contra falsificação do cookie legado), rate limiter server-side, validação anti-auto-elevação de privilégio em `/api/auth/request-access`, exigência de `SUPABASE_SERVICE_ROLE_KEY` e contratos de `/api/notifications` e `/api/dizimo/register`.
+
+#### ⏳ Pendência Operacional Registrada — Banco Vivo `ecclesiamapp` (`rlcaapydcozsshafyvxx`) — `18/11/2026`
+* **⏱️ Tempo Estimado para concluir quando retomada:** ~5 a 10 minutos
+* **Já aplicado via Supabase MCP em `18/11/2026`:**
+  * ✅ `20261118200355` — `task56_idempotency_keys` (`idempotency_key` + índices parciais únicos em `pastoral_appointments` e `mass_intentions`).
+  * ✅ `20261118200430` — `create_parish_movements` (`parish_movements`, `parish_movement_events`, `parish_movement_registrations`, bucket `movement_assets` e seed ECC/EAC/EJC).
+  * ✅ `20261118200433` — `harden_public_rpcs_and_indexes` (`SET search_path = ''` nas RPCs, índices FK e blindagem anti-curinga nas 3 RPCs de `/meu-espaco`).
+* **Checklist Pendente (Retida contra Lockout):**
+  - [ ] Copiar a chave `service_role` em **Supabase (`rlcaapydcozsshafyvxx`) → Project Settings → API** e salvar `SUPABASE_SERVICE_ROLE_KEY` no `.env.local`.
+  - [ ] Cadastrar na **Vercel (`prj_Bd5SkrB5C4hpTOtSqSnAxK21SjyZ` — Production & Preview)**: `NEXT_PUBLIC_SUPABASE_URL` (`https://rlcaapydcozsshafyvxx.supabase.co`), `NEXT_PUBLIC_SUPABASE_ANON_KEY` e `SUPABASE_SERVICE_ROLE_KEY`.
+  - [ ] Validar 1 login real em `/login` após configurar a chave (garantindo a migração dos `8` admins legados para `auth.users`).
+  - [ ] Executar no **Supabase SQL Editor** do projeto `rlcaapydcozsshafyvxx`, nesta ordem exata *(o cliente MCP cancela comandos `DROP POLICY`)*:
+    1. [`supabase/migrations/20261114_task53_auth_rls_lockdown.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task53_auth_rls_lockdown.sql)
+    2. [`supabase/migrations/20261114_task55_rls_performance_and_indexes.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task55_rls_performance_and_indexes.sql)
+    3. [`supabase/migrations/20270401_audit_rls_tenant_lockdown.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20270401_audit_rls_tenant_lockdown.sql)
+
 * **Checklist Obrigatório de Saída da Stack Gratuita (Ativação Comercial Multi-Paróquia):**
   1. **Supabase Pro (`US$ 25/mês`):**
      * Elimina pausa automática por inatividade de 7 dias.
@@ -114,9 +131,6 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
   2. **Vercel Pro (`US$ 20/mês`):**
      * Licença comercial exigida pelos Termos de Serviço da Vercel para operação SaaS paga multi-paróquia.
      * Amplia timeout de Serverless Functions (essencial para rotas de IA `/api/admin/brand/extract` e `/api/admin/ai/sync-database`), logs persistentes e proteção de equipe.
-  3. **Aplicação Sequencial das Migrações no Banco Vivo:**
-     * Configurar `SUPABASE_SERVICE_ROLE_KEY` no `.env.local` e na Vercel.
-     * Executar `supabase/migrations/20261114_task53_auth_rls_lockdown.sql` seguido de `supabase/migrations/20261114_task55_rls_performance_and_indexes.sql`.
 
 ---
 
