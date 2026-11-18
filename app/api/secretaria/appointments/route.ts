@@ -4,8 +4,20 @@ import { createClient } from '@/utils/supabase/server';
 import { createAdminClient, hasServiceRoleKey } from '@/utils/supabase/admin';
 import { isValidIdempotencyKey, runWithIdempotency } from '@/lib/security/idempotency';
 import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
+import {
+  checkServerRateLimit,
+  extractClientIp,
+  recordServerRateLimitFailure,
+} from '@/lib/security/rateLimit';
+import { dispatchTransactionalNotification } from '@/lib/notifications/dispatchNotification';
 
 export const dynamic = 'force-dynamic';
+
+const APPOINTMENTS_RATE_CFG = {
+  maxAttempts: 12,
+  windowMs: 10 * 60 * 1000,
+  lockoutMs: 5 * 60 * 1000,
+};
 
 interface AppointmentRequestBody {
   parish_id?: string;
@@ -36,6 +48,17 @@ function isMissingColumnError(err: { code?: string; message?: string } | null): 
 
 export async function POST(req: NextRequest) {
   try {
+    // [HARDENED] SEC-009: Rate limiting por IP na criação de agendamentos
+    const clientIp = extractClientIp(req.headers);
+    const rateKey = `appointments:${clientIp}`;
+    const rateStatus = checkServerRateLimit(rateKey, APPOINTMENTS_RATE_CFG);
+    if (!rateStatus.allowed) {
+      return NextResponse.json(
+        { ok: false, error: 'Muitas solicitações em sequência. Aguarde alguns minutos.' },
+        { status: 429 }
+      );
+    }
+
     const body = (await req.json().catch(() => null)) as AppointmentRequestBody | null;
     if (!body) {
       return NextResponse.json(
@@ -71,6 +94,8 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    recordServerRateLimitFailure(rateKey, APPOINTMENTS_RATE_CFG);
 
     const { result, deduplicated } = await runWithIdempotency(
       `appointments:${parishId}`,
@@ -133,24 +158,20 @@ export async function POST(req: NextRequest) {
           throw error;
         }
 
+        // [HARDENED] SEC-001: Disparo direto server-side sem chamar /api/notifications via HTTP
         try {
-          const notificationOrigin = req.nextUrl.origin;
-          await fetch(`${notificationOrigin}/api/notifications`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              type: 'appointment',
-              protocol: generatedProtocol,
-              parishionerName,
-              parishionerPhone,
-              parishionerEmail: body.parishioner_email?.trim() || undefined,
-              appointmentTypeLabel: body.appointment_type_label || 'Atendimento Pastoral',
-              priestName: body.priest_name || 'Qualquer Sacerdote Disponível',
-              formattedDate: appointmentDate.split('-').reverse().join('/'),
-              time: appointmentTime,
-              communityName: body.community_name || 'Catedral Diocesana',
-              notes: body.notes?.trim() || undefined,
-            }),
+          await dispatchTransactionalNotification({
+            type: 'appointment',
+            protocol: generatedProtocol,
+            parishionerName,
+            parishionerPhone,
+            parishionerEmail: body.parishioner_email?.trim() || undefined,
+            appointmentTypeLabel: body.appointment_type_label || 'Atendimento Pastoral',
+            priestName: body.priest_name || 'Qualquer Sacerdote Disponível',
+            formattedDate: appointmentDate.split('-').reverse().join('/'),
+            time: appointmentTime,
+            communityName: body.community_name || 'Catedral Diocesana',
+            notes: body.notes?.trim() || undefined,
           });
         } catch (notifErr) {
           console.warn('[api/secretaria/appointments] Alerta silencioso de notificação:', notifErr);

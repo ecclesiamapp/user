@@ -4,10 +4,20 @@ import { createClient } from '@/utils/supabase/server';
 import { createAdminClient, hasServiceRoleKey } from '@/utils/supabase/admin';
 import { isValidIdempotencyKey, runWithIdempotency } from '@/lib/security/idempotency';
 import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
+import {
+  checkServerRateLimit,
+  extractClientIp,
+  recordServerRateLimitFailure,
+} from '@/lib/security/rateLimit';
 
 export const dynamic = 'force-dynamic';
 
 const MAX_SUBMISSIONS_PER_CELEBRATION = 3;
+const INTENTIONS_RATE_CFG = {
+  maxAttempts: 15,
+  windowMs: 10 * 60 * 1000,
+  lockoutMs: 5 * 60 * 1000,
+};
 
 interface IntentionEntryPayload {
   type: string;
@@ -46,6 +56,17 @@ function isMissingColumnError(err: { code?: string; message?: string } | null): 
 
 export async function POST(req: NextRequest) {
   try {
+    // [HARDENED] SEC-009: Rate limiting por IP na submissão de intenções
+    const clientIp = extractClientIp(req.headers);
+    const rateKey = `intentions:${clientIp}`;
+    const rateStatus = checkServerRateLimit(rateKey, INTENTIONS_RATE_CFG);
+    if (!rateStatus.allowed) {
+      return NextResponse.json(
+        { ok: false, error: 'Muitas solicitações em sequência. Aguarde alguns minutos.' },
+        { status: 429 }
+      );
+    }
+
     const body = (await req.json().catch(() => null)) as IntentionsRequestBody | null;
     if (!body) {
       return NextResponse.json(
@@ -89,6 +110,8 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    recordServerRateLimitFailure(rateKey, INTENTIONS_RATE_CFG);
 
     const contactPhone = body.contact_phone?.trim() || null;
     const cleanPhone = contactPhone ? contactPhone.replace(/\D/g, '') : '';

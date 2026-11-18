@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Cormorant_Garamond, Cinzel, Suez_One } from "next/font/google";
 import "./globals.css";
 import { PwaInstallPrompt } from "@/components/pwa/PwaInstallPrompt";
+import { PwaServiceWorkerRegister } from "@/components/pwa/PwaServiceWorkerRegister";
 import { ExtensionErrorSuppressor } from "@/components/layout/ExtensionErrorSuppressor";
 import { AdminGlobalFloatingReturnBar } from "@/components/layout/AdminGlobalFloatingReturnBar";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
@@ -53,13 +54,29 @@ export const metadata: Metadata = {
   },
 };
 
+function safeHexColor(value: string | undefined | null, fallback: string): string {
+  const trimmed = (value || '').trim();
+  return /^#[0-9a-fA-F]{3,8}$/.test(trimmed) ? trimmed : fallback;
+}
+
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const brandIdentity = await getParishBrandIdentity();
-  const colors = brandIdentity.colors;
+  const rawColors = brandIdentity.colors;
+  // [HARDENED] SEC-010: Sanitiza cores do banco antes da interpolação em <style>
+  const colors = {
+    primary: safeHexColor(rawColors.primary, '#8B1E22'),
+    primary_hover: safeHexColor(rawColors.primary_hover, '#6E161A'),
+    secondary: safeHexColor(rawColors.secondary, '#FFA82A'),
+    action_pix: safeHexColor(rawColors.action_pix, '#FFA82A'),
+    background: safeHexColor(rawColors.background, '#FBF9F5'),
+    surface: safeHexColor(rawColors.surface, '#FFFFFF'),
+    text_primary: safeHexColor(rawColors.text_primary, '#1A1D20'),
+    text_secondary: safeHexColor(rawColors.text_secondary, '#5A626A'),
+  };
 
   return (
     <html
@@ -114,6 +131,7 @@ export default async function RootLayout({
           {children}
           <AdminGlobalFloatingReturnBar />
           <PwaInstallPrompt />
+          <PwaServiceWorkerRegister />
         </ThemeProvider>
       </body>
     </html>

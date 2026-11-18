@@ -17,6 +17,7 @@ import {
   establishAdminSession,
   recordSecurityAudit,
 } from '@/lib/security/authSecurity';
+import { USER_PROFILE_SAFE_COLUMNS } from '@/lib/security/userColumns';
 
 interface AdminCommunityContextType {
   parishes: Parish[];
@@ -85,7 +86,11 @@ export function AdminCommunityProvider({ children }: { children: React.ReactNode
             .select('*')
             .order('is_headquarters', { ascending: false })
             .order('name'),
-          supabase.from('user_profiles').select('*').order('role').order('name'),
+          supabase
+            .from('user_profiles')
+            .select(USER_PROFILE_SAFE_COLUMNS)
+            .order('role')
+            .order('name'),
         ]);
 
       let serverProfile: UserProfile | null = null;
@@ -113,22 +118,26 @@ export function AdminCommunityProvider({ children }: { children: React.ReactNode
       if (profiles.length > 0) {
         setAllUsers(profiles);
 
+        // [HARDENED] SEC-007: Nunca assume papel elevado ('paroco') caso a sessão server-side não esteja confirmada
         const sessionUser =
           (serverProfile && profiles.find((u) => u.id === serverProfile?.id)) ||
           serverProfile ||
           (sessionPayload?.id && profiles.find((u) => u.id === sessionPayload?.id)) ||
           (sessionPayload?.email &&
             profiles.find((u) => u.email.toLowerCase() === sessionPayload?.email.toLowerCase())) ||
-          profiles.find((u) => u.role === 'paroco') ||
-          profiles[0];
+          null;
 
-        setPrimaryUserId((prev) => prev || sessionUser.id);
-        setCurrentUser((prev) => (prev ? profiles.find((u) => u.id === prev.id) || prev : sessionUser));
+        if (sessionUser) {
+          setPrimaryUserId((prev) => prev || sessionUser.id);
+          setCurrentUser((prev) =>
+            prev ? profiles.find((u) => u.id === prev.id) || prev : sessionUser
+          );
+        }
 
         const resolvedParishId =
           serverProfile?.parish_id ||
           sessionPayload?.parish_id ||
-          sessionUser.parish_id ||
+          sessionUser?.parish_id ||
           loadedParishes[0]?.id ||
           'c0000000-0000-0000-0000-000000000001';
 
@@ -227,6 +236,14 @@ export function AdminCommunityProvider({ children }: { children: React.ReactNode
 
   const switchUser = useCallback(
     (userId: string) => {
+      // [HARDENED] SEC-007: Simulação RBAC restrita a desenvolvimento ou superadmin/pároco autenticado
+      if (
+        process.env.NODE_ENV !== 'development' &&
+        currentUser?.role !== 'superadmin' &&
+        currentUser?.role !== 'paroco'
+      ) {
+        return;
+      }
       const found = allUsers.find((u) => u.id === userId);
       if (found) {
         setCurrentUser(found);
@@ -234,7 +251,7 @@ export function AdminCommunityProvider({ children }: { children: React.ReactNode
         if (found.role === 'coordenador_ceb') setSelectedCommunityIdState(found.community_id || null);
       }
     },
-    [allUsers]
+    [allUsers, currentUser]
   );
 
   const hasModulePermission = useCallback(

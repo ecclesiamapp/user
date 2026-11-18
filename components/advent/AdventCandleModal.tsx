@@ -11,7 +11,8 @@ import {
   Check, 
   ChevronLeft, 
   ChevronRight, 
-  Calendar 
+  Calendar,
+  Palette
 } from 'lucide-react';
 import { AdventCandle } from '@/types';
 
@@ -114,11 +115,13 @@ export function AdventCandleModal({
         <div className="p-6 overflow-y-auto space-y-6 font-sans">
           {/* Período Litúrgico e Cor */}
           <div className="flex flex-wrap items-center justify-between gap-2 p-3 bg-[#EEE3D4]/60 rounded-xl border border-[#E8DFD3] text-xs">
-            <span className="font-medium text-[#514D4B]">
-              🗓️ <strong>Período:</strong> {candle.periodLabel}
+            <span className="font-medium text-[#514D4B] inline-flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-[#B75319] shrink-0" />
+              <span><strong>Período:</strong> {candle.periodLabel}</span>
             </span>
-            <span className="font-medium text-[#514D4B]">
-              🎨 <strong>Cor Litúrgica:</strong> {candle.colorLabel}
+            <span className="font-medium text-[#514D4B] inline-flex items-center gap-1.5">
+              <Palette className="w-3.5 h-3.5 text-[#B75319] shrink-0" />
+              <span><strong>Cor Litúrgica:</strong> {candle.colorLabel}</span>
             </span>
           </div>
 

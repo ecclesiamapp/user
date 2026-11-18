@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { MapPin, Phone, Mail, Smartphone } from 'lucide-react';
 import { ResolvedEventTheme } from '@/lib/events';
 
 interface CathedralFooterProps {
@@ -64,10 +65,19 @@ export function CathedralFooter({
             <p className="text-xs leading-relaxed font-sans" style={{ color: textSubtle }}>
               Igreja-Mãe da {dioceseName}. Um lugar de acolhimento, oração comunitária e anúncio do Evangelho de Cristo.
             </p>
-            <div className="text-xs space-y-1 pt-1 font-sans" style={{ color: textSubtle }}>
-              <p>📍 {address}</p>
-              <p>📞 WhatsApp: {whatsappNumber}</p>
-              <p>✉️ E-mail: secretaria@catedraldecolatina.org.br</p>
+            <div className="text-xs space-y-1.5 pt-1 font-sans" style={{ color: textSubtle }}>
+              <p className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 shrink-0" style={{ color: accentGold }} />
+                <span>{address}</span>
+              </p>
+              <p className="flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 shrink-0" style={{ color: accentGold }} />
+                <span>WhatsApp: {whatsappNumber}</span>
+              </p>
+              <p className="flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 shrink-0" style={{ color: accentGold }} />
+                <span>E-mail: secretaria@catedraldecolatina.org.br</span>
+              </p>
             </div>
           </div>
 
@@ -116,7 +126,8 @@ export function CathedralFooter({
                   className="hover:underline font-bold transition-colors flex items-center gap-1.5"
                   style={{ color: accentGold }}
                 >
-                  <span>📱 Instalar Aplicativo no Celular</span>
+                  <Smartphone className="w-3.5 h-3.5 shrink-0" />
+                  <span>Instalar Aplicativo no Celular</span>
                 </Link>
               </li>
             </ul>

@@ -81,25 +81,25 @@ CREATE INDEX IF NOT EXISTS idx_parish_knowledge_embeddings_hnsw
 ALTER TABLE public.parish_knowledge_documents ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.parish_knowledge_embeddings ENABLE ROW LEVEL SECURITY;
 
--- 6. Políticas de RLS para parish_knowledge_documents (Idempotentes)
+-- 6. Políticas de RLS para parish_knowledge_documents (Idempotentes — somente autenticados)
 DO $$
 BEGIN
   IF NOT EXISTS (
-    SELECT 1 FROM pg_policies WHERE tablename = 'parish_knowledge_documents' AND policyname = 'allow_anon_all_documents'
+    SELECT 1 FROM pg_policies WHERE tablename = 'parish_knowledge_documents' AND policyname = 'parish_knowledge_documents_authenticated_base'
   ) THEN
-    CREATE POLICY "allow_anon_all_documents"
-      ON public.parish_knowledge_documents FOR ALL TO anon, authenticated USING (true) WITH CHECK (parish_id IS NOT NULL);
+    CREATE POLICY "parish_knowledge_documents_authenticated_base"
+      ON public.parish_knowledge_documents FOR ALL TO authenticated USING (parish_id IS NOT NULL) WITH CHECK (parish_id IS NOT NULL);
   END IF;
 END $$;
 
--- 7. Políticas de RLS para parish_knowledge_embeddings (Idempotentes)
+-- 7. Políticas de RLS para parish_knowledge_embeddings (Idempotentes — somente autenticados)
 DO $$
 BEGIN
   IF NOT EXISTS (
-    SELECT 1 FROM pg_policies WHERE tablename = 'parish_knowledge_embeddings' AND policyname = 'allow_anon_all_embeddings'
+    SELECT 1 FROM pg_policies WHERE tablename = 'parish_knowledge_embeddings' AND policyname = 'parish_knowledge_embeddings_authenticated_base'
   ) THEN
-    CREATE POLICY "allow_anon_all_embeddings"
-      ON public.parish_knowledge_embeddings FOR ALL TO anon, authenticated USING (true) WITH CHECK (parish_id IS NOT NULL);
+    CREATE POLICY "parish_knowledge_embeddings_authenticated_base"
+      ON public.parish_knowledge_embeddings FOR ALL TO authenticated USING (parish_id IS NOT NULL) WITH CHECK (parish_id IS NOT NULL);
   END IF;
 END $$;
 

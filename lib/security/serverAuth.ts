@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import type { SecurityAuditEventType, UserProfile, UserRole } from '@/types';
 import { createAdminClient, hasServiceRoleKey } from '@/utils/supabase/admin';
 import { createClient as createServerSupabaseClient } from '@/utils/supabase/server';
+import { USER_PROFILE_SAFE_COLUMNS } from './userColumns';
 
-export const USER_PROFILE_SAFE_COLUMNS =
-  'id, parish_id, user_id, name, email, phone, role, community_id, status, allowed_modules, last_sign_in_at, invitation_sent_at, created_at, updated_at';
+export { USER_PROFILE_SAFE_COLUMNS };
 
 export const ADMIN_PANEL_ROLES: UserRole[] = [
   'superadmin',
@@ -36,6 +36,7 @@ export type AdminAuthResult = AuthenticatedAdminContext | UnauthenticatedAdminCo
 export interface RequireAdminOptions {
   allowedRoles?: UserRole[];
   requestedParishId?: string | null;
+  request?: NextRequest;
 }
 
 function getPublicSupabaseConfig() {
@@ -148,8 +149,23 @@ export async function requireAuthenticatedAdmin(
   options: RequireAdminOptions = {}
 ): Promise<AdminAuthResult> {
   try {
-    const cookieStore = await cookies();
-    const supabase = createServerSupabaseClient(cookieStore);
+    let supabase: ReturnType<typeof createServerSupabaseClient>;
+    try {
+      const cookieStore = await cookies();
+      supabase = createServerSupabaseClient(cookieStore);
+    } catch (cookieErr) {
+      if (!options.request) throw cookieErr;
+      const { supabaseUrl, supabaseKey } = getPublicSupabaseConfig();
+      const req = options.request;
+      supabase = createServerClient(supabaseUrl, supabaseKey, {
+        cookies: {
+          getAll() {
+            return req.cookies.getAll();
+          },
+          setAll() {},
+        },
+      });
+    }
     const {
       data: { user },
       error: authError,
@@ -201,10 +217,20 @@ export async function requireAuthenticatedAdmin(
 
     const requestedParishId = options.requestedParishId?.trim() || null;
 
+    // [HARDENED] SEC-005: Usuários não-superadmin precisam obrigatoriamente de parish_id vinculado
+    if (profile.role !== 'superadmin' && !profile.parish_id) {
+      return {
+        ok: false,
+        response: NextResponse.json(
+          { error: 'Perfil administrativo sem paróquia vinculada.' },
+          { status: 403 }
+        ),
+      };
+    }
+
     if (
       requestedParishId &&
       profile.role !== 'superadmin' &&
-      profile.parish_id &&
       requestedParishId !== profile.parish_id
     ) {
       return {
@@ -219,7 +245,7 @@ export async function requireAuthenticatedAdmin(
     const effectiveParishId =
       profile.role === 'superadmin'
         ? requestedParishId || profile.parish_id || null
-        : profile.parish_id || requestedParishId || null;
+        : profile.parish_id || null;
 
     if (profile.role !== 'superadmin' && effectiveParishId) {
       const reader = hasServiceRoleKey() ? createAdminClient() : supabase;

@@ -20,6 +20,18 @@ export interface BaseEmailResult {
 }
 
 /**
+ * [HARDENED] SEC-001: Escapa caracteres HTML para evitar injeção de HTML/phishing em templates de e-mail.
+ */
+export function escapeHtml(value: string | number | null | undefined): string {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/**
  * Template Base de Alta Nobreza Litúrgica para E-mails Transacionais da Catedral
  */
 function generateEmailHtml({
@@ -41,13 +53,19 @@ function generateEmailHtml({
   calloutHtml?: string;
   whatsappUrl?: string;
 }) {
+  const safePreheader = escapeHtml(preheader);
+  const safeBadge = escapeHtml(badgeText);
+  const safeTitle = escapeHtml(title);
+  const safeSubtitle = escapeHtml(subtitle);
+  const safeProtocol = escapeHtml(protocol);
+
   return `
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title}</title>
+  <title>${safeTitle}</title>
   <style>
     body { margin: 0; padding: 0; background-color: #F8F5F0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #2D1A16; }
     .container { max-width: 600px; margin: 24px auto; background-color: #FFFFFF; border-radius: 16px; overflow: hidden; border: 1px solid #EAE3D9; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
@@ -72,18 +90,18 @@ function generateEmailHtml({
 </head>
 <body>
   <div style="display:none;font-size:1px;color:#333;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
-    ${preheader}
+    ${safePreheader}
   </div>
   <div class="container">
     <div class="header">
-      <div class="header-badge">${badgeText}</div>
-      <h1>${title}</h1>
-      <p>${subtitle}</p>
+      <div class="header-badge">${safeBadge}</div>
+      <h1>${safeTitle}</h1>
+      <p>${safeSubtitle}</p>
     </div>
     <div class="body-content">
       <div class="protocol-card">
         <span class="protocol-label">Número de Protocolo Oficial</span>
-        <span class="protocol-code">${protocol}</span>
+        <span class="protocol-code">${safeProtocol}</span>
       </div>
 
       <table class="details-table">
@@ -146,30 +164,30 @@ export async function sendAppointmentConfirmationEmail({
   const detailsHtml = `
     <tr>
       <td class="label">Fiel Solicitante:</td>
-      <td class="value">${parishionerName}</td>
+      <td class="value">${escapeHtml(parishionerName)}</td>
     </tr>
     <tr>
       <td class="label">Atendimento:</td>
-      <td class="value"><strong>${appointmentTypeLabel}</strong></td>
+      <td class="value"><strong>${escapeHtml(appointmentTypeLabel)}</strong></td>
     </tr>
     <tr>
       <td class="label">Sacerdote:</td>
-      <td class="value">${priestName}</td>
+      <td class="value">${escapeHtml(priestName)}</td>
     </tr>
     <tr>
       <td class="label">Data & Horário:</td>
-      <td class="value">${formattedDate} às ${time}</td>
+      <td class="value">${escapeHtml(formattedDate)} às ${escapeHtml(time)}</td>
     </tr>
     ${communityName ? `
     <tr>
       <td class="label">Local / Comunidade:</td>
-      <td class="value">${communityName}</td>
+      <td class="value">${escapeHtml(communityName)}</td>
     </tr>
     ` : ''}
     ${notes ? `
     <tr>
       <td class="label">Observações:</td>
-      <td class="value">${notes}</td>
+      <td class="value">${escapeHtml(notes)}</td>
     </tr>
     ` : ''}
   `;
@@ -238,28 +256,28 @@ export async function sendSacramentRegistrationEmail({
   const detailsHtml = `
     <tr>
       <td class="label">Solicitante:</td>
-      <td class="value">${applicantName}</td>
+      <td class="value">${escapeHtml(applicantName)}</td>
     </tr>
     <tr>
       <td class="label">Sacramento / Pastoral:</td>
-      <td class="value"><strong>${sacramentTitle}</strong></td>
+      <td class="value"><strong>${escapeHtml(sacramentTitle)}</strong></td>
     </tr>
     ${candidateName ? `
     <tr>
       <td class="label">Candidato(a):</td>
-      <td class="value">${candidateName}</td>
+      <td class="value">${escapeHtml(candidateName)}</td>
     </tr>
     ` : ''}
     ${communityName ? `
     <tr>
       <td class="label">Comunidade Solicitada:</td>
-      <td class="value">${communityName}</td>
+      <td class="value">${escapeHtml(communityName)}</td>
     </tr>
     ` : ''}
     ${preferredDate ? `
     <tr>
       <td class="label">Data de Preferência:</td>
-      <td class="value">${preferredDate}</td>
+      <td class="value">${escapeHtml(preferredDate)}</td>
     </tr>
     ` : ''}
   `;
@@ -327,25 +345,25 @@ export async function sendSecretaryNotificationEmail({
     </tr>
     <tr>
       <td class="label">Item:</td>
-      <td class="value">${detailsTitle}</td>
+      <td class="value">${escapeHtml(detailsTitle)}</td>
     </tr>
     <tr>
       <td class="label">Fiel Solicitante:</td>
-      <td class="value">${applicantName}</td>
+      <td class="value">${escapeHtml(applicantName)}</td>
     </tr>
     <tr>
       <td class="label">WhatsApp / Fone:</td>
-      <td class="value"><strong>${applicantPhone}</strong></td>
+      <td class="value"><strong>${escapeHtml(applicantPhone)}</strong></td>
     </tr>
     ${applicantEmail ? `
     <tr>
       <td class="label">E-mail:</td>
-      <td class="value">${applicantEmail}</td>
+      <td class="value">${escapeHtml(applicantEmail)}</td>
     </tr>
     ` : ''}
     <tr>
       <td class="label">Detalhes:</td>
-      <td class="value">${extraDetails}</td>
+      <td class="value">${escapeHtml(extraDetails)}</td>
     </tr>
   `;
 
@@ -405,23 +423,23 @@ export async function sendTitheRegistrationEmail({
   const detailsHtml = `
     <tr>
       <td class="label">Dizimista:</td>
-      <td class="value">${parishionerName}</td>
+      <td class="value">${escapeHtml(parishionerName)}</td>
     </tr>
     <tr>
       <td class="label">Protocolo:</td>
-      <td class="value font-mono">${protocol}</td>
+      <td class="value font-mono">${escapeHtml(protocol)}</td>
     </tr>
     <tr>
       <td class="label">Comunidade:</td>
-      <td class="value">${communityName || 'Catedral Matriz do Sagrado Coração de Jesus'}</td>
+      <td class="value">${escapeHtml(communityName || 'Catedral do Sagrado Coração de Jesus')}</td>
     </tr>
     <tr>
       <td class="label">Forma de Contribuição:</td>
-      <td class="value">${preferredMethodLabel}</td>
+      <td class="value">${escapeHtml(preferredMethodLabel)}</td>
     </tr>
     <tr>
       <td class="label">Dia de Preferência:</td>
-      <td class="value">Todo dia ${preferredDay} de cada mês</td>
+      <td class="value">Todo dia ${escapeHtml(preferredDay)} de cada mês</td>
     </tr>
   `;
 

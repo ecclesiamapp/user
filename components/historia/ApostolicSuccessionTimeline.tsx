@@ -10,7 +10,8 @@ import {
   Bell, 
   Calendar,
   CheckCircle2,
-  ChevronRight
+  ChevronRight,
+  Camera
 } from 'lucide-react';
 import { CATHEDRAL_HISTORICAL_MILESTONES, HistoricalMilestone } from '@/lib/history';
 
@@ -172,8 +173,9 @@ export function ApostolicSuccessionTimeline({ initialMilestones }: ApostolicSucc
                 className="w-full h-56 sm:h-64 object-cover object-center"
               />
               {activeMilestone.imageCaption && (
-                <p className="p-2.5 bg-[var(--dash-surface-hover)] text-[11px] text-[var(--dash-text-secondary)] italic text-center border-t border-[var(--dash-border)]">
-                  📷 {activeMilestone.imageCaption}
+                <p className="p-2.5 bg-[var(--dash-surface-hover)] text-[11px] text-[var(--dash-text-secondary)] italic text-center border-t border-[var(--dash-border)] flex items-center justify-center gap-1.5">
+                  <Camera className="w-3.5 h-3.5 shrink-0" />
+                  <span>{activeMilestone.imageCaption}</span>
                 </p>
               )}
             </div>

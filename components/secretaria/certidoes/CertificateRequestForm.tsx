@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   FileText, 
   Send, 
@@ -20,11 +20,11 @@ import {
   Sparkles
 } from 'lucide-react';
 import { Card, Button, Input, Badge } from '@/components/ui';
-import { Parish, CertificateType, CertificateRequest } from '@/types';
-import { createClient } from '@/utils/supabase/client';
+import { Parish, CertificateType } from '@/types';
 import { maskPhone } from '@/lib/utils';
 import { readSessionDraft, writeSessionDraft, clearSessionDraft } from '@/lib/hooks/useSessionDraft';
 import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
+import { generateIdempotencyKey } from '@/lib/security/idempotency';
 
 interface CertificateRequestFormProps {
   parish: Parish;
@@ -39,7 +39,7 @@ const CERTIFICATE_OPTIONS: { id: CertificateType; label: string; desc: string; i
 ];
 
 export function CertificateRequestForm({ parish }: CertificateRequestFormProps) {
-  const supabase = createClient();
+  const idempotencyKeyRef = useRef<string>(generateIdempotencyKey('cert'));
 
   // Estados do Formulário
   const [certType, setCertType] = useState<CertificateType>('batismo');
@@ -186,39 +186,46 @@ export function CertificateRequestForm({ parish }: CertificateRequestFormProps) 
     setIsSubmitting(true);
 
     try {
-      const payload = {
-        parish_id: parish.id,
-        certificate_type: certType,
-        applicant_name: applicantName.trim(),
-        applicant_phone: applicantPhone.trim(),
-        applicant_email: applicantEmail.trim() || null,
-        applicant_relation: applicantRelation,
-        holder_name: holderName.trim(),
-        holder_birth_date: holderBirthDate || null,
-        parents_names: parentsNames.trim() || null,
-        godparents_names: godparentsNames.trim() || null,
-        approximate_year: approximateYear ? parseInt(approximateYear, 10) : null,
-        community_name: communityName.trim() || null,
-        book_number: bookNumber.trim() || null,
-        page_number: pageNumber.trim() || null,
-        entry_number: entryNumber.trim() || null,
-        purpose: purpose.trim() || null,
-        delivery_preference: deliveryPreference,
-        notes: notes.trim() || null,
-        status: 'pendente',
-      };
+      // [HARDENED] BUG-001: Submissão via rota server-side idempotente sem depender de SELECT anônimo
+      const response = await fetch('/api/secretaria/certificates', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          parish_id: parish.id,
+          certificate_type: certType,
+          applicant_name: applicantName.trim(),
+          applicant_phone: applicantPhone.trim(),
+          applicant_email: applicantEmail.trim() || null,
+          applicant_relation: applicantRelation,
+          holder_name: holderName.trim(),
+          holder_birth_date: holderBirthDate || null,
+          parents_names: parentsNames.trim() || null,
+          godparents_names: godparentsNames.trim() || null,
+          approximate_year: approximateYear ? parseInt(approximateYear, 10) : null,
+          community_name: communityName.trim() || null,
+          book_number: bookNumber.trim() || null,
+          page_number: pageNumber.trim() || null,
+          entry_number: entryNumber.trim() || null,
+          purpose: purpose.trim() || null,
+          delivery_preference: deliveryPreference,
+          notes: notes.trim() || null,
+          idempotency_key: idempotencyKeyRef.current,
+        }),
+      });
 
-      const { data, error } = await supabase
-        .from('certificate_requests')
-        .insert([payload])
-        .select('id, created_at')
-        .single();
+      const data = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        protocol?: string;
+        error?: string;
+      } | null;
 
-      if (error) throw error;
+      if (!response.ok || !data?.ok || !data.protocol) {
+        throw new Error(data?.error || 'Erro ao registrar solicitação. Tente novamente.');
+      }
 
-      const code = `CERT-2026-${(data?.id || 'NOVO').slice(0, 6).toUpperCase()}`;
+      idempotencyKeyRef.current = generateIdempotencyKey('cert');
       clearSessionDraft(draftKey);
-      setProtocolGenerated(code);
+      setProtocolGenerated(data.protocol);
     } catch (err: unknown) {
       console.error('Erro ao solicitar certidão:', err);
       setErrorMessage(

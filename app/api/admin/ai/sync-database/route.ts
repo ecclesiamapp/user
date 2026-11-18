@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/utils/supabase/admin";
 import { requireAuthenticatedAdmin } from "@/lib/security/serverAuth";
 import {
+  checkServerRateLimit,
+  extractClientIp,
+  recordServerRateLimitFailure,
+} from "@/lib/security/rateLimit";
+import {
   generateBatchEmbeddings,
   knowledgeFormatters,
   TextChunk,
@@ -9,6 +14,12 @@ import {
 import type { UserRole } from "@/types";
 
 export const dynamic = "force-dynamic";
+
+const SYNC_RATE_CFG = {
+  maxAttempts: 4,
+  windowMs: 5 * 60 * 1000,
+  lockoutMs: 5 * 60 * 1000,
+};
 
 const SYNC_ALLOWED_ROLES: UserRole[] = [
   "superadmin",
@@ -135,6 +146,18 @@ export async function POST(request: NextRequest) {
       requestedParishId: body.parish_id ?? null,
     });
     if (!auth.ok) return auth.response;
+
+    // [HARDENED] SEC-009: Rate limit em sincronizações em lote de embeddings
+    const clientIp = extractClientIp(request.headers);
+    const rateKey = `ai-sync:${auth.user.id}:${clientIp}`;
+    const rateStatus = checkServerRateLimit(rateKey, SYNC_RATE_CFG);
+    if (!rateStatus.allowed) {
+      return NextResponse.json(
+        { error: "Muitas sincronizações em sequência. Aguarde alguns minutos." },
+        { status: 429 }
+      );
+    }
+    recordServerRateLimitFailure(rateKey, SYNC_RATE_CFG);
 
     const supabase = createAdminClient();
     const targetParishId = auth.parishId;

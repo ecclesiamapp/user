@@ -9,7 +9,8 @@ import {
   Building2, 
   MessageCircle, 
   RotateCcw,
-  Sparkles
+  Sparkles,
+  Mail
 } from 'lucide-react';
 import { Button, Card, Badge } from '@/components/ui';
 import { SacramentConfig } from './types';
@@ -84,7 +85,7 @@ export function SacramentSuccessCard({
       {/* Aviso de Confirmação por E-mail */}
       {applicantEmail && (
         <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-xs text-blue-700 dark:text-blue-300 flex items-center gap-2">
-          <span className="text-base">📧</span>
+          <Mail className="w-4 h-4 shrink-0" />
           <span>
             Um comprovante de inscrição foi enviado para <strong>{applicantEmail}</strong>.
           </span>

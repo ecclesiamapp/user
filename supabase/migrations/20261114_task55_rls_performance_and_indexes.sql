@@ -9,11 +9,18 @@
 -- 1. INDEXAÇÃO DE FOREIGN KEYS SEM ÍNDICE (SUPABASE LINT 0001)
 -- ------------------------------------------------------------------------------
 
-CREATE INDEX IF NOT EXISTS idx_parish_knowledge_documents_uploaded_by
-  ON public.parish_knowledge_documents (uploaded_by);
-
-CREATE INDEX IF NOT EXISTS idx_security_audit_logs_user_profile_id
-  ON public.security_audit_logs (user_profile_id);
+-- [HARDENED] SEC-003: Guarda de existência caso 20270101_* ainda não tenha sido aplicada em DB novo
+DO $$
+BEGIN
+  IF to_regclass('public.parish_knowledge_documents') IS NOT NULL THEN
+    CREATE INDEX IF NOT EXISTS idx_parish_knowledge_documents_uploaded_by
+      ON public.parish_knowledge_documents (uploaded_by);
+  END IF;
+  IF to_regclass('public.security_audit_logs') IS NOT NULL THEN
+    CREATE INDEX IF NOT EXISTS idx_security_audit_logs_user_profile_id
+      ON public.security_audit_logs (user_profile_id);
+  END IF;
+END $$;
 
 -- ------------------------------------------------------------------------------
 -- 2. GARANTIA IDEMPOTENTE DAS FUNÇÕES AUXILIARES MULTI-TENANT

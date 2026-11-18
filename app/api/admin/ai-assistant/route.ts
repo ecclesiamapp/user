@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/utils/supabase/admin";
 import { requireAuthenticatedAdmin } from "@/lib/security/serverAuth";
+import {
+  checkServerRateLimit,
+  extractClientIp,
+  recordServerRateLimitFailure,
+} from "@/lib/security/rateLimit";
 import { generateEmbedding } from "@/lib/ai/embeddings";
 import {
   generateParishAssistantResponse,
@@ -9,6 +14,12 @@ import {
 } from "@/lib/ai/gemini";
 
 export const dynamic = "force-dynamic";
+
+const AI_CHAT_RATE_CFG = {
+  maxAttempts: 20,
+  windowMs: 60 * 1000,
+  lockoutMs: 2 * 60 * 1000,
+};
 
 /**
  * GET /api/admin/ai-assistant
@@ -62,6 +73,18 @@ export async function POST(request: NextRequest) {
     });
     if (!auth.ok) return auth.response;
 
+    // [HARDENED] SEC-009: Rate limit por usuário/IP em consultas ao Gemini
+    const clientIp = extractClientIp(request.headers);
+    const rateKey = `ai-chat:${auth.user.id}:${clientIp}`;
+    const rateStatus = checkServerRateLimit(rateKey, AI_CHAT_RATE_CFG);
+    if (!rateStatus.allowed) {
+      return NextResponse.json(
+        { error: "Limite de consultas à IA excedido. Aguarde alguns instantes." },
+        { status: 429 }
+      );
+    }
+    recordServerRateLimitFailure(rateKey, AI_CHAT_RATE_CFG);
+
     const supabase = createAdminClient();
 
     if (!message || typeof message !== "string" || !message.trim()) {
@@ -70,6 +93,19 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    if (message.trim().length > 2000) {
+      return NextResponse.json(
+        { error: "A mensagem excede o limite de 2.000 caracteres." },
+        { status: 400 }
+      );
+    }
+
+    const safeMatchCount = Math.min(10, Math.max(1, Number(match_count) || 5));
+    const safeThreshold = Math.min(
+      0.95,
+      Math.max(0.2, Number(similarity_threshold) || 0.45)
+    );
 
     // 1. Identificar a Paróquia respeitando isolamento multi-tenant
     const effectiveParishId = auth.parishId;
@@ -104,8 +140,8 @@ export async function POST(request: NextRequest) {
       {
         query_embedding: queryEmbedding,
         filter_parish_id: parish.id,
-        match_count: match_count,
-        similarity_threshold: similarity_threshold,
+        match_count: safeMatchCount,
+        similarity_threshold: safeThreshold,
       }
     );
 
@@ -126,6 +162,7 @@ export async function POST(request: NextRequest) {
       answer: assistantResult.answer,
       sources: assistantResult.sources,
       suggested_draft: assistantResult.suggested_draft || null,
+      rag_degraded: Boolean(rpcError),
       parish: {
         id: parish.id,
         name: parish.name,

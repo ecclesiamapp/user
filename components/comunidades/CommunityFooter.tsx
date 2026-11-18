@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Church, MapPin, Heart, Copy, Check, QrCode, ShieldCheck, ChevronDown, ChevronUp } from 'lucide-react';
+import { Church, MapPin, Heart, Copy, Check, QrCode, ShieldCheck, ChevronDown, ChevronUp, Landmark } from 'lucide-react';
 import { Community } from '@/types';
 
 interface CommunityFooterProps {
@@ -121,8 +121,9 @@ export function CommunityFooter({
             </p>
 
             {community.foundation_year && (
-              <p className="text-[11px] text-amber-500/80 font-medium">
-                🏛️ Evangelizando as famílias desde {community.foundation_year}.
+              <p className="text-[11px] text-amber-500/80 font-medium flex items-center gap-1.5">
+                <Landmark className="w-3.5 h-3.5 shrink-0" />
+                <span>Evangelizando as famílias desde {community.foundation_year}.</span>
               </p>
             )}
           </div>

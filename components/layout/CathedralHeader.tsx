@@ -16,6 +16,7 @@ import {
   FileText,
 } from 'lucide-react';
 import { useAdminSession } from '@/lib/hooks/useAdminSession';
+import { usePersistentFontScale } from '@/lib/hooks/usePersistentFontScale';
 import { ResolvedEventTheme } from '@/lib/events';
 import { isPhaseActive } from '@/lib/release-config';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
@@ -38,7 +39,7 @@ export function CathedralHeader({
 }: CathedralHeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<'liturgia' | 'secretaria' | 'cathedral' | null>(null);
-  const [fontSizeLevel, setFontSizeLevel] = useState<'sm' | 'md' | 'lg'>('md');
+  const { fontSizeLevel, handleFontSizeChange } = usePersistentFontScale();
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { hasAdminSession } = useAdminSession();
 
@@ -69,16 +70,6 @@ export function CathedralHeader({
   const closeAllMenus = () => {
     if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
     setActiveMenu(null);
-  };
-
-  const handleFontSizeChange = (level: 'sm' | 'md' | 'lg') => {
-    setFontSizeLevel(level);
-    if (typeof document !== 'undefined') {
-      const root = document.documentElement;
-      if (level === 'sm') root.style.fontSize = '14px';
-      else if (level === 'md') root.style.fontSize = '16px';
-      else if (level === 'lg') root.style.fontSize = '18px';
-    }
   };
 
   const t = themeOverride;

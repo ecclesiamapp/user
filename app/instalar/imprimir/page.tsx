@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Printer, ArrowLeft, Palette } from 'lucide-react';
+import { Printer, ArrowLeft, Palette, Info } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { PrintPosterA4 } from '@/components/pwa/print/PrintPosterA4';
 import { PrintBenchDisplays } from '@/components/pwa/print/PrintBenchDisplays';
@@ -120,8 +120,11 @@ export default function ImprimirMateriaisPwaPage() {
       </header>
 
       {/* Dica Pastoral de Impressão */}
-      <div className="bg-[#1C1410] border-b border-[#C8A463]/25 p-2 sm:p-2.5 text-center text-[11px] sm:text-xs text-[#EAE3D9] print:hidden px-3">
-        🏛️ <strong>Dica da Secretaria:</strong> Marque a opção <em>"Gráficos de plano de fundo"</em> na impressora para exibir todas as cores e molduras em alta nitidez.
+      <div className="bg-[#1C1410] border-b border-[#C8A463]/25 p-2 sm:p-2.5 text-center text-[11px] sm:text-xs text-[#EAE3D9] print:hidden px-3 flex items-center justify-center gap-1.5">
+        <Info className="w-3.5 h-3.5 text-[#FFA82A] shrink-0" />
+        <span>
+          <strong>Dica da Secretaria:</strong> Marque a opção <em>"Gráficos de plano de fundo"</em> na impressora para exibir todas as cores e molduras em alta nitidez.
+        </span>
       </div>
 
       {/* Visualização da Folha A4 Realista & Fluida (Sem Quebra em Telas Pequenas) */}

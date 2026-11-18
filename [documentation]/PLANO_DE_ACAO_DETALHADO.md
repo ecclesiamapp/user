@@ -169,8 +169,8 @@
 
 ### Tarefas Técnicas & Entregas:
 - [x] **TASK-56:** Resiliência de Formulários (`sessionStorage` seguro para LGPD em `PastoralAppointmentBooking`, `CertificateRequestForm`, `SacramentRegistrationContainer` e `MovementRegistrationModal`), tradutor central de erros amigáveis (13 arquivos Admin/Login/Upload) e chave de idempotência em Intenções/Agendamentos.
-- [ ] **TASK-57:** PWA Offline Leve (`public/sw.js` com estratégia *stale-while-revalidate* restrita à leitura pública: Home, Agenda Litúrgica, Comunidades, História e Folhetos; bloqueando `/admin`, `/login`, `/meu-espaco` e `/api/admin`).
-- [ ] **TASK-58:** Skeletons de Rota (`loading.tsx` em 3–4 layouts públicos), persistência versionada do controle `A- / A / A+` em `%` (`CathedralHeader.tsx`), troca de emojis pictóricos de UI por ícones `lucide-react` (11 arquivos) e feedback tátil leve em CSS (`:active scale`).
+- [x] **TASK-57:** PWA Offline Leve (`public/sw.js` com estratégia *stale-while-revalidate* restrita à leitura pública: Home, Agenda Litúrgica, Comunidades, História e Folhetos; bloqueando `/admin`, `/login`, `/meu-espaco` e `/api/admin`).
+- [x] **TASK-58:** Skeletons de Rota (`loading.tsx` em 3–4 layouts públicos), persistência versionada do controle `A- / A / A+` em `%` (`CathedralHeader.tsx`), troca de emojis pictóricos de UI por ícones `lucide-react` (11 arquivos) e feedback tátil leve em CSS (`:active scale`).
 
 
 

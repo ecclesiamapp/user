@@ -27,6 +27,7 @@ import {
 import { AdminRoleGuard } from '@/components/admin/auth/AdminRoleGuard';
 import { useAdminCommunity } from '@/components/admin/context/AdminCommunityContext';
 import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
+import { USER_PROFILE_SAFE_COLUMNS } from '@/lib/security/userColumns';
 
 type TabKey = 'active' | 'pending' | 'activity';
 
@@ -46,18 +47,26 @@ export default function UsuariosAdminPage() {
   const supabase = createClient();
   const { communities, refreshData: refreshContext } = useAdminCommunity();
 
+  const showFeedback = useCallback((text: string, type: 'success' | 'error' = 'success') => {
+    setFeedbackMsg({ text, type });
+    setTimeout(() => setFeedbackMsg(null), 4000);
+  }, []);
+
   // Buscar Usuários e Logs
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      // 1. Buscar perfis
+      // 1. Buscar perfis sem expor access_code
       const { data: usersData, error: usersErr } = await supabase
         .from('user_profiles')
-        .select('*')
+        .select(USER_PROFILE_SAFE_COLUMNS)
         .order('role')
         .order('name');
 
-      if (!usersErr && usersData) {
+      if (usersErr) {
+        console.error('Erro ao buscar perfis:', usersErr);
+        showFeedback('Não foi possível carregar a lista de usuários.', 'error');
+      } else if (usersData) {
         setUsers(usersData as UserProfile[]);
       }
 
@@ -76,16 +85,11 @@ export default function UsuariosAdminPage() {
     } finally {
       setLoading(false);
     }
-  }, [supabase]);
+  }, [supabase, showFeedback]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-  const showFeedback = (text: string, type: 'success' | 'error' = 'success') => {
-    setFeedbackMsg({ text, type });
-    setTimeout(() => setFeedbackMsg(null), 4000);
-  };
 
   // Salvar ou Atualizar Usuário
   const handleSaveUser = async (userData: Partial<UserProfile>): Promise<boolean> => {

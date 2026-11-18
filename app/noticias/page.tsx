@@ -10,7 +10,10 @@ import {
   Calendar, 
   Clock, 
   ChevronRight, 
-  Send 
+  Send,
+  Users,
+  Church,
+  Star
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
@@ -155,14 +158,17 @@ export default async function CathedralNewsPage() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
-            <span className="px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
-              📰 Atualização Semanal
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
+              <Newspaper className="w-3.5 h-3.5 shrink-0" />
+              <span>Atualização Semanal</span>
             </span>
-            <span className="px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
-              🤝 12 Comunidades Vivas
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
+              <Users className="w-3.5 h-3.5 shrink-0" />
+              <span>12 Comunidades Vivas</span>
             </span>
-            <span className="px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
-              ⛪ Diócese de Colatina
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
+              <Church className="w-3.5 h-3.5 shrink-0" />
+              <span>Diocese de Colatina</span>
             </span>
           </div>
         </div>
@@ -183,8 +189,9 @@ export default async function CathedralNewsPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
                 <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#8B1E22] to-[#5E1417] text-[#FFCC36] text-xs font-extrabold uppercase tracking-wider border border-[#FFA82A]/40 shadow-sm">
-                    ★ Destaque Pastoral
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#8B1E22] to-[#5E1417] text-[#FFCC36] text-xs font-extrabold uppercase tracking-wider border border-[#FFA82A]/40 shadow-sm">
+                    <Star className="w-3.5 h-3.5 fill-current shrink-0" />
+                    <span>Destaque Pastoral</span>
                   </span>
                 </div>
               </div>

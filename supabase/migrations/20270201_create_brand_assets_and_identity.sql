@@ -21,14 +21,14 @@ USING (bucket_id = 'brand_assets');
 DROP POLICY IF EXISTS "Upload de brand assets pela administração" ON storage.objects;
 CREATE POLICY "Upload de brand assets pela administração"
 ON storage.objects FOR INSERT
-TO anon, authenticated
+TO authenticated
 WITH CHECK (bucket_id = 'brand_assets');
 
 -- Atualização de arquivos de marca
 DROP POLICY IF EXISTS "Atualização de brand assets pela administração" ON storage.objects;
 CREATE POLICY "Atualização de brand assets pela administração"
 ON storage.objects FOR UPDATE
-TO anon, authenticated
+TO authenticated
 USING (bucket_id = 'brand_assets')
 WITH CHECK (bucket_id = 'brand_assets');
 
@@ -36,7 +36,7 @@ WITH CHECK (bucket_id = 'brand_assets');
 DROP POLICY IF EXISTS "Exclusão de brand assets pela administração" ON storage.objects;
 CREATE POLICY "Exclusão de brand assets pela administração"
 ON storage.objects FOR DELETE
-TO anon, authenticated
+TO authenticated
 USING (bucket_id = 'brand_assets');
 
 -- 3. Adição das Colunas de Identidade Visual na Tabela 'public.parishes'

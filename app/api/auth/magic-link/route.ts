@@ -60,6 +60,12 @@ export async function POST(request: NextRequest) {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
 
+    const UNIFORM_SUCCESS_MSG =
+      mode === 'reset'
+        ? 'Se o e-mail estiver ativo no sistema, você receberá as instruções de redefinição em instantes.'
+        : 'Se o e-mail estiver ativo no sistema, você receberá um link de acesso em instantes.';
+
+    // [HARDENED] SEC-006: Evita enumeração de contas/status retornando resposta uniforme
     if (hasServiceRoleKey()) {
       const adminClient = createAdminClient();
       const { data: profile } = await adminClient
@@ -68,28 +74,8 @@ export async function POST(request: NextRequest) {
         .ilike('email', cleanEmail)
         .maybeSingle();
 
-      if (!profile) {
-        return NextResponse.json(
-          {
-            ok: false,
-            error:
-              'E-mail não localizado nos cadastros ativos. Solicite um novo acesso.',
-          },
-          { status: 404 }
-        );
-      }
-
-      if (profile.status !== 'ativo') {
-        return NextResponse.json(
-          {
-            ok: false,
-            error:
-              profile.status === 'pendente'
-                ? 'Seu pedido de acesso ainda aguarda aprovação do administrador.'
-                : 'Este acesso encontra-se bloqueado.',
-          },
-          { status: 403 }
-        );
+      if (!profile || profile.status !== 'ativo') {
+        return NextResponse.json({ ok: true, message: UNIFORM_SUCCESS_MSG });
       }
     }
 
@@ -101,26 +87,18 @@ export async function POST(request: NextRequest) {
       });
       if (error) {
         console.error('[auth/magic-link] resetPasswordForEmail:', error.message);
-        return NextResponse.json(
-          {
-            ok: false,
-            error:
-              'Não foi possível enviar o link de redefinição. Utilize o acesso com senha ou contate o suporte.',
-          },
-          { status: 400 }
-        );
+      } else {
+        await recordServerAuditEvent({
+          email: cleanEmail,
+          eventType: 'password_reset_requested',
+          ipHint: clientIp,
+          userAgent: request.headers.get('user-agent'),
+        });
       }
-
-      await recordServerAuditEvent({
-        email: cleanEmail,
-        eventType: 'password_reset_requested',
-        ipHint: clientIp,
-        userAgent: request.headers.get('user-agent'),
-      });
 
       return NextResponse.json({
         ok: true,
-        message: 'Link de redefinição enviado! Verifique sua caixa de entrada.',
+        message: UNIFORM_SUCCESS_MSG,
       });
     }
 
@@ -134,20 +112,11 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error('[auth/magic-link] signInWithOtp:', error.message);
-      return NextResponse.json(
-        {
-          ok: false,
-          error:
-            "Utilize a aba 'Com Senha' para seu primeiro acesso ou solicite suporte ao administrador.",
-        },
-        { status: 400 }
-      );
     }
 
     return NextResponse.json({
       ok: true,
-      message:
-        'Link mágico enviado! Verifique sua caixa de entrada (e spam) para entrar.',
+      message: UNIFORM_SUCCESS_MSG,
     });
   } catch (err) {
     console.error('[auth/magic-link] Erro interno:', err);

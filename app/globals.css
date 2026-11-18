@@ -234,4 +234,19 @@ body {
   will-change: transform, opacity;
 }
 
+/* Feedback tátil leve em toques mobile sem interferir em transforms existentes (TASK-58) */
+@media (prefers-reduced-motion: no-preference) {
+  button:not(:disabled),
+  a[role="button"],
+  .tap-scale {
+    transition: scale 120ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  button:not(:disabled):active,
+  a[role="button"]:active,
+  .tap-scale:active {
+    scale: 0.98;
+  }
+}
+
 

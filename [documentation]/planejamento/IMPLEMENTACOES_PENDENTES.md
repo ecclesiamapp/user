@@ -122,7 +122,7 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
 
 ### ✨ 7. Polimento UX, Acessibilidade & Resiliência Mobile (Fase 11)
 
-* **Status:** 🔄 **Em Andamento — 1/3 Concluídas (`TASK-56` ✅)**
+* **Status:** ✅ **Concluída — 3/3 (`TASK-56` ✅, `TASK-57` ✅, `TASK-58` ✅)**
 * **Origem:** Entrevista arquitetural (`/grill-me`) sobre o guia *Polish* (Lincoln Devine) em 14/11/2026, filtrada para o contexto Web/Next.js + PWA da Catedral (>85% mobile, fiéis idosos, 3G/4G).
 
 #### ✅ `TASK-56`: Resiliência de Formulários, Idempotência & Erros Amigáveis (CONCLUÍDA em 14/11/2026)
@@ -132,18 +132,19 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
   * ✅ Tradutor central [`friendlyError.ts`](file:///c:/Users/Start/ecclesiam-app/lib/security/friendlyError.ts) substituindo exposição crua de `err?.message` / `error.message` nos arquivos de Admin, Login, Upload e Secretaria.
   * ✅ Envio e validação de `idempotency_key` no servidor ([`idempotency.ts`](file:///c:/Users/Start/ecclesiam-app/lib/security/idempotency.ts), [`/api/secretaria/appointments`](file:///c:/Users/Start/ecclesiam-app/app/api/secretaria/appointments/route.ts), [`/api/secretaria/intentions`](file:///c:/Users/Start/ecclesiam-app/app/api/secretaria/intentions/route.ts)) e migração SQL [`20261114_task56_idempotency_keys.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task56_idempotency_keys.sql) para evitar duplicidade em conexões 3G/4G instáveis.
 
-#### 📲 `TASK-57`: PWA Offline Leve (`public/sw.js`) para Leitura Pública
+#### ✅ `TASK-57`: PWA Offline Leve (`public/sw.js`) para Leitura Pública (CONCLUÍDA em 18/11/2026)
 * **⏱️ Tempo Estimado:** ~30 a 40 minutos
 * **Escopo Fechado:**
-  * Registrar Service Worker minimalista (`public/sw.js` vinculado ao [`app/manifest.ts`](file:///c:/Users/Start/ecclesiam-app/app/manifest.ts)) com estratégia *stale-while-revalidate* restrita às rotas e dados **públicos somente leitura** (`/`, `/agenda-liturgica`, `/comunidades`, `/historia` e folhetos).
-  * Bloqueio explícito de cache para `/admin`, `/login`, `/meu-espaco` e `/api/admin` para evitar exibição de dados pessoais ou sessões antigas em aparelhos compartilhados.
+  * ✅ Service Worker minimalista ([`public/sw.js`](file:///c:/Users/Start/ecclesiam-app/public/sw.js)) registrado por [`PwaServiceWorkerRegister.tsx`](file:///c:/Users/Start/ecclesiam-app/components/pwa/PwaServiceWorkerRegister.tsx) em [`app/layout.tsx`](file:///c:/Users/Start/ecclesiam-app/app/layout.tsx) e integrado ao [`app/manifest.ts`](file:///c:/Users/Start/ecclesiam-app/app/manifest.ts) com header `no-cache` em [`next.config.ts`](file:///c:/Users/Start/ecclesiam-app/next.config.ts).
+  * ✅ Estratégia *stale-while-revalidate* restrita às rotas e mídias públicas somente leitura (`/`, `/agenda-liturgica`, `/comunidades`, `/historia`, `/horarios`, `/noticias`, `/mensagens`, `/programacao`, `/movimentos`, `/api/liturgia` e folhetos PDF), ignorando respostas `no-store`/`private`/`Set-Cookie`.
+  * ✅ Bloqueio explícito de interceptação e cache para `/admin`, `/login`, `/meu-espaco`, `/api/admin`, `/api/auth`, `/api/upload`, `/api/secretaria`, `/api/dizimo` e `/api/notifications` (validado em [`tests/pwa-sw.test.ts`](file:///c:/Users/Start/ecclesiam-app/tests/pwa-sw.test.ts)).
 
-#### 🎨 `TASK-58`: Skeletons (`loading.tsx`), Escala Tipográfica Persistida & Micro-Interações
+#### ✅ `TASK-58`: Skeletons (`loading.tsx`), Escala Tipográfica Persistida & Micro-Interações (CONCLUÍDA em 18/11/2026)
 * **⏱️ Tempo Estimado:** ~35 a 45 minutos
 * **Escopo Fechado:**
-  * Criar 3–4 templates compartilhados de Skeleton (`loading.tsx`) para rotas dinâmicas públicas (eliminando sensação de congelamento durante navegação SSR).
-  * Persistir o seletor `A- / A / A+` de [`CathedralHeader.tsx`](file:///c:/Users/Start/ecclesiam-app/components/layout/CathedralHeader.tsx) de forma versionada no `localStorage`, adotando escala relativa (`%`) para respeitar a configuração de fonte do sistema operacional do celular do fiel.
-  * Trocar emojis pictóricos em elementos de UI (nos `11` arquivos identificados) por ícones `lucide-react` (preservando o símbolo sagrado `✝` no brasão e textos pastorais) e adicionar feedback tátil leve via CSS (`:active scale`) em [`app/globals.css`](file:///c:/Users/Start/ecclesiam-app/app/globals.css).
+  * ✅ Skeleton reutilizável [`PublicRouteSkeleton.tsx`](file:///c:/Users/Start/ecclesiam-app/components/ui/PublicRouteSkeleton.tsx) aplicado em `4` rotas dinâmicas públicas (`app/agenda-liturgica/loading.tsx`, `app/comunidades/[slug]/loading.tsx`, `app/noticias/loading.tsx`, `app/historia/loading.tsx`).
+  * ✅ Persistência versionada do controle `A- / A / A+` em escala relativa (`%`) via [`usePersistentFontScale.ts`](file:///c:/Users/Start/ecclesiam-app/lib/hooks/usePersistentFontScale.ts) integrado em [`CathedralHeader.tsx`](file:///c:/Users/Start/ecclesiam-app/components/layout/CathedralHeader.tsx).
+  * ✅ Substituição de emojis pictóricos de UI por ícones `lucide-react` em `13` arquivos públicos/componentes (preservando o símbolo sagrado `✝` e textos de WhatsApp) e feedback tátil leve `:active` (`scale: 0.98`) em [`app/globals.css`](file:///c:/Users/Start/ecclesiam-app/app/globals.css).
 
 ---
 

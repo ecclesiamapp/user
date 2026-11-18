@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Parish, Community, SacramentType, ApplicantRole } from '@/types';
 import { SACRAMENTS_CONFIG } from './types';
 import { SacramentSelector } from './SacramentSelector';
@@ -16,6 +16,7 @@ import { Loader2, Send, User, Phone, Mail, HelpCircle, AlertCircle, ShieldCheck 
 import { maskPhone } from '@/lib/utils';
 import { readSessionDraft, writeSessionDraft, clearSessionDraft } from '@/lib/hooks/useSessionDraft';
 import { toFriendlyErrorMessage } from '@/lib/security/friendlyError';
+import { generateIdempotencyKey } from '@/lib/security/idempotency';
 
 interface SacramentRegistrationContainerProps {
   parish: Parish;
@@ -27,6 +28,7 @@ export function SacramentRegistrationContainer({
   communities,
 }: SacramentRegistrationContainerProps) {
   const supabase = createClient();
+  const idempotencyKeyRef = useRef<string>(generateIdempotencyKey('sac'));
 
   const [selectedType, setSelectedType] = useState<SacramentType>('batismo');
   const [protocol, setProtocol] = useState<string | null>(null);
@@ -303,58 +305,44 @@ export function SacramentRegistrationContainer({
         };
       }
 
-      const { data: record, error } = await supabase
-        .from('sacramental_registrations')
-        .insert([
-          {
-            parish_id: parish.id,
-            community_id: resolvedCommunityId,
-            sacrament_type: selectedType,
-            status: 'pendente',
-            applicant_name: applicantName.trim(),
-            applicant_phone: applicantPhone.trim(),
-            applicant_email: applicantEmail.trim() || null,
-            applicant_role: applicantRole,
-            candidate_name: resolvedCandidateName,
-            candidate_birth_date: resolvedCandidateBirthDate,
-            preferred_date: resolvedPreferredDate,
-            details: resolvedDetails,
-            notes: resolvedNotes,
-          },
-        ])
-        .select('id, created_at')
-        .single();
+      // [HARDENED] VAL-001 / SEC-001: Submissão via rota server-side idempotente
+      const response = await fetch('/api/secretaria/sacraments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          parish_id: parish.id,
+          community_id: resolvedCommunityId,
+          sacrament_type: selectedType,
+          applicant_name: applicantName.trim(),
+          applicant_phone: applicantPhone.trim(),
+          applicant_email: applicantEmail.trim() || null,
+          applicant_role: applicantRole,
+          candidate_name: resolvedCandidateName,
+          candidate_birth_date: resolvedCandidateBirthDate,
+          preferred_date: resolvedPreferredDate,
+          details: resolvedDetails,
+          notes: resolvedNotes,
+          sacrament_title: currentConfig?.title || 'Inscrição Sacramental',
+          community_name: targetCommunity?.name || null,
+          idempotency_key: idempotencyKeyRef.current,
+        }),
+      });
 
-      if (error) throw error;
+      const data = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        protocol?: string;
+        error?: string;
+      } | null;
 
-      const generatedProtocol = `SAC-2026-${(record?.id || 'NOVO').slice(0, 6).toUpperCase()}`;
-
-      // Disparo de Notificação Transacional (Resend & Secretaria)
-      try {
-        fetch('/api/notifications', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            type: 'sacrament',
-            protocol: generatedProtocol,
-            applicantName: applicantName.trim(),
-            applicantPhone: applicantPhone.trim(),
-            applicantEmail: applicantEmail.trim() || undefined,
-            sacramentTitle: currentConfig?.title || 'Inscrição Sacramental',
-            candidateName: resolvedCandidateName || undefined,
-            communityName: targetCommunity?.name || undefined,
-            preferredDate: resolvedPreferredDate || undefined,
-            extraSummary: resolvedNotes || undefined,
-          }),
-        }).catch((notifErr) => {
-          console.warn('Alerta silencioso de notificação:', notifErr);
-        });
-      } catch (e) {
-        // Envio assíncrono não impede o sucesso
+      if (!response.ok || !data?.ok || !data.protocol) {
+        throw new Error(
+          data?.error || 'Ocorreu um erro ao gravar sua inscrição. Tente novamente.'
+        );
       }
 
+      idempotencyKeyRef.current = generateIdempotencyKey('sac');
       clearSessionDraft(draftKey);
-      setProtocol(generatedProtocol);
+      setProtocol(data.protocol);
     } catch (err: unknown) {
       console.error('Erro ao registrar inscrição sacramental:', err);
       setErrorMessage(

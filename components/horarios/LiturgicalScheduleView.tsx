@@ -226,25 +226,29 @@ export function LiturgicalScheduleView({
           {/* Seletor de Tipo */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
             {[
-              { id: 'all', label: 'Todas' },
-              { id: 'missa', label: '✝️ Missas' },
-              { id: 'adoracao', label: '🔥 Adoração' },
-              { id: 'confissao', label: '🙏 Confissões' },
-              { id: 'celebracao_palavra', label: '📖 Celebração da Palavra' },
-            ].map((t) => (
-              <button
-                key={t.id}
-                type="button"
-                onClick={() => setSelectedType(t.id)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 min-h-[44px] cursor-pointer ${
-                  selectedType === t.id
-                    ? 'bg-[#8B1E22] text-white shadow-xs'
-                    : 'bg-[var(--dash-surface-secondary)] text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-border)]'
-                }`}
-              >
-                {t.label}
-              </button>
-            ))}
+              { id: 'all', label: 'Todas', icon: null },
+              { id: 'missa', label: 'Missas', icon: Church },
+              { id: 'adoracao', label: 'Adoração', icon: Flame },
+              { id: 'confissao', label: 'Confissões', icon: HeartHandshake },
+              { id: 'celebracao_palavra', label: 'Celebração da Palavra', icon: BookOpen },
+            ].map((t) => {
+              const Icon = t.icon;
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setSelectedType(t.id)}
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 min-h-[44px] cursor-pointer ${
+                    selectedType === t.id
+                      ? 'bg-[#8B1E22] text-white shadow-xs'
+                      : 'bg-[var(--dash-surface-secondary)] text-[var(--dash-text-secondary)] hover:text-[var(--dash-text-primary)] hover:bg-[var(--dash-border)]'
+                  }`}
+                >
+                  {Icon && <Icon className="w-3.5 h-3.5 shrink-0" />}
+                  <span>{t.label}</span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Busca por Texto */}

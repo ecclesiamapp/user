@@ -71,15 +71,15 @@ BEGIN
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'parish_special_events' AND policyname = 'Permitir insercao de eventos especiais') THEN
-    CREATE POLICY "Permitir insercao de eventos especiais" ON public.parish_special_events FOR INSERT TO anon, authenticated WITH CHECK (parish_id IS NOT NULL);
+    CREATE POLICY "Permitir insercao de eventos especiais" ON public.parish_special_events FOR INSERT TO authenticated WITH CHECK (parish_id IS NOT NULL);
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'parish_special_events' AND policyname = 'Permitir atualizacao de eventos especiais') THEN
-    CREATE POLICY "Permitir atualizacao de eventos especiais" ON public.parish_special_events FOR UPDATE TO anon, authenticated USING (true) WITH CHECK (true);
+    CREATE POLICY "Permitir atualizacao de eventos especiais" ON public.parish_special_events FOR UPDATE TO authenticated USING (parish_id IS NOT NULL) WITH CHECK (parish_id IS NOT NULL);
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'parish_special_events' AND policyname = 'Permitir exclusao de eventos especiais') THEN
-    CREATE POLICY "Permitir exclusao de eventos especiais" ON public.parish_special_events FOR DELETE TO anon, authenticated USING (true);
+    CREATE POLICY "Permitir exclusao de eventos especiais" ON public.parish_special_events FOR DELETE TO authenticated USING (parish_id IS NOT NULL);
   END IF;
 END $$;
 
@@ -91,15 +91,15 @@ BEGIN
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'parish_event_days' AND policyname = 'Permitir insercao de dias do evento') THEN
-    CREATE POLICY "Permitir insercao de dias do evento" ON public.parish_event_days FOR INSERT TO anon, authenticated WITH CHECK (event_id IS NOT NULL);
+    CREATE POLICY "Permitir insercao de dias do evento" ON public.parish_event_days FOR INSERT TO authenticated WITH CHECK (event_id IS NOT NULL);
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'parish_event_days' AND policyname = 'Permitir atualizacao de dias do evento') THEN
-    CREATE POLICY "Permitir atualizacao de dias do evento" ON public.parish_event_days FOR UPDATE TO anon, authenticated USING (true) WITH CHECK (true);
+    CREATE POLICY "Permitir atualizacao de dias do evento" ON public.parish_event_days FOR UPDATE TO authenticated USING (event_id IS NOT NULL) WITH CHECK (event_id IS NOT NULL);
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'parish_event_days' AND policyname = 'Permitir exclusao de dias do evento') THEN
-    CREATE POLICY "Permitir exclusao de dias do evento" ON public.parish_event_days FOR DELETE TO anon, authenticated USING (true);
+    CREATE POLICY "Permitir exclusao de dias do evento" ON public.parish_event_days FOR DELETE TO authenticated USING (event_id IS NOT NULL);
   END IF;
 END $$;
 
@@ -122,14 +122,14 @@ BEGIN
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE schemaname = 'storage' AND tablename = 'objects' AND policyname = 'Upload de event assets pela administracao') THEN
-    CREATE POLICY "Upload de event assets pela administracao" ON storage.objects FOR INSERT TO anon, authenticated WITH CHECK (bucket_id = 'event_assets');
+    CREATE POLICY "Upload de event assets pela administracao" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'event_assets');
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE schemaname = 'storage' AND tablename = 'objects' AND policyname = 'Atualizacao de event assets pela administracao') THEN
-    CREATE POLICY "Atualizacao de event assets pela administracao" ON storage.objects FOR UPDATE TO anon, authenticated USING (bucket_id = 'event_assets');
+    CREATE POLICY "Atualizacao de event assets pela administracao" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id = 'event_assets');
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE schemaname = 'storage' AND tablename = 'objects' AND policyname = 'Exclusao de event assets pela administracao') THEN
-    CREATE POLICY "Exclusao de event assets pela administracao" ON storage.objects FOR DELETE TO anon, authenticated USING (bucket_id = 'event_assets');
+    CREATE POLICY "Exclusao de event assets pela administracao" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'event_assets');
   END IF;
 END $$;

@@ -150,14 +150,17 @@ export default async function ComunidadesPage() {
 
           {/* Chips Inferiores Padronizados */}
           <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
-            <span className="px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
-              ⛪ 12 Comunidades (CEBs)
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
+              <Church className="w-3.5 h-3.5 shrink-0" />
+              <span>12 Comunidades (CEBs)</span>
             </span>
-            <span className="px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
-              🗺️ Rotas Maps & Waze
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
+              <Compass className="w-3.5 h-3.5 shrink-0" />
+              <span>Rotas Maps & Waze</span>
             </span>
-            <span className="px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
-              📍 Diocese de Colatina
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs font-semibold text-[#FFA82A] backdrop-blur-xs">
+              <MapPin className="w-3.5 h-3.5 shrink-0" />
+              <span>Diocese de Colatina</span>
             </span>
           </div>
         </div>

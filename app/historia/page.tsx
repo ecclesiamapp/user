@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
-import { ArrowLeft, Church, Heart, Calendar, Sparkles } from 'lucide-react';
+import { ArrowLeft, Church, Heart, Calendar, Sparkles, Landmark, Crown, Users } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
@@ -214,14 +214,17 @@ export default async function CathedralHistoryPage() {
 
           {/* Badges de Fatos Históricos */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <span className="px-4 py-2 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs sm:text-sm font-semibold text-[#FFA82A] backdrop-blur-xs">
-              🏛️ Paróquia Criada em 1928
+            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs sm:text-sm font-semibold text-[#FFA82A] backdrop-blur-xs">
+              <Landmark className="w-4 h-4 shrink-0" />
+              <span>Paróquia Criada em 1928</span>
             </span>
-            <span className="px-4 py-2 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs sm:text-sm font-semibold text-[#FFA82A] backdrop-blur-xs">
-              👑 Catedral Diocesana desde 1990
+            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs sm:text-sm font-semibold text-[#FFA82A] backdrop-blur-xs">
+              <Crown className="w-4 h-4 shrink-0" />
+              <span>Catedral Diocesana desde 1990</span>
             </span>
-            <span className="px-4 py-2 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs sm:text-sm font-semibold text-[#FFA82A] backdrop-blur-xs">
-              🤝 12 Comunidades Vivas
+            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--dash-surface)]/10 border border-white/10 text-xs sm:text-sm font-semibold text-[#FFA82A] backdrop-blur-xs">
+              <Users className="w-4 h-4 shrink-0" />
+              <span>12 Comunidades Vivas</span>
             </span>
           </div>
 

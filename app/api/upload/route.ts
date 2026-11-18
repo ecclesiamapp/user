@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { createClient } from '@/utils/supabase/server';
 import { createAdminClient, hasServiceRoleKey } from '@/utils/supabase/admin';
 import { requireAuthenticatedAdmin } from '@/lib/security/serverAuth';
+import { validateUploadBuffer } from '@/lib/security/uploadValidation';
 
 export const dynamic = 'force-dynamic';
 
@@ -62,10 +63,20 @@ export async function POST(req: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
+    // [HARDENED] SEC-008: Validação server-side de magic bytes, extensão e tamanho máximo
+    const validation = validateUploadBuffer({
+      buffer,
+      declaredMime: file.type,
+      filename: file.name,
+    });
+    if (!validation.ok) {
+      return NextResponse.json({ error: validation.error }, { status: validation.status });
+    }
+
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from(bucket)
       .upload(storagePath, buffer, {
-        contentType: file.type || 'image/webp',
+        contentType: validation.mimeType,
         upsert: true,
       });
 

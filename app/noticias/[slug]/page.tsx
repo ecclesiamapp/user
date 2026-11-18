@@ -13,7 +13,8 @@ import {
   ChevronRight, 
   AlertCircle, 
   BookOpen,
-  Heart
+  Heart,
+  Camera
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
@@ -209,8 +210,9 @@ export default async function CathedralNewsDetailPage({ params }: NewsDetailPage
               className="w-full h-72 sm:h-96 lg:h-[460px] object-cover object-center"
             />
             {article.imageCaption && (
-              <figcaption className="p-3 bg-[var(--dash-surface-hover)] text-xs text-[var(--dash-text-secondary)] italic text-center border-t border-[var(--dash-border)]">
-                📷 {article.imageCaption}
+              <figcaption className="p-3 bg-[var(--dash-surface-hover)] text-xs text-[var(--dash-text-secondary)] italic text-center border-t border-[var(--dash-border)] flex items-center justify-center gap-1.5">
+                <Camera className="w-3.5 h-3.5 shrink-0" />
+                <span>{article.imageCaption}</span>
               </figcaption>
             )}
           </figure>

@@ -77,8 +77,8 @@ export function AdminRoleGuard({
             </div>
           </div>
 
-          {/* Simulador de troca rápida para testes */}
-          {allUsers.length > 0 && (
+          {/* [HARDENED] SEC-007: Simulador RBAC restrito exclusivamente ao ambiente de desenvolvimento */}
+          {process.env.NODE_ENV === 'development' && allUsers.length > 0 && (
             <div className="pt-2 border-t border-[var(--dash-border)]">
               <span className="text-[11px] text-[var(--dash-text-muted)] block mb-2">
                 Simulador RBAC (Ambiente de Desenvolvimento):

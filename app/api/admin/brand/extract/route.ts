@@ -1,15 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
+import dns from 'node:dns/promises';
+import net from 'node:net';
 import {
   extractBrandFromManualBuffer,
   convertExtractionToBrandIdentity,
   ExtractedBrandData,
 } from '@/lib/ai/brand-extractor';
 import { requireAuthenticatedAdmin } from '@/lib/security/serverAuth';
+import {
+  checkServerRateLimit,
+  extractClientIp,
+  recordServerRateLimitFailure,
+} from '@/lib/security/rateLimit';
 import { createAdminClient } from '@/utils/supabase/admin';
 import type { UserRole } from '@/types';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+const BRAND_RATE_CFG = {
+  maxAttempts: 6,
+  windowMs: 5 * 60 * 1000,
+  lockoutMs: 5 * 60 * 1000,
+};
 
 const BRAND_ALLOWED_ROLES: UserRole[] = [
   'superadmin',
@@ -19,6 +32,37 @@ const BRAND_ALLOWED_ROLES: UserRole[] = [
 ];
 
 const MAX_REMOTE_ASSET_BYTES = 25 * 1024 * 1024; // 25 MB
+
+function isPrivateIpAddress(ip: string): boolean {
+  const lower = ip.toLowerCase().replace(/^\[|\]$/g, '');
+  if (net.isIPv4(lower)) {
+    const parts = lower.split('.').map(Number);
+    const [a, b] = parts;
+    return (
+      a === 10 ||
+      a === 127 ||
+      a === 0 ||
+      (a === 169 && b === 254) ||
+      (a === 172 && b >= 16 && b <= 31) ||
+      (a === 192 && b === 168) ||
+      (a === 100 && b >= 64 && b <= 127)
+    );
+  }
+  if (net.isIPv6(lower)) {
+    return (
+      lower === '::1' ||
+      lower === '::' ||
+      lower.startsWith('fe80:') ||
+      lower.startsWith('fc00:') ||
+      lower.startsWith('fd') ||
+      lower.startsWith('::ffff:127.') ||
+      lower.startsWith('::ffff:10.') ||
+      lower.startsWith('::ffff:169.254.') ||
+      lower.startsWith('::ffff:192.168.')
+    );
+  }
+  return false;
+}
 
 function isPrivateOrBlockedHostname(hostname: string): boolean {
   const lower = hostname.toLowerCase().replace(/^\[|\]$/g, '');
@@ -33,47 +77,20 @@ function isPrivateOrBlockedHostname(hostname: string): boolean {
     return true;
   }
 
-  // Bloqueia IPs IPv4 privados / loopback / link-local / cloud metadata (169.254.x.x)
-  const ipv4Match = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(lower);
-  if (ipv4Match) {
-    const [a, b] = [Number(ipv4Match[1]), Number(ipv4Match[2])];
-    if (
-      a === 10 ||
-      a === 127 ||
-      a === 0 ||
-      (a === 169 && b === 254) ||
-      (a === 172 && b >= 16 && b <= 31) ||
-      (a === 192 && b === 168) ||
-      (a === 100 && b >= 64 && b <= 127)
-    ) {
-      return true;
-    }
-  }
-
-  // Bloqueia prefixos IPv6 locais
-  if (
-    lower.startsWith('fe80:') ||
-    lower.startsWith('fc00:') ||
-    lower.startsWith('fd')
-  ) {
-    return true;
-  }
-
-  return false;
+  return isPrivateIpAddress(lower);
 }
 
-function validateSafeRemoteUrl(rawUrl: string): URL | null {
+async function validateSafeRemoteUrl(rawUrl: string): Promise<URL | null> {
   try {
     const parsed = new URL(rawUrl);
     if (parsed.protocol !== 'https:') return null;
     if (isPrivateOrBlockedHostname(parsed.hostname)) return null;
 
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    if (supabaseUrl) {
-      const supabaseHost = new URL(supabaseUrl).hostname;
-      if (parsed.hostname === supabaseHost) {
-        return parsed;
-      }
+    // [HARDENED] SEC-009: Resolve DNS antes do fetch para bloquear SSRF via DNS rebinding
+    const resolved = await dns.lookup(parsed.hostname, { all: true });
+    if (!resolved || resolved.length === 0) return null;
+    for (const addr of resolved) {
+      if (isPrivateIpAddress(addr.address)) return null;
     }
 
     return parsed;
@@ -94,6 +111,18 @@ export async function POST(req: NextRequest) {
       allowedRoles: BRAND_ALLOWED_ROLES,
     });
     if (!auth.ok) return auth.response;
+
+    // [HARDENED] SEC-009: Rate limit em extrações multimodais Gemini
+    const clientIp = extractClientIp(req.headers);
+    const rateKey = `brand-extract:${auth.user.id}:${clientIp}`;
+    const rateStatus = checkServerRateLimit(rateKey, BRAND_RATE_CFG);
+    if (!rateStatus.allowed) {
+      return NextResponse.json(
+        { error: 'Muitas extrações de manual em sequência. Aguarde alguns minutos.' },
+        { status: 429 }
+      );
+    }
+    recordServerRateLimitFailure(rateKey, BRAND_RATE_CFG);
 
     const contentType = req.headers.get('content-type') || '';
     let buffer: Buffer | null = null;
@@ -138,8 +167,21 @@ export async function POST(req: NextRequest) {
         );
       }
 
+      if (file.size > MAX_REMOTE_ASSET_BYTES) {
+        return NextResponse.json(
+          { error: 'O arquivo enviado excede o limite de 25 MB.' },
+          { status: 413 }
+        );
+      }
+
       const arrayBuffer = await file.arrayBuffer();
       buffer = Buffer.from(arrayBuffer);
+      if (buffer.byteLength > MAX_REMOTE_ASSET_BYTES) {
+        return NextResponse.json(
+          { error: 'O arquivo enviado excede o limite de 25 MB.' },
+          { status: 413 }
+        );
+      }
       filename = file.name || 'manual_marca.pdf';
       mimeType = file.type || 'application/pdf';
 
@@ -202,7 +244,7 @@ export async function POST(req: NextRequest) {
       }
 
       if (body.fileUrl) {
-        const safeUrl = validateSafeRemoteUrl(String(body.fileUrl));
+        const safeUrl = await validateSafeRemoteUrl(String(body.fileUrl));
         if (!safeUrl) {
           return NextResponse.json(
             {
@@ -241,7 +283,13 @@ export async function POST(req: NextRequest) {
         mimeType = response.headers.get('content-type') || 'application/pdf';
         filename = body.filename || 'manual_marca.pdf';
       } else if (body.fileBase64) {
-        buffer = Buffer.from(body.fileBase64, 'base64');
+        buffer = Buffer.from(String(body.fileBase64), 'base64');
+        if (buffer.byteLength > MAX_REMOTE_ASSET_BYTES) {
+          return NextResponse.json(
+            { error: 'O arquivo Base64 excede o limite de 25 MB.' },
+            { status: 413 }
+          );
+        }
         mimeType = body.mimeType || 'application/pdf';
         filename = body.filename || 'manual_marca.pdf';
       } else {

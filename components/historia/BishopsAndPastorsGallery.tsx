@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Crown, Sparkles, User, Award, ShieldCheck, Heart, Maximize2 } from 'lucide-react';
+import { Crown, Sparkles, User, Award, ShieldCheck, Heart, Maximize2, Landmark } from 'lucide-react';
 import { BISHOPS_SUCCESSION, PARISH_PRIESTS_SUCCESSION, BishopSuccession, PastorSuccession } from '@/lib/history';
 import { BishopDetailModal } from './BishopDetailModal';
 import { CathedralCurrentClergyGrid } from './CathedralCurrentClergyGrid';
@@ -253,7 +253,7 @@ export function BishopsAndPastorsGallery({ initialBishops, initialPastors }: Bis
                   {/* Nota Solene de Cripta da Catedral (Ex: Cônego Geraldo Meyers) */}
                   {pastor.cryptNote && (
                     <div className="p-2.5 rounded-xl bg-[#8B1E22]/10 border border-[#8B1E22]/20 text-[11px] text-[#8B1E22] dark:text-[#FFA82A] font-semibold flex items-center gap-2">
-                      <span className="text-sm">🏛️</span>
+                      <Landmark className="w-3.5 h-3.5 shrink-0" />
                       <span>{pastor.cryptNote}</span>
                     </div>
                   )}
