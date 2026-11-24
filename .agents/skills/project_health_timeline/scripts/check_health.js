@@ -10,51 +10,17 @@ const fs = require('fs');
 
 const MILESTONES = [
   {
-    id: 'fase_1',
-    name: 'Fase 1: Go-Live Oficial do Portal da Matriz & 12 CEBs',
-    liturgical_event: '1º Domingo do Advento (Início do Ano Litúrgico C)',
-    target_date: '2026-11-29',
-    deliverables: [
-      'Portal da Matriz e Mini-sites das 12 CEBs no ar no domínio definitivo',
-      'Card Missas de Hoje e Palavra do Pároco/Bispo na Home',
-      'Central do Dízimo (Theòs) + QR Code PIX de Doações',
-      'Clero oficial (4 padres) e WhatsApp da secretaria',
-      'Configuração de DNS, Cloudflare e Vercel (Produção)',
-      'Capacitação da secretária e lideranças paroquiais'
-    ]
-  },
-  {
-    id: 'fase_2',
-    name: 'Fase 2: Secretaria On-line & Agendamentos com Padres',
-    liturgical_event: '2º Domingo do Advento',
-    target_date: '2026-12-06',
-    deliverables: [
-      'Agendamento de confissões sacramentais com os 4 sacerdotes',
-      'Inscrições de sacramentos (Batismo, Catequese, Noivos)',
-      'Painel /admin/secretaria e sub-abas de atendimento',
-      'Notificações por e-mail transacional (Resend)'
-    ]
-  },
-  {
-    id: 'fase_3',
-    name: 'Fase 3: Inteligência Paroquial & Assistente IA',
-    liturgical_event: '3º Domingo do Advento (Gaudete)',
-    target_date: '2026-12-13',
-    deliverables: [
-      'Assistente IA Paroquial com RAG (Gemini 2.5 Flash + Supabase pgvector)',
-      'Drawer flutuante global no /admin e hub de documentos',
-      'Homologação de respostas canônicas e pastorais'
-    ]
-  },
-  {
-    id: 'fase_4',
-    name: 'Fase 4: Solenidade de Natal & Consolidação Plena',
-    liturgical_event: 'Natividade do Senhor (Natal)',
+    id: 'fase_natal',
+    name: 'Solenidade do Natal & Go-Live Pleno',
+    liturgical_event: 'Natividade de Nosso Senhor Jesus Cristo',
     target_date: '2026-12-25',
+    is_primary: true,
     deliverables: [
-      'Grade especial da Novena de Natal e Missa do Galo',
-      'Campanha de instalação do PWA nos celulares dos fiéis',
-      'Encerramento do setup piloto e início da assinatura mensal'
+      'Grade especial da Novena de Natal, Missa da Vigília (Missa do Galo) e Ano Novo',
+      'Cartas Pastorais de Natal do Pároco Pe. Irineu e do Bispo Dom Lauro em destaque',
+      'Campanha de instalação do PWA com cartazes e displays nos bancos (/instalar/imprimir)',
+      'Apontamento definitivo de DNS catedraldecolatina.org.br e Escudo Cloudflare',
+      'Hardening de banco Supabase Pro e início do ciclo de mensalidade SaaS'
     ]
   }
 ];
@@ -109,37 +75,37 @@ function calculateHealth() {
     statusExplanation = `Faltam ${daysRemaining} dias até ${activeMilestone.target_date}. Recomendado acelerar pendências imediatas.`;
   }
 
-  // Sugestões de trilhas por tempo disponível
+  // Sugestões de trilhas por tempo disponível (Foco: Solenidade do Natal 2026)
   const tracks = {
     min_30: {
       time: '30 minutos',
-      title: 'Pequenos Ajustes & Commit de Segurança',
-      tasks: git.isClean
-        ? ['Testar o upload de PDF de folheto no Supabase Storage via /admin/folhetos', 'Revisar textos e meta-tags do portal']
-        : ['Executar o Protocolo Deploy (git add, commit & push das alterações pendentes de folhetos e layout)', 'Rodar validação de build local']
+      title: 'Homologação de Materiais de Impressão PWA para os Bancos (/instalar/imprimir)',
+      tasks: [
+        'Revisar e imprimir em tela os 3 formatos de QR Code (Cartaz A4, Displays de Banco e Cartões de Bolso) em /instalar/imprimir',
+        'Validar layout responsivo mobile e contraste no modo P&B para impressão na paróquia'
+      ]
     },
     min_60: {
       time: '1 hora',
-      title: 'Implementação Funcional Focal',
+      title: 'Programação Litúrgica Especial de Natal 2026 (/programacao)',
       tasks: [
-        'Criar modal de cadastro/edição (CRUD) de Mensagens Pastorais em /admin/mensagens com gravação real no Supabase',
-        'Validar persistência e alternância de destaque na Home da paróquia'
+        'Cadastrar ou ajustar no construtor de festas (/admin/programacao) a grade da Novena de Natal, Missa do Galo e Missas de Natal e Ano Novo',
+        'Ativar o banner oficial de contagem regressiva da Solenidade do Natal na Home'
       ]
     },
     min_120: {
       time: '2 horas',
-      title: 'Sprint Técnica de Pré-Produção',
+      title: 'Sprint de Natal: Mensagens Pastorais & Hardening Supabase',
       tasks: [
-        'Executar Checklist do Protocolo de Lançamento em Produção (RLS, npm audit, variáveis Vercel)',
-        'Configurar zona Cloudflare (Proxy Nuvem Laranja + SSL Strict) para catedraldecolatina.org.br',
-        'Finalizar o fluxo completo do módulo de mensagens pastorais'
+        'Ativar as Cartas Pastorais solenes de Natal de Pe. Irineu e Dom Lauro na Home e em /mensagens (seed 20261027_seed_advent_christmas_pastoral_messages.sql)',
+        'Configurar a chave SUPABASE_SERVICE_ROLE_KEY e avançar no fechamento de RLS/banco sem pressa'
       ]
     },
     livre: {
       time: 'Livre / Maratona',
-      title: 'Avanço de Marco Completo',
+      title: 'Consolidação Plena de Natal',
       tasks: [
-        'Concluir 100% das pendências técnicas da Fase 1 e preparar o ambiente de produção definitivo para o Go-Live de 01/11'
+        'Concluir 100% do ecossistema de Natal (Grade Especial, PWA nos bancos, DNS Cloudflare e homologação geral para 25/12)'
       ]
     }
   };

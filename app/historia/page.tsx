@@ -1,9 +1,8 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import { ArrowLeft, Church, Heart, Calendar, Sparkles, Landmark, Crown, Users } from 'lucide-react';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
@@ -29,9 +28,10 @@ export const metadata: Metadata = {
     'Conheça a história quase centenária da Catedral de Colatina, os marcos da sua construção, seus vitrais sagrados e a linha da Sucessão Apostólica e Párocos.',
 };
 
+export const revalidate = 60;
+
 export default async function CathedralHistoryPage() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
   // 1. Obter dados da Paróquia
   const { data: parishesData } = await supabase.from('parishes').select('*').limit(1);

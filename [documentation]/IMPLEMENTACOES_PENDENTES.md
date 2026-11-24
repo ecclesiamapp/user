@@ -1,9 +1,14 @@
 # 📋 Documento de Implementações Pendentes & Backlog Futuro
 
 > **Documento Oficial de Governança de Escopo e Evolução (SSOT)**  
-> **Status:** Atualizado e Auditado pelo Gerente de Projeto  
-> **Última Atualização:** 29 de Outubro de 2026  
-> **Referência:** Alinhado com [`PLANO_DE_ACAO_DETALHADO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PLANO_DE_ACAO_DETALHADO.md) e [`DIRETRIZ_PASTORAL_E_FINANCEIRA_DIZIMO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/DIRETRIZ_PASTORAL_E_FINANCEIRA_DIZIMO.md)
+> **Status:** Reorientado para a Solenidade do Natal 2026 (25/12/2026)  
+> **Última Atualização:** 23 de Novembro de 2026  
+> **Referência:** Alinhado com [`PLANO_DE_ACAO_DETALHADO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PLANO_DE_ACAO_DETALHADO.md) e [`PLANO_DESENVOLVIMENTO_NATAL_2026.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PLANO_DESENVOLVIMENTO_NATAL_2026.md)
+
+> [!IMPORTANT]
+> **🎄 REORIENTAÇÃO ESTRATÉGICA DE MARCO (23/11/2026):**  
+> Por determinação expressa do desenvolvedor, a programação para o dia 29/11 (1º Domingo do Advento) foi frustrada/postergada na paróquia. O alvo operacional do projeto é agora **100% concentrado na Solenidade do Natal (25 de Dezembro de 2026)**.  
+> Com **32 dias de janela confortável (4 semanas do Advento)**, a equipe tem pista livre para estabilizar sem pressa a infraestrutura de produção, ativar a grade solene de fim de ano (Novena de Natal e Missa do Galo), promover a instalação do PWA nos bancos e homologar todo o ecossistema com rigor.
 
 Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-Fase 8 / Ciclo 2027)** dos itens que **já foram 100% implementados e homologados** ao longo das Fases 1 a 8 da Catedral do Sagrado Coração de Jesus.
 
@@ -11,28 +16,31 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
 
 ## 🚀 PARTE I — BACKLOG ATIVO PARA IMPLEMENTAÇÃO FUTURA (PÓS-FASE 8)
 
-### 📌 1. `[MainAdmin]` — Console Global do Proprietário / SaaS (`/superadmin`)
+### 📌 1. `[MainAdmin]` — Console Global do Proprietário / SaaS (`/admin/superadmin`)
 
-* **Status:** ⏳ **Pendente (Backlog Pós-Go-Live da Catedral)**
-* **⏱️ Tempo Estimado de Execução:** `~1h30 a 2h` (dividido em 3 entregas modulares de `~35 min`).
-* **Rota Prevista:** `/superadmin` (no mesmo projeto Next.js, com isolamento estrito de middleware e RBAC `superadmin`).
-* **Escopo Funcional:**
+* **Status:** ✅ **100% Concluído & Homologado (Fase 9 / TASK-49 a TASK-52)**
+* **Rota Ativa:** `/admin/superadmin` e portal de entrada `/login`
+* **Escopo Funcional Entregue:**
   * Gestão de Tenants (todas as paróquias clientes da plataforma Ecclesiam).
-  * Provisionamento e onboarding automatizado de novas paróquias (geração de slugs, identidade visual inicial e mapeamento de domínios customizados).
-  * Gestão de planos, assinaturas e status de faturamento SaaS da plataforma.
+  * Provisionamento e onboarding automatizado 1-Click de novas paróquias (geração de slugs, identidade visual inicial e mapeamento de domínios customizados).
+  * Gestão de planos, assinaturas e status de faturamento SaaS da plataforma com Kill-Switch ético (`ativa`, `implantacao`, `suspensa`).
+  * Trilha de auditoria LGPD e segurança anti-brute-force (`security_audit_logs`).
   * Métricas agregadas de saúde de infraestrutura, volume de atendimentos pastorais e engajamento das comunidades (respeitando a neutralidade financeira perante o Theòs).
 
 ---
 
 ### 📌 2. Módulo Dedicado de Movimentos Paroquiais (ECC, EAC e EJC)
 
-* **Status:** ⏳ **Pendente (Backlog Estrutural Pastoral)**
-* **⏱️ Tempo Estimado de Execução:** `~1h30 a 2h` (Modelagem Supabase `~30 min` + Mini-sites públicos `~40 min` + Painel Admin `~40 min`).
+* **Status:** ✅ **100% Concluído & Homologado**
+* **Rotas Ativas:** `/movimentos`, `/movimentos/[slug]`, `/admin/movimentos`
 * **Movimentos Contemplados:**
   * **ECC** (Encontro de Casais com Cristo)
   * **EAC** (Encontro de Adolescentes com Cristo)
   * **EJC** (Encontro de Jovens com Cristo)
-* **Escopo no Portal Público (`/movimentos/[slug]`):**
+* **Entregas Técnicas Entregues:**
+  * **Passo 1 (Modelagem & RLS):** Migração [`supabase/migrations/20261107_create_parish_movements.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261107_create_parish_movements.sql), tabelas `parish_movements`, `parish_movement_events`, `parish_movement_registrations` e bucket `movement_assets` com RLS estrito e carga canônica da Catedral.
+  * **Passo 2 (Portal Público & Transparência LGPD em 2 Etapas):** Hub [`app/movimentos/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/movimentos/page.tsx), mini-sites [`app/movimentos/[slug]/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/movimentos/%5Bslug%5D/page.tsx), stepper de conformidade jurídica [`MovementLegalTermsStep.tsx`](file:///c:/Users/Start/ecclesiam-app/components/movements/MovementLegalTermsStep.tsx) (4 cards com bases legais da LGPD Art. 11/14 e ECA Digital) integrado ao modal [`MovementRegistrationModal.tsx`](file:///c:/Users/Start/ecclesiam-app/components/movements/MovementRegistrationModal.tsx).
+  * **Passo 3 (Painel Administrativo & Menu):** Painel [`app/admin/movimentos/page.tsx`](file:///c:/Users/Start/ecclesiam-app/app/admin/movimentos/page.tsx) com abas de Fila de Fichas/Triagem ([`MovementRegistrationsTab.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/movements/MovementRegistrationsTab.tsx)), Gestão de Encontros com 1-Click Toggle ([`MovementEventsTab.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/movements/MovementEventsTab.tsx)), Edição de Dados ([`MovementInfoTab.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/movements/MovementInfoTab.tsx)) e item oficial na [`AdminSidebar.tsx`](file:///c:/Users/Start/ecclesiam-app/components/admin/layout/AdminSidebar.tsx).
   * Identificação, brasão/identidade, carisma espiritual e patrono de cada movimento.
   * Equipe Dirigente atual (Casal Coordenador / Jovens Coordenadores e Diretor Espiritual) com contato WhatsApp.
   * Calendário anual condensado (Encontros de 1ª, 2ª e 3ª etapas, pós-encontros, círculos e Santas Missas de entrega).
@@ -45,9 +53,13 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
 
 ### 📌 3. Área Privada do Fiel ("Meu Espaço Paroquial" — `/meu-espaco`)
 
-* **Status:** ⏳ **Pendente (Backlog Fase 2027)**
+* **Status:** ✅ **100% Concluído & Homologado**
+* **Rotas Ativas:** `/meu-espaco` e banner integrado na Home (`/`)
 * **Documento Detalhado:** [`ESCOPO_AREA_DO_FIEL.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/ESCOPO_AREA_DO_FIEL.md)
-* **⏱️ Tempo Estimado de Execução:** `~2h` (dividido em 3 etapas de `~40 min`).
+* **Entregas Técnicas Entregues:**
+  * **Etapa 1 (Arquitetura, Acesso & Hub Bento Grid):** Rota `/meu-espaco`, acesso Passwordless WhatsApp/Protocolo sem senhas, Bento Grid com as 14 CEBs, agendamentos com os 4 sacerdotes, intenções Púlpito A4 e PIX Theòs.
+  * **Etapa 2 (Ações Interativas, Cancelamento & Comprovante Digital):** Cancelamento prévio de agendamentos para liberação fraterna de vagas na agenda dos sacerdotes, e modal de comprovante litúrgico [`IntentionReceiptModal.tsx`](file:///c:/Users/Start/ecclesiam-app/components/meu-espaco/IntentionReceiptModal.tsx) com atalho de compartilhamento no WhatsApp para a família e impressão em PDF da intenção para o Púlpito A4.
+  * **Etapa 3 (Sincronização & Destaque na Home):** Banner monumental e acolhedor [`MeuEspacoHomeBanner.tsx`](file:///c:/Users/Start/ecclesiam-app/components/home/MeuEspacoHomeBanner.tsx) integrado na página inicial, sincronização reativa de sessão cross-tab e conformidade estrita com a LGPD e o THEOS.
 * **Escopo Funcional (Alinhado à Diretriz Canônica Theòs):**
   1. **Autenticação sem Senha (Passwordless):** Acesso simples via Código OTP de 6 dígitos ou Magic Link (ideal para fiéis idosos).
   2. **Meus Agendamentos & Protocolos da Secretaria:** Acompanhamento em tempo real de confissões/atendimentos com os 4 sacerdotes, solicitações de certidões e protocolos unificados de **Intenções de Missa (Púlpito A4)**.
@@ -56,21 +68,116 @@ Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-
 
 ---
 
-### 📌 4. Curadoria Externa em Estúdio/Alta Resolução dos Retratos dos Bispos Diocesanos
+### 📌 4. Curadoria dos Retratos dos Bispos Diocesanos & Galeria do Clero da Catedral
 
-* **Status:** ⏳ **Aguardando Acervo Oficial da PASCOM / Chancelaria Diocesana**
-* **⏱️ Tempo Estimado de Execução:** `~30 minutos` (após recebimento dos arquivos originais da Cúria).
-* **Arquivos Envolvidos:** `public/images/pastores/*.webp`, [`BishopsAndPastorsGallery.tsx`](file:///c:/Users/Start/ecclesiam-app/components/historia/BishopsAndPastorsGallery.tsx) e tabela `public.parish_pastors_succession`.
-* **Objetivo:** Substituir os retratos atuais (já funcionais em `.webp`) pelos retratos canônicos de estúdio em alta definição fornecidos pela Chancelaria Diocesana para Dom Geraldo Lyrio Rocha (✝ 2023), Dom Décio Sossai Zandonade, Dom Joaquim Wladimir Lopes Dias e Dom Lauro Sérgio Versiani Barbosa, com padronização 4:5 (`<= 70KB`).
+* **Status:** ✅ **100% Concluído & Homologado**
+* **Rotas Ativas:** `/historia` (aba "Bispos" e aba "Párocos")
+* **Entregas Técnicas Entregues:**
+  * **Padronização Canônica 4:5:** Retratos dos 4 bispos diocesanos (Dom Geraldo, Dom Décio, Dom Wladimir e Dom Lauro) perfeitamente ajustados na proporção 4:5 (`600x750`) com compressão WebP de alta fidelidade (`<= 55KB`).
+  * **Modal Solene de Ampliação:** Subcomponente [`BishopDetailModal.tsx`](file:///c:/Users/Start/ecclesiam-app/components/historia/BishopDetailModal.tsx) com visualização solene do retrato, lema episcopal oficial em latim e tradução, resumo histórico e marcos notáveis na Diocese de Colatina.
+  * **Grid Nobre do Clero em Atividade:** Subcomponente [`CathedralCurrentClergyGrid.tsx`](file:///c:/Users/Start/ecclesiam-app/components/historia/CathedralCurrentClergyGrid.tsx) apresentando os 4 sacerdotes da Catedral (Pe. Irineu Claudino Sales, Pe. Adilson Ramos de Melo, Pe. Deivid José Langa Lopes e Pe. Ernandes Samuel Fantin) com datas canônicas de ordenação presbiteral e retratos otimizados em 4:5 (`pe-deivid-pereira.webp` de 21KB e `pe-ernandes-fantin.webp` de 67KB).
+  * **Refatoração Anti-Monólito:** Galeria [`BishopsAndPastorsGallery.tsx`](file:///c:/Users/Start/ecclesiam-app/components/historia/BishopsAndPastorsGallery.tsx) mantida leve e modular (260 linhas).
 
 ---
 
 ### 📌 5. Blindagem Final de RLS Pré-Go-Live & Apontamento DNS (`TASK-12`)
 
-* **Status:** ⏳ **Pré-Lançamento Oficial (Novembro de 2026)**
-* **⏱️ Tempo Estimado de Execução:**
-  * Hardening de RLS (transição de políticas `anon` de homologação para `authenticated` + RBAC estrito por `parish_id`): `~30 a 45 minutos`.
+* **Status:** 🛡️ **Hardening de RLS e Auditoria de Segurança 100% Concluídos** | ⏳ **Apontamento DNS Pré-Go-Live**
+* **Entregas de Segurança Concluídas:**
+  * **Auditoria Multi-Agente:** Convocação do Squad de 5 especialistas (`security-reviewer`, `architect`, `critic`, `executor`, `verifier`).
+  * **Revogação de Permissões Anônimas:** Eliminação de mutação anônima (`ALL`, `UPDATE`, `DELETE`) em todas as tabelas mestras da paróquia e restrição estrita aos roles `authenticated` e `service_role`.
+  * **Blindagem LGPD:** Proteção de dados de fiéis em `mass_intentions`, `certificate_requests`, `tithe_registrations` e `parish_movement_registrations` (fiel tem permissão apenas de `INSERT` com consentimento; consultas ocorrem via RPCs seguras).
+  * **RPCs Blindadas para a Área do Fiel:** Implementação de `lookup_parishioner_intentions`, `lookup_parishioner_appointments` e `cancel_parishioner_appointment` com validação de telefone/protocolo e `SET search_path = ''`.
+  * **Resolução de Avisos Supabase Linter:** Blindagem de `search_path` nas funções `get_booked_appointment_slots` e `increment_booklet_downloads`.
+  * **Script SQL de Migração Oficial:** [`supabase/migrations/20261109_security_rls_hardening.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261109_security_rls_hardening.sql).
+* **Item Restante para o Lançamento Definitivo:**
   * Apontamento DNS & Escudo Cloudflare (`catedraldecolatina.org.br` — Proxy Nuvem Laranja + SSL Full Strict): `~25 minutos` *(aguardando credenciais DNS da paróquia)*.
+
+---
+
+### 🚨 6. Bloqueadores Técnicos de Go-Live (Hardening de Engenharia & Produção — Fase 10)
+
+* **Status:** 🔴 **Bloqueadores Obrigatórios Antes de Produção Pública / Multi-Tenant SaaS**
+* **Origem:** Auditoria técnica de engenharia de software realizada em 12/11/2026.
+
+#### 🔒 Bloqueador 1 (`TASK-53`): Blindagem Real de Autenticação & APIs Administrativas
+* **Status:** 🟡 **Código & Migração SQL Entregues — Execução no Banco Vivo Adiada pelo Dev (`18/11/2026`)**
+* **Motivo do Adiamento:** `SUPABASE_SERVICE_ROLE_KEY` ainda não foi configurada em `.env.local` nem na Vercel (`prj_Bd5SkrB5C4hpTOtSqSnAxK21SjyZ`), e `auth.users` possui `0` usuários enquanto `public.user_profiles` possui `8` administradores legados. Executar `20261114_task53_auth_rls_lockdown.sql` antes da chave causaria **lockout imediato** em `/login` e `/admin`.
+
+#### 📦 Bloqueador 2 (`TASK-54`): Patch Crítico de Dependência (`Next.js`), Upload Real & Lint
+* **Status:** ✅ **Concluído (`next@16.4.6`, `0` vulnerabilidades de produção, `0` erros ESLint e `/api/upload` exclusivamente em Storage)**
+
+#### 🧪 Bloqueador 3 (`TASK-55`): Performance RLS, Testes Críticos & Saída da Stack Gratuita
+* **Status:** ✅ **SQL & Suíte de Testes Entregues** *(aguardando configuração de `SUPABASE_SERVICE_ROLE_KEY` + upgrade de assinatura Pro na ativação comercial)*
+* **Entregas Realizadas (`TASK-55`):**
+  * **Consolidação RLS & Índices ([`20261114_task55_rls_performance_and_indexes.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task55_rls_performance_and_indexes.sql)):** Criação dos 2 índices pendentes de Foreign Key (`parish_knowledge_documents.uploaded_by` e `security_audit_logs.user_profile_id`) e unificação das 20 políticas redundantes de `SELECT` (`multiple_permissive_policies`) separando leitura (`SELECT`) de escrita (`INSERT`/`UPDATE`/`DELETE`) com otimização `(SELECT ...)`.
+  * **Suíte Mínima Automatizada (`npm test`):** Testes em `tests/` cobrindo bloqueio do `proxy.ts` em `/admin`, `/api/admin/**` e `/api/upload` (inclusive contra falsificação do cookie legado), rate limiter server-side, validação anti-auto-elevação de privilégio em `/api/auth/request-access`, exigência de `SUPABASE_SERVICE_ROLE_KEY` e contratos de `/api/notifications` e `/api/dizimo/register`.
+
+#### ⏳ Pendência Operacional Registrada — Banco Vivo `ecclesiamapp` (`rlcaapydcozsshafyvxx`) — `18/11/2026`
+* **⏱️ Tempo Estimado para concluir quando retomada:** ~5 a 10 minutos
+* **Já aplicado via Supabase MCP em `18/11/2026`:**
+  * ✅ `20261118200355` — `task56_idempotency_keys` (`idempotency_key` + índices parciais únicos em `pastoral_appointments` e `mass_intentions`).
+  * ✅ `20261118200430` — `create_parish_movements` (`parish_movements`, `parish_movement_events`, `parish_movement_registrations`, bucket `movement_assets` e seed ECC/EAC/EJC).
+  * ✅ `20261118200433` — `harden_public_rpcs_and_indexes` (`SET search_path = ''` nas RPCs, índices FK e blindagem anti-curinga nas 3 RPCs de `/meu-espaco`).
+* **Checklist Pendente (Retida contra Lockout):**
+  - [ ] Copiar a chave `service_role` em **Supabase (`rlcaapydcozsshafyvxx`) → Project Settings → API** e salvar `SUPABASE_SERVICE_ROLE_KEY` no `.env.local`.
+  - [ ] Cadastrar na **Vercel (`prj_Bd5SkrB5C4hpTOtSqSnAxK21SjyZ` — Production & Preview)**: `NEXT_PUBLIC_SUPABASE_URL` (`https://rlcaapydcozsshafyvxx.supabase.co`), `NEXT_PUBLIC_SUPABASE_ANON_KEY` e `SUPABASE_SERVICE_ROLE_KEY`.
+  - [ ] Validar 1 login real em `/login` após configurar a chave (garantindo a migração dos `8` admins legados para `auth.users`).
+  - [ ] Executar no **Supabase SQL Editor** do projeto `rlcaapydcozsshafyvxx`, nesta ordem exata *(o cliente MCP cancela comandos `DROP POLICY`)*:
+    1. [`supabase/migrations/20261114_task53_auth_rls_lockdown.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task53_auth_rls_lockdown.sql)
+    2. [`supabase/migrations/20261114_task55_rls_performance_and_indexes.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task55_rls_performance_and_indexes.sql)
+    3. [`supabase/migrations/20270401_audit_rls_tenant_lockdown.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20270401_audit_rls_tenant_lockdown.sql)
+
+* **Checklist Obrigatório de Saída da Stack Gratuita (Ativação Comercial Multi-Paróquia):**
+  1. **Supabase Pro (`US$ 25/mês`):**
+     * Elimina pausa automática por inatividade de 7 dias.
+     * Habilita **Daily Backups + Point-in-Time Recovery (PITR)** para dados sacramentais e pastorais (LGPD).
+     * Eleva cotas de egress/bandwidth, Storage e conexões simultâneas em horários de pico (Santa Missa dominical e festas do padroeiro).
+  2. **Vercel Pro (`US$ 20/mês`):**
+     * Licença comercial exigida pelos Termos de Serviço da Vercel para operação SaaS paga multi-paróquia.
+     * Amplia timeout de Serverless Functions (essencial para rotas de IA `/api/admin/brand/extract` e `/api/admin/ai/sync-database`), logs persistentes e proteção de equipe.
+
+---
+
+### ✨ 7. Polimento UX, Acessibilidade & Resiliência Mobile (Fase 11)
+
+* **Status:** ✅ **Concluída — 3/3 (`TASK-56` ✅, `TASK-57` ✅, `TASK-58` ✅)**
+* **Origem:** Entrevista arquitetural (`/grill-me`) sobre o guia *Polish* (Lincoln Devine) em 14/11/2026, filtrada para o contexto Web/Next.js + PWA da Catedral (>85% mobile, fiéis idosos, 3G/4G).
+
+#### ✅ `TASK-56`: Resiliência de Formulários, Idempotência & Erros Amigáveis (CONCLUÍDA em 14/11/2026)
+* **⏱️ Tempo Estimado:** ~35 a 45 minutos
+* **Escopo Fechado:**
+  * ✅ Rascunho automático em `sessionStorage` via [`useSessionDraft.ts`](file:///c:/Users/Start/ecclesiam-app/lib/hooks/useSessionDraft.ts) (expira em 4h e apaga ao fechar o navegador, protegendo dados em celulares compartilhados — LGPD/ECA Digital) nos formulários [`PastoralAppointmentBooking.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/PastoralAppointmentBooking.tsx), [`CertificateRequestForm.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/certidoes/CertificateRequestForm.tsx), [`SacramentRegistrationContainer.tsx`](file:///c:/Users/Start/ecclesiam-app/components/secretaria/sacramentos/SacramentRegistrationContainer.tsx) e [`MovementRegistrationModal.tsx`](file:///c:/Users/Start/ecclesiam-app/components/movements/MovementRegistrationModal.tsx).
+  * ✅ Tradutor central [`friendlyError.ts`](file:///c:/Users/Start/ecclesiam-app/lib/security/friendlyError.ts) substituindo exposição crua de `err?.message` / `error.message` nos arquivos de Admin, Login, Upload e Secretaria.
+  * ✅ Envio e validação de `idempotency_key` no servidor ([`idempotency.ts`](file:///c:/Users/Start/ecclesiam-app/lib/security/idempotency.ts), [`/api/secretaria/appointments`](file:///c:/Users/Start/ecclesiam-app/app/api/secretaria/appointments/route.ts), [`/api/secretaria/intentions`](file:///c:/Users/Start/ecclesiam-app/app/api/secretaria/intentions/route.ts)) e migração SQL [`20261114_task56_idempotency_keys.sql`](file:///c:/Users/Start/ecclesiam-app/supabase/migrations/20261114_task56_idempotency_keys.sql) para evitar duplicidade em conexões 3G/4G instáveis.
+
+#### ✅ `TASK-57`: PWA Offline Leve (`public/sw.js`) para Leitura Pública (CONCLUÍDA em 18/11/2026)
+* **⏱️ Tempo Estimado:** ~30 a 40 minutos
+* **Escopo Fechado:**
+  * ✅ Service Worker minimalista ([`public/sw.js`](file:///c:/Users/Start/ecclesiam-app/public/sw.js)) registrado por [`PwaServiceWorkerRegister.tsx`](file:///c:/Users/Start/ecclesiam-app/components/pwa/PwaServiceWorkerRegister.tsx) em [`app/layout.tsx`](file:///c:/Users/Start/ecclesiam-app/app/layout.tsx) e integrado ao [`app/manifest.ts`](file:///c:/Users/Start/ecclesiam-app/app/manifest.ts) com header `no-cache` em [`next.config.ts`](file:///c:/Users/Start/ecclesiam-app/next.config.ts).
+  * ✅ Estratégia *stale-while-revalidate* restrita às rotas e mídias públicas somente leitura (`/`, `/agenda-liturgica`, `/comunidades`, `/historia`, `/horarios`, `/noticias`, `/mensagens`, `/programacao`, `/movimentos`, `/api/liturgia` e folhetos PDF), ignorando respostas `no-store`/`private`/`Set-Cookie`.
+  * ✅ Bloqueio explícito de interceptação e cache para `/admin`, `/login`, `/meu-espaco`, `/api/admin`, `/api/auth`, `/api/upload`, `/api/secretaria`, `/api/dizimo` e `/api/notifications` (validado em [`tests/pwa-sw.test.ts`](file:///c:/Users/Start/ecclesiam-app/tests/pwa-sw.test.ts)).
+
+#### ✅ `TASK-58`: Skeletons (`loading.tsx`), Escala Tipográfica Persistida & Micro-Interações (CONCLUÍDA em 18/11/2026)
+* **⏱️ Tempo Estimado:** ~35 a 45 minutos
+* **Escopo Fechado:**
+  * ✅ Skeleton reutilizável [`PublicRouteSkeleton.tsx`](file:///c:/Users/Start/ecclesiam-app/components/ui/PublicRouteSkeleton.tsx) aplicado em `4` rotas dinâmicas públicas (`app/agenda-liturgica/loading.tsx`, `app/comunidades/[slug]/loading.tsx`, `app/noticias/loading.tsx`, `app/historia/loading.tsx`).
+  * ✅ Persistência versionada do controle `A- / A / A+` em escala relativa (`%`) via [`usePersistentFontScale.ts`](file:///c:/Users/Start/ecclesiam-app/lib/hooks/usePersistentFontScale.ts) integrado em [`CathedralHeader.tsx`](file:///c:/Users/Start/ecclesiam-app/components/layout/CathedralHeader.tsx).
+  * ✅ Substituição de emojis pictóricos de UI por ícones `lucide-react` em `13` arquivos públicos/componentes (preservando o símbolo sagrado `✝` e textos de WhatsApp) e feedback tátil leve `:active` (`scale: 0.98`) em [`app/globals.css`](file:///c:/Users/Start/ecclesiam-app/app/globals.css).
+
+---
+
+### 👀 8. Auditorias Visuais Humanas Pendentes (Homologação em Navegador)
+
+* **Status:** 🟡 **Pendente (Adiada pelo Dev para Sessão Posterior — 14/11/2026)**
+* **Nota Operacional:** Caso a porta `3000` esteja ocupada localmente por outro projeto, subir com `npm run dev -- -p 3001`.
+* **Checklist Pendente:**
+  - [ ] **`/secretaria/agendamentos`** (`TASK-56`): Validar preenchimento parcial + `F5` (`sessionStorage`), isolamento ao fechar/abrir aba, envio duplo em *Slow 3G* com mesma `idempotency_key` e diagrama mobile em `375px`.
+  - [ ] **`/secretaria/certidoes`** (`TASK-56`): Validar rascunho em `sessionStorage`, obrigatoriedade de reaceite manual do checkbox LGPD e layout em `375px`.
+  - [ ] **`/secretaria/sacramentos`** (`TASK-56`): Validar alternância entre sacramentos, rascunho em `sessionStorage` e mensagens de erro amigáveis.
+  - [ ] **`/secretaria/intencoes`** (`TASK-56`): Validar envio em lote com `idempotency_key` via `/api/secretaria/intentions` e simulação de rede instável.
+  - [ ] **Modal de Movimentos (`/movimentos/[slug]`)** (`TASK-56`): Validar `MovementRegistrationModal` (rascunho em `sessionStorage` sem pular etapa 1 de termos LGPD).
+  - [ ] **Fluxo Auth/Upload (`/login` e `/admin/*`)** (`TASK-53`, `TASK-54`, `TASK-56`): Validar redirecionamento server-side no `proxy.ts` após configurar `SUPABASE_SERVICE_ROLE_KEY` + usuários reais em `auth.users` e mensagens amigáveis em falhas de login/upload.
 
 ---
 

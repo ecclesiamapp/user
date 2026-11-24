@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import { 
   ArrowLeft, 
   Newspaper, 
@@ -15,7 +14,7 @@ import {
   Church,
   Star
 } from 'lucide-react';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
 import { NewsFilters } from '@/components/noticias/NewsFilters';
@@ -29,9 +28,10 @@ export const metadata: Metadata = {
     'Acompanhe as notícias oficiais, avisos litúrgicos da semana, eventos e comunicados da PASCOM da Catedral de Colatina e suas 12 comunidades.',
 };
 
+export const revalidate = 60;
+
 export default async function CathedralNewsPage() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
   // 1. Obter dados da Paróquia
   const { data: parishesData } = await supabase.from('parishes').select('*').limit(1);

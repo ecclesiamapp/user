@@ -7,7 +7,13 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --import ./tests/register-alias.mjs --test tests/*.test.ts"
+    "test": "node --import ./tests/register-alias.mjs --test tests/*.test.ts",
+    "test:load": "k6 run tests/load/natal-stress-test.js",
+    "test:load:smoke": "k6 run -e TEST_MODE=smoke tests/load/natal-stress-test.js",
+    "test:load:quick": "k6 run -e TEST_MODE=quick tests/load/natal-stress-test.js",
+    "test:load:peak500": "k6 run -e TEST_MODE=peak500 tests/load/natal-stress-test.js",
+    "test:load:full": "k6 run -e TEST_MODE=full tests/load/natal-stress-test.js",
+    "test:load:clean": "node tests/load/cleanup.js"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

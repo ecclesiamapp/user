@@ -1,9 +1,14 @@
 # 📋 Documento de Implementações Pendentes & Backlog Futuro
 
 > **Documento Oficial de Governança de Escopo e Evolução (SSOT)**  
-> **Status:** Atualizado e Auditado pelo Gerente de Projeto  
-> **Última Atualização:** 18 de Novembro de 2026  
-> **Referência:** Alinhado com [`PLANO_DE_ACAO_DETALHADO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PLANO_DE_ACAO_DETALHADO.md) e [`DIRETRIZ_PASTORAL_E_FINANCEIRA_DIZIMO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/DIRETRIZ_PASTORAL_E_FINANCEIRA_DIZIMO.md)
+> **Status:** Reorientado para a Solenidade do Natal 2026 (25/12/2026)  
+> **Última Atualização:** 23 de Novembro de 2026  
+> **Referência:** Alinhado com [`PLANO_DE_ACAO_DETALHADO.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PLANO_DE_ACAO_DETALHADO.md) e [`PLANO_DESENVOLVIMENTO_NATAL_2026.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/PLANO_DESENVOLVIMENTO_NATAL_2026.md)
+
+> [!IMPORTANT]
+> **🎄 REORIENTAÇÃO ESTRATÉGICA DE MARCO (23/11/2026):**  
+> Por determinação expressa do desenvolvedor, a programação para o dia 29/11 (1º Domingo do Advento) foi frustrada/postergada na paróquia. O alvo operacional do projeto é agora **100% concentrado na Solenidade do Natal (25 de Dezembro de 2026)**.  
+> Com **32 dias de janela confortável (4 semanas do Advento)**, a equipe tem pista livre para estabilizar sem pressa a infraestrutura de produção, ativar a grade solene de fim de ano (Novena de Natal e Missa do Galo), promover a instalação do PWA nos bancos e homologar todo o ecossistema com rigor.
 
 Este documento distingue claramente os **novos módulos do Backlog Futuro (Pós-Fase 8 / Ciclo 2027)** dos itens que **já foram 100% implementados e homologados** ao longo das Fases 1 a 8 da Catedral do Sagrado Coração de Jesus.
 

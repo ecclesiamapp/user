@@ -2,8 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, HeartHandshake } from 'lucide-react';
-import { cookies } from 'next/headers';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { DizimoHero } from '@/components/dizimo/DizimoHero';
 import { DizimoDimensions } from '@/components/dizimo/DizimoDimensions';
@@ -21,50 +20,40 @@ export const metadata: Metadata = {
     'Participe da Campanha Sou do Sagrado da Catedral do Sagrado Coração de Jesus. Conheça as 4 dimensões do dízimo, torne-se um dizimista e contribua com amor e fidelidade.',
 };
 
+export const revalidate = 60;
+
 export default async function DizimoPage() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
-  // 1. Buscar dados da paróquia e comunidades
-  const { data: parishesData } = await supabase.from('parishes').select('*').limit(1);
-  const { data: communitiesData } = await supabase
-    .from('communities')
-    .select('*')
-    .eq('is_active', true)
-    .order('is_headquarters', { ascending: false })
-    .order('name');
-
-  // 2. Buscar itens de transparência ativos gerenciados pela secretaria
-  let transparencyItems: TitheTransparencyItem[] = [];
-  try {
-    const { data } = await supabase
+  // Buscar dados da paróquia, comunidades, transparência e FAQs em paralelo
+  const [parishesRes, communitiesRes, transparencyRes, faqsRes] = await Promise.all([
+    supabase.from('parishes').select('*').limit(1),
+    supabase
+      .from('communities')
+      .select('*')
+      .eq('is_active', true)
+      .order('is_headquarters', { ascending: false })
+      .order('name'),
+    supabase
       .from('tithe_transparency_items')
       .select('*')
       .eq('is_active', true)
-      .order('order_index', { ascending: true });
-
-    if (data && data.length > 0) {
-      transparencyItems = data as TitheTransparencyItem[];
-    }
-  } catch (err) {
-    console.warn('Alerta busca pública tithe_transparency_items:', err);
-  }
-
-  // 3. Buscar FAQs ativos gerenciados pela secretaria
-  let faqs: TitheFaq[] = [];
-  try {
-    const { data } = await supabase
+      .order('order_index', { ascending: true }),
+    supabase
       .from('tithe_faqs')
       .select('*')
       .eq('is_active', true)
-      .order('order_index', { ascending: true });
+      .order('order_index', { ascending: true }),
+  ]);
 
-    if (data && data.length > 0) {
-      faqs = data as TitheFaq[];
-    }
-  } catch (err) {
-    console.warn('Alerta busca pública tithe_faqs:', err);
-  }
+  const parishesData = parishesRes.data;
+  const communitiesData = communitiesRes.data;
+  const transparencyItems: TitheTransparencyItem[] =
+    transparencyRes.data && transparencyRes.data.length > 0
+      ? (transparencyRes.data as TitheTransparencyItem[])
+      : [];
+  const faqs: TitheFaq[] =
+    faqsRes.data && faqsRes.data.length > 0 ? (faqsRes.data as TitheFaq[]) : [];
 
   const parish: Parish = parishesData?.[0] || {
     id: 'c0000000-0000-0000-0000-000000000001',

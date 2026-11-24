@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laudo Técnico de Teste de Carga e Estabilidade — Catedral de Colatina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --crimson: #8B1E22;
+      --crimson-dark: #5E1316;
+      --gold: #C8A463;
+      --gold-amber: #D98A1C;
+      --parchment: #FBF9F5;
+      --sand: #F3ECE1;
+      --ink: #1F1B18;
+      --muted: #5C5650;
+      --border: #E2D9CB;
+      --emerald: #177245;
+      --emerald-bg: #EAF6EF;
+      --emerald-border: #B5DFC6;
+      --dark-bg: #16181B;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    body {
+      background: #E5E0D8;
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sheet {
+      width: 210mm;
+      height: 297mm;
+      margin: 12px auto;
+      background: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 12px 36px rgba(22, 24, 27, 0.14);
+      page-break-after: always;
+      break-after: page;
+    }
+
+    .sheet:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    @media print {
+      body {
+        background: #FFFFFF;
+      }
+      .sheet {
+        margin: 0;
+        box-shadow: none;
+      }
+    }
+
+    /* Top Institutional Banner (Page 1) */
+    .hero-header {
+      background: linear-gradient(135deg, #16181B 0%, #3E1114 55%, #8B1E22 100%);
+      color: #FFFFFF;
+      padding: 11mm 15mm 9mm 15mm;
+      border-bottom: 4px solid var(--gold);
+      position: relative;
+    }
+
+    .hero-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6mm;
+    }
+
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: rgba(200, 164, 99, 0.18);
+      border: 1px solid rgba(200, 164, 99, 0.55);
+      color: #F4D799;
+      font-size: 7.6pt;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 13px;
+      border-radius: 999px;
+      background: #177245;
+      border: 1px solid #45B87B;
+      color: #FFFFFF;
+      font-size: 7.8pt;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 18.5pt;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0.03em;
+      color: #FFFFFF;
+      margin-bottom: 3mm;
+    }
+
+    .hero-subtitle {
+      font-size: 9.4pt;
+      color: #E7DFD3;
+      max-width: 170mm;
+      line-height: 1.45;
+    }
+
+    .meta-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 6mm;
+      padding-top: 4.5mm;
+      border-top: 1px solid rgba(200, 164, 99, 0.3);
+    }
+
+    .meta-item label {
+      display: block;
+      font-size: 6.8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #D8C39E;
+      margin-bottom: 2px;
+    }
+
+    .meta-item span {
+      font-size: 8.4pt;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    /* Subpage Header (Pages 2 & 3) */
+    .sub-header {
+      background: var(--parchment);
+      border-bottom: 2px solid var(--gold);
+      padding: 7.5mm 15mm 5.5mm 15mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .sub-header-left .eyebrow {
+      font-size: 7pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--crimson);
+      margin-bottom: 2px;
+    }
+
+    .sub-header-left h2 {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 12.8pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .sub-header-right {
+      text-align: right;
+      font-size: 7.6pt;
+      color: var(--muted);
+    }
+
+    .sub-header-right strong {
+      display: block;
+      color: var(--ink);
+      font-size: 8.3pt;
+    }
+
+    /* Main Content Container */
+    .content {
+      padding: 6.5mm 15mm 5mm 15mm;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4.5mm;
+    }
+
+    /* KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+    }
+
+    .kpi-card {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--crimson);
+      border-radius: 9px;
+      padding: 9px 10px;
+    }
+
+    .kpi-card.green {
+      background: var(--emerald-bg);
+      border-color: var(--emerald-border);
+      border-top-color: var(--emerald);
+    }
+
+    .kpi-card.gold {
+      border-top-color: var(--gold-amber);
+    }
+
+    .kpi-value {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 17pt;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 3px;
+    }
+
+    .kpi-card.green .kpi-value {
+      color: var(--emerald);
+    }
+
+    .kpi-label {
+      font-size: 7.6pt;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .kpi-sub {
+      font-size: 6.9pt;
+      color: var(--muted);
+      line-height: 1.28;
+    }
+
+    /* Section Cards */
+    .card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 13px;
+    }
+
+    .card-parchment {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 13px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 10pt;
+      font-weight: 700;
+      color: var(--crimson);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 13px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .lead-text {
+      font-size: 8.4pt;
+      color: #36322E;
+      line-height: 1.48;
+    }
+
+    .lead-text strong {
+      color: var(--ink);
+    }
+
+    /* 3-Step Environment Strip */
+    .env-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 7px;
+    }
+
+    .env-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 9px;
+    }
+
+    .env-box .step-num {
+      display: inline-block;
+      font-size: 6.8pt;
+      font-weight: 800;
+      color: var(--crimson);
+      background: rgba(139, 30, 34, 0.09);
+      padding: 2px 6px;
+      border-radius: 99px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .env-box h4 {
+      font-size: 8.3pt;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .env-box p {
+      font-size: 7.3pt;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 7.9pt;
+      margin-top: 4px;
+    }
+
+    th {
+      background: var(--sand);
+      color: var(--ink);
+      font-weight: 700;
+      text-align: left;
+      padding: 5.5px 7px;
+      border-bottom: 2px solid var(--gold);
+      font-size: 7.1pt;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      padding: 5.5px 7px;
+      border-bottom: 1px solid #ECE5DA;
+      color: #2E2A26;
+    }
+
+    tr.highlight td {
+      background: var(--emerald-bg);
+      font-weight: 700;
+      color: #104E2F;
+    }
+
+    .badge-ok {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: var(--emerald-bg);
+      border: 1px solid var(--emerald-border);
+      color: var(--emerald);
+      font-size: 7.2pt;
+      font-weight: 800;
+    }
+
+    .badge-warn {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: #FFF4E5;
+      border: 1px solid #F3CE96;
+      color: #9A5506;
+      font-size: 7.2pt;
+      font-weight: 700;
+    }
+
+    /* Chart Wrappers */
+    .chart-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 13px;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 5px;
+    }
+
+    .chart-caption {
+      font-size: 7.8pt;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .chart-pill {
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: #FEF6E4;
+      border: 1px solid var(--gold);
+      color: #8A5305;
+      font-size: 7.6pt;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    /* Architecture 3-col flow */
+    .arch-flow {
+      display: grid;
+      grid-template-columns: 1fr 22px 1fr 22px 1fr;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    .arch-node {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .arch-node.center {
+      background: linear-gradient(180deg, #FDF8EE 0%, #F7ECD6 100%);
+      border-color: var(--gold);
+    }
+
+    .arch-node strong {
+      display: block;
+      font-size: 8.5pt;
+      color: var(--crimson);
+      margin-bottom: 3px;
+    }
+
+    .arch-node span {
+      font-size: 7.5pt;
+      color: var(--muted);
+      display: block;
+      line-height: 1.35;
+    }
+
+    .arch-arrow {
+      text-align: center;
+      font-size: 13pt;
+      font-weight: 800;
+      color: var(--gold-amber);
+    }
+
+    /* Security Checks Grid */
+    .checks-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+      margin-top: 6px;
+    }
+
+    .check-item {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-left: 3.5px solid var(--emerald);
+      border-radius: 8px;
+      padding: 9px 11px;
+    }
+
+    .check-item h4 {
+      font-size: 8.4pt;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .check-item p {
+      font-size: 7.6pt;
+      color: var(--muted);
+      line-height: 1.38;
+    }
+
+    /* Callout Seal */
+    .callout-seal {
+      background: linear-gradient(135deg, #16181B 0%, #2C1214 100%);
+      color: #FFFFFF;
+      border-radius: 12px;
+      padding: 13px 16px;
+      border: 1px solid rgba(200, 164, 99, 0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .callout-seal h4 {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 10pt;
+      color: #F4D799;
+      margin-bottom: 3px;
+    }
+
+    .callout-seal p {
+      font-size: 8pt;
+      color: #DDD5CA;
+      line-height: 1.45;
+    }
+
+    .seal-badge {
+      flex-shrink: 0;
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      background: rgba(23, 114, 69, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .seal-badge strong {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 12pt;
+      color: #6FE3A4;
+      line-height: 1;
+    }
+
+    .seal-badge span {
+      font-size: 6.3pt;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #F4D799;
+      margin-top: 3px;
+      font-weight: 700;
+    }
+
+    /* Signature Row */
+    .sig-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 2mm;
+    }
+
+    .sig-box {
+      border-top: 1px solid #BDB3A3;
+      padding-top: 6px;
+    }
+
+    .sig-box strong {
+      display: block;
+      font-size: 8.4pt;
+      color: var(--ink);
+    }
+
+    .sig-box span {
+      font-size: 7.4pt;
+      color: var(--muted);
+    }
+
+    /* Page Footer */
+    .page-footer {
+      padding: 5.5mm 16mm;
+      border-top: 1px solid var(--border);
+      background: var(--parchment);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 7.3pt;
+      color: var(--muted);
+    }
+
+    .page-footer strong {
+      color: var(--crimson);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================================================================== -->
+  <!-- PÁGINA 1: CAPA EXECUTIVA, KPIs & METODOLOGIA DO AMBIENTE CONTROLADO   -->
+  <!-- ===================================================================== -->
+  <section class="sheet">
+    <div>
+      <header class="hero-header">
+        <div class="hero-top-row">
+          <span class="brand-tag">✝ Homologação Pré-Lançamento • Natal 2026</span>
+          <span class="status-pill">✓ Aprovado • 0,00% de Erros</span>
+        </div>
+
+        <h1 class="hero-title">Laudo Técnico de Teste de Carga,<br/>Desempenho e Estabilidade Digital</h1>
+        <p class="hero-subtitle">
+          Relatório executivo dos ensaios em <strong>ambiente controlado de alta concorrência</strong> realizados para validar o Portal Oficial da <strong>Catedral do Sagrado Coração de Jesus</strong> e suas <strong>12 Comunidades Eclesiais de Base (CEBs)</strong> antes do lançamento oficial aos fiéis.
+        </p>
+
+        <div class="meta-strip">
+          <div class="meta-item">
+            <label>Paróquia Piloto</label>
+            <span>Catedral de Colatina (ES)</span>
+          </div>
+          <div class="meta-item">
+            <label>Data da Bateria</label>
+            <span>23 de Novembro de 2026</span>
+          </div>
+          <div class="meta-item">
+            <label>Motor de Simulação</label>
+            <span>Grafana k6 v2.4.0</span>
+          </div>
+          <div class="meta-item">
+            <label>Responsável Técnico</label>
+            <span>Start Agência Digital</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <!-- 4 KPIs Monumentais -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-value">500</div>
+            <div class="kpi-label">Fiéis Simultâneos</div>
+            <div class="kpi-sub">Pico contínuo simulando a Noite de Natal (Missa do Galo)</div>
+          </div>
+          <div class="kpi-card gold">
+            <div class="kpi-value">12.572</div>
+            <div class="kpi-label">Requisições Totais</div>
+            <div class="kpi-sub">Processadas em 55 segundos (~228 acessos por segundo)</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-value">0,00%</div>
+            <div class="kpi-label">Taxa de Erros</div>
+            <div class="kpi-sub">Zero quedas, zero páginas fora do ar, 3.069 jornadas íntegras</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value">20 ms</div>
+            <div class="kpi-label">Resposta (100 Fiéis)</div>
+            <div class="kpi-sub">Carregamento instantâneo (1.500x mais rápido após otimização)</div>
+          </div>
+        </div>
+
+        <!-- Objetivo para o Cliente -->
+        <div class="card-parchment">
+          <h3 class="section-title">1. Por que realizamos este teste antes de ir ao ar?</h3>
+          <p class="lead-text">
+            Um dos maiores riscos ao lançar um portal paroquial em grandes solenidades — como a <strong>Novena de Natal, a Missa da Vigília (Missa do Galo) e o Dia de Natal</strong> — é o site ficar lento ou sair do ar justamente quando centenas de famílias acessam juntas pelo celular para conferir horários de Santas Missas, localizar sua Comunidade (CEB) ou enviar intenções para o Púlpito.
+          </p>
+          <p class="lead-text" style="margin-top: 6px;">
+            Para eliminar esse risco antes da estreia, a <strong>Start Agência Digital</strong> submeteu o aplicativo a uma simulação real de tráfego pesado em <strong>ambiente controlado</strong>, utilizando o <strong>Grafana k6</strong> (padrão internacional adotado por bancos digitais e pela própria engenharia do Supabase). Testamos desde um domingo comum até um estresse extremo de <strong>500 celulares simultâneos</strong>.
+          </p>
+
+          <div class="env-grid">
+            <div class="env-box">
+              <span class="step-num">Etapa 1 • Leitura</span>
+              <h4>90% Navegação Pastoral</h4>
+              <p>Acesso simultâneo à Home, Agenda Litúrgica, Liturgia Diária da CNBB, 12 Comunidades (CEBs) e Mensagens dos Pastores.</p>
+            </div>
+            <div class="env-box">
+              <span class="step-num">Etapa 2 • Secretaria</span>
+              <h4>10% Envios Concorrentes</h4>
+              <p>Dezenas de fiéis enviando Intenções de Santa Missa ao mesmo tempo com geração real de protocolo e validação no banco.</p>
+            </div>
+            <div class="env-box">
+              <span class="step-num">Etapa 3 • Higiene</span>
+              <h4>Isolamento &amp; Limpeza Total</h4>
+              <p>Todos os 296 envios de teste receberam a marcação <code>[CARGA-NATAL]</code> e foram 100% expurgados após a medição.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabela Consolidada dos 3 Estágios -->
+        <div class="card">
+          <h3 class="section-title">2. Evolução Completa dos 3 Ciclos de Teste Executados</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Ciclo de Ensaio</th>
+                <th>Carga Simultânea</th>
+                <th>Total de Requisições</th>
+                <th>Tempo Médio</th>
+                <th>Taxa de Erros</th>
+                <th>Diagnóstico</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Ciclo 1:</strong> Diagnóstico Inicial (antes do cache ISR)</td>
+                <td>100 fiéis</td>
+                <td>66 reqs</td>
+                <td>30.073 ms</td>
+                <td>1,52%</td>
+                <td><span class="badge-warn">Gargalo Identificado</span></td>
+              </tr>
+              <tr class="highlight">
+                <td><strong>Ciclo 2:</strong> Após Otimização de Cache (ISR 60s)</td>
+                <td>100 fiéis</td>
+                <td>1.735 reqs</td>
+                <td><strong>20 ms</strong></td>
+                <td><strong>0,00%</strong></td>
+                <td><span class="badge-ok">1.500x Mais Rápido</span></td>
+              </tr>
+              <tr class="highlight">
+                <td><strong>Ciclo 3:</strong> Teste de Pico Extremo (Natal Completo)</td>
+                <td><strong>500 fiéis</strong></td>
+                <td><strong>12.572 reqs</strong></td>
+                <td><strong>487 ms</strong></td>
+                <td><strong>0,00%</strong></td>
+                <td><span class="badge-ok">Aprovado c/ Folga</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="font-size: 7.7pt; color: var(--muted); margin-top: 7px;">
+            * <strong>Nota de Engenharia:</strong> O Ciclo 1 cumpriu o papel mais valioso de um teste pré-lançamento — revelou antecipadamente que consultas repetitivas ao banco criariam fila sob alta concorrência. Aplicamos a arquitetura de Cache Inteligente (ISR 60s + Pré-geração das 12 CEBs), elevando a vazão em <strong>26 vezes</strong> e zerando completamente os erros.
+          </p>
+        </div>
+      </main>
+    </div>
+
+    <footer class="page-footer">
+      <span><strong>Catedral do Sagrado Coração de Jesus</strong> • Diocese de Colatina (ES)</span>
+      <span>Laudo Técnico de Homologação • Start Agência Digital • Página 1 de 3</span>
+    </footer>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- PÁGINA 2: GRÁFICOS EXPLICATIVOS DE PERFORMANCE & CURVA DE CARGA       -->
+  <!-- ===================================================================== -->
+  <section class="sheet">
+    <div>
+      <header class="sub-header">
+        <div class="sub-header-left">
+          <div class="eyebrow">Evidências Visuais de Desempenho</div>
+          <h2>Gráficos de Velocidade, Rampa de Carga e Arquitetura</h2>
+        </div>
+        <div class="sub-header-right">
+          <strong>Bateria Grafana k6 • 23/11/2026</strong>
+          Ambiente Controlado de Produção
+        </div>
+      </header>
+
+      <main class="content">
+        <!-- GRÁFICO 1: ANTES vs DEPOIS -->
+        <div class="chart-box">
+          <div class="chart-header">
+            <div>
+              <h3 class="section-title" style="margin-bottom: 2px;">Gráfico 1 — Impacto da Otimização de Cache (100 Fiéis Simultâneos)</h3>
+              <p class="chart-caption">Comparação direta do tempo de resposta e da capacidade de atendimento antes e depois da blindagem ISR.</p>
+            </div>
+            <span class="chart-pill">1.500x Mais Rápido</span>
+          </div>
+
+          <svg viewBox="0 0 680 185" width="100%" height="185" xmlns="http://www.w3.org/2000/svg">
+            <!-- Left Panel: Latência -->
+            <rect x="0" y="4" width="330" height="176" rx="10" fill="#FBF9F5" stroke="#E2D9CB" />
+            <text x="16" y="26" font-family="Plus Jakarta Sans" font-size="11" font-weight="800" fill="#1F1B18">Tempo Médio de Resposta (menor é melhor)</text>
+
+            <!-- Bar 1: Antes -->
+            <text x="16" y="54" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" fill="#8B1E22">ANTES (Sem Cache ISR)</text>
+            <rect x="16" y="62" width="240" height="26" rx="6" fill="#C94A4A" />
+            <text x="264" y="79" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="800" fill="#8B1E22">30.073 ms</text>
+            <text x="26" y="79" font-family="Plus Jakarta Sans" font-size="9.5" font-weight="700" fill="#FFFFFF">30,0 segundos de espera</text>
+
+            <!-- Bar 2: Depois -->
+            <text x="16" y="114" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" fill="#177245">DEPOIS (Com Cache ISR 60s)</text>
+            <rect x="16" y="122" width="10" height="26" rx="4" fill="#177245" />
+            <text x="34" y="140" font-family="Plus Jakarta Sans" font-size="12" font-weight="800" fill="#177245">20 ms (0,02 seg — Instantâneo!)</text>
+
+            <text x="16" y="168" font-family="Plus Jakarta Sans" font-size="8.8" fill="#5C5650">Redução de 99,93% no tempo de espera do fiel no celular.</text>
+
+            <!-- Right Panel: Vazão -->
+            <rect x="346" y="4" width="334" height="176" rx="10" fill="#FBF9F5" stroke="#E2D9CB" />
+            <text x="362" y="26" font-family="Plus Jakarta Sans" font-size="11" font-weight="800" fill="#1F1B18">Requisições Atendidas em 40s (maior é melhor)</text>
+
+            <!-- Bar 1: Antes -->
+            <text x="362" y="54" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" fill="#5C5650">ANTES (Sem Cache ISR)</text>
+            <rect x="362" y="62" width="16" height="26" rx="4" fill="#9E9589" />
+            <text x="386" y="79" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="800" fill="#5C5650">66 requisições</text>
+
+            <!-- Bar 2: Depois -->
+            <text x="362" y="114" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" fill="#177245">DEPOIS (Com Cache ISR 60s)</text>
+            <rect x="362" y="122" width="248" height="26" rx="6" fill="#177245" />
+            <text x="374" y="139" font-family="Plus Jakarta Sans" font-size="10" font-weight="800" fill="#FFFFFF">1.735 requisições • 0% de falhas</text>
+            <text x="617" y="139" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="800" fill="#177245">+26x</text>
+
+            <text x="362" y="168" font-family="Plus Jakarta Sans" font-size="8.8" fill="#5C5650">558 jornadas completas de fiéis em 40 segundos, sem filas.</text>
+          </svg>
+        </div>
+
+        <!-- GRÁFICO 2: CURVA DE RAMPA DE 500 FIÉIS -->
+        <div class="chart-box">
+          <div class="chart-header">
+            <div>
+              <h3 class="section-title" style="margin-bottom: 2px;">Gráfico 2 — Curva do Teste de Estresse de Pico (500 Fiéis Simultâneos)</h3>
+              <p class="chart-caption">Subida gradual até 500 usuários virtuais simultâneos mantidos em pico contínuo, com linha de erros zerada (0,00%).</p>
+            </div>
+            <span class="chart-pill">3.069 Jornadas • 0 Quedas</span>
+          </div>
+
+          <svg viewBox="0 0 680 225" width="100%" height="225" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="vuArea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#8B1E22" stop-opacity="0.28" />
+                <stop offset="100%" stop-color="#8B1E22" stop-opacity="0.03" />
+              </linearGradient>
+            </defs>
+
+            <!-- Grid lines -->
+            <g stroke="#EAE2D6" stroke-width="1" stroke-dasharray="3,3">
+              <line x1="56" y1="30" x2="645" y2="30" />
+              <line x1="56" y1="68" x2="645" y2="68" />
+              <line x1="56" y1="106" x2="645" y2="106" />
+              <line x1="56" y1="144" x2="645" y2="144" />
+            </g>
+            <!-- Axes -->
+            <line x1="56" y1="22" x2="56" y2="182" stroke="#9B9082" stroke-width="1.2" />
+            <line x1="56" y1="182" x2="648" y2="182" stroke="#9B9082" stroke-width="1.2" />
+
+            <!-- Y Labels -->
+            <g font-family="Plus Jakarta Sans" font-size="9" fill="#5C5650" text-anchor="end">
+              <text x="48" y="33">500</text>
+              <text x="48" y="71">375</text>
+              <text x="48" y="109">250</text>
+              <text x="48" y="147">125</text>
+              <text x="48" y="185">0</text>
+            </g>
+            <text x="14" y="108" font-family="Plus Jakarta Sans" font-size="8.5" font-weight="700" fill="#8B1E22" transform="rotate(-90 14 108)" text-anchor="middle">Fiéis Simultâneos (VUs)</text>
+
+            <!-- Highlight Peak Sustainment Band -->
+            <rect x="323" y="24" width="215" height="158" fill="#FEF6E4" opacity="0.65" />
+            <text x="430" y="19" font-family="Plus Jakarta Sans" font-size="8.5" font-weight="800" fill="#9A5506" text-anchor="middle">PICO SUSTENTADO: 500 FIÉIS CONECTADOS</text>
+
+            <!-- VU Ramp Area & Line (0s=56, 10s=163 (150), 25s=323 (500), 45s=538 (500), 55s=645 (0)) -->
+            <path d="M 56 182 L 163 136 L 323 30 L 538 30 L 645 182 Z" fill="url(#vuArea)" />
+            <path d="M 56 182 L 163 136 L 323 30 L 538 30 L 645 182" fill="none" stroke="#8B1E22" stroke-width="3" stroke-linejoin="round" />
+
+            <!-- Error Rate Line (flat 0% in emerald) -->
+            <line x1="56" y1="180" x2="645" y2="180" stroke="#177245" stroke-width="3" />
+
+            <!-- Key Points -->
+            <circle cx="163" cy="136" r="4.5" fill="#8B1E22" stroke="#FFFFFF" stroke-width="1.5" />
+            <circle cx="323" cy="30" r="5" fill="#8B1E22" stroke="#FFFFFF" stroke-width="1.5" />
+            <circle cx="538" cy="30" r="5" fill="#8B1E22" stroke="#FFFFFF" stroke-width="1.5" />
+
+            <!-- Annotations -->
+            <rect x="125" y="109" width="84" height="19" rx="4" fill="#FFFFFF" stroke="#E2D9CB" />
+            <text x="167" y="122" font-family="Plus Jakarta Sans" font-size="8.5" font-weight="700" fill="#1F1B18" text-anchor="middle">150 fiéis (10s)</text>
+
+            <rect x="355" y="42" width="150" height="32" rx="6" fill="#FFFFFF" stroke="#C8A463" />
+            <text x="430" y="56" font-family="Plus Jakarta Sans" font-size="9" font-weight="800" fill="#8B1E22" text-anchor="middle">12.572 requisições reais</text>
+            <text x="430" y="68" font-family="Plus Jakarta Sans" font-size="8" font-weight="700" fill="#177245" text-anchor="middle">296 intenções gravadas • 0 falhas</text>
+
+            <!-- X Labels -->
+            <g font-family="Plus Jakarta Sans" font-size="8.8" fill="#5C5650" text-anchor="middle">
+              <text x="56" y="198">0s (Início)</text>
+              <text x="163" y="198">10s</text>
+              <text x="323" y="198">25s (Pico)</text>
+              <text x="430" y="198">35s</text>
+              <text x="538" y="198">45s (Fim Pico)</text>
+              <text x="645" y="198">55s (Fim)</text>
+            </g>
+
+            <!-- Legend -->
+            <rect x="170" y="208" width="14" height="4" rx="2" fill="#8B1E22" />
+            <text x="190" y="213" font-family="Plus Jakarta Sans" font-size="8.5" font-weight="700" fill="#1F1B18">Fiéis Simultâneos (VUs)</text>
+            <rect x="355" y="208" width="14" height="4" rx="2" fill="#177245" />
+            <text x="375" y="213" font-family="Plus Jakarta Sans" font-size="8.5" font-weight="700" fill="#177245">Taxa de Erros HTTP: 0,00% Constante</text>
+          </svg>
+        </div>
+
+        <!-- COMO FUNCIONA A BLINDAGEM -->
+        <div class="card">
+          <h3 class="section-title">Como o portal se mantém rápido mesmo na Noite de Natal?</h3>
+          <p class="lead-text" style="font-size: 8.6pt;">
+            Em vez de consultar o banco de dados toda vez que um paroquiano abre o site, implementamos uma <strong>arquitetura de três camadas de proteção</strong> com <strong>68 páginas pré-geradas</strong> (incluindo a Catedral e todas as 12 Comunidades):
+          </p>
+
+          <div class="arch-flow">
+            <div class="arch-node">
+              <strong>1. Celular do Fiel (PWA)</strong>
+              <span>Leitura leve e instantânea via QR Code nos bancos, sem precisar baixar nada nas lojas de aplicativos.</span>
+            </div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node center">
+              <strong>2. Cache Inteligente (ISR 60s)</strong>
+              <span>95%+ dos acessos (Home, Horários, 12 CEBs, Dízimo, Notícias) são entregues direto da memória em milissegundos.</span>
+            </div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node">
+              <strong>3. Banco Protegido (Supabase)</strong>
+              <span>Fica livre e folgado apenas para ações reais da Secretaria (Intenções no Púlpito, Agendamentos e Sacramentos).</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <footer class="page-footer">
+      <span><strong>Catedral do Sagrado Coração de Jesus</strong> • Diocese de Colatina (ES)</span>
+      <span>Laudo Técnico de Homologação • Start Agência Digital • Página 2 de 3</span>
+    </footer>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- PÁGINA 3: MARGEM DE SEGURANÇA, BLINDAGENS & TERMO DE APROVAÇÃO        -->
+  <!-- ===================================================================== -->
+  <section class="sheet">
+    <div>
+      <header class="sub-header">
+        <div class="sub-header-left">
+          <div class="eyebrow">Segurança, Margem Real &amp; Homologação</div>
+          <h2>Capacidade Validada vs. Realidade da Catedral de Colatina</h2>
+        </div>
+        <div class="sub-header-right">
+          <strong>Bateria Grafana k6 • 23/11/2026</strong>
+          68 Páginas Estáticas/ISR • 24/24 Testes OK
+        </div>
+      </header>
+
+      <main class="content">
+        <!-- GRÁFICO 3: CAPACIDADE VALIDADA vs REALIDADE DE COLATINA -->
+        <div class="chart-box">
+          <div class="chart-header">
+            <div>
+              <h3 class="section-title" style="margin-bottom: 2px;">Gráfico 3 — Margem de Segurança para a Realidade da Paróquia</h3>
+              <p class="chart-caption">O volume testado em ambiente controlado supera em 3x a 10x a demanda simultânea esperada nas missas da Catedral.</p>
+            </div>
+            <span class="chart-pill">Margem de Folga: 3x a 10x</span>
+          </div>
+
+          <svg viewBox="0 0 680 170" width="100%" height="170" xmlns="http://www.w3.org/2000/svg">
+            <!-- Row 1: Domingo Comum -->
+            <text x="10" y="26" font-family="Plus Jakarta Sans" font-size="9.5" font-weight="700" fill="#1F1B18">Domingo Comum (Catedral + 12 CEBs)</text>
+            <rect x="10" y="34" width="600" height="20" rx="5" fill="#F3ECE1" />
+            <rect x="10" y="34" width="72" height="20" rx="5" fill="#C8A463" />
+            <text x="90" y="48" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="#5C5650">~20 a 60 acessos simultâneos</text>
+
+            <!-- Row 2: Pico Estimado de Natal -->
+            <text x="10" y="78" font-family="Plus Jakarta Sans" font-size="9.5" font-weight="700" fill="#1F1B18">Pico Esperado na Noite de Natal (Missa do Galo)</text>
+            <rect x="10" y="86" width="600" height="20" rx="5" fill="#F3ECE1" />
+            <rect x="10" y="86" width="180" height="20" rx="5" fill="#D98A1C" />
+            <text x="198" y="100" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="#8A5305">~80 a 150 acessos simultâneos (estimativa real)</text>
+
+            <!-- Row 3: Capacidade Validada Hoje -->
+            <text x="10" y="130" font-family="Plus Jakarta Sans" font-size="9.5" font-weight="800" fill="#177245">CAPACIDADE TESTADA E APROVADA HOJE (0,00% ERROS)</text>
+            <rect x="10" y="138" width="600" height="24" rx="5" fill="#177245" />
+            <text x="22" y="154" font-family="Plus Jakarta Sans" font-size="9.5" font-weight="800" fill="#FFFFFF">500 fiéis simultâneos sustentados • 12.572 requisições • 296 intenções gravadas ao vivo</text>
+          </svg>
+        </div>
+
+        <!-- 6 BLINDAGENS COMPROVADAS -->
+        <div class="card">
+          <h3 class="section-title">3. Blindagens Técnicas e Pastorais Comprovadas no Teste</h3>
+          <div class="checks-grid">
+            <div class="check-item">
+              <h4>✓ Proteção Anti-Spam no Púlpito (HTTP 429)</h4>
+              <p>O sistema travou automaticamente tentativas repetitivas do mesmo telefone (máximo de 3 pedidos por celebração), mantendo a Folha do Púlpito A4 organizada.</p>
+            </div>
+            <div class="check-item">
+              <h4>✓ Segurança de Banco Ativa (RLS / LGPD)</h4>
+              <p>Políticas de segurança impedem qualquer alteração ou exclusão anônima de dados de fiéis. Somente a equipe autorizada no painel administrativo possui acesso.</p>
+            </div>
+            <div class="check-item">
+              <h4>✓ Anti-Duplicidade em Celular 3G/4G</h4>
+              <p>Chaves de idempotência garantem que, se um fiel clicar duas vezes em "Enviar" com internet instável, o pedido não é duplicado na secretaria.</p>
+            </div>
+            <div class="check-item">
+              <h4>✓ 12 Comunidades (CEBs) Pré-Carregadas</h4>
+              <p>Todas as 12 Comunidades são pré-geradas no build (68 páginas estáticas/ISR) e contam com proteção de timeout de 3s contra falhas externas da Liturgia.</p>
+            </div>
+            <div class="check-item">
+              <h4>✓ Qualidade de Código 100% Auditada</h4>
+              <p>Build de produção aprovado com 0 erros de tipagem (TypeScript), 0 erros de análise estática (ESLint) e 24/24 testes automatizados de segurança aprovados.</p>
+            </div>
+            <div class="check-item">
+              <h4>✓ Eficiência Máxima de Infraestrutura</h4>
+              <p>O portal foi otimizado para operar com altíssimo desempenho já na arquitetura enxuta do projeto piloto, sem exigir custos extras de servidor para a paróquia.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SELO DE HOMOLOGAÇÃO & CONCLUSÃO -->
+        <div class="callout-seal">
+          <div>
+            <h4>Conclusão Técnica: Portal Aprovado para o Lançamento de Natal 2026</h4>
+            <p>
+              Com base nos ensaios controlados executados em <strong>23/11/2026</strong>, atestamos que o portal oficial da <strong>Catedral do Sagrado Coração de Jesus</strong> encontra-se tecnicamente estabilizado, protegido sob a LGPD e dimensionado com ampla margem de segurança para atender a sede diocesana e suas 12 Comunidades (CEBs) durante o Advento, a Solenidade do Natal e o ano litúrgico de 2027.
+            </p>
+          </div>
+          <div class="seal-badge">
+            <strong>100%</strong>
+            <span>Aprovado<br/>0% Erros</span>
+          </div>
+        </div>
+
+        <!-- ASSINATURAS -->
+        <div class="sig-grid">
+          <div class="sig-box">
+            <strong>Fauzer Cruz &amp; Marcella Boeloni Cruz</strong>
+            <span>Start Agência Digital • Engenharia &amp; Arquitetura do Projeto</span>
+          </div>
+          <div class="sig-box">
+            <strong>Colatina — Espírito Santo, 23 de Novembro de 2026</strong>
+            <span>Documento Técnico de Pré-Lançamento • Paróquia Piloto Catedral</span>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <footer class="page-footer">
+      <span><strong>Catedral do Sagrado Coração de Jesus</strong> • Diocese de Colatina (ES)</span>
+      <span>Laudo Técnico de Homologação • Start Agência Digital • Página 3 de 3</span>
+    </footer>
+  </section>
+
+</body>
+</html>

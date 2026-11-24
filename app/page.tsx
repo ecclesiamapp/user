@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import { 
   Church, 
   MapPin, 
@@ -9,7 +8,7 @@ import {
   Calendar,
   FileText
 } from 'lucide-react';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { Card, Badge } from '@/components/ui';
 import { Community, Parish, PastoralMessage, ParishSpecialEvent } from '@/types';
 import { fallbackCommunitiesList, getCommunitySlug } from '@/lib/communities';
@@ -30,40 +29,45 @@ import { PastorSpotlight } from '@/components/home/PastorSpotlight';
 import { MeuEspacoHomeBanner } from '@/components/home/MeuEspacoHomeBanner';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
 
+// ISR: Pré-renderiza e serve do cache de borda por 60s (suporta milhares de fiéis simultâneos sem sobrecarregar o banco)
+export const revalidate = 60;
+
 export default async function ParishPublicPortalPage() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
-  // Buscar dados da paróquia e comunidades no Supabase
-  const { data: parishesData } = await supabase.from('parishes').select('*').limit(1);
-  const { data: communitiesData } = await supabase
-    .from('communities')
-    .select('*')
-    .eq('is_active', true)
-    .order('is_headquarters', { ascending: false })
-    .order('name');
+  // Buscar todos os dados públicos em paralelo (4x mais rápido na regeneração de cache)
+  const [parishesRes, communitiesRes, featuredEventsRes, featuredMessagesRes] = await Promise.all([
+    supabase.from('parishes').select('*').limit(1),
+    supabase
+      .from('communities')
+      .select('*')
+      .eq('is_active', true)
+      .order('is_headquarters', { ascending: false })
+      .order('name'),
+    supabase
+      .from('parish_special_events')
+      .select('*')
+      .eq('is_featured_home', true)
+      .eq('status', 'destaque_ativo')
+      .order('start_date', { ascending: true })
+      .limit(1),
+    supabase
+      .from('pastoral_messages')
+      .select('*')
+      .eq('is_featured_home', true)
+      .eq('is_active', true)
+      .order('published_at', { ascending: false }),
+  ]);
 
-  // Buscar festividade litúrgica em destaque na Home (Festa da Co-Padroeira, Padroeiro, Natal, etc.)
-  const { data: featuredEventsData } = await supabase
-    .from('parish_special_events')
-    .select('*')
-    .eq('is_featured_home', true)
-    .eq('status', 'destaque_ativo')
-    .order('start_date', { ascending: true })
-    .limit(1);
+  const parishesData = parishesRes.data;
+  const communitiesData = communitiesRes.data;
+  const featuredEventsData = featuredEventsRes.data;
+  const featuredMessagesData = featuredMessagesRes.data;
 
   const featuredEvent: ParishSpecialEvent | undefined =
     featuredEventsData && featuredEventsData.length > 0
       ? (featuredEventsData[0] as ParishSpecialEvent)
       : FALLBACK_SPECIAL_EVENTS[0];
-
-  // Buscar mensagens pastorais em destaque (Cartas de Natal do Bispo e do Pároco)
-  const { data: featuredMessagesData } = await supabase
-    .from('pastoral_messages')
-    .select('*')
-    .eq('is_featured_home', true)
-    .eq('is_active', true)
-    .order('published_at', { ascending: false });
 
   const featuredMessages: PastoralMessage[] =
     featuredMessagesData && featuredMessagesData.length > 0

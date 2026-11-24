@@ -2,8 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import { cookies } from 'next/headers';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { LiturgicalScheduleView } from '@/components/horarios/LiturgicalScheduleView';
 import { SpecialEventLiturgicalAlert } from '@/components/horarios/SpecialEventLiturgicalAlert';
@@ -18,24 +17,29 @@ export const metadata: Metadata = {
     'Consulte a programação canônica de Santas Missas, Celebrações da Palavra, Confissões e Adoração ao Santíssimo na Catedral do Sagrado Coração de Jesus em Colatina.',
 };
 
+// ISR: Cache de borda de 60s para alta concorrência na consulta de horários de missas
+export const revalidate = 60;
+
 export default async function AgendaLiturgicaPage() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
-  // 1. Buscar Horários Cadastrados
-  const { data: dbSchedules } = await supabase
-    .from('mass_schedules')
-    .select('*, community:communities(*)')
-    .eq('is_active', true)
-    .order('time');
+  // 1. Buscar Horários Cadastrados e Evento Ativo em paralelo
+  const [schedulesRes, specialEventsRes] = await Promise.all([
+    supabase
+      .from('mass_schedules')
+      .select('*, community:communities(*)')
+      .eq('is_active', true)
+      .order('time'),
+    supabase
+      .from('parish_special_events')
+      .select('*')
+      .eq('status', 'destaque_ativo')
+      .order('start_date', { ascending: true })
+      .limit(1),
+  ]);
 
-  // 1.1 Buscar evento/solenidade ativa da Catedral (TASK-48)
-  const { data: specialEventsData } = await supabase
-    .from('parish_special_events')
-    .select('*')
-    .eq('status', 'destaque_ativo')
-    .order('start_date', { ascending: true })
-    .limit(1);
+  const dbSchedules = schedulesRes.data;
+  const specialEventsData = specialEventsRes.data;
 
   const activeSpecialEvent: ParishSpecialEvent | undefined =
     specialEventsData && specialEventsData.length > 0

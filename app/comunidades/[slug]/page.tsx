@@ -1,8 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { cookies } from 'next/headers';
 import { Image as ImageIcon } from 'lucide-react';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { Card } from '@/components/ui';
 import { Community, MassSchedule, Gallery, ParishSpecialEvent } from '@/types';
 
@@ -27,10 +26,30 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+export const revalidate = 60;
+
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  const slugs = new Set<string>(Object.keys(fallbackCommunities));
+  try {
+    const supabase = createPublicClient();
+    const { data } = await supabase
+      .from('communities')
+      .select('slug')
+      .eq('is_active', true);
+    if (data) {
+      for (const row of data) {
+        if (row.slug) slugs.add(row.slug);
+      }
+    }
+  } catch {
+    // Mantém os slugs canônicos de fallback caso o banco esteja indisponível no build
+  }
+  return Array.from(slugs).map((slug) => ({ slug }));
+}
+
 export default async function CommunityDetailPage({ params }: Props) {
   const { slug } = await params;
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
   // 1. Tentar buscar a comunidade pelo slug no banco de dados
   const { data: dbCommunity } = await supabase
@@ -45,35 +64,32 @@ export default async function CommunityDetailPage({ params }: Props) {
     notFound();
   }
 
-  // 2. Buscar horários específicos desta comunidade
-  const { data: massSchedulesData } = await supabase
-    .from('mass_schedules')
-    .select('*')
-    .eq('community_id', community.id)
-    .eq('is_active', true)
-    .order('time');
+  // 2, 3, 3.1 e 4. Buscar horários, galerias, eventos e paróquia em paralelo
+  const [massSchedulesRes, galleriesRes, communityEventsRes, parishesRes] = await Promise.all([
+    supabase
+      .from('mass_schedules')
+      .select('*')
+      .eq('community_id', community.id)
+      .eq('is_active', true)
+      .order('time'),
+    supabase
+      .from('galleries')
+      .select('*')
+      .eq('community_id', community.id)
+      .eq('is_active', true)
+      .order('event_date', { ascending: false }),
+    supabase
+      .from('parish_special_events')
+      .select('*')
+      .eq('community_id', community.id)
+      .eq('status', 'destaque_ativo')
+      .limit(1),
+    supabase.from('parishes').select('*').limit(1),
+  ]);
 
-  const schedules: MassSchedule[] = massSchedulesData || [];
-
-  // 3. Buscar álbuns de fotos desta comunidade
-  const { data: galleriesData } = await supabase
-    .from('galleries')
-    .select('*')
-    .eq('community_id', community.id)
-    .eq('is_active', true)
-    .order('event_date', { ascending: false });
-
-  const galleries: Gallery[] = galleriesData || [];
-
-  // 3.1 Buscar festividade solene vinculada a esta comunidade ou festa geral da paróquia (TASK-48)
-  const { data: communityEventsData } = await supabase
-    .from('parish_special_events')
-    .select('*')
-    .eq('community_id', community.id)
-    .eq('status', 'destaque_ativo')
-    .limit(1);
-
-  let featuredSpecialEvent: ParishSpecialEvent | undefined = communityEventsData?.[0] as ParishSpecialEvent | undefined;
+  const schedules: MassSchedule[] = massSchedulesRes.data || [];
+  const galleries: Gallery[] = galleriesRes.data || [];
+  let featuredSpecialEvent: ParishSpecialEvent | undefined = communityEventsRes.data?.[0] as ParishSpecialEvent | undefined;
 
   // Se a comunidade não tiver festa própria ativa no momento, buscar a festividade geral da catedral/paróquia
   if (!featuredSpecialEvent) {
@@ -92,8 +108,7 @@ export default async function CommunityDetailPage({ params }: Props) {
     }
   }
 
-  // 4. Buscar paróquia para o rodapé oficial
-  const { data: parishesData } = await supabase.from('parishes').select('*').limit(1);
+  const parishesData = parishesRes.data;
   const parish = parishesData?.[0] || {
     name: 'Catedral do Sagrado Coração de Jesus',
     diocese: 'Diocese de Colatina',
@@ -115,12 +130,15 @@ export default async function CommunityDetailPage({ params }: Props) {
       ? `https://waze.com/ul?ll=${community.latitude},${community.longitude}&navigate=yes`
       : `https://waze.com/ul?q=${destinationQuery}`;
 
-  // 5. Obter Cor e Tempo Litúrgico Canônico do Dia
+  // 5. Obter Cor e Tempo Litúrgico Canônico do Dia (com timeout de 3s para resiliência total)
   let liturgicalColorName = 'Verde';
   let liturgicalTitle = '';
   let liturgicalDay = '';
+  const liturgyController = new AbortController();
+  const liturgyTimeoutId = setTimeout(() => liturgyController.abort(), 3000);
   try {
     const liturgyRes = await fetch('https://liturgia.up.railway.app/', {
+      signal: liturgyController.signal,
       next: { revalidate: 3600 },
       headers: { 'Accept': 'application/json' },
     });
@@ -136,8 +154,10 @@ export default async function CommunityDetailPage({ params }: Props) {
         liturgicalDay = liturgyData.dia;
       }
     }
-  } catch (err) {
-    // Silently fallback para Verde (Tempo Comum)
+  } catch {
+    // Fallback silencioso para Verde (Tempo Comum) em caso de timeout ou indisponibilidade externa
+  } finally {
+    clearTimeout(liturgyTimeoutId);
   }
   const liturgicalTheme = getLiturgicalColorTheme(liturgicalColorName);
 

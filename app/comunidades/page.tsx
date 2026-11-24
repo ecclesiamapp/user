@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import {
   ArrowLeft,
   Church,
@@ -11,7 +10,7 @@ import {
   Clock,
   Heart
 } from 'lucide-react';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
 import { CommunitiesDirectory } from '@/components/comunidades/CommunitiesDirectory';
@@ -26,12 +25,29 @@ export const metadata: Metadata = {
     'Conheça as 12 Comunidades Eclesiais de Base (CEBs) da Catedral de Colatina. Consulte horários de Santa Missa, padroeiros, endereços e rotas GPS no Google Maps e Waze.',
 };
 
+export const revalidate = 60;
+
 export default async function ComunidadesPage() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
+
+  // Buscar dados públicos em paralelo
+  const [parishesRes, communitiesRes, schedulesRes] = await Promise.all([
+    supabase.from('parishes').select('*').limit(1),
+    supabase
+      .from('communities')
+      .select('*')
+      .eq('is_active', true)
+      .order('is_headquarters', { ascending: false })
+      .order('name'),
+    supabase
+      .from('mass_schedules')
+      .select('*')
+      .eq('is_active', true)
+      .order('time'),
+  ]);
 
   // 1. Obter dados da Paróquia
-  const { data: parishesData } = await supabase.from('parishes').select('*').limit(1);
+  const parishesData = parishesRes.data;
   const parish: Parish = parishesData?.[0] || {
     id: 'c0000000-0000-0000-0000-000000000001',
     name: 'Catedral do Sagrado Coração de Jesus',
@@ -49,50 +65,31 @@ export default async function ComunidadesPage() {
 
   // 2. Buscar Comunidades ativas do Supabase com fallback seguro
   let communities: Community[] = fallbackCommunitiesList;
-  try {
-    const { data: dbCommunities } = await supabase
-      .from('communities')
-      .select('*')
-      .eq('is_active', true)
-      .order('is_headquarters', { ascending: false })
-      .order('name');
-
-    if (dbCommunities && dbCommunities.length > 0) {
-      // Mesclar dados do banco com coordenadas geográficas do fallback
-      communities = dbCommunities.map((dbComm: Community) => {
-        const fallback = fallbackCommunitiesList.find(
-          (f) => f.slug === dbComm.slug || f.name.toLowerCase() === dbComm.name.toLowerCase()
-        );
-        return {
-          ...dbComm,
-          latitude: dbComm.latitude || fallback?.latitude,
-          longitude: dbComm.longitude || fallback?.longitude,
-          feast_day: dbComm.feast_day || fallback?.feast_day,
-          foundation_year: dbComm.foundation_year || fallback?.foundation_year,
-          patron_saint: dbComm.patron_saint || fallback?.patron_saint,
-          address: dbComm.address || fallback?.address,
-          neighborhood: dbComm.neighborhood || fallback?.neighborhood,
-        };
-      });
-    }
-  } catch (err) {
-    console.warn('Fallback ativado para comunidades:', err);
+  const dbCommunities = communitiesRes.data;
+  if (dbCommunities && dbCommunities.length > 0) {
+    // Mesclar dados do banco com coordenadas geográficas do fallback
+    communities = dbCommunities.map((dbComm: Community) => {
+      const fallback = fallbackCommunitiesList.find(
+        (f) => f.slug === dbComm.slug || f.name.toLowerCase() === dbComm.name.toLowerCase()
+      );
+      return {
+        ...dbComm,
+        latitude: dbComm.latitude || fallback?.latitude,
+        longitude: dbComm.longitude || fallback?.longitude,
+        feast_day: dbComm.feast_day || fallback?.feast_day,
+        foundation_year: dbComm.foundation_year || fallback?.foundation_year,
+        patron_saint: dbComm.patron_saint || fallback?.patron_saint,
+        address: dbComm.address || fallback?.address,
+        neighborhood: dbComm.neighborhood || fallback?.neighborhood,
+      };
+    });
   }
 
   // 3. Buscar horários de celebrações ativas
   let schedules: MassSchedule[] = fallbackSchedules;
-  try {
-    const { data: dbSchedules } = await supabase
-      .from('mass_schedules')
-      .select('*')
-      .eq('is_active', true)
-      .order('time');
-
-    if (dbSchedules && dbSchedules.length > 0) {
-      schedules = dbSchedules as MassSchedule[];
-    }
-  } catch (err) {
-    console.warn('Fallback ativado para horários:', err);
+  const dbSchedules = schedulesRes.data;
+  if (dbSchedules && dbSchedules.length > 0) {
+    schedules = dbSchedules as MassSchedule[];
   }
 
   return (

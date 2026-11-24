@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import { 
   Church, 
   ArrowLeft, 
@@ -11,7 +10,7 @@ import {
   Sparkles, 
   UserCheck
 } from 'lucide-react';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { Card, Badge, Button } from '@/components/ui';
 import { PastoralMessage } from '@/types';
 import { OFFICIAL_CHRISTMAS_MESSAGES } from '@/lib/pastoral-messages';
@@ -19,9 +18,10 @@ import { OFFICIAL_CHRISTMAS_MESSAGES } from '@/lib/pastoral-messages';
 // Mensagens padrão caso o banco esteja carregando ou offline
 const fallbackMessages: PastoralMessage[] = OFFICIAL_CHRISTMAS_MESSAGES;
 
+export const revalidate = 60;
+
 export default async function MensagensPastoraisPage() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
   // Buscar todas as mensagens ativas no Supabase
   const { data: messagesData } = await supabase

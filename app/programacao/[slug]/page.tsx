@@ -1,8 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { cookies } from 'next/headers';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { ParishSpecialEvent, ParishEventDay, Community } from '@/types';
 import { FALLBACK_SPECIAL_EVENTS, FALLBACK_EVENT_DAYS, getEventTheme } from '@/lib/events';
 import { fallbackCommunities } from '@/lib/communities';
@@ -21,10 +20,11 @@ interface EventPageProps {
   }>;
 }
 
+export const revalidate = 60;
+
 export async function generateMetadata({ params }: EventPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
   let event: ParishSpecialEvent | undefined;
 
@@ -77,8 +77,7 @@ export async function generateMetadata({ params }: EventPageProps): Promise<Meta
 
 export default async function ParishSpecialEventPage({ params }: EventPageProps) {
   const { slug } = await params;
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
   // 1. Buscar paróquia
   const { data: parishesData } = await supabase.from('parishes').select('*').limit(1);

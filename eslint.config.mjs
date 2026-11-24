@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     ".agents/**",
     "public/sw.js",
+    "tests/load/**",
   ]),
   {
     rules: {

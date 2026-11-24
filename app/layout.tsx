@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { unstable_cache } from "next/cache";
 import { Plus_Jakarta_Sans, Cormorant_Garamond, Cinzel, Suez_One } from "next/font/google";
 import "./globals.css";
 import { PwaInstallPrompt } from "@/components/pwa/PwaInstallPrompt";
@@ -59,12 +60,18 @@ function safeHexColor(value: string | undefined | null, fallback: string): strin
   return /^#[0-9a-fA-F]{3,8}$/.test(trimmed) ? trimmed : fallback;
 }
 
+const getCachedParishBrandIdentity = unstable_cache(
+  async () => getParishBrandIdentity(),
+  ["parish-brand-identity-v1"],
+  { revalidate: 300, tags: ["parish-brand"] }
+);
+
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const brandIdentity = await getParishBrandIdentity();
+  const brandIdentity = await getCachedParishBrandIdentity();
   const rawColors = brandIdentity.colors;
   // [HARDENED] SEC-010: Sanitiza cores do banco antes da interpolação em <style>
   const colors = {

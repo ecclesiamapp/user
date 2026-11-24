@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { cookies } from 'next/headers';
 import { 
   ArrowLeft, 
   Calendar, 
@@ -11,7 +10,7 @@ import {
   MessageCircle,
   BookOpen
 } from 'lucide-react';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { Card, Badge, Button } from '@/components/ui';
 import { PastoralMessage } from '@/types';
 import { OFFICIAL_CHRISTMAS_MESSAGES } from '@/lib/pastoral-messages';
@@ -24,10 +23,11 @@ interface PageProps {
 
 const fallbackMessages: PastoralMessage[] = OFFICIAL_CHRISTMAS_MESSAGES;
 
+export const revalidate = 60;
+
 export default async function MensagemDetalhePage({ params }: PageProps) {
   const { slug } = await params;
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
   // Buscar mensagem correspondente
   const { data: messageData } = await supabase

@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import { 
   Calendar, 
   MapPin, 
@@ -11,7 +10,7 @@ import {
   ArrowRight,
   Church
 } from 'lucide-react';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { ParishSpecialEvent } from '@/types';
 import { FALLBACK_SPECIAL_EVENTS, formatEventDateRange, getEventTheme } from '@/lib/events';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
@@ -23,9 +22,10 @@ export const metadata: Metadata = {
   description: 'Confira as datas, horários e programações especiais da Festa da Co-Padroeira, Tríduo Pascal e festas das 12 comunidades.',
 };
 
+export const revalidate = 60;
+
 export default async function ProgramacoesIndexPage() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
   // 1. Buscar paróquia
   const { data: parishesData } = await supabase.from('parishes').select('*').limit(1);

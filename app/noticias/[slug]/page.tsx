@@ -2,7 +2,6 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { cookies } from 'next/headers';
 import { 
   ArrowLeft, 
   Calendar, 
@@ -16,7 +15,7 @@ import {
   Heart,
   Camera
 } from 'lucide-react';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
 import { NewsShareButtons } from '@/components/noticias/NewsShareButtons';
@@ -52,10 +51,11 @@ export async function generateMetadata({ params }: NewsDetailPageProps): Promise
   };
 }
 
+export const revalidate = 60;
+
 export default async function CathedralNewsDetailPage({ params }: NewsDetailPageProps) {
   const { slug } = await params;
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
 
   // 1. Buscar artigo (banco de dados ou fallback)
   let article: NewsArticle | undefined = getNewsBySlug(slug);
