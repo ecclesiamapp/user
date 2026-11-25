@@ -170,7 +170,7 @@
 ### Tarefas Técnicas & Entregas:
 - [x] **TASK-59 (Onda 1):** Povoação Estrutural & Litúrgica: 25 horários em `public.mass_schedules`, Solenidade do Natal 2026 (`natal-2026`) ativa na Home e no Supabase com 4 blocos litúrgicos e teste de carga k6 (500 VUs / 0.00% erro).
 - [x] **TASK-60 (Onda 2):** Acervo Fotográfico Autoral de Cláudio Costa: download, conversão em lote para WebP ultra-otimizado (16 imagens), criação de 3 álbuns oficiais em `public.galleries` e atualização de `parish_sacred_heritage`.
-- [ ] **TASK-61 (Onda 3):** Coleta Dirigida com a Paróquia (PASCOM / Pe. Irineu / Secretaria): pacote de mensagens e formulário WhatsApp para coleta das fotos de fachadas das 11 CEBs externas + Grupo Santa Rita, fotos dos 3 movimentos (ECC, EAC, EJC), dados operacionais de balcão (chave PIX oficial, WhatsApp e horários de confissão) e solicitação das credenciais DNS (`TASK-12`).
+- [ ] **TASK-61 (Onda 3):** Coleta Dirigida com a Paróquia (PASCOM / Pe. Irineu / Secretaria) — *[STATUS: ⏸️ EM ESPERA / AGENDADO PARA DISPARO EM 01/12]*: pacote de mensagens e plano documentado em `[documentation]/planejamento/PLANO_DE_COLETA_PAROQUIAL_ONDA3.md` para coleta das fotos de fachadas das 11 CEBs externas + Grupo Santa Rita, fotos dos 3 movimentos (ECC, EAC, EJC), dados operacionais de balcão (chave PIX oficial, WhatsApp e horários de confissão) e solicitação das credenciais DNS (`TASK-12`).
 - [ ] **TASK-62 (Onda 4):** Validação Litúrgica Final & Campanha PWA de Bancada (15/12 a 23/12/2026): revisão geral dos dados com a secretária paroquial no `/admin` e impressão dos displays de acrílico/cartões de bolso via `/instalar/imprimir` para posicionar nos bancos antes da Missa do Galo.
 
 ---
