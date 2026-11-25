@@ -2,9 +2,10 @@ import React from 'react';
 
 interface PrintPocketCardsProps {
   qrCodeUrl: string;
+  logoUrl?: string | null;
 }
 
-export function PrintPocketCards({ qrCodeUrl }: PrintPocketCardsProps) {
+export function PrintPocketCards({ qrCodeUrl, logoUrl }: PrintPocketCardsProps) {
   return (
     <div className="p-3 sm:p-6 print:p-6 grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 print:grid-rows-3 gap-3 w-full h-full min-h-auto print:min-h-[297mm]">
       {[1, 2, 3, 4, 5, 6].map((index) => (
@@ -30,17 +31,24 @@ export function PrintPocketCards({ qrCodeUrl }: PrintPocketCardsProps) {
             </p>
           </div>
 
-          <div className="p-1.5 bg-[var(--dash-surface)] border-2 border-[#C8A463] rounded-xl shrink-0 relative">
+          <div className="p-1.5 bg-[var(--dash-surface)] border-2 border-[#C8A463] rounded-xl shrink-0 relative flex items-center justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={qrCodeUrl}
               alt="QR Code Catedral"
-              className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
+              className="w-16 h-16 sm:w-20 sm:h-20 block object-contain"
             />
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-5 h-5 rounded-full bg-[#8B1E22] text-[#FFCC36] flex items-center justify-center text-[10px] font-bold shadow-xs">
-                ✝
-              </div>
+              {logoUrl ? (
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[var(--dash-surface)] border border-[#C8A463] flex items-center justify-center p-0.5 shadow-xs overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={logoUrl} alt="Logo" className="w-full h-full object-contain" />
+                </div>
+              ) : (
+                <div className="w-5 h-5 rounded-full bg-[#8B1E22] text-[#FFCC36] flex items-center justify-center text-[10px] font-bold shadow-xs">
+                  ✝
+                </div>
+              )}
             </div>
           </div>
         </div>

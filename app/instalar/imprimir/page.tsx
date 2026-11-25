@@ -1,21 +1,45 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Printer, ArrowLeft, Palette, Info } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { PrintPosterA4 } from '@/components/pwa/print/PrintPosterA4';
 import { PrintBenchDisplays } from '@/components/pwa/print/PrintBenchDisplays';
 import { PrintPocketCards } from '@/components/pwa/print/PrintPocketCards';
+import { createClient } from '@/utils/supabase/client';
 
 type PrintTemplate = 'cartaz-a4' | 'displays-banco' | 'cartoes-bolso';
 
 export default function ImprimirMateriaisPwaPage() {
   const [template, setTemplate] = useState<PrintTemplate>('cartaz-a4');
   const [isMonochrome, setIsMonochrome] = useState(false);
+  const [parishLogoUrl, setParishLogoUrl] = useState<string | null>(null);
 
   const targetUrl = 'https://catedraldecolatina.org.br/instalar';
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(targetUrl)}&margin=4&format=svg`;
+
+  useEffect(() => {
+    async function loadBrand() {
+      try {
+        const supabase = createClient();
+        const { data } = await supabase
+          .from('parishes')
+          .select('logo_url, brand_identity')
+          .eq('slug', 'catedral-colatina')
+          .maybeSingle();
+
+        if (data?.logo_url) {
+          setParishLogoUrl(data.logo_url);
+        } else if (data?.brand_identity?.logos?.main_url) {
+          setParishLogoUrl(data.brand_identity.logos.main_url);
+        }
+      } catch {
+        // Fallback silencioso para a Cruz canônica
+      }
+    }
+    loadBrand();
+  }, []);
 
   const handlePrint = () => {
     window.print();
@@ -134,9 +158,9 @@ export default function ImprimirMateriaisPwaPage() {
             isMonochrome ? 'grayscale' : ''
           }`}
         >
-          {template === 'cartaz-a4' && <PrintPosterA4 qrCodeUrl={qrCodeUrl} />}
-          {template === 'displays-banco' && <PrintBenchDisplays qrCodeUrl={qrCodeUrl} />}
-          {template === 'cartoes-bolso' && <PrintPocketCards qrCodeUrl={qrCodeUrl} />}
+          {template === 'cartaz-a4' && <PrintPosterA4 qrCodeUrl={qrCodeUrl} logoUrl={parishLogoUrl} />}
+          {template === 'displays-banco' && <PrintBenchDisplays qrCodeUrl={qrCodeUrl} logoUrl={parishLogoUrl} />}
+          {template === 'cartoes-bolso' && <PrintPocketCards qrCodeUrl={qrCodeUrl} logoUrl={parishLogoUrl} />}
         </div>
       </main>
     </div>

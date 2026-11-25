@@ -3,9 +3,10 @@ import { Sparkles, Clock, BookOpen, Smartphone } from 'lucide-react';
 
 interface PrintPosterA4Props {
   qrCodeUrl: string;
+  logoUrl?: string | null;
 }
 
-export function PrintPosterA4({ qrCodeUrl }: PrintPosterA4Props) {
+export function PrintPosterA4({ qrCodeUrl, logoUrl }: PrintPosterA4Props) {
   return (
     <div className="p-4 sm:p-10 print:p-10 flex flex-col justify-between h-full min-h-auto print:min-h-[297mm] border-[4px] sm:border-[6px] border-[#8B1E22] relative w-full overflow-hidden">
       {/* Filete Interno Dourado com Cantos Sacros */}
@@ -57,20 +58,27 @@ export function PrintPosterA4({ qrCodeUrl }: PrintPosterA4Props) {
           Aponte a câmera do seu celular para o QR Code abaixo e salve o atalho da Catedral com 1 toque na sua tela inicial:
         </p>
 
-        {/* 3. MOLDURA NOBRE DO QR CODE */}
-        <div className="inline-block p-3 sm:p-5 rounded-3xl bg-[#FAF7F2] border-2 sm:border-3 border-[#C8A463] shadow-md mx-auto my-1">
-          <div className="relative p-2 sm:p-2.5 bg-[var(--dash-surface)] rounded-2xl shadow-inner border border-[#E8DFD3]">
+        {/* 3. MOLDURA NOBRE DO QR CODE - Alinhamento Perfeito & Fundo Puro */}
+        <div className="inline-flex flex-col items-center justify-center p-4 sm:p-5 rounded-3xl bg-[#FAF7F2] border-2 sm:border-3 border-[#C8A463] shadow-md mx-auto my-1">
+          <div className="relative p-2.5 sm:p-3 bg-[var(--dash-surface)] rounded-2xl shadow-inner border border-[#E8DFD3] flex items-center justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={qrCodeUrl}
               alt="QR Code da Catedral de Colatina"
-              className="w-44 h-44 sm:w-56 sm:h-56 object-contain"
+              className="w-44 h-44 sm:w-56 sm:h-56 block object-contain"
             />
-            {/* Selo Central da Cruz no QR Code */}
+            {/* Selo Central: Logo Oficial da Paróquia ou Cruz Canônica como Fallback */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#8B1E22] text-[#FFCC36] border-2 border-[#C8A463] shadow-md flex items-center justify-center font-serif text-base sm:text-lg font-bold">
-                ✝
-              </div>
+              {logoUrl ? (
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[var(--dash-surface)] border-2 border-[#C8A463] shadow-md flex items-center justify-center p-1.5 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={logoUrl} alt="Logo Catedral" className="w-full h-full object-contain" />
+                </div>
+              ) : (
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#8B1E22] text-[#FFCC36] border-2 border-[#C8A463] shadow-md flex items-center justify-center font-serif text-base sm:text-lg font-bold">
+                  ✝
+                </div>
+              )}
             </div>
           </div>
 

@@ -48,7 +48,7 @@ Nesta sessão de 24/11/2026, concluímos com rigor e excelência:
 
 ## 🏛️ Diretrizes Críticas Inegociáveis (Relembre a cada turno)
 - **Regra de Ouro do White-Label:** A marca "Ecclesiam" NUNCA aparece para o fiel.
-- **Nomenclatura Litúrgica:** NUNCA usar "culto" (usar "Santa Missa" ou "Celebração da Palavra"). NUNCA usar "no Altar" para folhas de intenções (usar "Folha do Púlpito A4" ou "Intenções de Missa"). Usar "Comunidade" no lugar de "Capela", e "Catedral" no lugar de "Matriz".
+- **Nomenclatura Litúrgica:** NUNCA usar "culto" (usar "Santa Missa" ou "Celebração da Palavra"). NUNCA usar "no Altar" para folhas de intenções (usar "Folha do Púlpito A4" ou "Intenções de Missa"). Usar "Comunidade" no lugar de "Comunidade", e "Catedral" no lugar de "Matriz".
 - **Delimitação THEOS:** O app NÃO faz captação contábil nem relatórios de dízimo cadastrado (papel exclusivo do ERP Theòs).
 - **Regra de Exibição de Código SQL:** Toda migração SQL DEVE ser exibida na íntegra no chat.
 - **Estimativa de Tempo:** Toda tarefa sugerida DEVE vir com `⏱️ Tempo Estimado: ~X minutos` e pergunta expressa de validação.
