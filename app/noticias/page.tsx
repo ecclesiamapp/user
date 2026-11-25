@@ -80,7 +80,7 @@ export default async function CathedralNewsPage() {
             : a.category === 'noticia'
             ? 'Notícia'
             : 'Aviso da Semana',
-        imageUrl: a.image_url || '/images/historia/catedral-interior.jpg',
+        imageUrl: a.image_url || '/images/home/catedral-panoramica-elevada.webp',
         publishedAt: (a.published_at || a.created_at)
           ? new Date(a.published_at || a.created_at).toLocaleDateString('pt-BR', {
               day: '2-digit',

@@ -15,6 +15,7 @@ const eslintConfig = defineConfig([
     ".agents/**",
     "public/sw.js",
     "tests/load/**",
+    "scripts/**",
   ]),
   {
     rules: {

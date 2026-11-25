@@ -183,11 +183,11 @@ export default async function CathedralHistoryPage() {
 
       {/* 3. Hero Monumental de História & Identidade com Fundo Fotográfico Real */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#1C1614] via-[#2A1D1A] to-[#1C1614] text-white py-16 sm:py-24 border-b border-[#C8A463]/30">
-        {/* Fotografia Real da Catedral em Marca d'Água Nobre */}
+        {/* Fotografia Real da Catedral em Marca d'Água Nobre - Foto: Cláudio Costa */}
         <img
-          src="/images/historia/catedral-interior.jpg"
-          alt="Interior da Catedral de Colatina"
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-20 mix-blend-luminosity pointer-events-none"
+          src="/images/historia/nave-central-simetrica.webp"
+          alt="Interior da Catedral de Colatina (Foto: Cláudio Costa)"
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-25 mix-blend-luminosity pointer-events-none"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#1C1614]/85 via-[#2A1D1A]/90 to-[#1C1614] pointer-events-none" />
 

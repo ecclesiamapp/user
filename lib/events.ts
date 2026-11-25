@@ -19,7 +19,7 @@ export const FALLBACK_SPECIAL_EVENTS: ParishSpecialEvent[] = [
     description: 'A Catedral do Sagrado Coração de Jesus e suas 12 Comunidades Eclesiais de Base convidam todas as famílias para celebrarem a Novena de Natal, a Solene Missa da Vigília (Missa do Galo), o Dia do Natal do Senhor e a Virada de Ano em Ação de Graças.',
     start_date: '2026-12-15',
     end_date: '2027-01-01',
-    banner_url: '/images/historia/catedral-interior.jpg',
+    banner_url: '/images/festas/natal-catedral-2026.webp',
     poster_pdf_url: null,
     is_featured_home: true,
     status: 'destaque_ativo',

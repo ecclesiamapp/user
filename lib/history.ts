@@ -105,8 +105,8 @@ export const CATHEDRAL_HISTORICAL_MILESTONES: HistoricalMilestone[] = [
       'Em 23 de abril de 1990, por meio da Bula Papal "Ex Munere Caritatis" de São João Paulo II, é criada a Diocese de Colatina, desmembrada da Arquidiocese de Vitória. A Matriz do Sagrado Coração é solenemente elevada à dignidade de Catedral Diocesana, recebendo a Cátedra Episcopal.',
     iconName: 'crown',
     highlight: 'Elevação da Matriz a Igreja-Mãe de 17 municípios capixabas.',
-    imageUrl: '/images/historia/catedral-interior.jpg',
-    imageCaption: 'A imponente nave da Catedral Sagrado Coração de Jesus de Colatina.',
+    imageUrl: '/images/historia/nave-central-simetrica.webp',
+    imageCaption: 'A imponente nave da Catedral Sagrado Coração de Jesus de Colatina. Foto: Cláudio Costa',
   },
   {
     id: 'm-2006',
@@ -356,8 +356,8 @@ export const SACRED_HERITAGE_ITEMS: SacredHeritageItem[] = [
     theologicalMeaning:
       'A Cátedra é o sinal da unidade diocesana com os Apóstolos e com o Sucessor de Pedro em Roma. A nave expressa a Igreja como Corpo Místico de Cristo.',
     icon: 'chair',
-    imageUrl: '/images/historia/catedral-interior.jpg',
-    imageCaption: 'Nave central e perspectiva em direção ao presbitério da Catedral.',
+    imageUrl: '/images/historia/nave-central-simetrica.webp',
+    imageCaption: 'Nave central e perspectiva em direção ao presbitério da Catedral. Foto: Cláudio Costa',
   },
   {
     id: 'h-sinos',

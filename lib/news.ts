@@ -56,7 +56,7 @@ A Pastoral Social e a Conferência Vicentina também estarão recolhendo aliment
     `.trim(),
     category: 'festa_padroeiro',
     categoryLabel: 'Festa do Padroeiro',
-    imageUrl: '/images/historia/catedral-interior.jpg',
+    imageUrl: '/images/home/catedral-panoramica-elevada.webp',
     imageCaption: 'A imponente nave da Catedral em dia de celebração solene.',
     publishedAt: '14 de Outubro, 2026',
     authorName: 'PASCOM Catedral',
