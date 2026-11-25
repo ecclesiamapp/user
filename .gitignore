@@ -48,6 +48,10 @@ supabase/.temp/
 
 # local mcp config with tokens
 .mcp.json
+
+# disaster recovery & local backups (M-One Standard)
+backups/
+*.zip
 mcp_config.json
 
 
