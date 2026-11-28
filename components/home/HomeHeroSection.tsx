@@ -43,11 +43,11 @@ export function HomeHeroSection({
       {/* 1. HERO MONUMENTAL IMERSIVO (Catedral de Colatina • Acervo Oficial) */}
       <section className="relative w-full min-h-[580px] sm:min-h-[640px] lg:min-h-[700px] pt-36 pb-28 px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center overflow-hidden bg-[#16181B]">
         
-        {/* Fotografia Oficial da Catedral de Colatina em Alta Resolução (Acervo Cláudio Costa) */}
+        {/* Fotografia Oficial da Catedral de Colatina em Alta Resolução (Interior - Nave Central e Altar) */}
         <div 
           className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105 z-0"
           style={{
-            backgroundImage: `url('/images/home/catedral-panoramica-elevada.webp')`,
+            backgroundImage: `url('/images/home/catedral-hero-coro.webp')`,
           }}
         />
 

@@ -98,7 +98,7 @@ export default async function RootLayout({
               (function() {
                 try {
                   var saved = localStorage.getItem('ecclesiam_theme');
-                  var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                  var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
                   if (theme === 'dark') {
                     document.documentElement.classList.add('dark');
                     document.documentElement.classList.remove('light');

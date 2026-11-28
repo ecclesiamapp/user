@@ -21,7 +21,6 @@ import { AdventWreathBanner } from '@/components/advent/AdventWreathBanner';
 import { PastoralMessageFeatured } from '@/components/pastoral/PastoralMessageFeatured';
 import { fallbackFeaturedMessages } from '@/lib/pastoral-messages';
 import { DizimoDoacoesSection } from '@/components/dizimo/DizimoDoacoesSection';
-import { MarqueeAvisos } from '@/components/layout/MarqueeAvisos';
 import { CathedralHeroPortal } from '@/components/home/CathedralHeroPortal';
 import { CathedralSpecialEventBanner } from '@/components/home/CathedralSpecialEventBanner';
 import { SacramentsGrid } from '@/components/home/SacramentsGrid';
@@ -95,9 +94,6 @@ export default async function ParishPublicPortalPage() {
 
   return (
     <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex flex-col justify-between selection:bg-[#FFA82A] selection:text-[#2D1A16] transition-colors duration-200">
-      {/* 1. Marquee Litúrgico Fino no Topo Absoluto (Vermelho Sagrado Coração #8B1E22) */}
-      <MarqueeAvisos />
-
       {/* 2 & 3. Header Translúcido & Hero Monumental com Vídeo e Floating Schedule Card Conectados */}
       <CathedralHeroPortal
         parishName={parish.name}

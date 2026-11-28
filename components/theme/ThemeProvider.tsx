@@ -51,11 +51,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
         applyTheme(savedTheme);
         setThemeState(savedTheme);
       } else {
-        // Se não houver preferência salva, verifica o sistema operacional
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const initialTheme: ThemeMode = systemPrefersDark ? 'dark' : 'light';
-        applyTheme(initialTheme);
-        setThemeState(initialTheme);
+        // Por determinação de produto, o portal deve vir por padrão no Tema Claro
+        applyTheme('light');
+        setThemeState('light');
       }
     } catch {
       // Fallback em caso de erro ao acessar localStorage
