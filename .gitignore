@@ -55,3 +55,6 @@ backups/
 mcp_config.json
 
 
+
+.vercel
+.env*

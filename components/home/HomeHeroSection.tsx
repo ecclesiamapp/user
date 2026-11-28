@@ -34,39 +34,28 @@ export function HomeHeroSection({
   const isModalOpen = externalIsLiveOpen !== undefined ? externalIsLiveOpen : internalLiveModalOpen;
   const setModalOpen = externalSetIsLiveOpen !== undefined ? externalSetIsLiveOpen : setInternalLiveModalOpen;
 
-  // Vídeo oficial de St. Patrick's Cathedral NYC (Santa Missa Dominical no Altar-Mor — Embed autêntico)
-  const stPatricksVideoId = "e6Fl-vDe5mk";
-  const stPatricksEmbedUrl = `https://www.youtube-nocookie.com/embed/${stPatricksVideoId}?autoplay=1&rel=0&modestbranding=1`;
+  // Transmissão Oficial da Catedral de Colatina (YouTube Live)
+  const cathedralLiveEmbedUrl = "https://www.youtube-nocookie.com/embed/live_stream?channel=@catedraldecolatina";
+  const cathedralChannelUrl = "https://www.youtube.com/@catedraldecolatina";
 
   return (
     <div className="relative w-full -mt-20">
-      {/* 1. HERO MONUMENTAL IMERSIVO (St. Patrick's Cathedral NYC Style) */}
+      {/* 1. HERO MONUMENTAL IMERSIVO (Catedral de Colatina • Acervo Oficial) */}
       <section className="relative w-full min-h-[580px] sm:min-h-[640px] lg:min-h-[700px] pt-36 pb-28 px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center overflow-hidden bg-[#16181B]">
         
-        {/* Fotografia Base em Alta Resolução da Catedral */}
+        {/* Fotografia Oficial da Catedral de Colatina em Alta Resolução (Acervo Cláudio Costa) */}
         <div 
           className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105 z-0"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1548625361-195fe5795df5?auto=format&fit=crop&w=2000&q=85')`,
+            backgroundImage: `url('/images/home/catedral-panoramica-elevada.webp')`,
           }}
         />
 
-        {/* VÍDEO AMBIENTAL DE FUNDO (St. Patrick's Cathedral NYC — Ativo a partir de telas sm: para poupar bateria e dados móveis em celulares populares) */}
-        <div className="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none select-none z-1">
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${stPatricksVideoId}?autoplay=1&mute=1&loop=1&playlist=${stPatricksVideoId}&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1&enablejsapi=1`}
-            title="St. Patrick's Cathedral NYC Ambient Footage"
-            className="w-[140%] h-[140%] -translate-x-[15%] -translate-y-[15%] object-cover border-0 opacity-75"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            onLoad={() => setVideoLoaded(true)}
-          />
-        </div>
-
-        {/* Gradiente Cinematográfico Translúcido (Basalto Catedral #16181B) */}
+        {/* Gradiente Cinematográfico Translúcido (Basalto Catedral #16181B para máxima legibilidade) */}
         <div 
           className="absolute inset-0 pointer-events-none z-2"
           style={{
-            background: 'linear-gradient(to bottom, rgba(22, 24, 27, 0.40) 0%, rgba(22, 24, 27, 0.60) 45%, rgba(22, 24, 27, 0.95) 100%)',
+            background: 'linear-gradient(to bottom, rgba(22, 24, 27, 0.45) 0%, rgba(22, 24, 27, 0.65) 50%, rgba(22, 24, 27, 0.95) 100%)',
           }}
         />
 
@@ -234,7 +223,7 @@ export function HomeHeroSection({
                     Transmissão Ao Vivo • Catedral de Colatina
                   </h4>
                   <p className="text-xs text-[#C8A463]">
-                    Feed Oficial: St. Patrick's Cathedral NYC Broadcast
+                    Canal Oficial no YouTube: @catedraldecolatina
                   </p>
                 </div>
               </div>
@@ -251,8 +240,8 @@ export function HomeHeroSection({
             {/* Player do Vídeo do YouTube */}
             <div className="relative w-full aspect-video bg-black">
               <iframe
-                src={stPatricksEmbedUrl}
-                title="St. Patrick's Cathedral New York Video Broadcast"
+                src={cathedralLiveEmbedUrl}
+                title="Catedral de Colatina • Transmissão Litúrgica Oficial"
                 className="w-full h-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
@@ -263,15 +252,15 @@ export function HomeHeroSection({
             <div className="p-4 bg-[#0E1012] border-t border-[#2B2A28] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#A39E98]">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#FFA82A]" />
-                <span>Transmissão litúrgica sem anúncios comerciais.</span>
+                <span>Transmissão litúrgica oficial da Diocese de Colatina.</span>
               </div>
               <a
-                href="https://www.youtube.com/@SaintPatricksCathedralNYC"
+                href={cathedralChannelUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-bold text-[#FFCC36] hover:underline"
               >
-                Abrir no YouTube Oficial →
+                Canal Oficial no YouTube →
               </a>
             </div>
           </div>

@@ -54,7 +54,7 @@ export function CathedralLiveBroadcastSection({
               Santa Missa no <span className="text-[#FFCC36]">Altar-Mor</span>
             </h2>
             <p className="font-serif italic text-sm text-[#C8A463] mt-1">
-              Feed Litúrgico Oficial: St. Patrick's Cathedral (NYC) • Experiência Imersiva em Alta Definição
+              Feed Litúrgico Oficial: Catedral Sagrado Coração de Jesus • Diocese de Colatina
             </p>
           </div>
 
@@ -70,13 +70,13 @@ export function CathedralLiveBroadcastSection({
               </button>
             )}
             <a
-              href="https://www.youtube.com/@SaintPatricksCathedralNYC"
+              href="https://www.youtube.com/@catedraldecolatina"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[var(--dash-surface)]/10 hover:bg-[var(--dash-surface)]/15 text-[#EAE3D9] text-xs font-bold uppercase tracking-wider font-sans transition-all border border-white/10"
             >
               <ExternalLink className="w-3.5 h-3.5" />
-              <span>Canal St. Patrick's</span>
+              <span>Canal Catedral</span>
             </a>
           </div>
         </div>
@@ -85,7 +85,7 @@ export function CathedralLiveBroadcastSection({
         <div className="relative w-full aspect-video rounded-2xl overflow-hidden border-2 border-[#C8A463]/30 shadow-2xl bg-black">
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${activeVideoId}?autoplay=0&rel=0&modestbranding=1&enablejsapi=1`}
-            title="Transmissão Litúrgica St. Patrick's Cathedral NYC"
+            title="Transmissão Litúrgica Oficial • Catedral de Colatina"
             className="w-full h-full border-0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
