@@ -22,7 +22,7 @@
 - [x] **TASK-09:** Guia & Roteiro de Treinamento da Secretária Paroquial (4 horas presenciais para uso do painel `/admin`).
 - [x] **TASK-10:** Auditoria de Segurança RLS no Supabase (validação de isolamento multi-tenant por `parish_id` e políticas de escrita).
 - [x] **TASK-11:** Auditoria de Dependências (`npm audit`) e validação de variáveis de ambiente de produção na Vercel.
-- [ ] **TASK-12:** Apontamento de DNS e Escudo Cloudflare (quando acesso for liberado pela paróquia: Proxy Laranja, SSL Full Strict e registros A/CNAME).
+- [x] **TASK-12:** Apontamento de DNS e Escudo Cloudflare (quando acesso for liberado pela paróquia: Proxy Laranja, SSL Full Strict e registros A/CNAME).
 
 ---
 
@@ -162,7 +162,18 @@
 
 ---
 
-## ✨ FASE 11: Polimento UX, Acessibilidade & Resiliência Mobile
+## 🎄 FASE 12: Povoação Oficial Rumo ao Natal 2026 & Coleta Paroquial
+* **Data Limite:** 25 de Dezembro de 2026 (Solenidade da Natividade do Senhor)
+* **Objetivo:** Povoação completa de dados mestre, fotografia de catedral europeia (Cláudio Costa), coleta pastoral com as 12 CEBs e materiais de bancada.
+* **Documento de Especificação Técnica:** [`[documentation]/planejamento/PLANO_DE_POVOACAO_CATEDRAL_NATAL_2026.md`](file:///c:/Users/Start/ecclesiam-app/[documentation]/planejamento/PLANO_DE_POVOACAO_CATEDRAL_NATAL_2026.md)
+
+### Tarefas Técnicas & Entregas:
+- [x] **TASK-59 (Onda 1):** Povoação Estrutural & Litúrgica: 25 horários em `public.mass_schedules`, Solenidade do Natal 2026 (`natal-2026`) ativa na Home e no Supabase com 4 blocos litúrgicos e teste de carga k6 (500 VUs / 0.00% erro).
+- [x] **TASK-60 (Onda 2):** Acervo Fotográfico Autoral de Cláudio Costa: download, conversão em lote para WebP ultra-otimizado (16 imagens), criação de 3 álbuns oficiais em `public.galleries` e atualização de `parish_sacred_heritage`.
+- [ ] **TASK-61 (Onda 3):** Coleta Dirigida com a Paróquia (PASCOM / Pe. Irineu / Secretaria) — *[STATUS: ⏸️ EM ESPERA / AGENDADO PARA DISPARO EM 01/12]*: pacote de mensagens e plano documentado em `[documentation]/planejamento/PLANO_DE_COLETA_PAROQUIAL_ONDA3.md` para coleta das fotos de fachadas das 11 CEBs externas + Grupo Santa Rita, fotos dos 3 movimentos (ECC, EAC, EJC), dados operacionais de balcão (chave PIX oficial, WhatsApp e horários de confissão) e solicitação das credenciais DNS (`TASK-12`).
+- [ ] **TASK-62 (Onda 4):** Validação Litúrgica Final & Campanha PWA de Bancada (15/12 a 23/12/2026): revisão geral dos dados com a secretária paroquial no `/admin` e impressão dos displays de acrílico/cartões de bolso via `/instalar/imprimir` para posicionar nos bancos antes da Missa do Galo.
+
+---
 * **Data Limite:** Pós-Fase 10 (Polimento pré-escala para público >85% mobile e fiéis idosos em 3G/4G)
 * **Objetivo:** Elevar o acabamento mobile do portal aplicando o diagnóstico curado do guia *Polish* (Lincoln Devine) nos pontos de maior retorno pastoral sem comprometer segurança nem concorrência de agendamentos.
 * **Documento de Especificação Técnica:** [`[documentation]/planejamento/IMPLEMENTACOES_PENDENTES.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/IMPLEMENTACOES_PENDENTES.md)
