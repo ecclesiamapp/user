@@ -183,6 +183,21 @@
 - [x] **TASK-57:** PWA Offline Leve (`public/sw.js` com estratégia *stale-while-revalidate* restrita à leitura pública: Home, Agenda Litúrgica, Comunidades, História e Folhetos; bloqueando `/admin`, `/login`, `/meu-espaco` e `/api/admin`).
 - [x] **TASK-58:** Skeletons de Rota (`loading.tsx` em 3–4 layouts públicos), persistência versionada do controle `A- / A / A+` em `%` (`CathedralHeader.tsx`), troca de emojis pictóricos de UI por ícones `lucide-react` (11 arquivos) e feedback tátil leve em CSS (`:active scale`).
 
+---
+
+## 📧 FASE 13: Módulo de E-mails Paroquiais, Caixas Postais SaaS & Autenticação de Envio
+* **Data Limite:** Janeiro/Fevereiro de 2027 (Automação de Infraestrutura & Expansão Multi-Paróquia)
+* **Objetivo:** Autenticar o subdomínio dedicado de envio transacional Resend (`notificacoes.catedraldecolatina.org.br`) com DKIM e SPF na Cloudflare, e desenvolver o módulo de gestão de caixas postais corporativas (`/admin/emails`) integrado via API de correio profissional (Titan/Zoho/Mailgun) para eliminar a dependência de servidores cPanel/Locaweb das paróquias clientes.
+* **Documento de Especificação Técnica:** [`[documentation]/planejamento/ESPECIFICACAO_SERVICOS_EMAIL_ANTISPAM.md`](file:///c:/Users/Start/ecclesiam-app/%5Bdocumentation%5D/planejamento/ESPECIFICACAO_SERVICOS_EMAIL_ANTISPAM.md)
+
+### Tarefas Técnicas & Entregas:
+- [ ] **TASK-63:** Autenticação do Domínio Transacional no Resend: criação do subdomínio `notificacoes.catedraldecolatina.org.br` com inserção dos registros DKIM, SPF e DMARC na Cloudflare para entrega 100% no Inbox e zero spam.
+- [ ] **TASK-64:** Atualização das Variáveis de Envio de Produção: padronização de `RESEND_FROM_EMAIL` para `Catedral de Colatina <notificacoes@catedraldecolatina.org.br>` e testes de disparo.
+- [ ] **TASK-65:** Arquitetura do Provedor de E-mail Corporativo White-Label via API: definição técnica e homologação de infraestrutura gerenciada (Titan Email API ou Zoho Workplace API).
+- [ ] **TASK-66:** Painel Administrativo de E-mails (`/admin/emails`): interface moderna para secretária e pároco criarem caixas (@paroquia.org.br), redefinirem senhas e gerarem links rápidos de Webmail.
+- [ ] **TASK-67:** Provisionador Automático de DNS Cloudflare para E-mails: automação de registros MX, SPF, DKIM e CNAME webmail no provisionamento de novas paróquias clientes.
+
+
 
 
 
