@@ -84,19 +84,19 @@ export function LiturgicalBanner() {
             {/* Badges de Tempo Litúrgico e Cor Canônica */}
             <div className="flex flex-wrap items-center gap-2">
               <span
-                className={`inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider ${theme.badgeClass}`}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${theme.badgeClass}`}
               >
                 <span className={`w-2 h-2 rounded-full ${theme.pulseClass} animate-pulse`} />
                 <span>{theme.colorLabel}</span>
               </span>
 
-              <span className="text-xs text-[var(--dash-text-secondary)] flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 opacity-70" />
+              <span className="text-xs font-semibold text-[var(--dash-text-primary)]/80 flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-[#8B1E22] dark:text-[#FFA82A]" />
                 {liturgy.data}
               </span>
 
               {liturgy.isLive && (
-                <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                <span className="text-[10px] font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-500/20 px-2.5 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-500/30">
                   CNBB Oficial
                 </span>
               )}
@@ -108,7 +108,7 @@ export function LiturgicalBanner() {
             </h3>
 
             {/* Trecho Breve do Evangelho do Dia */}
-            <p className="font-serif italic text-sm sm:text-base text-[var(--dash-text-secondary)] border-l-2 border-amber-500/40 pl-3 leading-relaxed">
+            <p className="font-serif italic text-sm sm:text-base text-[var(--dash-text-primary)] font-medium border-l-[3px] border-[#FFA82A] pl-3.5 leading-relaxed">
               &ldquo;{evangelhoSnippet}&rdquo;
             </p>
           </div>
