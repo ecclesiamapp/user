@@ -80,7 +80,7 @@ export const fallbackCommunities: Record<string, Community> = {
         title: 'Santo Terço dos Homens',
         date_label: '27 OUT',
         day_of_week: 'Segunda-feira',
-        time: '19:30',
+        time: '19:00',
         category: 'oracao',
         location: 'Comunidade Eclesial',
         responsible_group: 'Movimento do Terço dos Homens',

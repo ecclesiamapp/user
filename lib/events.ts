@@ -69,7 +69,7 @@ export const FALLBACK_EVENT_DAYS: Record<string, ParishEventDay[]> = {
       schedule_items: [
         { time: '16:00', title: 'Mutirão de Confissões Individuais (Terças e Quintas)', location: 'Catedral Diocesana' },
         { time: '19:00', title: 'Novena de Natal em Família nas 12 Comunidades (CEBs)', location: 'Lares e Comunidades' },
-        { time: '19:30', title: 'Santa Missa do Tempo do Advento na Catedral', location: 'Catedral Diocesana' },
+        { time: '19:00', title: 'Santa Missa do Tempo do Advento na Catedral', location: 'Catedral Diocesana' },
       ],
     },
     {
@@ -86,7 +86,7 @@ export const FALLBACK_EVENT_DAYS: Record<string, ParishEventDay[]> = {
       order_index: 2,
       schedule_items: [
         { time: '18:00', title: 'Santa Missa da Vigília nas Comunidades (CEBs)', location: 'Comunidades da Paróquia' },
-        { time: '19:30', title: 'Cantata de Natal e Adoração diante do Presépio', location: 'Nave Central da Catedral' },
+        { time: '19:00', title: 'Cantata de Natal e Adoração diante do Presépio', location: 'Nave Central da Catedral' },
         { time: '20:00', title: 'Solene Santa Missa da Noite de Natal (Missa do Galo)', location: 'Catedral Diocesana', celebrant: 'Dom Lauro Sérgio Versiani Barbosa' },
       ],
     },
@@ -121,7 +121,7 @@ export const FALLBACK_EVENT_DAYS: Record<string, ParishEventDay[]> = {
       social_attractions: 'Canto solene do Te Deum em Ação de Graças pelo ano encerrado',
       order_index: 4,
       schedule_items: [
-        { time: '19:30', title: 'Santa Missa Solene de Ação de Graças (31/12) com canto do Te Deum', location: 'Catedral Diocesana', celebrant: 'Pe. Irineu Claudino Sales' },
+        { time: '19:00', title: 'Santa Missa Solene de Ação de Graças (31/12) com canto do Te Deum', location: 'Catedral Diocesana', celebrant: 'Pe. Irineu Claudino Sales' },
         { time: '09:00', title: 'Santa Missa da Solenidade de Santa Maria, Mãe de Deus (01/01) • Dia Mundial da Paz', location: 'Catedral Diocesana' },
         { time: '19:00', title: 'Santa Missa de Ano Novo pelas Famílias (01/01)', location: 'Catedral Diocesana' },
       ],
@@ -142,7 +142,7 @@ export const FALLBACK_EVENT_DAYS: Record<string, ParishEventDay[]> = {
       order_index: 1,
       schedule_items: [
         { time: '18:30', title: 'Santo Terço Luminoso com os Homens', location: 'Presbitério da Catedral' },
-        { time: '19:30', title: 'Santa Missa Solene de Abertura', location: 'Catedral Diocesana', celebrant: 'Pe. Irineu Claudino Sales' },
+        { time: '19:00', title: 'Santa Missa Solene de Abertura', location: 'Catedral Diocesana', celebrant: 'Pe. Irineu Claudino Sales' },
         { time: '20:45', title: 'Abertura das Barracas e Noite dos Caldos', location: 'Pátio Paroquial' }
       ]
     },
@@ -160,7 +160,7 @@ export const FALLBACK_EVENT_DAYS: Record<string, ParishEventDay[]> = {
       order_index: 2,
       schedule_items: [
         { time: '18:45', title: 'Ofício de Nossa Senhora Cantado', location: 'Catedral Diocesana' },
-        { time: '19:30', title: 'Santa Missa com Envio dos Jovens e Crismanos', location: 'Catedral Diocesana' },
+        { time: '19:00', title: 'Santa Missa com Envio dos Jovens e Crismanos', location: 'Catedral Diocesana' },
         { time: '21:00', title: 'Apresentação Musical e Praça de Alimentação', location: 'Pátio da Catedral' }
       ]
     },

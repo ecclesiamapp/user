@@ -130,13 +130,16 @@ export function HomeHeroSection({
                 </span>
               </div>
               <h3 className="font-cinzel text-lg font-bold text-[var(--dash-text-primary)] uppercase tracking-wide mt-2">
-                Santa Missa na Catedral
+                Santas Missas na Catedral
               </h3>
-              <div className="text-3xl sm:text-4xl font-black text-[#8B1E22] dark:text-[#FFA82A] tabular-nums mt-1 font-sans">
-                19:30
+              <div className="text-2xl sm:text-3xl font-black text-[#8B1E22] dark:text-[#FFA82A] tabular-nums mt-1 font-sans">
+                19:00 <span className="text-xs font-semibold text-[var(--dash-text-secondary)] tracking-normal">(Seg a Sáb)</span>
               </div>
-              <p className="text-xs text-[var(--dash-text-secondary)] mt-1 leading-snug">
-                Catedral Sagrado Coração de Jesus • Presidida por Pe. Irineu Sales
+              <p className="text-xs text-[var(--dash-text-secondary)] mt-1.5 leading-snug">
+                <strong>Domingos:</strong> 07:00 • 09:00 • 19:00
+              </p>
+              <p className="text-[11px] text-[var(--dash-text-muted)] mt-0.5">
+                Sexta-feira também às 12:00 (Missa do Meio-Dia)
               </p>
             </div>
 
@@ -160,10 +163,10 @@ export function HomeHeroSection({
                 Confissões & Atendimento
               </h3>
               <div className="text-2xl sm:text-3xl font-extrabold text-[var(--dash-text-primary)] tabular-nums mt-1 font-sans">
-                16:00 às 18:00
+                14:30 às 16:30
               </div>
               <p className="text-xs text-[var(--dash-text-secondary)] mt-1 leading-snug">
-                Todas as Terças e Quintas-feiras na Secretaria Paroquial
+                Terças e Quintas-feiras com os Padres da Catedral
               </p>
             </div>
 
@@ -187,7 +190,7 @@ export function HomeHeroSection({
                 Secretaria Aberta
               </h3>
               <div className="text-xs text-[var(--dash-text-secondary)] space-y-1 mt-2">
-                <p><strong>Segunda a Sexta:</strong> 08:00 às 17:00 (Ininterrupto)</p>
+                <p><strong>Segunda a Sexta:</strong> 08:00 às 18:00</p>
                 <p><strong>Sábado:</strong> 08:00 às 12:00</p>
               </div>
               <p className="text-xs text-[var(--dash-text-muted)] mt-1">
