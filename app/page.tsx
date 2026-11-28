@@ -15,9 +15,7 @@ import { fallbackCommunitiesList, getCommunitySlug } from '@/lib/communities';
 import { OFFICIAL_NEWS_DATA } from '@/lib/news';
 import { FALLBACK_SPECIAL_EVENTS } from '@/lib/events';
 import { LiturgicalBanner } from '@/components/liturgy/LiturgicalBanner';
-import { YearEndLiturgySection } from '@/components/liturgy/YearEndLiturgySection';
 import { MissalBookletsSection } from '@/components/liturgy/MissalBookletsSection';
-import { AdventWreathBanner } from '@/components/advent/AdventWreathBanner';
 import { PastoralMessageFeatured } from '@/components/pastoral/PastoralMessageFeatured';
 import { fallbackFeaturedMessages } from '@/lib/pastoral-messages';
 import { DizimoDoacoesSection } from '@/components/dizimo/DizimoDoacoesSection';
@@ -28,21 +26,15 @@ import { PastorSpotlight } from '@/components/home/PastorSpotlight';
 import { MeuEspacoHomeBanner } from '@/components/home/MeuEspacoHomeBanner';
 import { CathedralFooter } from '@/components/home/CathedralFooter';
 
-// ISR: Pré-renderiza e serve do cache de borda por 60s (suporta milhares de fiéis simultâneos sem sobrecarregar o banco)
+// ISR: Pré-renderiza e serve do cache de borda por 60s
 export const revalidate = 60;
 
 export default async function ParishPublicPortalPage() {
   const supabase = createPublicClient();
 
-  // Buscar todos os dados públicos em paralelo (4x mais rápido na regeneração de cache)
-  const [parishesRes, communitiesRes, featuredEventsRes, featuredMessagesRes] = await Promise.all([
+  // Buscar dados públicos em paralelo
+  const [parishesRes, featuredEventsRes, featuredMessagesRes] = await Promise.all([
     supabase.from('parishes').select('*').limit(1),
-    supabase
-      .from('communities')
-      .select('*')
-      .eq('is_active', true)
-      .order('is_headquarters', { ascending: false })
-      .order('name'),
     supabase
       .from('parish_special_events')
       .select('*')
@@ -59,7 +51,6 @@ export default async function ParishPublicPortalPage() {
   ]);
 
   const parishesData = parishesRes.data;
-  const communitiesData = communitiesRes.data;
   const featuredEventsData = featuredEventsRes.data;
   const featuredMessagesData = featuredMessagesRes.data;
 
@@ -88,13 +79,11 @@ export default async function ParishPublicPortalPage() {
     created_at: new Date().toISOString(),
   };
 
-  const communities: Community[] = communitiesData && communitiesData.length > 0 ? communitiesData : fallbackCommunitiesList;
-
   const recentAnnouncements = OFFICIAL_NEWS_DATA.slice(0, 3);
 
   return (
     <div className="min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text-primary)] flex flex-col justify-between selection:bg-[#FFA82A] selection:text-[#2D1A16] transition-colors duration-200">
-      {/* 2 & 3. Header Translúcido & Hero Monumental com Vídeo e Floating Schedule Card Conectados */}
+      {/* 1. Header Translúcido & Hero Monumental com Transmissão da Live Integrada */}
       <CathedralHeroPortal
         parishName={parish.name}
         dioceseName={parish.diocese}
@@ -102,26 +91,23 @@ export default async function ParishPublicPortalPage() {
       />
 
       {/* Conteúdo Principal do Portal com Diagramação Respiração 1240px */}
-      <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-12 space-y-16 w-full font-sans">
-        {/* Coroa do Advento Viva: A Luz de Cristo Dissipa as Trevas */}
-        <div id="coroa-advento" className="w-full">
-          <AdventWreathBanner />
+      <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-10 space-y-16 w-full font-sans">
+        {/* 2. Folhetos das Santas Missas («Sou do Sagrado Missa») — Imediatamente Abaixo da Seção da Live */}
+        <div id="folhetos" className="w-full">
+          <MissalBookletsSection />
         </div>
 
-        {/* 3.1 Banner de Destaque da Grande Festa Litúrgica (TASK-48) */}
+        {/* 2.1 Banner de Destaque da Grande Festa Litúrgica (se ativo) */}
         {featuredEvent && (
           <div id="destaque-festa" className="w-full">
             <CathedralSpecialEventBanner event={featuredEvent} />
           </div>
         )}
 
-        {/* 4. Faixa da Liturgia Diária Oficial (CNBB) */}
+        {/* 3. Faixa da Liturgia Diária Oficial (CNBB) */}
         <LiturgicalBanner />
 
-        {/* 4.1 Módulo Litúrgico Especial: Solenidade de Natal & Fim de Ano */}
-        <YearEndLiturgySection />
-
-        {/* 4.2 Portal do Paroquiano: Meu Espaço Paroquial */}
+        {/* 4. Portal do Paroquiano: Meu Espaço Paroquial */}
         <div id="meu-espaco" className="w-full">
           <MeuEspacoHomeBanner />
         </div>
@@ -132,102 +118,19 @@ export default async function ParishPublicPortalPage() {
         {/* 6. Destaque do Pároco (Pe. Irineu Claudino Sales) */}
         <PastorSpotlight whatsappNumber={parish.whatsapp_number} />
 
-        {/* 7. Coluna Editorial: Cartas Pastorais de Natal (Bispo Dom Lauro & Pároco Pe. Irineu) */}
+        {/* 7. Coluna Editorial: Cartas Pastorais (Bispo Dom Lauro & Pároco Pe. Irineu) */}
         {featuredMessages && featuredMessages.length > 0 && (
           <div id="pastoral">
             <PastoralMessageFeatured messages={featuredMessages} />
           </div>
         )}
 
-        {/* 8. Nossas Comunidades (12 CEBs da Catedral) */}
-        <section id="comunidades" className="space-y-6 pt-4">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-            <div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8B1E22]/10 text-[#8B1E22] text-xs font-bold uppercase tracking-wider">
-                Vida em Comunidade
-              </span>
-              <h2 className="font-cinzel text-2xl sm:text-3xl font-bold uppercase tracking-wide text-[#2D1A16] mt-1.5">
-                Nossas <span className="text-[#8B1E22]">12 Comunidades</span>
-              </h2>
-            </div>
-            <div className="flex flex-col sm:items-end gap-1.5">
-              <p className="text-xs sm:text-sm text-[#514D4B]">
-                Acesse a história, galeria de fotos e horários de cada comunidade
-              </p>
-              <Link
-                href="/comunidades"
-                className="inline-flex items-center gap-1 text-xs font-bold text-[#8B1E22] hover:text-[#721C24] transition-colors group"
-              >
-                <span>Ver Mapa Diocesano & Diretório Completo</span>
-                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {communities.map((c) => (
-              <Card
-                key={c.id}
-                className={`bg-[var(--dash-surface)] rounded-2xl border border-[#EAE3D9] p-5 flex flex-col justify-between space-y-4 shadow-sm hover:shadow-md hover:border-[#FFA82A] transition-all ${
-                  c.is_headquarters ? 'ring-2 ring-[#FFA82A]/50 border-[#FFA82A]' : ''
-                }`}
-              >
-                <div className="space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    {c.is_headquarters ? (
-                      <Badge variant="matriz">Igreja Matriz</Badge>
-                    ) : (
-                      <Badge variant="ceb">Comunidade Eclesial</Badge>
-                    )}
-                    <span className="text-xs font-medium text-[#7E838B]">{c.neighborhood || c.city}</span>
-                  </div>
-
-                  <div>
-                    <h3 className="font-cinzel text-base font-bold text-[#2D1A16] line-clamp-1 uppercase tracking-wide">
-                      {c.name}
-                    </h3>
-                    {c.patron_saint && (
-                      <p className="text-xs text-[#514D4B] mt-0.5">
-                        Padroeiro: <span className="font-semibold text-[#8B1E22]">{c.patron_saint}</span>
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-[#F2ECE3] flex items-center justify-between text-xs">
-                  <Link
-                    href={`/comunidades/${getCommunitySlug(c)}`}
-                    className="inline-flex items-center gap-1 text-[#8B1E22] font-bold hover:text-[#721C24] transition-colors"
-                  >
-                    <span>Conhecer Comunidade</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </Link>
-
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${c.name}, ${c.city} - ${c.state}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[#7E838B] hover:text-[#2D1A16] transition-colors"
-                    title="Abrir no Google Maps"
-                  >
-                    <Navigation className="w-3.5 h-3.5" />
-                    <span>GPS</span>
-                  </a>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* 9. Folhetos das Santas Missas (Sou do Sagrado Missa) */}
-        <MissalBookletsSection />
-
-        {/* 10. Módulo de Conscientização do Dízimo & Ofertas via PIX */}
+        {/* 8. Módulo de Conscientização Pastoral do Dízimo & Ofertas via PIX */}
         <div id="dizimo">
           <DizimoDoacoesSection parish={parish} />
         </div>
 
-        {/* 11. Mural de Notícias "Sou do Sagrado" */}
+        {/* 9. Mural de Notícias "Sou do Sagrado" */}
         <section id="comunicados" className="space-y-6 pt-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
@@ -285,7 +188,7 @@ export default async function ParishPublicPortalPage() {
         </section>
       </main>
 
-      {/* 12. Rodapé Monumental em 4 Colunas (100% White-Label) */}
+      {/* 10. Rodapé Monumental em 4 Colunas (100% White-Label) */}
       <CathedralFooter
         parishName={parish.name}
         dioceseName={parish.diocese}

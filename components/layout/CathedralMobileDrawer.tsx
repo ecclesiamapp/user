@@ -171,9 +171,7 @@ export function CathedralMobileDrawer({
                     ? [{ href: '/meu-espaco', icon: User, label: 'Meu Espaço Paroquial' }]
                     : []),
                   { href: '/agenda-liturgica', icon: Calendar, label: 'Agenda Litúrgica' },
-                  ...(isPhaseActive(2)
-                    ? [{ href: '/comunidades', icon: Church, label: '12 Comunidades (CEBs)' }]
-                    : []),
+                  { href: '/comunidades', icon: Church, label: '12 Comunidades (CEBs)' },
                   { href: '/historia', icon: BookOpen, label: 'Nossa História & Catedral' },
                 ].map((item) => {
                   const Icon = item.icon;
@@ -239,19 +237,6 @@ export function CathedralMobileDrawer({
             <Radio className="w-4 h-4 animate-pulse" style={{ color: accentCol }} />
             <span>Assistir Missa Ao Vivo</span>
           </button>
-
-          <Link
-            href="/dizimo"
-            onClick={onClose}
-            style={{
-              backgroundColor: accentCol,
-              color: ctaText,
-            }}
-            className="w-full py-2.5 px-4 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 shadow-sm min-h-[44px]"
-          >
-            <Heart className="w-4 h-4" />
-            <span>Sou do Sagrado (Dízimo & PIX)</span>
-          </Link>
 
           <a
             href={`https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=Olá,%20gostaria%20de%20informações%20da%20secretaria%20da%20Catedral.`}

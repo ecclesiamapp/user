@@ -354,6 +354,16 @@ export function CathedralHeader({
               )}
             </div>
 
+            {/* LINK DIRETO: Comunidades (12 CEBs) */}
+            <Link
+              href="/comunidades"
+              onClick={closeAllMenus}
+              className="whitespace-nowrap transition-all py-1 px-1.5 xl:py-2 xl:px-2.5 rounded-lg flex items-center gap-1.5 cursor-pointer uppercase text-[11px] xl:text-xs font-bold hover:text-[var(--hdr-accent)] hover:bg-[var(--dash-surface)]/5"
+            >
+              <Church className="w-3.5 h-3.5" style={{ color: 'var(--hdr-gold-muted)' }} />
+              <span>Comunidades</span>
+            </Link>
+
             {/* ITEM DESTAQUE: Meu Espaço (Liberado na Fase 2 - Janeiro 2027) */}
             {isPhaseActive(2) && (
               <Link
@@ -409,21 +419,6 @@ export function CathedralHeader({
                 <span className="hidden 2xl:inline">Admin</span>
               </Link>
             )}
-
-            {/* CTA Sou do Sagrado / Dízimo - Dízimo em telas compactas e Sou do Sagrado em telas 2xl */}
-            <Link
-              href="/dizimo"
-              onClick={closeAllMenus}
-              style={{
-                background: 'var(--hdr-cta-bg)',
-                color: 'var(--hdr-cta-text)',
-              }}
-              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1 sm:gap-1.5 px-2.5 xl:px-4 py-1.5 xl:py-2 rounded-xl hover:brightness-105 text-[11px] xl:text-xs font-extrabold uppercase tracking-wider font-sans transition-all shadow-md cursor-pointer min-h-[36px] xl:min-h-[38px]"
-            >
-              <Sparkles className="w-3.5 h-3.5 shrink-0" />
-              <span className="hidden 2xl:inline whitespace-nowrap">Sou do Sagrado</span>
-              <span className="2xl:hidden whitespace-nowrap">Dízimo</span>
-            </Link>
 
             {/* ☀️ / 🌙 Alternador de Tema: Posicionado à Extrema Direita com Total Isolamento e Destaque */}
             <ThemeToggle />
